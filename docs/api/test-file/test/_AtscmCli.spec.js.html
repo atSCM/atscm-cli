@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">test/_AtscmCli.spec.js | atscm-cli API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <a data-ice="repoURL" href="https://github.com/atSCM/atscm-cli" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/AtSCMCli.js~AtSCMCli.html">AtSCMCli</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/_AtscmCli.js~AtscmCli.html">AtscmCli</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">cli</div><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Commands">Commands</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-GlobalOptions">GlobalOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Options">Options</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lib</div><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-global">global</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-run">run</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lib/cli</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/cli/Command.js~Command.html">Command</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/cli/Option.js~Option.html">Option</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lib/error</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/error/UsageError.js~UsageError.html">UsageError</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lib/util</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/util/Logger.js~LogFormat.html">LogFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/util/Logger.js~Logger.html">Logger</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">typedef</div><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/chalk/chalk">chalk</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/gulpjs/gulplog">gulplog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/js-cli/js-liftoff">liftoff~Liftoff</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="http://yargs.js.org">yargs</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">test/_AtscmCli.spec.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import expect from &apos;unexpected&apos;;
+import { stub } from &apos;sinon&apos;;
+
+import AtscmCli, { UsageError } from &apos;../src/_AtscmCli&apos;;
+import log from &apos;../src/lib/util/Logger&apos;;
+
+/** @test {AtscmCli} */
+describe.skip(&apos;AtscmCli&apos;, function() {
+  /** @test {AtScmCli#parseArguments} */
+  describe(&apos;#parseArguments&apos;, function() {
+    it(&apos;should fail with unknown options&apos;, function() {
+      return expect((new AtscmCli([&apos;--unknown&apos;])).parseArguments(),
+        &apos;to be rejected with&apos;, new UsageError(&apos;Unknown argument: unknown&apos;)
+      );
+    });
+
+    it(&apos;should store provided options&apos;, function() {
+      const cli = new AtscmCli([&apos;--silent&apos;]);
+
+      return cli.parseArguments()
+        .then(() =&gt; {
+          expect(cli.options, &apos;to be defined&apos;);
+          expect(cli.options.silent, &apos;to be true&apos;);
+        });
+    });
+
+    it(&apos;should store provided command&apos;, function() {
+      const cli = new AtscmCli([`${AtscmCli.Command.Docs}`]);
+
+      return cli.parseArguments()
+        .then(() =&gt; {
+          expect(cli.command, &apos;to be defined&apos;);
+          expect(cli.command, &apos;to equal&apos;, AtscmCli.Command.Docs);
+        });
+    });
+  });
+});
+
+
+/** @test {AtscmCli} */
+describe.skip(&apos;AtscmCli&apos;, function() {
+  /** @test {AtscmCli#constructor} */
+  describe(&apos;#constructor&apos;, function() {
+    it(&apos;should store command line arguments&apos;, function() {
+      const args = [&apos;test&apos;, &apos;--args&apos;];
+      const cli = new AtscmCli(args);
+
+      expect(cli._argv, &apos;to equal&apos;, args);
+    });
+  });
+
+  function launchCli(args, callback) {
+    const cli = new AtscmCli(args);
+    cli.launch(() =&gt; callback(cli));
+  }
+
+  function launchCliWithLocalModule(args, callback) {
+    launchCli(args.concat([&apos;--cwd&apos;, &apos;test/fixtures&apos;]), callback);
+  }
+
+  const logStub = stub(log, &apos;info&apos;);
+  const errorStub = stub(log, &apos;error&apos;);
+
+  after(function() {
+    logStub.restore();
+    errorStub.restore();
+  });
+
+  afterEach(function() {
+    logStub.reset();
+    errorStub.reset();
+  });
+
+  /** @test {AtscmCli#requireModule} */
+  describe(&apos;#requireModule&apos;, function() {
+    it(&apos;should return false if no local module is found&apos;, function() {
+      launchCli([], cli =&gt; {
+        expect(cli.requireModule(), &apos;to equal&apos;, false);
+      });
+    });
+
+    it(&apos;should print an error if no local module is found&apos;, function() {
+      launchCli([], () =&gt; {
+        expect(errorStub.lastCall.args[0], &apos;to contain&apos;, `Local ${AtscmCli.BinName} not found`);
+      });
+    });
+
+    it(&apos;should suggest install if no local module is found&apos;, function() {
+      launchCli([], () =&gt; {
+        expect(logStub.lastCall.args[0], &apos;to contain&apos;, `install ${AtscmCli.BinName}`);
+      });
+    });
+
+    it(&apos;should return true if local module is found&apos;, function() {
+      launchCliWithLocalModule([], cli =&gt; {
+        expect(cli.requireModule(), &apos;to equal&apos;, false);
+      });
+    });
+  });
+
+  /** @test {AtscmCli#requireConfig} */
+  describe(&apos;#requireConfig&apos;, function() {
+    it(&apos;should return false if no config is found&apos;, function() {
+      launchCli([], cli =&gt; {
+        expect(cli.requireConfig(), &apos;to equal&apos;, false);
+      });
+    });
+
+    it(&apos;should print an error if no config is found&apos;, function() {
+      launchCli([], () =&gt; {
+        expect(errorStub.lastCall.args[0], &apos;to contain&apos;, `No ${AtscmCli.ConfigName} found`);
+      });
+    });
+
+    it(&apos;should return true if config is found&apos;, function() {
+      launchCliWithLocalModule([], cli =&gt; {
+        expect(cli.requireConfig(), &apos;to equal&apos;, false);
+      });
+    });
+  });
+
+  /** @test {AtscmCli#requireModuleAndConfig} */
+  describe(&apos;#requireModuleAndConfig&apos;, function() {
+    it(&apos;should return false if not run inside a project dir&apos;, function() {
+      launchCli([], cli =&gt; {
+        expect(cli.requireModuleAndConfig(), &apos;to equal&apos;, false);
+      });
+    });
+
+    it(&apos;should return true if run inside project dir&apos;, function() {
+      launchCliWithLocalModule([], cli =&gt; {
+        expect(cli.requireModuleAndConfig(), &apos;to equal&apos;, false);
+      });
+    });
+  });
+
+  /** @test {AtscmCli#printVersion} */
+  describe(&apos;#printVersion&apos;, function() {
+    it(&apos;should print cli version if no local module is found&apos;, function(done) {
+      launchCli([&apos;--version&apos;], cli =&gt; {
+        cli.printVersion();
+
+        expect(logStub.lastCall.args[0], &apos;to match&apos;, /CLI version/i);
+
+        done();
+      });
+    });
+
+    it(&apos;should print local version if local module is found&apos;, function(done) {
+      launchCliWithLocalModule([&apos;--version&apos;], cli =&gt; {
+        cli.printVersion();
+
+        expect(logStub.lastCall.args[0], &apos;to match&apos;, /Local version/i);
+
+        done();
+      });
+    });
+  });
+
+  /** @test {AtscmCli#printConfig} */
+  describe(&apos;#printConfig&apos;, function() {
+    it(&apos;should exit if module or config cannot be found&apos;, function(done) {
+      launchCli([&apos;--config&apos;], cli =&gt; {
+        cli.printConfig();
+
+        expect(errorStub.lastCall.args[0], &apos;to match&apos;, /Local /);
+        done();
+      });
+    });
+
+    it(&apos;should print config if not module or config is found&apos;, function(done) {
+      launchCliWithLocalModule([&apos;--config&apos;], cli =&gt; {
+        cli.printConfig();
+
+        expect(errorStub.lastCall.args[0], &apos;to match&apos;, /config /);
+
+        done();
+      });
+    });
+  });
+
+  /** @test {AtscmCli#launch} */
+  describe(&apos;#launch&apos;, function() {
+
+  });
+});
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/_AtscmCli.js | atscm-cli API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <a data-ice="repoURL" href="https://github.com/atSCM/atscm-cli" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/AtSCMCli.js~AtSCMCli.html">AtSCMCli</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/_AtscmCli.js~AtscmCli.html">AtscmCli</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">cli</div><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Commands">Commands</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DocsCommand">DocsCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-GlobalOptions">GlobalOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Options">Options</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lib</div><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-global">global</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-run">run</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lib/cli</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/cli/Command.js~Command.html">Command</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/cli/Option.js~Option.html">Option</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lib/error</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/error/UsageError.js~UsageError.html">UsageError</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lib/util</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/util/Logger.js~LogFormat.html">LogFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/util/Logger.js~Logger.html">Logger</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">typedef</div><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Liftoff.Environment">Liftoff.Environment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/js-cli/js-liftoff">Liftoff</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/chalk/chalk">chalk</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/gulpjs/gulplog">gulplog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="http://yargs.js.org">yargs</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/_AtscmCli.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { realpathSync } from &apos;fs&apos;;
+import Liftoff from &apos;liftoff&apos;;
+import yargs from &apos;yargs&apos;;
+import Logger from &apos;./lib/util/Logger&apos;;
+import pkg from &apos;../package.json&apos;;
+import * as cliOptions from &apos;./lib/options&apos;;
+import UsageError from &apos;./lib/error/UsageError&apos;;
+
+/**
+ * The main class. Responsible for handling and validating command line arguments.
+ */
+export default class AtscmCli extends Liftoff {
+
+  /**
+   * The atscm-cli commands
+   * @type {{Run: String, Docs: String}}
+   */
+  static get Command() {
+    return {
+      Run: &apos;run&apos;,
+      Docs: &apos;docs&apos;,
+    };
+  }
+
+  /**
+   * The filename used for configuration files
+   * @type {String}
+   */
+  static get ConfigName() {
+    return &apos;Atviseproject&apos;;
+  }
+
+  /**
+   * The name under which the module is available from the command line
+   * @type {String}
+   */
+  static get BinName() {
+    return Object.keys(pkg.bin)[0];
+  }
+
+  /**
+   * Creates a new Cli instance tasking the specified arguments
+   * @param {String[]} [argv] The command line arguments to use
+   */
+  constructor(argv) {
+    super({
+      name: AtscmCli.BinName,
+      configName: AtscmCli.ConfigName,
+    });
+
+    /**
+     * The command line arguments used to call cli
+     * @type {?String[]}
+     */
+    this._argv = argv;
+
+    this.command = false;
+
+    // Init logger
+    Logger.applyOptions(yargs().argv);
+  }
+
+  /**
+   * Checks if we have a valid path to the local atscm module
+   * @return {boolean} `true` if module was found
+   */
+  requireModule() {
+    if (!this._env.modulePath) {
+      Logger.error(
+        Logger.colors.red(`Local ${AtscmCli.BinName} not found in`),
+        Logger.format.path(this._env.cwd)
+      );
+      Logger.info(
+        `Make sure ${AtscmCli.BinName} is installed inside CWD.`,
+        &apos;Otherwise run&apos;,
+        Logger.format.command(`npm install --save-dev ${AtscmCli.BinName}`)
+      );
+
+      process.exitCode = 1;
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * Checks if we have a valid path to a config file
+   * @return {boolean} `true` if a config file was found
+   */
+  requireConfig() {
+    if (!this._env.configPath) {
+      Logger.error(
+        Logger.colors.red(`No ${AtscmCli.ConfigName} found in`),
+        Logger.format.path(this._env.cwd)
+      );
+
+      process.exitCode = 1;
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * Checks if we have both a valid module and config file path
+   * @return {boolean} `true` if both module and config were found
+   */
+  requireModuleAndConfig() {
+    return this.requireModule() &amp;&amp; this.requireConfig();
+  }
+
+  /* get version() {
+    return {
+      cli: pkg.version,
+      local: this.environment &amp;&amp; this.environment.modulePackage ?
+        this.environment.modulePackage.version :
+        false,
+    };
+  } */
+
+  /**
+   * Prints cli and (if available) local module version
+   */
+  ___printVersion() {
+    Logger.info(`CLI version: ${pkg.version}`);
+
+    if (this._env.modulePackage &amp;&amp; this._env.modulePackage.version) {
+      Logger.info(`Local version: ${this._env.modulePackage.version}`);
+    }
+  }
+
+  /**
+   * Prints the project configuration. **Only works inside a valid project cwd.**
+   */
+  printConfig() {
+    if (this.requireModuleAndConfig()) {
+      Logger.error(
+        Logger.colors.red(`Not implemented: Print config (path: ${
+          Logger.format.path(this._env.configPath)
+        })`)
+      );
+    }
+  }
+
+  parseArguments() {
+    return new Promise((resolve, reject) =&gt; {
+      this.optionsParser = yargs(this._argv)
+        .usage(&apos;Usage: $0 [usage]&apos;)
+        .option(cliOptions.global)
+        .command(`${AtscmCli.Command.Run} [tasks..]`, &apos;(default) Run tasks.&apos;, cliOptions.run)
+        .command(AtscmCli.Command.Docs, &apos;Open documentation&apos;, {},
+          () =&gt; (this.command = AtscmCli.Command.Docs)
+        )
+        .global(Object.keys(cliOptions.global))
+        .strict()
+        .fail((msg, err, y) =&gt; reject(new UsageError(msg, y)));
+
+      resolve((this.options = this.optionsParser.argv));
+    });
+  }
+
+  getEnvironment() {
+    return new Promise(resolve =&gt; {
+      super.launch({
+        cwd: this.options.cwd,
+        configPath: this.options.projectfile,
+      }, env =&gt; resolve((this.environment = env)));
+    });
+  }
+
+  getVersion() {
+    return this.getEnvironment()
+      .then(env =&gt; ({
+        cli: pkg.version,
+        local: env.modulePackage ? env.modulePackage.version : false
+      }));
+  }
+
+  printVersion() {
+    return this.getVersion()
+      .then(version =&gt; {
+        console.log(&apos;called&apos;, version);
+        Logger.info(`CLI version ${version.cli}`);
+
+        if (version.local) {
+          Logger.info(`Local version ${version.local}`);
+        }
+      });
+  }
+
+  runCommand() {
+    if (!this.options) {
+      throw new Error(&apos;Need to run AtscmCli#parseArguments before&apos;);
+    }
+
+    if (this.options.help) {
+      this.optionsParser.showHelp(); // FIXME: Call with Logger
+    } else if (this.options.version) {
+      return this.printVersion();
+    } else if (this.options.config) {
+      Logger.error(Logger.colors.red(&apos;Printing config is not implemented yet&apos;));
+    } else {
+      Logger.error(Logger.colors.red(`Running command ${this.command || AtscmCli.Command.Run} is not implemented yet`));
+    }
+  }
+
+  launch() {
+    const runViaCli = realpathSync(process.argv[1]) === require.resolve(&apos;./bin/atscm&apos;);
+
+    const app = this.parseArguments(runViaCli ? AtscmCli.Command.Run : false)
+      // .then(Logger.applyOptions)
+      .then(() =&gt; this.runCommand());
+      //.then(() =&gt; this.options.version ? this.printVersion() : false);
+      // .then(() =&gt; Logger.info(&apos;Test&apos;));
+
+    if (runViaCli) {
+      return app.catch(err =&gt; {
+        Logger.error(Logger.colors.red(err.message));
+
+        if (err instanceof UsageError) {
+          Logger.info(err.parser.help());
+        }
+      });
+    }
+
+    return app;
+
+    /* return new Promise((resolve, reject) =&gt; {
+      const runViaCli = realpathSync(process.argv[1]) === require.resolve(&apos;./bin/atscm&apos;);
+
+      let app = this.parseArguments();
+
+
+      if (runViaCli) {
+        app.then(err =&gt; {
+          console.Logger(&apos;----- called -----&apos;);
+          Logger.error(Logger.colors.red(err));
+          resolve();
+        });
+      } else {
+        app.then(resolve, reject);
+      }
+    }); */
+  }
+
+  /**
+   * Starts atscm-cli with the commands an options given through stdin. The command run is picked by
+   * evaluating:
+   *  1. if `--help` is used print help
+   *  2. if `--version` is used print atscm-cli and (if installed) atscm version.
+   *  3. if `--config` is used print the project config or fail if no Atviseproject is found.
+   *  4. Run explicit commands (one of run, docs, ...)
+   *  5. Run `run` command if none is used explicit.
+   * @param {function()} [callback] Called after launch completed. Useful for testing.
+   *
+  launch(callback) {
+    let usage = AtscmCli.Command.Run;
+
+    const yArgsInstance = yargs(this._argv)
+      .usage(&apos;$0 [usage]&apos;)
+      .option(cliOptions.GlobalOptions)
+      .command(`${AtscmCli.Command.Run} [tasks..]`, &apos;(default) Run tasks.&apos;, cliOptions.run)
+      .command(AtscmCli.Command.Docs, &apos;Open documentation&apos;, {}, () =&gt; (usage = AtscmCli.Command.Docs))
+      .GlobalOptions(Object.keys(cliOptions.GlobalOptions));
+
+    const opts = yArgsInstance.argv;
+
+    // Initialize logger
+    Logger.applyOptions(opts);
+
+    super.launch({
+      cwd: opts.cwd,
+      configPath: opts.projectfile,
+    }, (env =&gt; {
+      /**
+       * The {@link Liftoff} environment found
+       * @type {{}}
+       *
+      this._env = env;
+
+      // Handle exceptions if this method is executed via cli
+      const runViaCli = realpathSync(process.argv[1]) === require.resolve(&apos;./bin/atscm&apos;);
+
+      if (runViaCli) {
+        Logger.warn(Logger.colors.yellow(&apos;executed via cli&apos;));
+      }
+
+      if (callback) {
+        callback();
+      } else if (opts.help) {
+        yArgsInstance.showHelp(&apos;Logger&apos;);
+      } else if (opts.version) {
+        this.printVersion();
+      } else if (opts.config) {
+        this.printConfig();
+      } else {
+        Logger.info(`Running command ${usage}`);
+        Logger.error(Logger.colors.red(&apos;Running commands is not implemented yet&apos;));
+      }
+    }));
+  } */
+
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

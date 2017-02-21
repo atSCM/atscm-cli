@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/index.js | atscm-cli API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <a data-ice="repoURL" href="https://github.com/atSCM/atscm-cli" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/index.js~AtscmCli.html">AtscmCli</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lib</div><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-global">global</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-run">run</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lib/util</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/util/log.js~Logger.html">Logger</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/index.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Liftoff from &apos;liftoff&apos;;
+import yargs from &apos;yargs&apos;;
+import log from &apos;./lib/util/log&apos;;
+import pkg from &apos;../package.json&apos;;
+import * as cliOptions from &apos;./lib/options&apos;;
+
+export default class AtscmCli extends Liftoff {
+
+  static get Command() {
+    return {
+      Run: &apos;run&apos;,
+      Docs: &apos;docs&apos;,
+    };
+  }
+
+  /**
+   * The filename used for configuration files
+   * @type {String}
+   */
+  static get ConfigName() {
+    return &apos;Atviseproject&apos;;
+  }
+
+  /**
+   * The name under which the module is available from the command line.
+   * @type {String}
+   */
+  static get BinName() {
+    return Object.keys(pkg.bin)[0];
+  }
+
+  /**
+   * Creates a new Cli instance tasking the specified arguments.
+   * @param argv
+   */
+  constructor(argv) {
+    super({
+      name: &apos;atscm&apos;,
+      configName: AtscmCli.ConfigName,
+    });
+
+    this._argv = argv;
+  }
+
+  requireModule() {
+    if (!this.env.modulePath) {
+      log.error(
+        log.colors.red(`Local ${AtscmCli.BinName} not found in`),
+        log.format.path(this.env.cwd)
+      );
+      log.info(
+        `Make sure ${AtscmCli.BinName} is installed inside CWD.`,
+        &apos;Otherwise run&apos;,
+        log.format.command(`npm install --save-dev ${AtscmCli.BinName}`)
+      );
+
+      process.exitCode = 1;
+      return false;
+    }
+
+    return true;
+  }
+
+  requireConfig() {
+    if (!this.env.configPath) {
+      log.error(
+        log.colors.red(`No ${AtscmCli.ConfigName} found in`),
+        log.format.path(this.env.cwd)
+      );
+
+      process.exitCode = 1;
+      return false;
+    }
+
+    return true;
+  }
+
+  requireModuleAndConfig() {
+    return this.requireModule() &amp;&amp; this.requireConfig();
+  }
+
+  run(command) {
+
+  }
+
+  /**
+   * Starts atscm-cli with the commands an options given through stdin. The command run is picked by
+   * evaluating:
+   *  1. if `--help` is used print help
+   *  2. if `--version` is used print atscm-cli and (if installed) atscm version.
+   *  3. if `--config` is used print the project config or fail if no Atviseproject is found.
+   *  4. Run explicit commands (one of run, docs, ...)
+   *  5. Run `run` command if none is used explicit.
+   */
+  launch() {
+    let cmd = AtscmCli.Command.Run;
+
+    const opts = yargs(this._argv)
+      .usage(`Usage: ${AtscmCli.BinName} &lt;cmd=run&gt;`)
+      .option(cliOptions.global)
+      .help(&apos;help&apos;, &apos;Show this help.&apos;)
+      .alias(&apos;help&apos;, &apos;h&apos;)
+      .command(`${AtscmCli.Command.Run} [tasks..]`, &apos;(default) Run tasks.&apos;, cliOptions.run)
+      .command(AtscmCli.Command.Docs, &apos;Open documentation&apos;, {}, () =&gt; (cmd = AtscmCli.Command.Docs))
+      .global(Object.keys(cliOptions.global))
+      .argv;
+
+    // Initialize logger
+    log.applyOptions(opts);
+
+    super.launch({
+      cwd: opts.cwd,
+      configPath: opts.projectfile,
+    }, env =&gt; {
+      this.env = env;
+
+      if (opts.version) {
+        log.info(`CLI version: ${pkg.version}`);
+
+        if (env.modulePackage &amp;&amp; env.modulePackage.version) {
+          log.info(`Local version: ${env.modulePackage.version}`);
+        }
+      } else if (opts.config) {
+        if (this.requireModuleAndConfig()) {
+          log.error(
+            log.colors.red(`Not implmented: Print config (path: ${
+              log.format.path(this.env.configPath)
+            })`)
+          );
+        }
+      } else {
+        log.error(log.colors.red(&apos;Running commands is not implemented yet&apos;));
+      }
+    });
+  }
+
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.8)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

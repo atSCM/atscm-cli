@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">test/lib/util/log.spec.js | atscm-cli API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <a data-ice="repoURL" href="https://github.com/atSCM/atscm-cli" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/AtSCMCli.js~AtSCMCli.html">AtSCMCli</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/_AtscmCli.js~AtscmCli.html">AtscmCli</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">cli</div><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Commands">Commands</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-GlobalOptions">GlobalOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Options">Options</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lib</div><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-global">global</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-run">run</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lib/cli</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/cli/Command.js~Command.html">Command</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/cli/Option.js~Option.html">Option</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lib/error</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/error/UsageError.js~UsageError.html">UsageError</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lib/util</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/util/Logger.js~LogFormat.html">LogFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/util/Logger.js~Logger.html">Logger</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">typedef</div><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/chalk/chalk">chalk</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/gulpjs/gulplog">gulplog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/js-cli/js-liftoff">liftoff~Liftoff</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="http://yargs.js.org">yargs</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">test/lib/util/log.spec.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/* eslint-disable no-console */
+import expect from &apos;unexpected&apos;;
+import { stub } from &apos;sinon&apos;;
+
+import gulplog from &apos;gulplog&apos;;
+import log from &apos;../../../src/lib/util/Logger&apos;;
+
+/** @test {LogFormat} */
+describe.skip(&apos;LogFormat&apos;, function() {
+  const text = &apos;Test string&apos;;
+
+  function expectStyle(styledText, style) {
+    expect(styledText, &apos;to equal&apos;, `${style.open}${text}${style.close}`);
+  }
+
+  /** @test {LogFormat.path} */
+  describe(&apos;#path&apos;, function() {
+    it(&apos;should change color to cyan&apos;, function() {
+      expectStyle(log.format.path(text), log.colors.styles.cyan);
+    });
+
+    it(&apos;should prettify user path&apos;, function() {
+      expect(log.format.path(process.env.HOME), &apos;to contain&apos;, &apos;~&apos;);
+    });
+  });
+
+  /** @test {LogFormat.command} */
+  describe(&apos;#command&apos;, function() {
+    it(&apos;should return bold text&apos;, function() {
+      expectStyle(log.format.command(text), log.colors.styles.bold);
+    });
+  });
+});
+
+/** @test {Logger} */
+describe.skip(&apos;Logger&apos;, function() {
+  function getText() {
+    return `Text ${(new Date())}`;
+  }
+
+  before(function() {
+    log.applyOptions({ silent: true });
+  });
+
+  let logSpy;
+  let warnSpy;
+  let errorSpy;
+
+  beforeEach(function() {
+    logSpy = stub(gulplog, &apos;info&apos;);
+    warnSpy = stub(gulplog, &apos;warn&apos;);
+    errorSpy = stub(gulplog, &apos;error&apos;);
+  });
+
+  afterEach(function() {
+    logSpy.restore();
+    warnSpy.restore();
+    errorSpy.restore();
+  });
+
+  /** @test {Logger.debug} */
+  describe(&apos;.debug&apos;, function() {
+    it(&apos;should not be printed by default&apos;, function() {
+      const t = getText();
+      log.debug(t);
+
+      expect(logSpy.calledOnce, &apos;to be false&apos;);
+    });
+  });
+
+  /** @test {Logger.info} */
+  describe(&apos;.info&apos;, function() {
+    it(&apos;should be printed&apos;, function() {
+      const t = getText();
+      log.info(t);
+
+      expect(logSpy.lastCall.args[0], &apos;to equal&apos;, t);
+    });
+  });
+
+  /** @test {Logger.warn} */
+  describe(&apos;.warn&apos;, function() {
+    it(&apos;should be printed&apos;, function() {
+      const t = getText();
+      log.warn(t);
+
+      expect(warnSpy.lastCall.args[0], &apos;to equal&apos;, t);
+    });
+  });
+
+  /** @test {Logger.error} */
+  describe(&apos;.error&apos;, function() {
+    it(&apos;should be printed using stderr&apos;, function() {
+      const t = getText();
+      log.error(t);
+
+      expect(errorSpy.lastCall.args[0], &apos;to equal&apos;, t);
+    });
+  });
+
+
+  /** @test {Logger.applyOptions} *
+  describe(&apos;.applyOptions&apos;, function() {
+    it(&apos;should apply options to gulplog&apos;, function() {
+      Logger.applyOptions({ silent: true });
+
+      Logger.error(&apos;Test&apos;);
+
+      expect(errorSpy.calledOnce, &apos;to be false&apos;);
+    });
+  });
+   */
+});
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

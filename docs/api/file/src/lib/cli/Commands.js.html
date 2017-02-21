@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">src/lib/cli/Commands.js | atscm-cli API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <a data-ice="repoURL" href="https://github.com/atSCM/atscm-cli" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/AtSCMCli.js~AtSCMCli.html">AtSCMCli</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/_AtscmCli.js~AtscmCli.html">AtscmCli</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/_AtscmCli.js~UsageError.html">UsageError</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lib</div><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-global">global</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-run">run</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lib/cli</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/cli/Commands.js~Command.html">Command</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/cli/Options.js~Option.html">Option</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Commands">Commands</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Options">Options</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-docs">docs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-global">global</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-run">run</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lib/util</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/util/Logger.js~LogFormat.html">LogFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/util/Logger.js~Logger.html">Logger</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">typedef</div><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/chalk/chalk">chalk</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/gulpjs/gulplog">gulplog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/js-cli/js-liftoff">liftoff~Liftoff</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/lib/cli/Commands.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { run, docs } from &apos;./Options&apos;;
+
+/**
+ * A command that can be run through the CLI.
+ */
+export class Command {
+
+  /**
+   * Creates a new Command with the given name and options.
+   * @param {String} name The command&apos;s name.
+   * @param {Object} options The options to apply.
+   * @param {String} options.description The command&apos;s description.
+   * @param {Map&lt;String, Option&gt;} options.options The options available for this command.
+   * TODO: Link to yargs
+   * @param {String} [options.arguments] The command&apos;s argument string.
+   * @param {Number} [options.minArguments] The minimum number or (non-option) arguments the command
+   * requires.
+   * @param {Number} [options.maxArguments] The maximum number or (non-option) arguments the command
+   * requires.
+   */
+  constructor(name, options = {}) {
+    /**
+     * The command&apos;s name
+     * @type {String}
+     */
+    this.name = name;
+
+    /**
+     * The command&apos;s raw options.
+     * @type {Object}
+     * @private
+     */
+    this._options = options;
+  }
+
+  /**
+   * Returns the usage string for the command. Something like &quot;{name} {arguments}&quot;.
+   * @type {String}
+   */
+  get usage() {
+    if (this._options.arguments) {
+      return `${this.name} ${this._options.arguments}`;
+    }
+
+    return this.name;
+  }
+
+  /**
+   * The options available for the command.
+   * @type {Map&lt;String, Option&gt;}
+   */
+  get options() {
+    return this._options.options || {};
+  }
+
+  /**
+   * The minimum and maximum number of (non-option) arguments the command handles.
+   * @type {Number[]}
+   */
+  get demandCommand() {
+    const ret = [this._options.minArguments || 0];
+
+    if (this._options.maxArguments !== undefined) {
+      ret.push(this._options.maxArguments);
+    }
+
+    return ret;
+  }
+
+  /**
+   * The command descriptions.
+   * @type {String}
+   */
+  get description() {
+    return this._options.description;
+  }
+
+}
+
+const Commands = [
+  new Command(&apos;run&apos;, {
+    arguments: &apos;[tasks...]&apos;,
+    description: &apos;(default) Run tasks.&apos;,
+    options: run,
+  }),
+  new Command(&apos;docs&apos;, {
+    description: &apos;Open documentation&apos;,
+    options: docs,
+    maxArguments: 0,
+  }),
+];
+
+export default Commands;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

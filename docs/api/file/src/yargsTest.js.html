@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/yargsTest.js | atscm-cli API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <a data-ice="repoURL" href="https://github.com/atSCM/atscm-cli" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/AtSCMCli.js~AtSCMCli.html">AtSCMCli</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/_AtscmCli.js~AtscmCli.html">AtscmCli</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">cli</div><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Commands">Commands</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-GlobalOptions">GlobalOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Options">Options</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lib</div><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-global">global</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-run">run</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lib/cli</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/cli/Command.js~Command.html">Command</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/cli/Option.js~Option.html">Option</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lib/error</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/error/UsageError.js~UsageError.html">UsageError</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lib/util</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/util/Logger.js~LogFormat.html">LogFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/util/Logger.js~Logger.html">Logger</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">typedef</div><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/chalk/chalk">chalk</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/gulpjs/gulplog">gulplog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/js-cli/js-liftoff">liftoff~Liftoff</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="http://yargs.js.org">yargs</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/yargsTest.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import yargs from &apos;yargs&apos;;
+import * as cliOptions from &apos;./lib/options&apos;;
+import Logger from &apos;./lib/util/Logger&apos;;
+
+const commands = [
+  {
+    usage: &apos;run [tasks..]&apos;,
+    description: &apos;Run gulp tasks&apos;,
+    options: cliOptions.run,
+    demandCommands: [0],
+  },
+  {
+    usage: &apos;docs&apos;,
+    description: &apos;Open documentation&apos;,
+    options: {
+      cli: {
+        desc: &apos;Open CLI documentation&apos;,
+        type: &apos;boolean&apos;,
+        default: false,
+      },
+    },
+    demandCommands: [0, 0],
+  },
+];
+/*   run: ,
+  docs: {
+    usage: &apos;docs&apos;,
+    description: &apos;Open documentation&apos;,
+    options: {
+      cli: {
+        desc: &apos;Open CLI documentation&apos;,
+        type: &apos;boolean&apos;,
+        default: false,
+      },
+    },
+  },
+}; */
+
+const args = [&apos;docs&apos;, &apos;--cli&apos;, &apos;asdf&apos;];
+
+if (![&apos;run&apos;, &apos;docs&apos;, &apos;--help&apos;, &apos;--config&apos;, &apos;--version&apos;].includes(args[0])) {
+  args.unshift(&apos;run&apos;);
+}
+
+const parser = commands.reduce((p, c) =&gt; {
+  return p.command(c.usage, c.description, y =&gt; {
+    y.usage(`Usage: $0 ${c.usage}`);
+    y.option(c.options);
+
+    y.group(Object.keys(c.options), &apos;Command specific options:&apos;);
+    y.group(Object.keys(cliOptions.global), &apos;Global options:&apos;);
+
+    y.help();
+    y.strict();
+    y.demandCommand(...c.demandCommand);
+  }, () =&gt; console.log(`Run command: ${c.usage}`));
+}, yargs(args)
+  .option(cliOptions.global)
+  .global(Object.keys(cliOptions.global))
+  .strict()
+  .help()
+  .alias(&apos;help&apos;, &apos;h&apos;)
+  .fail((msg, err, y) =&gt; {
+    console.log(Logger.colors.red(msg), &apos;\n&apos;, y.help());
+  })
+);
+
+/* const parser = yargs(args)
+  .usage(&apos;Usage: [usage=run]&apos;)
+  // .strict()
+  .option(cliOptions.GlobalOptions)
+  .command(&apos;run &lt;tasks..&gt;&apos;, &apos;Runs a command&apos;, y =&gt; {
+    y.usage(&apos;Usage: $0 run &lt;tasks..&gt;&apos;)
+    y.option(cliOptions.run);
+    y.strict();
+  }, () =&gt; console.log(&apos;RUN&apos;))
+  .command(&apos;docs&apos;, &apos;Open documentation&apos;, y =&gt; {
+    y.usage(&apos;Usage: $0 docs&apos;);
+
+    y.option({
+      cli: {
+        desc: &apos;Open CLI documentation&apos;,
+        type: &apos;boolean&apos;,
+        default: false,
+      },
+    });
+
+    y.group(&apos;cli&apos;, &apos;Command specific options:&apos;);
+    y.group(Object.keys(cliOptions.GlobalOptions), &apos;Global options:&apos;);
+
+    y.help();
+    y.strict();
+  }, opts =&gt; console.log(&apos;Open docs&apos;, opts.cli ? &apos;cli&apos; : &apos;local&apos;))
+  .help()
+  .GlobalOptions(Object.keys(cliOptions.GlobalOptions)); */
+
+console.log(&apos;Got options&apos;, parser.argv);
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
