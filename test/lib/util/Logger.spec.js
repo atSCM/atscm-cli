@@ -1,15 +1,11 @@
 /* eslint-disable no-console */
 import expect from 'unexpected';
 import { stub, spy } from 'sinon';
-import proxyquire from 'proxyquire';
 
 import gulplog from 'gulplog';
 import { obj as createStream } from 'through2';
 
-const toConsole = spy();
-const Logger = proxyquire('../../../src/lib/util/Logger', {
-  'gulp-cli/lib/shared/log/toConsole': toConsole,
-}).default;
+import Logger from '../../../src/lib/util/Logger';
 
 /** @test {LogFormat} */
 describe('LogFormat', function() {
