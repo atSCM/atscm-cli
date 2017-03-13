@@ -155,5 +155,24 @@ describe('Logger', function() {
       stream.push('first\nlast 2'); // should log [HH:MM:SS] last 2
       stream.end();
     });
+
+    it('should ignore empty lines', function(done) {
+      const stream = createStream((c, e, cb) => cb(null, c));
+
+      Logger.pipeLastLine(stream);
+
+      stream.on('end', () => {
+        const a = process.stdout.write.args;
+
+        expect(a[a.length - 5][0], 'to match', /last 1$/);
+        expect(a[a.length - 3][0], 'to match', /last 2$/);
+
+        done();
+      });
+
+      stream.push('first\nlast 1\n'); // should log [HH:MM:SS] last 1
+      stream.push('first\nlast 2\n '); // should log [HH:MM:SS] last 2
+      stream.end();
+    });
   });
 });

@@ -137,7 +137,7 @@ export default class Logger {
   static pipeLastLine(stream) {
     stream
       .on('data', d => {
-        const lines = d.toString().split('\n').filter(l => l !== '');
+        const lines = d.toString().split('\n').filter(l => l.trim() !== '');
 
         process.stdout.clearLine();
         process.stdout.write(`\r${Logger.prefix} ${lines[lines.length - 1]}`);
