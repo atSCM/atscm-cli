@@ -1,7 +1,9 @@
+import { Console } from 'console';
 import gulplog from 'gulplog';
-import toConsole from 'gulp-cli/lib/shared/log/toConsole';
 import chalk from 'chalk';
 import tildify from 'tildify';
+
+const logConsole = new Console(process.stdout, process.stderr);
 
 /**
  * Formats strings to be used in the {@link Logger}.
@@ -121,13 +123,26 @@ export default class Logger {
     gulplog.error(...message);
   }
 
+  static get levels() {
+    return ['error', 'warn', 'info', 'debug'];
+  }
+
   /**
    * Apply options to the logger.
    * **Should only be called once.**
    * @param {Object} options Options passed to {@link gulplog}.
    */
   static applyOptions(options) {
-    toConsole(gulplog, options);
+    if (options.tasksSimple || options.silent || options.logLevel === 0) {
+      gulplog.on('error', () => {});
+      return;
+    }
+
+    this.levels
+      .filter((item, i) => i < options.logLevel)
+      .forEach(level => gulplog.on(level, (...args) => {
+        logConsole[level === 'error' ? 'error' : 'info']([this.prefix].concat(args));
+      }));
   }
 
   /**

@@ -126,12 +126,62 @@ describe('Logger', function() {
 
   /** @test {Logger.applyOptions} */
   describe('.applyOptions', function() {
-    it('should forward options to gulp-cli', function() {
-      const options = { silent: true };
-      Logger.applyOptions(options);
+    afterEach(() => {
+      Logger.levels.forEach(name => gulplog.removeAllListeners(name));
+    });
 
-      expect(toConsole.calledOnce, 'to be', true);
-      expect(toConsole.lastCall.args, 'to equal', [gulplog, options]);
+    function expectListeners(levels) {
+      Logger.levels.forEach((name, i) => {
+        expect(gulplog.listenerCount(name), 'to equal', levels[i] ? 1 : 0);
+      });
+    }
+
+    context('when using option "silent"', function() {
+      it('should only add a noop listener for "error" events', function() {
+        Logger.applyOptions({ silent: true });
+
+        expectListeners([true, false, false, false]);
+      });
+    });
+
+    context('when using "logLevel" 0', function() {
+      it('should only add a noop listener for "error" events', function() {
+        Logger.applyOptions({ logLevel: 0 });
+
+        expectListeners([true, false, false, false]);
+      });
+    });
+
+    context('when using "logLevel" 1', function() {
+      it('should only add a listener for "error" events', function() {
+        Logger.applyOptions({ logLevel: 1 });
+
+        expectListeners([true, false, false, false]);
+      });
+    });
+
+    context('when using "logLevel" 2', function() {
+      it('should add listeners for "error" and "warn" events', function() {
+        Logger.applyOptions({ logLevel: 2 });
+
+        expectListeners([true, true, false, false]);
+      });
+    });
+
+    context('when using "logLevel" 3', function() {
+      it('should add listeners for "error", "warn" and "info" events', function() {
+        Logger.applyOptions({ logLevel: 3 });
+
+        expectListeners([true, true, true, false]);
+      });
+    });
+
+    context('when using "logLevel" 4', function() {
+      it('should add listeners for all events', function() {
+        Logger.applyOptions({ logLevel: 4 });
+
+        expectListeners([true, true, true, true]);
+      });
     });
   });
 
