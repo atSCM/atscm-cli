@@ -1,4 +1,4 @@
-import { readdir } from 'fs';
+import { readdir, writeFileSync } from 'fs';
 import { join } from 'path';
 import Emitter from 'events';
 import expect from 'unexpected';
@@ -93,6 +93,12 @@ describe('InitCommand', function() {
 
       it('should work with empty dir', function() {
         return expect(command.checkDirectory(path), 'to be fulfilled');
+      });
+
+      it('should work in non-empty dir with overwrite set', function() {
+        writeFileSync(join(path, 'file.txt'), 'data');
+
+        return expect(command.checkDirectory(path, true), 'to be fulfilled');
       });
     });
 
@@ -278,6 +284,9 @@ describe('InitCommand', function() {
       getEnvironment: spy(() => Promise.resolve({
         cwd: stubModulePath,
         modulePackage: atscmPkg,
+        options: {
+          force: false
+        },
       })),
     };
 
