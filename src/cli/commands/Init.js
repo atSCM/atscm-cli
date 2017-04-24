@@ -195,7 +195,7 @@ export default class InitCommand extends Command {
    */
   run(cli) {
     return cli.getEnvironment()
-      .then(env => this.checkDirectory(env.cwd, env.options.force))
+      .then(env => this.checkDirectory(env.cwd, cli.options.force))
       .then(() => this.createEmptyPackage(cli.environment.cwd))
       .then(() => this.installLocal(cli.environment.cwd))
       .then(() => cli.getEnvironment())
