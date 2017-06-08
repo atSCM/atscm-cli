@@ -281,12 +281,12 @@ describe('InitCommand', function() {
       environment: {
         cwd: stubModulePath,
       },
+      options: {
+        force: false
+      },
       getEnvironment: spy(() => Promise.resolve({
         cwd: stubModulePath,
         modulePackage: atscmPkg,
-        options: {
-          force: false
-        },
       })),
     };
 
