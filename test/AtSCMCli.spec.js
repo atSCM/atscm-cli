@@ -142,9 +142,9 @@ describe('AtSCMCli', function() {
           .then(env => expect(env.cwd, 'to equal', process.cwd()));
       });
 
-      it('should resolve to initial cwd in project child directories', function() {
-        const projChildDir = 'test/fixtures/node_modules';
+      const projChildDir = join('test/fixtures/node_modules');
 
+      it('should resolve to initial cwd in project child directories', function() {
         return (new AtSCMCli([
           '--cwd', projChildDir,
         ])).getEnvironment(false)
@@ -152,8 +152,6 @@ describe('AtSCMCli', function() {
       });
 
       it('should ignore --projectfile option', function() {
-        const projChildDir = 'test/fixtures/node_modules';
-
         return (new AtSCMCli([
           '--cwd', projChildDir,
           '--projectfile', join(projChildDir, '../Atviseproject.js'),
