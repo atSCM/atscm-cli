@@ -38,8 +38,6 @@ export default class ConfigCommand extends Command {
     );
 
     if (cli.options.project && config.name !== 'ProjectConfig') {
-      console.info('CALLED', config.name, config.name !== 'ProjectConfig');
-
       Logger.warn('Overriding runtime configuration requires atscm version >= 0.4');
       Logger.info('Run', Logger.format.command('atscm update'), 'to update to the newest version');
     }
