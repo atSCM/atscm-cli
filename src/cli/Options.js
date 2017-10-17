@@ -45,7 +45,7 @@ const Options = {
   'tasks-simple': Option.boolean('Print a plaintext list of tasks.'),
   'tasks-json': Option.boolean('Print the task dependency tree, in JSON format.'),
   version: Option.boolean('Print version.', { alias: 'v' }),
-  beta: Option.boolean('Use atscm beta resources'),
+  beta: Option.boolean('Use atscm beta resources.'),
 };
 
 export default Options;
