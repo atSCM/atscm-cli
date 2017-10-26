@@ -72,7 +72,8 @@ jobs:
       - deploy:
           branches:
             only:
-              - beta-deployment
+              - beta
+              - master
           command: |
             echo "Setting up git user"
             git config --global user.email circleci@circleci && git config --global user.name CircleCI && git remote --v
