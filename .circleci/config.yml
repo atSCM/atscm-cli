@@ -5,6 +5,9 @@ jobs:
       - image: circleci/node:6
     steps:
       - checkout
+      - run:
+          name: Updating npm
+          command: npm install npm@latest -g
       - restore_cache:
           keys:
             - v1-npm-deps-{{ checksum "package-lock.json" }}
