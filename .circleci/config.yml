@@ -112,4 +112,4 @@ jobs:
             git push --tags
 
             echo "Creating GitHub release"
-            CONVENTIONAL_GITHUB_RELEASER_TOKEN=$GITHUB_TOKEN ./node_modules/.bin/conventional-github-releaser -p angular --verbose
+            CONVENTIONAL_GITHUB_RELEASER_TOKEN=$RELEASE_GITHUB_TOKEN ./node_modules/.bin/conventional-github-releaser -p angular --verbose
