@@ -141,7 +141,7 @@ export default class InitCommand extends Command {
     Logger.debug('Checking atscm-cli version...');
 
     const required = env.modulePackage.engines['atscm-cli'];
-    if (!validVersion(pkg.version, required)) {
+    if (!validVersion(pkg.version.split('-beta')[0], required)) {
       Logger.info('Your version of atscm-cli is not compatible with the latest version atscm.');
       Logger.info('Please run', Logger.format.command('npm install -g atscm-cli'), 'to update.');
 
