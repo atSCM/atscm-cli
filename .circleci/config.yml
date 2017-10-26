@@ -57,6 +57,8 @@ jobs:
           name: Check documentation coverage
           command: npm run docs:coverage
 
+      - run: git status
+
       # Store Results
       - store_test_results:
           path: ~/reports
@@ -85,7 +87,7 @@ jobs:
             if [ $CIRCLE_BRANCH = 'master' ]; then
               ./node_modules/.bin/standard-version --message "chore(release): Release %s [ci skip]"
             else
-              ./node_modules/.bin/standard-version --message "chore(release): Release %s [ci skip]"--prerelease beta;
+              ./node_modules/.bin/standard-version --message "chore(release): Release %s [ci skip]" --prerelease beta;
             fi
 
             echo "Pushing version bump"
