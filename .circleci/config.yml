@@ -89,7 +89,7 @@ jobs:
             fi
 
             echo "Pushing version bump"
-            # git push origin $CIRCLE_BRANCH
+            git push origin $CIRCLE_BRANCH
 
             echo "Creating git tag"
             version=$(node -e "console.log(require('./package.json').version)")
