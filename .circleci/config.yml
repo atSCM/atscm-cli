@@ -2,15 +2,12 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:6
+      - image: circleci/node:8
     steps:
       - checkout
-      - run:
-          name: Updating npm
-          command: sudo npm install npm@latest -g
       - restore_cache:
           keys:
-            - v1-npm-deps-{{ checksum "package.json" }}
+            - v1-npm-deps-{{ checksum "package-lock.json" }}
       - run:
           name: Installing npm dependencies
           command: npm install
@@ -18,7 +15,7 @@ jobs:
           name: Resetting package-lock changes
           command: git checkout -- package-lock.json
       - save_cache:
-          key: v1-npm-deps-{{ checksum "package.json" }}
+          key: v1-npm-deps-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
 
