@@ -83,9 +83,9 @@ jobs:
 
             echo "Bumping version number"
             if [ $CIRCLE_BRANCH = 'master' ]; then
-              npx standard-version --message "chore(release): Release %s [ci skip]"
+              ./node_modules/.bin/standard-version --message "chore(release): Release %s [ci skip]"
             else
-              npx standard-version --message "chore(release): Release %s [ci skip]"--prerelease beta;
+              ./node_modules/.bin/standard-version --message "chore(release): Release %s [ci skip]"--prerelease beta;
             fi
 
             echo "Pushing version bump"
@@ -110,4 +110,4 @@ jobs:
             git push --tags
 
             echo "Creating GitHub release"
-            CONVENTIONAL_GITHUB_RELEASER_TOKEN=$GITHUB_TOKEN npx conventional-github-releaser -p angular --verbose
+            CONVENTIONAL_GITHUB_RELEASER_TOKEN=$GITHUB_TOKEN ./node_modules/.bin/conventional-github-releaser -p angular --verbose
