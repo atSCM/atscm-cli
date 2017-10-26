@@ -1,5 +1,10 @@
-<a name="0.2.5-beta.0"></a>
-## [0.2.5-beta.0](https://github.com/atSCM/atscm-cli/compare/v0.2.4...v0.2.5-beta.0) (2017-10-26)
+<a name="0.2.5-beta.1"></a>
+## [0.2.5-beta.1](https://github.com/atSCM/atscm-cli/compare/v0.2.4...v0.2.5-beta.1) (2017-10-26)
+
+
+### Bug Fixes
+
+* **init:** Ignore prerelease version tags ([7e3618c](https://github.com/atSCM/atscm-cli/commit/7e3618c))
 
 
 
