@@ -9,7 +9,7 @@ jobs:
           keys:
             - v1-npm-deps-{{ checksum "package-lock.json" }}
       - run:
-          name: Install npm dependencies
+          name: Installing npm dependencies
           command: npm install
       - run:
           name: Resetting package-lock changes
@@ -40,7 +40,8 @@ jobs:
           command: node_modules/.bin/nyc npm test -- --reporter mocha-circleci-reporter
           environment:
             NODE_ENV: test
-            MOCHA_FILE: ~/reports/mocha.xml
+            MOCHA_FILE: ../reports/mocha.xml
+      - run: ls ~/reports && ls .
       - run:
           name: Checking documentation for broken links (SKIPPED)
           command: echo "Skipped for now as ESDoc hosting service is down regularly" # npm run test:docs
@@ -51,7 +52,7 @@ jobs:
           command: node_modules/.bin/nyc check-coverage --statements 90 --branches 90 --functions 90 --lines 90
       - run:
           name: Reporting test coverage
-          command: node_modules/.bin/nyc report --reporter=lcov > ~/reports/coverage.lcov | node_modules/.bin/codecov
+          command: node_modules/.bin/nyc report --reporter=lcov > ../reports/coverage.lcov | node_modules/.bin/codecov
       - run:
           name: Check documentation coverage
           command: npm run docs:coverage
