@@ -25,6 +25,7 @@ export default class InitCommand extends Command {
     super(name, description, {
       options: {
         force: CliOptions.force,
+        beta: CliOptions.beta,
       },
     });
   }

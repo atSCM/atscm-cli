@@ -3,11 +3,25 @@ import { gt } from 'semver';
 import Logger from '../../lib/util/Logger';
 import Command from '../../lib/cli/Command';
 import ExternalCommand from '../../lib/util/ExternalCommand';
+import CliOptions from '../Options';
 
 /**
  * The command invoked by running "update".
  */
 export default class UpdateCommand extends Command {
+
+  /**
+   * Creates a new {@link UpdateCommand} with the specified name and description.
+   * @param {String} name The command's name.
+   * @param {String} description The command's description.
+   */
+  constructor(name, description) {
+    super(name, description, {
+      options: {
+        beta: CliOptions.beta,
+      },
+    });
+  }
 
   /**
    * Checks atscm's dist-tags in the npm registry and resolves with the latest version available.
