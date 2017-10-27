@@ -1,0 +1,39 @@
+[
+  {
+    "name": "InitCommand#installLocal",
+    "filePath": "src/cli/commands/Init.js",
+    "lines": [
+      {
+        "lineNumber": 116,
+        "line": "  /**"
+      },
+      {
+        "lineNumber": 117,
+        "line": "   * Installs the local atscm module at the given path."
+      },
+      {
+        "lineNumber": 118,
+        "line": "   * @param {String} path The path to install the module at."
+      },
+      {
+        "lineNumber": 119,
+        "line": "   * @return {Promise<undefined, Error>} Rejected if installing failed, resolved otherwise."
+      },
+      {
+        "lineNumber": 120,
+        "line": "   */"
+      },
+      {
+        "lineNumber": 121,
+        "line": "  installLocal(path, useBetaRelease) {"
+      }
+    ],
+    "codeParams": [
+      "path",
+      "useBetaRelease"
+    ],
+    "docParams": [
+      "path"
+    ]
+  }
+]
