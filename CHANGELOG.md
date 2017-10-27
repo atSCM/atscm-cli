@@ -1,9 +1,10 @@
-<a name="0.3.0-beta.3"></a>
-# [0.3.0-beta.3](https://github.com/atSCM/atscm-cli/compare/v0.2.4...v0.3.0-beta.3) (2017-10-27)
+<a name="0.3.0-beta.4"></a>
+# [0.3.0-beta.4](https://github.com/atSCM/atscm-cli/compare/v0.2.4...v0.3.0-beta.4) (2017-10-27)
 
 
 ### Bug Fixes
 
+* **ci:** Deploy master and beta only ([63393b8](https://github.com/atSCM/atscm-cli/commit/63393b8))
 * **docs:** Document deployment process ([#29](https://github.com/atSCM/atscm-cli/issues/29)) ([782d826](https://github.com/atSCM/atscm-cli/commit/782d826))
 
 
