@@ -117,9 +117,10 @@ export default class InitCommand extends Command {
   /**
    * Installs the local atscm module at the given path.
    * @param {String} path The path to install the module at.
+   * @param {Boolean} [useBetaRelease=false] If beta versions should be used.
    * @return {Promise<undefined, Error>} Rejected if installing failed, resolved otherwise.
    */
-  installLocal(path, useBetaRelease) {
+  installLocal(path, useBetaRelease = false) {
     Logger.info('Installing latest version of atscm...');
 
     if (useBetaRelease) {
