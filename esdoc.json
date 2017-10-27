@@ -13,6 +13,7 @@
           "files": [
             "./docs/manual/usage/CLI.md",
             "./docs/manual/usage/API.md",
+            "./.github/CONTRIBUTING.md",
             "./CHANGELOG.md"
           ]
         },
