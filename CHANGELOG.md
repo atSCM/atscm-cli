@@ -1,5 +1,5 @@
-<a name="0.3.0-beta.4"></a>
-# [0.3.0-beta.4](https://github.com/atSCM/atscm-cli/compare/v0.2.4...v0.3.0-beta.4) (2017-10-27)
+<a name="0.3.0-beta.5"></a>
+# [0.3.0-beta.5](https://github.com/atSCM/atscm-cli/compare/v0.2.4...v0.3.0-beta.5) (2017-10-27)
 
 
 ### Bug Fixes
@@ -11,6 +11,7 @@
 ### Features
 
 * **ci:** Automated release ([#27](https://github.com/atSCM/atscm-cli/issues/27)) ([ff9f82a](https://github.com/atSCM/atscm-cli/commit/ff9f82a))
+* **init:** Use `--beta` flag to update prerelease versions ([#31](https://github.com/atSCM/atscm-cli/issues/31)) ([7f8b9ed](https://github.com/atSCM/atscm-cli/commit/7f8b9ed))
 
 
 
