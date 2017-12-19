@@ -15,7 +15,7 @@ export default class DocsCommand extends Command {
    * @type {string}
    */
   static get RemoteDocsBase() {
-    return 'https://atscm.github.io';
+    return 'https://atscm.github.io/';
   }
 
   /**
