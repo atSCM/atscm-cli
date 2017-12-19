@@ -20,7 +20,7 @@ npm install -g atscm-cli
 
 ## Basic usage
 
-> You can find more detailed usage information in the [usage manuals](https://atscm.github.io/atscm-cli/manual/usage/CLI.html).
+> You can find more detailed usage information in the [usage manuals](https://atscm.github.io/atscm-cli/manual/CLI.html).
 
 ### Creating a new *atSCM* project
 
