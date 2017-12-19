@@ -1,9 +1,10 @@
-<a name="0.3.1-beta.0"></a>
-## 0.3.1-beta.0 (2017-12-19)
+<a name="0.3.1-beta.1"></a>
+## 0.3.1-beta.1 (2017-12-19)
 
 
 ### Bug Fixes
 
+* Host API docs on github pages ([#38](https://github.com/atSCM/atscm-cli/issues/38)) ([951f588](https://github.com/atSCM/atscm-cli/commits/951f588)), closes [#36](https://github.com/atSCM/atscm-cli/issues/36)
 * Use [@ls-age](https://github.com/ls-age)/bump-version for automated releases ([#37](https://github.com/atSCM/atscm-cli/issues/37)) ([c556a15](https://github.com/atSCM/atscm-cli/commits/c556a15)), closes [#34](https://github.com/atSCM/atscm-cli/issues/34)
 
 
