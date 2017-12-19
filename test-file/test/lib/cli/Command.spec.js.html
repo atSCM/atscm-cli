@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl">
-  <title data-ice="title">Home | atscm-cli</title>
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">test/lib/cli/Command.spec.js | atscm-cli</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -55,27 +55,98 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="atscm-cli">atscm-cli</h1><blockquote>
-<p><a href="https://github.com/atSCM/atscm">atSCM</a> command line interface</p>
-</blockquote>
-<p><a href="https://circleci.com/gh/atSCM/atscm-cli"><img src="https://circleci.com/gh/atSCM/atscm-cli.svg?style=shield" alt="CircleCI"></a>
-<a href="https://ci.appveyor.com/project/LukasHechenberger/atscm-cli"><img src="https://ci.appveyor.com/api/projects/status/m7dy3spqfg4b2d9f?svg=true&amp;pendingText=windows%20tests%20pending&amp;passingText=windows%20tests%20passing&amp;failingText=windows%20tests%20failing" alt="AppVeyor"></a>
-<a href="https://codecov.io/gh/atSCM/atscm-cli"><img src="https://codecov.io/gh/atSCM/atscm-cli/branch/master/graph/badge.svg" alt="codecov"></a>
-<a href="https://atscm.github.io/atscm-cli"><img src="https://atscm.github.io/atscm-cli/badge.svg" alt="ESDoc"></a></p>
-<h2 id="installation">Installation</h2><p>This module can be installed via <a href="https://www.npmjs.com">npm</a>. With <a href="https://nodejs.org/en/">node.js</a> <strong>version 6 or later</strong> installed run:</p>
-<pre><code class="lang-bash"><code class="source-code prettyprint"># Install atscm-cli globally
-npm install -g atscm-cli</code>
+<div class="content" data-ice="content"><h1 data-ice="title">test/lib/cli/Command.spec.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import expect from &apos;unexpected&apos;;
+
+import Command from &apos;../../../src/lib/cli/Command&apos;;
+import Option from &apos;../../../src/lib/cli/Option&apos;;
+
+/** @test {Command} */
+describe(&apos;Command&apos;, function() {
+  const name = &apos;command&apos;;
+  const desc = &apos;Command description.&apos;;
+  const opts = {};
+  const args = &apos;&lt;required&gt; [optional...]&apos;;
+
+  /** @test {Command#constructor} */
+  describe(&apos;#constructor&apos;, function() {
+    it(&apos;should fail if options.maxArguments is less than options.maxArguments&apos;, function() {
+      expect(() =&gt; new Command(name, desc, Object.assign({
+        minArguments: 1,
+        maxArguments: 0,
+      }, opts)), &apos;to throw error&apos;,
+        &apos;options.maxArguments must not be less than options.minArguments&apos;);
+    });
+
+    it(&apos;should store name, description and options&apos;, function() {
+      const command = new Command(name, desc, opts);
+
+      expect(command.name, &apos;to equal&apos;, name);
+      expect(command.description, &apos;to equal&apos;, desc);
+      expect(command._options, &apos;to equal&apos;, opts);
+    });
+  });
+
+  /** @test {Command#run} */
+  describe(&apos;#run&apos;, function() {
+    it(&apos;must be implmented by all subclasses&apos;, function() {
+      expect((new Command(name, desc, opts)).run, &apos;to throw&apos;,
+        new Error(&apos;Must be implemented by all subclasses&apos;));
+    });
+  });
+
+  /** @test {Command#usage} */
+  describe(&apos;#usage&apos;, function() {
+    it(&apos;should be only name with no options.arguments set&apos;, function() {
+      expect((new Command(name, desc, opts)).usage, &apos;to equal&apos;, name);
+    });
+
+    it(&apos;should be name followed by arguments with options.arguments set&apos;, function() {
+      expect((new Command(name, desc, Object.assign({ arguments: args }, opts))).usage,
+        &apos;to equal&apos;, `${name} ${args}`);
+    });
+  });
+
+  /** @test {Command#options} */
+  describe(&apos;#options&apos;, function() {
+    it(&apos;should be empty object if options.options were not set&apos;, function() {
+      expect((new Command(name, desc, opts)).options, &apos;to equal&apos;, {});
+    });
+
+    it(&apos;should return all options passed as options.options&apos;, function() {
+      const options = { test: new Option(&apos;description&apos;) };
+
+      expect((new Command(name, desc, Object.assign({ options }, opts))).options,
+        &apos;to equal&apos;, options);
+    });
+  });
+
+  /** @test {Command#demandCommand} */
+  describe(&apos;#demandCommand&apos;, function() {
+    it(&apos;should default to [0]&apos;, function() {
+      expect((new Command(name, desc, opts)).demandCommand, &apos;to equal&apos;, [0]);
+    });
+
+    it(&apos;should be use options.maxArguments if set&apos;, function() {
+      expect((new Command(name, desc, Object.assign({ maxArguments: 13 }, opts))).demandCommand,
+        &apos;to equal&apos;, [0, 13]);
+    });
+
+    it(&apos;should be use options.minArguments if set&apos;, function() {
+      expect((new Command(name, desc, Object.assign({ minArguments: 13 }, opts))).demandCommand,
+        &apos;to equal&apos;, [13]);
+    });
+
+    it(&apos;should be use options.minArguments and options.maxArguments if set&apos;, function() {
+      expect((new Command(name, desc, Object.assign({
+        minArguments: 1,
+        maxArguments: 2,
+      }, opts))).demandCommand, &apos;to equal&apos;, [1, 2]);
+    });
+  });
+});
 </code></pre>
-<p><em>You may have to run this command as an administrator.</em></p>
-<h2 id="basic-usage">Basic usage</h2><blockquote>
-<p>You can find more detailed usage information in the <a href="https://atscm.github.ioatscm-cli/manual/usage/CLI.html">usage manuals</a>.</p>
-</blockquote>
-<h3 id="creating-a-new--em-atscm--em--project">Creating a new <em>atSCM</em> project</h3><p>Running <code>atscm init</code> will prompt you for a project name, description, etc. and create a new <em>atSCM</em> project.</p>
-<p>For more detailed information on the init command look at the <a href="https://atscm.github.io/atscm-cli/manual/index.html">manuals</a>.</p>
-<h3 id="running-tasks">Running tasks</h3><p>Run tasks by typing <code>atscm [task]</code> inside a project directory.</p>
-<p>Lookup the tasks available in <a href="https://atscm.github.io/atscm/manual/index.html">the atscm manuals</a> or by running <code>atscm --tasks</code>.</p>
-<h3 id="open-documentation">Open documentation</h3><p>Running <code>atscm docs</code> will open the API documentation of the <em>atscm</em> module, running <code>atscm docs --cli</code> will open the documentation of this module.</p>
-</div>
+
 </div>
 
 <footer class="footer">

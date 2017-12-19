@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl">
-  <title data-ice="title">Home | atscm-cli</title>
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">test/cli/commands/Config.spec.js | atscm-cli</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -55,27 +55,83 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="atscm-cli">atscm-cli</h1><blockquote>
-<p><a href="https://github.com/atSCM/atscm">atSCM</a> command line interface</p>
-</blockquote>
-<p><a href="https://circleci.com/gh/atSCM/atscm-cli"><img src="https://circleci.com/gh/atSCM/atscm-cli.svg?style=shield" alt="CircleCI"></a>
-<a href="https://ci.appveyor.com/project/LukasHechenberger/atscm-cli"><img src="https://ci.appveyor.com/api/projects/status/m7dy3spqfg4b2d9f?svg=true&amp;pendingText=windows%20tests%20pending&amp;passingText=windows%20tests%20passing&amp;failingText=windows%20tests%20failing" alt="AppVeyor"></a>
-<a href="https://codecov.io/gh/atSCM/atscm-cli"><img src="https://codecov.io/gh/atSCM/atscm-cli/branch/master/graph/badge.svg" alt="codecov"></a>
-<a href="https://atscm.github.io/atscm-cli"><img src="https://atscm.github.io/atscm-cli/badge.svg" alt="ESDoc"></a></p>
-<h2 id="installation">Installation</h2><p>This module can be installed via <a href="https://www.npmjs.com">npm</a>. With <a href="https://nodejs.org/en/">node.js</a> <strong>version 6 or later</strong> installed run:</p>
-<pre><code class="lang-bash"><code class="source-code prettyprint"># Install atscm-cli globally
-npm install -g atscm-cli</code>
+<div class="content" data-ice="content"><h1 data-ice="title">test/cli/commands/Config.spec.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { join } from &apos;path&apos;;
+import expect from &apos;unexpected&apos;;
+import { stub } from &apos;sinon&apos;;
+
+import ConfigCommand from &apos;../../../src/cli/commands/Config&apos;;
+import Logger from &apos;../../../src/lib/util/Logger&apos;;
+
+/** @test {ConfigCommand} */
+describe(&apos;ConfigCommand&apos;, function() {
+  /** @test {ConfigCommand#run} */
+  describe(&apos;#run&apos;, function() {
+    beforeEach(function() {
+      stub(Logger, &apos;info&apos;);
+      stub(Logger, &apos;warn&apos;);
+    });
+
+    afterEach(function() {
+      Logger.info.restore();
+      Logger.warn.restore();
+    });
+
+    const command = new ConfigCommand(&apos;config&apos;, &apos;Print configuration.&apos;);
+
+    context(&apos;when overrides are available (atscm &gt;= v0.4)&apos;, function() {
+      it(&apos;should print local module\&apos;s ProjectConfig class&apos;, function() {
+        command.run({
+          options: {
+            project: {},
+          },
+          environment: {
+            modulePath: join(__dirname, &apos;../../fixtures/node_modules/atscm/fake/v0-4.js&apos;),
+            configPath: join(__dirname, &apos;../../fixtures/Atviseproject.js&apos;),
+          },
+        });
+
+        expect(Logger.info.calledOnce, &apos;to be&apos;, true);
+        expect(Logger.info.lastCall.args[0], &apos;to match&apos;, new RegExp(&apos;^Configuration at&apos;));
+      });
+    });
+
+    context(&apos;when overrides are not available (atscm &lt; v0.4)&apos;, function() {
+      it(&apos;should print local module\&apos;s Atviseproject class&apos;, function() {
+        command.run({
+          options: {
+            project: {},
+          },
+          environment: {
+            modulePath: join(__dirname, &apos;../../fixtures/node_modules/atscm/fake/v0-3.js&apos;),
+            configPath: join(__dirname, &apos;../../fixtures/Atviseproject.js&apos;),
+          },
+        });
+
+        expect(Logger.info.callCount, &apos;to equal&apos;, 2);
+        expect(Logger.info.firstCall.args[0], &apos;to match&apos;, new RegExp(&apos;^Configuration at&apos;));
+      });
+
+      it(&apos;should warn that overrides are not available&apos;, function() {
+        command.run({
+          options: {
+            project: {},
+          },
+          environment: {
+            modulePath: join(__dirname, &apos;../../fixtures/node_modules/atscm/fake/v0-3.js&apos;),
+            configPath: join(__dirname, &apos;../../fixtures/Atviseproject.js&apos;),
+          },
+        });
+
+        expect(Logger.warn.calledOnce, &apos;to be&apos;, true);
+        expect(Logger.warn.lastCall.args[0], &apos;to contain&apos;,
+          &apos;Overriding runtime configuration requires atscm version &gt;= 0.4&apos;);
+      });
+    });
+  });
+});
 </code></pre>
-<p><em>You may have to run this command as an administrator.</em></p>
-<h2 id="basic-usage">Basic usage</h2><blockquote>
-<p>You can find more detailed usage information in the <a href="https://atscm.github.ioatscm-cli/manual/usage/CLI.html">usage manuals</a>.</p>
-</blockquote>
-<h3 id="creating-a-new--em-atscm--em--project">Creating a new <em>atSCM</em> project</h3><p>Running <code>atscm init</code> will prompt you for a project name, description, etc. and create a new <em>atSCM</em> project.</p>
-<p>For more detailed information on the init command look at the <a href="https://atscm.github.io/atscm-cli/manual/index.html">manuals</a>.</p>
-<h3 id="running-tasks">Running tasks</h3><p>Run tasks by typing <code>atscm [task]</code> inside a project directory.</p>
-<p>Lookup the tasks available in <a href="https://atscm.github.io/atscm/manual/index.html">the atscm manuals</a> or by running <code>atscm --tasks</code>.</p>
-<h3 id="open-documentation">Open documentation</h3><p>Running <code>atscm docs</code> will open the API documentation of the <em>atscm</em> module, running <code>atscm docs --cli</code> will open the documentation of this module.</p>
-</div>
+
 </div>
 
 <footer class="footer">

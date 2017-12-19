@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl">
-  <title data-ice="title">Home | atscm-cli</title>
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">src/lib/util/ExternalCommand.js | atscm-cli</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -55,27 +55,92 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="atscm-cli">atscm-cli</h1><blockquote>
-<p><a href="https://github.com/atSCM/atscm">atSCM</a> command line interface</p>
-</blockquote>
-<p><a href="https://circleci.com/gh/atSCM/atscm-cli"><img src="https://circleci.com/gh/atSCM/atscm-cli.svg?style=shield" alt="CircleCI"></a>
-<a href="https://ci.appveyor.com/project/LukasHechenberger/atscm-cli"><img src="https://ci.appveyor.com/api/projects/status/m7dy3spqfg4b2d9f?svg=true&amp;pendingText=windows%20tests%20pending&amp;passingText=windows%20tests%20passing&amp;failingText=windows%20tests%20failing" alt="AppVeyor"></a>
-<a href="https://codecov.io/gh/atSCM/atscm-cli"><img src="https://codecov.io/gh/atSCM/atscm-cli/branch/master/graph/badge.svg" alt="codecov"></a>
-<a href="https://atscm.github.io/atscm-cli"><img src="https://atscm.github.io/atscm-cli/badge.svg" alt="ESDoc"></a></p>
-<h2 id="installation">Installation</h2><p>This module can be installed via <a href="https://www.npmjs.com">npm</a>. With <a href="https://nodejs.org/en/">node.js</a> <strong>version 6 or later</strong> installed run:</p>
-<pre><code class="lang-bash"><code class="source-code prettyprint"># Install atscm-cli globally
-npm install -g atscm-cli</code>
+<div class="content" data-ice="content"><h1 data-ice="title">src/lib/util/ExternalCommand.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { spawn } from &apos;child_process&apos;;
+import which from &apos;which&apos;;
+import Logger from &apos;./Logger&apos;;
+
+/**
+ * A static class providing utilities to run external commands.
+ */
+export default class ExternalCommand {
+
+  /**
+   * Resolves the executable path for the given command.
+   * @param {string} name The command to resolve.
+   * @return {Promise&lt;string, Error&gt;} Fulfilled with the executable path or the error that occured
+   * while running `which`.
+   */
+  static resolveBin(name) {
+    return new Promise((resolve, reject) =&gt; {
+      which(name, (err, path) =&gt; {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(path);
+        }
+      });
+    });
+  }
+
+  /**
+   * Spawns an executable with the given args and options. See the [node.js docs on the
+   * `child_process` module](https://nodejs.org/api/child_process.html#child_process_child_process)
+   * for all available spawn options.
+   * @param {string} bin Path to the executable to run.
+   * @param {string[]} [args=[]] The arguments to use.
+   * @param {Object} [options] The options to use.
+   * @param {Object} [options.spawn] Options to use for the spawned process.
+   * @param {function(process: node.ChildProcess)} [options.onspawn] Callback to call once the
+   * process was created. Useful for handling stdio events etc.
+   * @return {Promise&lt;string, Error&gt;} Fulfilled with the child process&apos; stdout or rejected with a
+   * spawn error or non-zero exit code.
+   */
+  static spawn(bin, args = [], options = {}) {
+    return new Promise((resolve, reject) =&gt; {
+      let stdout = &apos;&apos;;
+
+      Logger.debug(&apos;Running&apos;, Logger.format.command(`${bin} ${args.join(&apos; &apos;)}`));
+      const child = spawn(bin, args, options.spawn || options)
+        .once(&apos;error&apos;, err =&gt; reject(err))
+        .once(&apos;close&apos;, code =&gt; {
+          if (code &gt; 0) {
+            reject(new Error(`${bin} ${args.join(&apos; &apos;)} returned code ${code}`));
+          } else {
+            resolve(stdout.trim());
+          }
+        });
+
+      child.stdout.on(&apos;data&apos;, d =&gt; (stdout += d.toString()));
+
+      if (options.onspawn) {
+        options.onspawn(child);
+      }
+    });
+  }
+
+  /**
+   * Resolves the executable for the given command and runs it with the arguments and options given.
+   * See the [node.js docs on the
+   * `child_process` module](https://nodejs.org/api/child_process.html#child_process_child_process)
+   * for all available spawn options.
+   * @param {string} name The command to run.
+   * @param {string[]} [args] The arguments to use.
+   * @param {Object} [options] The options to use.
+   * @param {Object} [options.spawn] Options to use for the spawned process.
+   * @param {function(process: node.ChildProcess)} [options.onspawn] Callback to call once the
+   * process was created. Useful for handling stdio events etc.
+   * @return {Promise&lt;string, Error&gt;} Fulfilled with the child process&apos; stdout or rejected with a
+   * spawn error, a non-zero exit code or an error that occured while running `which`.
+   */
+  static run(name, args, options) {
+    return this.resolveBin(name)
+      .then(bin =&gt; this.spawn(bin, args, options));
+  }
+
+}
 </code></pre>
-<p><em>You may have to run this command as an administrator.</em></p>
-<h2 id="basic-usage">Basic usage</h2><blockquote>
-<p>You can find more detailed usage information in the <a href="https://atscm.github.ioatscm-cli/manual/usage/CLI.html">usage manuals</a>.</p>
-</blockquote>
-<h3 id="creating-a-new--em-atscm--em--project">Creating a new <em>atSCM</em> project</h3><p>Running <code>atscm init</code> will prompt you for a project name, description, etc. and create a new <em>atSCM</em> project.</p>
-<p>For more detailed information on the init command look at the <a href="https://atscm.github.io/atscm-cli/manual/index.html">manuals</a>.</p>
-<h3 id="running-tasks">Running tasks</h3><p>Run tasks by typing <code>atscm [task]</code> inside a project directory.</p>
-<p>Lookup the tasks available in <a href="https://atscm.github.io/atscm/manual/index.html">the atscm manuals</a> or by running <code>atscm --tasks</code>.</p>
-<h3 id="open-documentation">Open documentation</h3><p>Running <code>atscm docs</code> will open the API documentation of the <em>atscm</em> module, running <code>atscm docs --cli</code> will open the documentation of this module.</p>
-</div>
+
 </div>
 
 <footer class="footer">

@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl">
-  <title data-ice="title">Home | atscm-cli</title>
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/cli/Options.js | atscm-cli</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -55,27 +55,75 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="atscm-cli">atscm-cli</h1><blockquote>
-<p><a href="https://github.com/atSCM/atscm">atSCM</a> command line interface</p>
-</blockquote>
-<p><a href="https://circleci.com/gh/atSCM/atscm-cli"><img src="https://circleci.com/gh/atSCM/atscm-cli.svg?style=shield" alt="CircleCI"></a>
-<a href="https://ci.appveyor.com/project/LukasHechenberger/atscm-cli"><img src="https://ci.appveyor.com/api/projects/status/m7dy3spqfg4b2d9f?svg=true&amp;pendingText=windows%20tests%20pending&amp;passingText=windows%20tests%20passing&amp;failingText=windows%20tests%20failing" alt="AppVeyor"></a>
-<a href="https://codecov.io/gh/atSCM/atscm-cli"><img src="https://codecov.io/gh/atSCM/atscm-cli/branch/master/graph/badge.svg" alt="codecov"></a>
-<a href="https://atscm.github.io/atscm-cli"><img src="https://atscm.github.io/atscm-cli/badge.svg" alt="ESDoc"></a></p>
-<h2 id="installation">Installation</h2><p>This module can be installed via <a href="https://www.npmjs.com">npm</a>. With <a href="https://nodejs.org/en/">node.js</a> <strong>version 6 or later</strong> installed run:</p>
-<pre><code class="lang-bash"><code class="source-code prettyprint"># Install atscm-cli globally
-npm install -g atscm-cli</code>
+<div class="content" data-ice="content"><h1 data-ice="title">src/cli/Options.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Option from &apos;../lib/cli/Option&apos;;
+
+/**
+ * Command line options available.
+ * @type {Object}
+ * @property {Option} browser Which browser to open in.
+ * @property {Option} cli Open CLI documentation.
+ * @property {Option} config Print project configuration.
+ * @property {Option} cwd Manually set the CWD.
+ * @property {Option} force Overwrite existing files.
+ * @property {Option} help Show help.
+ * @property {Option} logLevel Set the Logger level.
+ * @property {Option} projectfile Manually set path of Atviseproject file to use.
+ * @property {Option} remote Open hosted documentation.
+ * @property {Option} silent Supress all logging.
+ * @property {Option} version Print version.
+ * @property {Option} beta Use atscm beta resources.
+ */
+const Options = {
+  browser: Option.string(&apos;Which browser to open in.&apos;),
+  cli: Option.boolean(&apos;Open CLI documentation.&apos;),
+  continue: Option.boolean(&apos;Continue execution of tasks upon failure.&apos;),
+  cwd: Option.string(&apos;Manually set the CWD.&apos;),
+  force: Option.boolean(&apos;Overwrite existing files.&apos;),
+  help: Option.boolean(&apos;Show this help.&apos;),
+  &apos;log-level&apos;: new Option(&apos;Set the Logger level. &apos; +
+    &apos;-L for least verbose and -LLLL for most verbose. -LLL is default.&apos;, {
+      alias: &apos;L&apos;,
+      count: true,
+      default: 3,
+    }
+  ),
+  project: new Option(&apos;Override Atviseproject values.&apos;, { default: {} }),
+  projectfile: Option.string(&apos;Manually set path of Atviseproject file to use. &apos; +
+    &apos;This will set the CWD to the Atviseproject file\&apos;s directory as well.&apos;,
+    { alias: &apos;p&apos; }),
+  require: Option.string(&apos;Will require a module before running atscm.&apos;),
+  remote: Option.boolean(&apos;Open hosted documentation.&apos;, {
+    default: undefined,
+  }),
+  silent: Option.boolean(&apos;Suppress all logging.&apos;, { alias: &apos;S&apos; }),
+  tasks: Option.boolean(&apos;Print the task dependency tree.&apos;, {
+    alias: &apos;T&apos;,
+  }),
+  &apos;tasks-simple&apos;: Option.boolean(&apos;Print a plaintext list of tasks.&apos;),
+  &apos;tasks-json&apos;: Option.boolean(&apos;Print the task dependency tree, in JSON format.&apos;),
+  version: Option.boolean(&apos;Print version.&apos;, { alias: &apos;v&apos; }),
+  beta: Option.boolean(&apos;Use atscm beta resources.&apos;),
+};
+
+export default Options;
+
+/**
+ * Options that can be used globally.
+ * @type {Map&lt;String, Option&gt;}
+ */
+export const GlobalOptions = {
+  projectfile: Options.projectfile,
+  cwd: Options.cwd,
+  project: Options.project,
+  require: Options.require,
+  version: Options.version,
+  help: Options.help,
+  silent: Options.silent,
+  &apos;log-level&apos;: Options[&apos;log-level&apos;],
+};
 </code></pre>
-<p><em>You may have to run this command as an administrator.</em></p>
-<h2 id="basic-usage">Basic usage</h2><blockquote>
-<p>You can find more detailed usage information in the <a href="https://atscm.github.ioatscm-cli/manual/usage/CLI.html">usage manuals</a>.</p>
-</blockquote>
-<h3 id="creating-a-new--em-atscm--em--project">Creating a new <em>atSCM</em> project</h3><p>Running <code>atscm init</code> will prompt you for a project name, description, etc. and create a new <em>atSCM</em> project.</p>
-<p>For more detailed information on the init command look at the <a href="https://atscm.github.io/atscm-cli/manual/index.html">manuals</a>.</p>
-<h3 id="running-tasks">Running tasks</h3><p>Run tasks by typing <code>atscm [task]</code> inside a project directory.</p>
-<p>Lookup the tasks available in <a href="https://atscm.github.io/atscm/manual/index.html">the atscm manuals</a> or by running <code>atscm --tasks</code>.</p>
-<h3 id="open-documentation">Open documentation</h3><p>Running <code>atscm docs</code> will open the API documentation of the <em>atscm</em> module, running <code>atscm docs --cli</code> will open the documentation of this module.</p>
-</div>
+
 </div>
 
 <footer class="footer">

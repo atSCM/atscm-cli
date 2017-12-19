@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl">
-  <title data-ice="title">Home | atscm-cli</title>
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">src/lib/cli/Command.js | atscm-cli</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -55,27 +55,109 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="atscm-cli">atscm-cli</h1><blockquote>
-<p><a href="https://github.com/atSCM/atscm">atSCM</a> command line interface</p>
-</blockquote>
-<p><a href="https://circleci.com/gh/atSCM/atscm-cli"><img src="https://circleci.com/gh/atSCM/atscm-cli.svg?style=shield" alt="CircleCI"></a>
-<a href="https://ci.appveyor.com/project/LukasHechenberger/atscm-cli"><img src="https://ci.appveyor.com/api/projects/status/m7dy3spqfg4b2d9f?svg=true&amp;pendingText=windows%20tests%20pending&amp;passingText=windows%20tests%20passing&amp;failingText=windows%20tests%20failing" alt="AppVeyor"></a>
-<a href="https://codecov.io/gh/atSCM/atscm-cli"><img src="https://codecov.io/gh/atSCM/atscm-cli/branch/master/graph/badge.svg" alt="codecov"></a>
-<a href="https://atscm.github.io/atscm-cli"><img src="https://atscm.github.io/atscm-cli/badge.svg" alt="ESDoc"></a></p>
-<h2 id="installation">Installation</h2><p>This module can be installed via <a href="https://www.npmjs.com">npm</a>. With <a href="https://nodejs.org/en/">node.js</a> <strong>version 6 or later</strong> installed run:</p>
-<pre><code class="lang-bash"><code class="source-code prettyprint"># Install atscm-cli globally
-npm install -g atscm-cli</code>
+<div class="content" data-ice="content"><h1 data-ice="title">src/lib/cli/Command.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * A command that can be run through the CLI.
+ * @abstract
+ */
+export default class Command {
+
+  /**
+   * Creates a new Command with the given name and options.
+   * @param {String} name The command&apos;s name.
+   * @param {String} description The command&apos;s description.
+   * @param {Object} options The options to apply.
+   * @param {Map&lt;String, Option&gt;} options.options The options available for this command.
+   * @param {String} [options.arguments] The command&apos;s argument string. See
+   * [yargs&apos; documentation](http://yargs.js.org/docs/#methods-commandmodule-positional-arguments)
+   * for details.
+   * @param {Number} [options.minArguments] The minimum number or (non-option) arguments the command
+   * requires.
+   * @param {Number} [options.maxArguments] The maximum number or (non-option) arguments the command
+   * requires.
+   * @throws {Error} Throws an error if options.maxArguments is less than options.minArguments.
+   */
+  constructor(name, description, options = {}) {
+    /**
+     * The command&apos;s name.
+     * @type {String}
+     */
+    this.name = name;
+
+    /**
+     * The command descriptions.
+     * @type {String}
+     */
+    this.description = description;
+
+    if (options.minArguments &amp;&amp; options.maxArguments !== undefined
+      &amp;&amp; options.maxArguments &lt; options.minArguments) {
+      throw new Error(&apos;options.maxArguments must not be less than options.minArguments&apos;);
+    }
+
+    /**
+     * The command&apos;s raw options.
+     * @type {Object}
+     * @private
+     */
+    this._options = options;
+  }
+
+  /**
+   * Runs the command with the current Cli instance. **Asynchronous commands should return a Promise
+   * here.**
+   * @param {AtSCMCli} cli The current cli instance.
+   */
+  run(cli) { // eslint-disable-line no-unused-vars
+    throw new Error(&apos;Must be implemented by all subclasses&apos;);
+  }
+
+  /**
+   * Returns `true` if the command requires a {@link Liftoff.Environment} before it can be run.
+   * @param {AtSCMCli} cli The current cli instance.
+   * @return {Boolean} `true` if the command requires a {@link Liftoff.Environment}.
+   */
+  requiresEnvironment(cli) { // eslint-disable-line no-unused-vars
+    return true;
+  }
+
+  /**
+   * Returns the usage string for the command. Something like &quot;{name} {arguments}&quot;.
+   * @type {String}
+   */
+  get usage() {
+    if (this._options.arguments) {
+      return `${this.name} ${this._options.arguments}`;
+    }
+
+    return this.name;
+  }
+
+  /**
+   * The options available for the command.
+   * @type {Map&lt;String, Option&gt;}
+   */
+  get options() {
+    return this._options.options || {};
+  }
+
+  /**
+   * The minimum and maximum number of (non-option) arguments the command handles.
+   * @type {Number[]}
+   */
+  get demandCommand() {
+    const ret = [this._options.minArguments || 0];
+
+    if (this._options.maxArguments !== undefined) {
+      ret.push(this._options.maxArguments);
+    }
+
+    return ret;
+  }
+
+}
 </code></pre>
-<p><em>You may have to run this command as an administrator.</em></p>
-<h2 id="basic-usage">Basic usage</h2><blockquote>
-<p>You can find more detailed usage information in the <a href="https://atscm.github.ioatscm-cli/manual/usage/CLI.html">usage manuals</a>.</p>
-</blockquote>
-<h3 id="creating-a-new--em-atscm--em--project">Creating a new <em>atSCM</em> project</h3><p>Running <code>atscm init</code> will prompt you for a project name, description, etc. and create a new <em>atSCM</em> project.</p>
-<p>For more detailed information on the init command look at the <a href="https://atscm.github.io/atscm-cli/manual/index.html">manuals</a>.</p>
-<h3 id="running-tasks">Running tasks</h3><p>Run tasks by typing <code>atscm [task]</code> inside a project directory.</p>
-<p>Lookup the tasks available in <a href="https://atscm.github.io/atscm/manual/index.html">the atscm manuals</a> or by running <code>atscm --tasks</code>.</p>
-<h3 id="open-documentation">Open documentation</h3><p>Running <code>atscm docs</code> will open the API documentation of the <em>atscm</em> module, running <code>atscm docs --cli</code> will open the documentation of this module.</p>
-</div>
+
 </div>
 
 <footer class="footer">

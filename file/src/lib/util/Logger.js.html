@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl">
-  <title data-ice="title">Home | atscm-cli</title>
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">src/lib/util/Logger.js | atscm-cli</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -55,27 +55,202 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="atscm-cli">atscm-cli</h1><blockquote>
-<p><a href="https://github.com/atSCM/atscm">atSCM</a> command line interface</p>
-</blockquote>
-<p><a href="https://circleci.com/gh/atSCM/atscm-cli"><img src="https://circleci.com/gh/atSCM/atscm-cli.svg?style=shield" alt="CircleCI"></a>
-<a href="https://ci.appveyor.com/project/LukasHechenberger/atscm-cli"><img src="https://ci.appveyor.com/api/projects/status/m7dy3spqfg4b2d9f?svg=true&amp;pendingText=windows%20tests%20pending&amp;passingText=windows%20tests%20passing&amp;failingText=windows%20tests%20failing" alt="AppVeyor"></a>
-<a href="https://codecov.io/gh/atSCM/atscm-cli"><img src="https://codecov.io/gh/atSCM/atscm-cli/branch/master/graph/badge.svg" alt="codecov"></a>
-<a href="https://atscm.github.io/atscm-cli"><img src="https://atscm.github.io/atscm-cli/badge.svg" alt="ESDoc"></a></p>
-<h2 id="installation">Installation</h2><p>This module can be installed via <a href="https://www.npmjs.com">npm</a>. With <a href="https://nodejs.org/en/">node.js</a> <strong>version 6 or later</strong> installed run:</p>
-<pre><code class="lang-bash"><code class="source-code prettyprint"># Install atscm-cli globally
-npm install -g atscm-cli</code>
+<div class="content" data-ice="content"><h1 data-ice="title">src/lib/util/Logger.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import readline from &apos;readline&apos;;
+import { Console } from &apos;console&apos;;
+import gulplog from &apos;gulplog&apos;;
+import chalk from &apos;chalk&apos;;
+import tildify from &apos;tildify&apos;;
+
+const logConsole = new Console(process.stdout, process.stderr);
+
+/**
+ * Formats strings to be used in the {@link Logger}.
+ */
+export class LogFormat {
+
+  /**
+   * Formats a string to represent a path.
+   * @param {String} path The path to format.
+   * @return {String} The formatted string.
+   */
+  static path(path) {
+    return chalk.magenta(tildify(path));
+  }
+
+  /**
+   * Formats a string to represent a command.
+   * @param {String} command The command to format.
+   * @return {String} The formatted string.
+   */
+  static command(command) {
+    return chalk.bold(command);
+  }
+
+  /**
+   * Formats a string to represent a value. Use this format for files, module names, etc.
+   * @param {String} value The value to format.
+   * @return {String} The formatted string.
+   */
+  static value(value) {
+    return chalk.cyan(value);
+  }
+
+  /**
+   * Formats a string to represent a number. Use this format for times, counts, etc.
+   * @param {String} number The value to format.
+   * @return {String} The formatted string.
+   */
+  static number(number) {
+    return chalk.magenta(number);
+  }
+
+}
+
+/**
+ * A logger used in all console outputs.
+ * **Should never be instantiated.**
+ * Log levels, `--silent`-flags etc. are handled automatically by {@link gulplog}.
+ */
+export default class Logger {
+
+  /**
+   * An instance of {@link chalk}.
+   * @type {chalk}
+   */
+  static get colors() {
+    return chalk;
+  }
+
+  /**
+   * An instance of {@link LogFormat}.
+   * @type {LogFormat}
+   */
+  static get format() {
+    return LogFormat;
+  }
+
+  /**
+   * The prefix added to each log. Should always equal
+   * [fancy-logs prefix](https://github.com/js-cli/fancy-log/blob/master/index.js#L8).
+   * @type {String}
+   */
+  static get prefix() {
+    function pad(val) {
+      return `00${val}`.slice(-2);
+    }
+
+    const now = new Date();
+    const timestamp = [
+      pad(now.getHours()),
+      pad(now.getMinutes()),
+      pad(now.getSeconds()),
+    ].join(&apos;:&apos;);
+
+    return `[${chalk.gray(timestamp)}]`;
+  }
+
+  /**
+   * Print debug messages.
+   * @param {...String} message The message(s) to print.
+   */
+  static debug(...message) {
+    gulplog.debug(...message);
+  }
+
+  /**
+   * Print regular logs.
+   * @param {...String} message The message(s) to print.
+   */
+  static info(...message) {
+    gulplog.info(...message);
+  }
+
+  /**
+   * Print warnings.
+   * @param {...String} message The message(s) to print.
+   */
+  static warn(...message) {
+    gulplog.warn(...message);
+  }
+
+  /**
+   * Print error messages.
+   * @param {...String} message The message(s) to print.
+   */
+  static error(...message) {
+    gulplog.error(...message);
+  }
+
+  /**
+   * The log types available.
+   * @type {String[]}
+   */
+  static get types() {
+    return [&apos;error&apos;, &apos;warn&apos;, &apos;info&apos;, &apos;debug&apos;];
+  }
+
+  /**
+   * Apply options to the logger.
+   * **Should only be called once.**
+   * @param {Object} options Options passed to {@link gulplog}.
+   */
+  static applyOptions(options) {
+    if (options.tasksSimple || options.silent || options.logLevel === 0) {
+      gulplog.on(&apos;error&apos;, () =&gt; {});
+      return;
+    }
+
+    /**
+     * The log types handled.
+     * @type {Map&lt;String, Boolean&gt;}
+     */
+    this._handled = {};
+
+    this.types
+      .filter((item, i) =&gt; {
+        const handle = (i &lt; options.logLevel);
+
+        this._handled[item] = handle;
+
+        return handle;
+      })
+      .forEach(level =&gt; gulplog.on(level, (...args) =&gt; {
+        logConsole[level === &apos;error&apos; ? &apos;error&apos; : &apos;info&apos;](...[this.prefix].concat(args));
+      }));
+  }
+
+  /**
+   * Pipes a readable stream and logs the last line of each chunk processed.
+   * @param {node.stream.Readable} stream The stream to pipe.
+   */
+  static pipeLastLine(stream) {
+    let loggedBefore = false;
+
+    stream
+      .on(&apos;data&apos;, d =&gt; {
+        const lines = d.toString().split(&apos;\n&apos;).filter(l =&gt; l.trim() !== &apos;&apos;);
+
+        if (loggedBefore &amp;&amp; this._handled.info) {
+          readline.moveCursor(process.stdout, 0, -1);
+          readline.clearLine(process.stdout);
+        }
+
+        Logger.info(lines[lines.length - 1]);
+        loggedBefore = true;
+      })
+      .on(&apos;end&apos;, () =&gt; {
+        if (loggedBefore &amp;&amp; this._handled.info) {
+          readline.moveCursor(process.stdout, 0, -1);
+          readline.clearLine(process.stdout);
+          readline.cursorTo(process.stdout, 0);
+        }
+      });
+  }
+
+}
 </code></pre>
-<p><em>You may have to run this command as an administrator.</em></p>
-<h2 id="basic-usage">Basic usage</h2><blockquote>
-<p>You can find more detailed usage information in the <a href="https://atscm.github.ioatscm-cli/manual/usage/CLI.html">usage manuals</a>.</p>
-</blockquote>
-<h3 id="creating-a-new--em-atscm--em--project">Creating a new <em>atSCM</em> project</h3><p>Running <code>atscm init</code> will prompt you for a project name, description, etc. and create a new <em>atSCM</em> project.</p>
-<p>For more detailed information on the init command look at the <a href="https://atscm.github.io/atscm-cli/manual/index.html">manuals</a>.</p>
-<h3 id="running-tasks">Running tasks</h3><p>Run tasks by typing <code>atscm [task]</code> inside a project directory.</p>
-<p>Lookup the tasks available in <a href="https://atscm.github.io/atscm/manual/index.html">the atscm manuals</a> or by running <code>atscm --tasks</code>.</p>
-<h3 id="open-documentation">Open documentation</h3><p>Running <code>atscm docs</code> will open the API documentation of the <em>atscm</em> module, running <code>atscm docs --cli</code> will open the documentation of this module.</p>
-</div>
+
 </div>
 
 <footer class="footer">
