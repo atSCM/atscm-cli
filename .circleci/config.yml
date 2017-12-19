@@ -43,7 +43,7 @@ jobs:
             MOCHA_FILE: ../reports/mocha.xml
       - run:
           name: Checking documentation for broken links (SKIPPED)
-          command: echo "Skipped for now as ESDoc hosting service is down regularly" # npm run test:docs
+          command: npm run test:docs
 
       # Coverage checks
       - run:
