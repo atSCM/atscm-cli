@@ -1,10 +1,8 @@
 /* eslint-disable no-console */
 import expect from 'unexpected';
-import { stub, spy } from 'sinon';
-
+import { stub } from 'sinon';
 import gulplog from 'gulplog';
 import { obj as createStream } from 'through2';
-
 import Logger from '../../../src/lib/util/Logger';
 
 /** @test {LogFormat} */
