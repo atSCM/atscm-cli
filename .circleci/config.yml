@@ -10,7 +10,7 @@ jobs:
             - v1-npm-deps-{{ checksum "package-lock.json" }}
       - run:
           name: Preparing lockfile update
-          command: npx greenkeeper-lockfile-update
+          command: $(npm bin)/greenkeeper-lockfile-update
       - run:
           name: Installing npm dependencies
           command: npm install
@@ -73,7 +73,7 @@ jobs:
       - add_ssh_keys
       - deploy:
           name: Updating lockfile
-          command: greenkeeper-lockfile-upload
+          command: $(npm bin)/greenkeeper-lockfile-upload
           environment:
             GH_TOKEN: $RELEASE_GITHUB_TOKEN
       - deploy:
