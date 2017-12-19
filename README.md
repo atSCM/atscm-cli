@@ -1,5 +1,7 @@
 # atscm-cli
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/atSCM/atscm-cli.svg)](https://greenkeeper.io/)
+
 > [atSCM](https://github.com/atSCM/atscm) command line interface
 
 [![CircleCI](https://circleci.com/gh/atSCM/atscm-cli.svg?style=shield)](https://circleci.com/gh/atSCM/atscm-cli)
