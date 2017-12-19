@@ -93,6 +93,8 @@ export default class AtSCMCli extends Liftoff {
      * @type {Object}
      */
     this.options = yargs(argv)
+      .version(false)
+      .help(false)
       .env('ATSCM')
       .option(GlobalOptions)
       .fail((msg, e, y) => {
