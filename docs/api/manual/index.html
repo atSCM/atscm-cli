@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../">
+  <title data-ice="title">Manual | atscm-cli</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="atSCM command line interface"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="atscm-cli"><meta property="twitter:description" content="atSCM command line interface"></head>
+<body class="layout-container manual-root manual-index" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/atSCM/atscm-cli"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div class="manual-toc-root">
+  
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/CLI.html"><a href="manual/CLI.html" data-ice="link">Command line interface</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CLI.html"><a href="manual/CLI.html#commands" data-ice="link">Commands</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CLI.html"><a href="manual/CLI.html#options--em--incomplete---em-" data-ice="link">Options (incomplete)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CLI.html"><a href="manual/CLI.html#how-to-pass-options" data-ice="link">How to pass options</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CLI.html"><a href="manual/CLI.html#overriding-project-configuration" data-ice="link">Overriding project configuration</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/API.html"><a href="manual/API.html" data-ice="link">Programmatic usage</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/API.html"><a href="manual/API.html#es6-javascript" data-ice="link">ES6 JavaScript</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/API.html"><a href="manual/API.html#creating-a-cli-instance" data-ice="link">Creating a Cli instance</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html" data-ice="link">Contributing</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html#code-quality-control" data-ice="link">Code quality control</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html#setting-up-the-development-environment" data-ice="link">Setting up the development environment</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html#linting-files" data-ice="link">Linting files</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html#running-tests" data-ice="link">Running tests</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html#creating-api-documentation" data-ice="link">Creating API documentation</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html#providing-fixes---adding-features" data-ice="link">Providing fixes / adding features</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-3-1-beta-1--2017-12-19-" data-ice="link">0.3.1-beta.1 (2017-12-19)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-3-0--2017-11-06-" data-ice="link">0.3.0 (2017-11-06)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-2-4--2017-10-17-" data-ice="link">0.2.4 (2017-10-17)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-2-2--2017-03-15-" data-ice="link">0.2.2 (2017-03-15)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-2-1--2017-03-13-" data-ice="link">0.2.1 (2017-03-13)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-2-0--2017-03-13-" data-ice="link">0.2.0 (2017-03-13)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-1-2--2017-02-22-" data-ice="link">0.1.2 (2017-02-22)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-1-1--2017-02-21-" data-ice="link">0.1.1 (2017-02-21)</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-1-0--2017-02-21-" data-ice="link">0.1.0 (2017-02-21)</a></li>
+</ul>
+  </div>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="github-markdown">
+  
+
+  
+
+  <div class="manual-cards">
+    
+  <div class="manual-card-wrap" data-ice="cards">
+      <div class="manual-card">
+        <div data-ice="card"><h1>Command line interface</h1><blockquote>
+<p>Please not that this module is <strong>under heavy development</strong>. Anything described in here may change in future versions.
+For an up-to-date list of commands and options run <code>atscm --help</code>.</p>
+</blockquote><h2>Commands</h2><ul>
+<li><p><strong><code>run [tasks...]</code></strong> - Runs the specified tasks.</p>
+<p>If no command is specified when running <em>atscm</em>, this command will be used as the default, e.g. <code>atscm push</code> equals <code>atscm run push</code>. Running <code>atscm --tasks</code> will list all tasks available.</p>
+</li>
+<li><strong><code>init</code></strong> - Creates a new <em>atscm</em> project.</li>
+<li><strong><code>config</code></strong> - Prints the current project&apos;s configuration.</li>
+<li><strong><code>docs</code></strong> - Opens the <em>atscm</em> API documentation in a browser.</li>
+<li><strong><code>update</code></strong> - Checks for <em>atscm</em> updates in the current project and installs a newer version if available. <em>(since atscm-cli version 0.3)</em></li>
+</ul><h2>Options <em>(incomplete)</em></h2><blockquote>
+<p>Options available vary on the command used. Run <code>atscm {command} --help</code> for a complete list of options.</p>
+</blockquote><ul>
+<li><strong><code>--help, -h</code></strong> - Prints usage information.</li>
+<li><strong><code>--version, -v</code></strong> - Prints the current version.</li>
+<li><p><strong><code>--log-level, -L</code></strong> - Sets the log level.</p>
+<p>There are multiple log levels available:</p>
+<ul>
+<li>0: Silent</li>
+<li>1: Error</li>
+<li>2: Warn</li>
+<li>3: Info (default)</li>
+<li>4: Debug</li>
+</ul>
+<p>Passing <code>-L</code> will only print errors, <code>-LLLL</code> will print debug information.</p>
+</li>
+</ul><h3>How to pass options</h3><p>Options can be passed as regular command line options, e.g. <code>atscm push --cwd ~/Docs</code> or <code>atscm push --cwd=~/Docs</code>, but they can also be passed as <strong>environment variables</strong>. To do so set environment variables with the uppercase name of the option, prefixed with <code>ATSCM_</code>, e.g. <code>ATSCM_CWD=~/Docs atscm push</code> on a Unix-based machine or by running <code>setx ATSCM_CWD &quot;%USERPROFILE%\Test&quot;</code> under Windows.</p><p><strong>Note:</strong> Using environment variables to set options requires <strong>atscm-cli version &gt;= 0.3</strong>.</p><h3>Overriding project configuration</h3><p>The project configuration (the <em>Atviseproject</em> module of your project) can also be overridden at runtime.</p><p><strong>Passing overrides by using the <code>--project</code> option:</strong></p><p>You can pass overrides directly by setting the <code>--project</code> option, where the path to the value to override is delimited with dots (<code>.</code>). E.g. if you want to set the project&apos;s opc port to <em>1234</em>, pass <code>--project.port.opc 1234</code>.</p><p><strong>Passing overrides by setting <code>ATSCM_PROJECT</code> environment variables:</strong></p><p>Overrides can also be passed as environment variables, prefixed with <code>ATSCM_PROJECT__</code>, where key paths are delimited with a double underscore (<code>__</code>). To set the project&apos;s opc port as an example, set the environment variable <code>ATSCM_PROJECT__PORT__OPC</code> to <code>1234</code>.</p><p><strong>Note:</strong> Project configuration overrides require <strong>atscm-cli version &gt;= 0.3</strong> and <strong>atscm version &gt;= 0.4</strong>.</p></div>
+        <a data-ice="link" href="manual/CLI.html"></a>
+      </div>
+    </div>
+<div class="manual-card-wrap" data-ice="cards">
+      <div class="manual-card">
+        <div data-ice="card"><h1>Programmatic usage</h1><blockquote>
+<p>Please note that using the <em>atscm-cli</em> API is an advanced topic.  </p>
+<p><strong>It&apos;s recommended to use the <a href="./manual/usage/CLI.html">command line interface</a> whenever possible.</strong></p>
+</blockquote><h2>ES6 JavaScript</h2><p>The code provided in this document is written in <a href="http://babeljs.io/learn-es2015/">ES2015 JavaScript</a>.</p><p>You will have to transpile it (e.g with <a href="http://babeljs.io">Babel</a>) in order to get it running.</p><h2>Creating a Cli instance</h2><p>Basically, the <a href="./manual/../../class/src/AtSCMCli.js~AtSCMCli.html">AtSCMCli</a> class can be used just like any other class:</p><pre><code class="lang-javascript"><code class="source-code prettyprint">import AtSCMCli from &apos;atscm-cli&apos;;
+
+const cli = new AtSCMCli();</code>
+</code></pre><p>As stated in the <a href="./manual/../../api/class/src/AtSCMCli.js~AtSCMCli.html#instance-constructor-constructor">API reference</a> the constructor takes any arguments the <a href="./manual/usage/CLI.html">command line interface</a> can handle. E.g. running</p><pre><code class="lang-javascript"><code class="source-code prettyprint">import AtSCMCli from &apos;atscm-cli&apos;;
+
+const cli = new AtSCMCli([&apos;--version&apos;]);
+cli.launch();</code>
+</code></pre><p>will print the version, just as if we ran the <em>atscm-cli</em> from the command line.</p><p>The main difference between API and command line usage is, that <strong>exceptions are not handled</strong>. You&apos;ll have to do that yourself:</p><pre><code class="lang-javascript"><code class="source-code prettyprint">import AtSCMCli from &apos;atscm-cli&apos;;
+
+(new AtSCMCli([&apos;--version&apos;])).launch() // Note: AtSCMCli#launch returns a Promise
+  .then(() =&gt; console.log(&apos;success!&apos;))
+  .catch(err =&gt; console.error(`Oops! An error occured: ${err.message}`));</code>
+</code></pre><hr><p>Please refer to <a href="./manual/../../class/src/AtSCMCli.js~AtSCMCli.html">AtSCMCli&apos;s class reference</a> in order to see all methods and properties available.</p></div>
+        <a data-ice="link" href="manual/API.html"></a>
+      </div>
+    </div>
+<div class="manual-card-wrap" data-ice="cards">
+      <div class="manual-card">
+        <div data-ice="card"><h1>Contributing</h1><p>Contributions are welcome.</p><h2>Code quality control</h2><blockquote>
+<p>All files inside this project are automatically built, linted and tested by <a href="https://circleci.com/gh/atSCM/atscm">CircleCI</a>.</p>
+</blockquote><p>Builds will only pass if they meet the following criteria:</p><ul>
+<li><strong>No ESLint errors:</strong> We use <a href="http://eslint.org">ESLint</a> to lint our entire JavaScript code. The config used is <a href="https://www.npmjs.com/package/eslint-config-lsage">eslint-config-lsage</a>. Any lint errors will cause the build to fail.</li>
+<li><strong>Test coverage &gt;= 90%:</strong> We use <a href="https://gotwarlost.github.io/istanbul/">istanbul</a> to validate test coverage is at least 90 percent. Any commits not covered by tests will cause the build to fail.</li>
+<li><strong>Documentation coverage &gt;= 90%:</strong> Our source code is documented using <a href="https://esdoc.org">ESDoc</a>. We will only merge if your contribution is documented as well.</li>
+</ul><h2>Setting up the development environment</h2><blockquote>
+<p>In order to meet out coding guideline it&apos;s very useful to have your development environment set up right.</p>
+</blockquote><h3>Linting files</h3><p>You can lint all source files by running <code>npm run lint</code>. Although most IDEs support running it directly in the editor:</p><p><strong>Jetbrains Webstorm</strong></p><p><a href="https://www.jetbrains.com/webstorm/">Webstorm</a> has built-in support for ESLint. Check out <a href="https://www.jetbrains.com/help/webstorm/2016.3/eslint.html">their documentation</a> to set it up.</p><p><strong>Atom</strong></p><p><a href="https://atom.io">Atom</a> has several packages that provide support for inline ESLint validation. We recommend you to use <a href="https://atom.io/packages/linter-eslint">linter-eslint</a>.</p><h3>Running tests</h3><p>Our <a href="https://mochajs.org">mocha</a> tests can be run by calling <code>npm test</code>. If you want the tests to be run right after you saved your changes, then run <code>npm run test:watch</code>.</p><p>Test coverage can be checked by running <code>npm run test:coverage</code>.</p><h3>Creating API documentation</h3><p>Run <code>npm run docs</code> to create <a href="https://esdoc.org">ESDoc</a> API documentation.</p><h2>Providing fixes / adding features</h2><p>Take the following steps:</p><ul>
+<li>Create a new branch / fork of the <strong><a href="https://github.com/LukasHechenberger/utils-test/tree/beta">beta branch</a></strong>, which is our development branch</li>
+<li>Make your changes</li>
+<li>Make sure <a href="https://circleci.com/gh/LukasHechenberger/workflows/utils-test">CI tests</a> pass</li>
+<li>Send a pull request to merge back to <em>beta</em></li>
+</ul><p>Once we reviewed your changes, we&apos;ll merge your pull request.</p><blockquote>
+<p><strong>Merge strategy (Maintainers only)</strong></p>
+<ul>
+<li>Accepted changes from fix/feature branches <strong>should always be squash-merged</strong> to beta.</li>
+<li>Once beta is stable <strong>create a regular merge commit</strong> to merge back to master.</li>
+<li>After merging to master, changes should be synced back to the beta branch. To do so, run:<pre><code class="lang-bash"><code class="source-code prettyprint">git checkout beta
+git fetch
+git rebase origin/master
+# Solve conflicts if any, accepting changes from master
+git commit -m &apos;chore: Update from master&apos;
+git push</code>
+</code></pre>
+</li>
+</ul>
+</blockquote><p><!-- TODO: Add steps for creating good issues -->
+</p><p><!-- TODO: Add links to documentation and manuals -->
+</p></div>
+        <a data-ice="link" href="manual/CONTRIBUTING.html"></a>
+      </div>
+    </div>
+<div class="manual-card-wrap" data-ice="cards">
+      <div class="manual-card">
+        <div data-ice="card"><h1>0.1.0 (2017-02-21)</h1></div>
+        <a data-ice="link" href="manual/CHANGELOG.html#0-1-0--2017-02-21-"></a>
+      </div>
+    </div>
+</div>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.3)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
