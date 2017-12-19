@@ -81,17 +81,20 @@ const Options = {
   cwd: Option.string(&apos;Manually set the CWD.&apos;),
   force: Option.boolean(&apos;Overwrite existing files.&apos;),
   help: Option.boolean(&apos;Show this help.&apos;),
-  &apos;log-level&apos;: new Option(&apos;Set the Logger level. &apos; +
-    &apos;-L for least verbose and -LLLL for most verbose. -LLL is default.&apos;, {
+  &apos;log-level&apos;: new Option(
+    &apos;Set the Logger level. -L for least verbose and -LLLL for most verbose. -LLL is default.&apos;,
+    {
       alias: &apos;L&apos;,
       count: true,
       default: 3,
     }
   ),
   project: new Option(&apos;Override Atviseproject values.&apos;, { default: {} }),
-  projectfile: Option.string(&apos;Manually set path of Atviseproject file to use. &apos; +
+  projectfile: Option.string(
+    &apos;Manually set path of Atviseproject file to use. &apos; +
     &apos;This will set the CWD to the Atviseproject file\&apos;s directory as well.&apos;,
-    { alias: &apos;p&apos; }),
+    { alias: &apos;p&apos; }
+  ),
   require: Option.string(&apos;Will require a module before running atscm.&apos;),
   remote: Option.boolean(&apos;Open hosted documentation.&apos;, {
     default: undefined,

@@ -979,211 +979,211 @@ window.esdocSearchIndex = [
   ],
   [
     "logformat src/lib/util/logger.js~logformat,logformat",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber11",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber9",
     "LogFormat",
     "test"
   ],
   [
     "logformat.command src/lib/util/logger.js~logformat.command,logformat.command",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber34",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber33",
     "LogFormat .command",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber35",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber34",
     "LogFormat .command should return bold text",
     "test"
   ],
   [
     "logformat.number src/lib/util/logger.js~logformat.number,logformat.number",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber48",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber47",
     "LogFormat .number",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber49",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber48",
     "LogFormat .number should return magenta colored text",
     "test"
   ],
   [
     "logformat.path src/lib/util/logger.js~logformat.path,logformat.path",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber23",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber22",
     "LogFormat .path",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber24",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber23",
     "LogFormat .path should change color to magenta",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber28",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber27",
     "LogFormat .path should prettify user path",
     "test"
   ],
   [
     "logformat.value src/lib/util/logger.js~logformat.value,logformat.value",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber41",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber40",
     "LogFormat .value",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber42",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber41",
     "LogFormat .value should return cyan colored text",
     "test"
   ],
   [
     "logger src/lib/util/logger.js~logger,logger",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber56",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber55",
     "Logger",
     "test"
   ],
   [
     "logger.applyoptions src/lib/util/logger.js~logger.applyoptions,logger.applyoptions",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber126",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber125",
     "Logger .applyOptions",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber145",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber144",
     "Logger .applyOptions when using \"logLevel\" 0",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber146",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber145",
     "Logger .applyOptions when using \"logLevel\" 0 should only add a noop listener for \"error\" events",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber153",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber152",
     "Logger .applyOptions when using \"logLevel\" 1",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber154",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber153",
     "Logger .applyOptions when using \"logLevel\" 1 should only add a listener for \"error\" events",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber161",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber160",
     "Logger .applyOptions when using \"logLevel\" 2",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber162",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber161",
     "Logger .applyOptions when using \"logLevel\" 2 should add listeners for \"error\" and \"warn\" events",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber169",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber168",
     "Logger .applyOptions when using \"logLevel\" 3",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber170",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber169",
     "Logger .applyOptions when using \"logLevel\" 3 should add listeners for \"error\", \"warn\" and \"info\" events",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber177",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber176",
     "Logger .applyOptions when using \"logLevel\" 4",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber178",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber177",
     "Logger .applyOptions when using \"logLevel\" 4 should add listeners for all events",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber137",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber136",
     "Logger .applyOptions when using option \"silent\"",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber138",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber137",
     "Logger .applyOptions when using option \"silent\" should only add a noop listener for \"error\" events",
     "test"
   ],
   [
     "logger.debug src/lib/util/logger.js~logger.debug,logger.debug",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber81",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber80",
     "Logger .debug",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber82",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber81",
     "Logger .debug should call gulplog.debug",
     "test"
   ],
   [
     "logger.warn src/lib/util/logger.js~logger.warn,logger.warn",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber114",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber113",
     "Logger .error",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber115",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber114",
     "Logger .error should call gulplog.error",
     "test"
   ],
   [
     "logger.info src/lib/util/logger.js~logger.info,logger.info",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber92",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber91",
     "Logger .info",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber93",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber92",
     "Logger .info should call gulplog.info",
     "test"
   ],
   [
     "logger.pipelastline src/lib/util/logger.js~logger.pipelastline,logger.pipelastline",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber187",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber186",
     "Logger .pipeLastLine",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber206",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber205",
     "Logger .pipeLastLine should ignore empty lines",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber188",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber187",
     "Logger .pipeLastLine should print last line of each chunk",
     "test"
   ],
   [
     "logger.warn src/lib/util/logger.js~logger.warn,logger.warn",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber103",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber102",
     "Logger .warn",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/Logger.spec.js.html#lineNumber104",
+    "test-file/test/lib/util/Logger.spec.js.html#lineNumber103",
     "Logger .warn should call gulplog.warn",
     "test"
   ],

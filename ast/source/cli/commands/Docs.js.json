@@ -686,7 +686,7 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Creates a new {@link DocsCommand} with the specified name and description.\n   * @param {String} name The command's name.\n   * @param {String} description The command's description.\n   ",
+                    "value": "*\n   * Creates a new {@link DocsCommand} with the specified name and description.\n   * @param {string} name The command's name.\n   * @param {string} description The command's description.\n   ",
                     "start": 514,
                     "end": 709,
                     "loc": {
@@ -1259,7 +1259,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Creates a new {@link DocsCommand} with the specified name and description.\n   * @param {String} name The command's name.\n   * @param {String} description The command's description.\n   ",
+                    "value": "*\n   * Creates a new {@link DocsCommand} with the specified name and description.\n   * @param {string} name The command's name.\n   * @param {string} description The command's description.\n   ",
                     "start": 514,
                     "end": 709,
                     "loc": {
@@ -4267,7 +4267,7 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Returns `false` if the `--cli` option is used.\n   * @param {AtSCMCli} cli The current cli instance.\n   * @return {Boolean} `false` if the `--cli` option is used.\n   ",
+                    "value": "*\n   * Returns `false` if the `--cli` option is used.\n   * @param {AtSCMCli} cli The current cli instance.\n   * @return {boolean} `false` if the `--cli` option is used.\n   ",
                     "start": 3092,
                     "end": 3268,
                     "loc": {
@@ -4611,7 +4611,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Returns `false` if the `--cli` option is used.\n   * @param {AtSCMCli} cli The current cli instance.\n   * @return {Boolean} `false` if the `--cli` option is used.\n   ",
+                    "value": "*\n   * Returns `false` if the `--cli` option is used.\n   * @param {AtSCMCli} cli The current cli instance.\n   * @return {boolean} `false` if the `--cli` option is used.\n   ",
                     "start": 3092,
                     "end": 3268,
                     "loc": {
@@ -4706,7 +4706,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Creates a new {@link DocsCommand} with the specified name and description.\n   * @param {String} name The command's name.\n   * @param {String} description The command's description.\n   ",
+      "value": "*\n   * Creates a new {@link DocsCommand} with the specified name and description.\n   * @param {string} name The command's name.\n   * @param {string} description The command's description.\n   ",
       "start": 514,
       "end": 709,
       "loc": {
@@ -4786,7 +4786,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Returns `false` if the `--cli` option is used.\n   * @param {AtSCMCli} cli The current cli instance.\n   * @return {Boolean} `false` if the `--cli` option is used.\n   ",
+      "value": "*\n   * Returns `false` if the `--cli` option is used.\n   * @param {AtSCMCli} cli The current cli instance.\n   * @return {boolean} `false` if the `--cli` option is used.\n   ",
       "start": 3092,
       "end": 3268,
       "loc": {
@@ -6182,7 +6182,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Creates a new {@link DocsCommand} with the specified name and description.\n   * @param {String} name The command's name.\n   * @param {String} description The command's description.\n   ",
+      "value": "*\n   * Creates a new {@link DocsCommand} with the specified name and description.\n   * @param {string} name The command's name.\n   * @param {string} description The command's description.\n   ",
       "start": 514,
       "end": 709,
       "loc": {
@@ -13093,7 +13093,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Returns `false` if the `--cli` option is used.\n   * @param {AtSCMCli} cli The current cli instance.\n   * @return {Boolean} `false` if the `--cli` option is used.\n   ",
+      "value": "*\n   * Returns `false` if the `--cli` option is used.\n   * @param {AtSCMCli} cli The current cli instance.\n   * @return {boolean} `false` if the `--cli` option is used.\n   ",
       "start": 3092,
       "end": 3268,
       "loc": {

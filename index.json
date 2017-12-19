@@ -567,7 +567,7 @@
     "__docId__": 48,
     "kind": "file",
     "name": "src/AtSCMCli.js",
-    "content": "import { realpathSync } from 'fs';\nimport { join } from 'path';\nimport Liftoff from 'liftoff';\nimport yargs from 'yargs';\nimport gulplog from 'gulplog';\nimport { jsVariants } from 'interpret';\nimport pkg from '../package.json';\nimport Logger from './lib/util/Logger';\nimport Options, { GlobalOptions } from './cli/Options';\nimport Commands from './cli/Commands';\nimport UsageError from './lib/error/UsageError';\n\n/**\n * The main class. Handles arguments and runs commands.\n * @extends {Liftoff}\n */\nexport default class AtSCMCli extends Liftoff {\n\n  /**\n   * The name under which the module is available from the command line.\n   * @type {String}\n   */\n  static get BinName() {\n    return Object.keys(pkg.bin)[0];\n  }\n\n  /**\n   * The filename used for configuration files.\n   * @type {String}\n   */\n  static get ConfigName() {\n    return 'Atviseproject';\n  }\n\n  /**\n   * Reports an error and exits the process with return code `1`.\n   * @param {Error} err The error that occurred.\n   */\n  _reportCliError(err) {\n    Logger.error(Logger.colors.red(err.message));\n\n    if (err instanceof UsageError) {\n      Logger.info(err.help);\n    } else {\n      Logger.debug(err.stack);\n    }\n\n    process.exitCode = 1;\n  }\n\n  /**\n   * Creates a new {@link AtSCMCli} object based on command line arguments.\n   * @param {String[]} argv The command line arguments to use. If no command is provided and neither\n   * `--help` nor `--version` are used, the command `run` is added.\n   * @throws {UsageError} Throws an error if option parsing fails.\n   */\n  constructor(argv = []) {\n    super({\n      name: AtSCMCli.BinName,\n      configName: AtSCMCli.ConfigName,\n      extensions: jsVariants,\n    });\n\n    this.on('require', function(name) {\n      Logger.debug('Requiring external module', Logger.colors.magenta(name));\n    });\n\n    this.on('requireFail', function(name) {\n      Logger.error(\n        Logger.colors.red('Failed to load external module'),\n        Logger.colors.magenta(name)\n      );\n    });\n\n    /**\n     * `true` if the instance was created by running the binaries, `false` if used programmatically.\n     * @type {Boolean}\n     */\n    this.runViaCli = realpathSync(process.argv[1]) === require.resolve('./bin/atscm');\n\n    /**\n     * The raw, unparsed command line arguments the Cli was created with.\n     * @type {String[]}\n     */\n    this._argv = argv;\n\n    // If no command is given, default to \"run\"\n    const commandNames = Commands.map(c => c.name);\n\n    /**\n     * The options parsed from {@link AtSCMCli#_argv}. Note that **these options are not complete**\n     * until {@link AtSCMCli#launch} was called.\n     * @type {Object}\n     */\n    this.options = yargs(argv)\n      .env('ATSCM')\n      .option(GlobalOptions)\n      .fail((msg, e, y) => {\n        const err = new UsageError(msg, y.help());\n\n        if (this.runViaCli) {\n          gulplog.on('error', () => {}); // Prevent logger to throw an error\n\n          this._reportCliError(err);\n        } else {\n          throw err;\n        }\n      })\n      .argv;\n\n    if (!this.options.help && !this.options.version) {\n      if (this.options._.filter(e => commandNames.includes(e)).length === 0) {\n        this._argv.unshift('run');\n      }\n    }\n\n    // Initialize logger\n    Logger.applyOptions(this.options);\n\n    const globalOptionNames = Object.keys(GlobalOptions);\n\n    /**\n     * An instance of {@link yargs} responible for parsing options.\n     * @type {yargs}\n     */\n    this.argumentsParser = Commands\n      .reduce(\n        (parser, command) => parser\n          .command(command.usage, command.description, y => {\n            y.usage(`Usage: $0 ${command.usage}`);\n            y.option(command.options);\n\n            y.group(Object.keys(command.options), 'Command specific options:');\n            y.group(globalOptionNames, 'Global options:');\n\n            y.strict();\n            y.help('help', Options.help.desc);\n            y.demandCommand(...command.demandCommand);\n          }, () => (this.command = command)),\n        yargs()\n          .env('ATSCM')\n          .usage('Usage: $0 [cmd=run]')\n          .options(GlobalOptions)\n          .global(globalOptionNames)\n          .strict()\n          .help('help', Options.help.desc)\n          .alias('help', 'h')\n      );\n  }\n\n  /**\n   * Used to expose project config overrides via environment variables. All project options are\n   * exposed as `ATSCM_PROJECT__{KEY}={VALUE}`.\n   * @param {Object} config The object to expose.\n   * @param {string} key The key currently handled.\n   * @param {string} [base=ATSCM_PROJECT__] The parent key.\n   */\n  _exposeOverride(config, key, base = 'ATSCM_PROJECT__') {\n    const currentKey = `${base}${key.toUpperCase()}`;\n\n    if (typeof config[key] === 'object') {\n      const c = config[key];\n\n      Object.keys(c).forEach(k => this._exposeOverride(c, k, `${currentKey}__`));\n    } else {\n      process.env[currentKey] = config[key];\n      Logger.debug(`Setting ${currentKey}:`, Logger.format.value(config[key]));\n    }\n  }\n\n  /**\n   * Parses arguments and exposes the project options as environment variables.\n   * @return {Promise<Object, UsageError>} Rejected with a {@link UsageError} if parsing failed,\n   * otherwise fulfilled with the parsed arguments.\n   */\n  parseArguments() {\n    return new Promise((resolve, reject) => {\n      this.options = this.argumentsParser\n        .fail((msg, err, y) => reject(new UsageError(msg, y.help())))\n        .parse(this._argv);\n\n      Object.keys(this.options.project)\n        .forEach(key => this._exposeOverride(this.options.project, key));\n\n      resolve(this.options);\n    });\n  }\n\n  /**\n   * Returns a {@link Liftoff.Environment} for the Cli.\n   * @param {Boolean} [findUp=false] If the environment should be searched for in parent\n   * directories.\n   * @return {Promise<Object>} Fulfilled with a {@link Liftoff} environment.\n   */\n  getEnvironment(findUp = true) {\n    return new Promise(resolve => {\n      super.launch({\n        cwd: this.options.cwd,\n        configPath: findUp ?\n          this.options.projectfile :\n          join((this.options.cwd || process.cwd()), `${this.constructor.ConfigName}.js`),\n        require: this.options.require,\n      }, env => resolve(this.environment = env));\n    });\n  }\n\n  /**\n   * Gets a {@link Liftoff.Environment} and validates a config file and a local module was found.\n   * @return {Promise<Object, Error>} Resolved with the {@link Liftoff environment}, rejected if the\n   * config file or the local module cannot be found.\n   */\n  requireEnvironment() {\n    return this.getEnvironment()\n      .then(env => {\n        if (!env.modulePath) {\n          throw new Error(`Local ${AtSCMCli.BinName} not found`);\n        }\n\n        if (!env.configPath) {\n          throw new Error('No config file found');\n        }\n\n        return env;\n      });\n  }\n\n  /**\n   * Returns the CLI version and, if a local module could be found, the local version.\n   * @return {Promise<{cli: String, local: ?String}>} Fulfilled with the found cli and local\n   * version.\n   */\n  getVersion() {\n    return this.getEnvironment()\n      .then(env => ({\n        cli: pkg.version,\n        local: env.modulePath ? env.modulePackage.version : null,\n      }));\n  }\n\n  /**\n   * Gets and prints the CLI version and, if a local module could be found, the local version.\n   * @return {Promise<{cli: String, local: ?String}>} Fulfilled with the found cli and local\n   * version.\n   */\n  printVersion() {\n    return this.getVersion()\n      .then(version => {\n        Logger.info('CLI version', Logger.format.number(version.cli));\n\n        if (version.local) {\n          Logger.info('Local version', Logger.format.number(version.local));\n        }\n\n        return version;\n      });\n  }\n\n  /**\n   * Runs the command specified in the command line arguments ({@link AtSCMCli#_argv}). **Note that\n   * this will only work if {@link AtSCMCli#parseArguments} was called before.**\n   * @return {Promise<*, Error>} Fulfilled if the command succeeded.\n   */\n  runCommand() {\n    if (this.options.version) {\n      return this.printVersion();\n    }\n\n    if (this.command) {\n      return (this.command.requiresEnvironment(this) ?\n        this.requireEnvironment() :\n        Promise.resolve()\n      )\n        .then(() => this.command.run(this));\n    }\n\n    Logger.warn('No command specified');\n\n    return Promise.resolve(this);\n  }\n\n  /**\n   * Parses arguments and runs the specified command.\n   * @return {Promise<*, Error>} Fulfilled if the command succeeded. Note that, if the instance is\n   * run through the binary all rejections will be handled.\n   */\n  launch() {\n    const app = this.parseArguments()\n      .then(() => this.runCommand());\n\n    if (this.runViaCli) {\n      return app\n        .catch(err => this._reportCliError(err));\n    }\n\n    return app;\n  }\n\n}\n",
+    "content": "import { realpathSync } from 'fs';\nimport { join } from 'path';\nimport Liftoff from 'liftoff';\nimport yargs from 'yargs';\nimport gulplog from 'gulplog';\nimport { jsVariants } from 'interpret';\nimport pkg from '../package.json';\nimport Logger from './lib/util/Logger';\nimport Options, { GlobalOptions } from './cli/Options';\nimport Commands from './cli/Commands';\nimport UsageError from './lib/error/UsageError';\n\n/**\n * The main class. Handles arguments and runs commands.\n * @extends {Liftoff}\n */\nexport default class AtSCMCli extends Liftoff {\n\n  /**\n   * The name under which the module is available from the command line.\n   * @type {string}\n   */\n  static get BinName() {\n    return Object.keys(pkg.bin)[0];\n  }\n\n  /**\n   * The filename used for configuration files.\n   * @type {string}\n   */\n  static get ConfigName() {\n    return 'Atviseproject';\n  }\n\n  /**\n   * Reports an error and exits the process with return code `1`.\n   * @param {Error} err The error that occurred.\n   */\n  _reportCliError(err) {\n    Logger.error(Logger.colors.red(err.message));\n\n    if (err instanceof UsageError) {\n      Logger.info(err.help);\n    } else {\n      Logger.debug(err.stack);\n    }\n\n    process.exitCode = 1;\n  }\n\n  /**\n   * Creates a new {@link AtSCMCli} object based on command line arguments.\n   * @param {String[]} argv The command line arguments to use. If no command is provided and neither\n   * `--help` nor `--version` are used, the command `run` is added.\n   * @throws {UsageError} Throws an error if option parsing fails.\n   */\n  constructor(argv = []) {\n    super({\n      name: AtSCMCli.BinName,\n      configName: AtSCMCli.ConfigName,\n      extensions: jsVariants,\n    });\n\n    this.on('require', function(name) {\n      Logger.debug('Requiring external module', Logger.colors.magenta(name));\n    });\n\n    this.on('requireFail', function(name) {\n      Logger.error(\n        Logger.colors.red('Failed to load external module'),\n        Logger.colors.magenta(name)\n      );\n    });\n\n    /**\n     * `true` if the instance was created by running the binaries, `false` if used programmatically.\n     * @type {Boolean}\n     */\n    this.runViaCli = realpathSync(process.argv[1]) === require.resolve('./bin/atscm');\n\n    /**\n     * The raw, unparsed command line arguments the Cli was created with.\n     * @type {String[]}\n     */\n    this._argv = argv;\n\n    // If no command is given, default to \"run\"\n    const commandNames = Commands.map(c => c.name);\n\n    /**\n     * The options parsed from {@link AtSCMCli#_argv}. Note that **these options are not complete**\n     * until {@link AtSCMCli#launch} was called.\n     * @type {Object}\n     */\n    this.options = yargs(argv)\n      .version(false)\n      .help(false)\n      .env('ATSCM')\n      .option(GlobalOptions)\n      .fail((msg, e, y) => {\n        const err = new UsageError(msg, y.help());\n\n        if (this.runViaCli) {\n          gulplog.on('error', () => {}); // Prevent logger to throw an error\n\n          this._reportCliError(err);\n        } else {\n          throw err;\n        }\n      })\n      .argv;\n\n    if (!this.options.help && !this.options.version) {\n      if (this.options._.filter(e => commandNames.includes(e)).length === 0) {\n        this._argv.unshift('run');\n      }\n    }\n\n    // Initialize logger\n    Logger.applyOptions(this.options);\n\n    const globalOptionNames = Object.keys(GlobalOptions);\n\n    /**\n     * An instance of {@link yargs} responible for parsing options.\n     * @type {yargs}\n     */\n    this.argumentsParser = Commands\n      .reduce(\n        (parser, command) => parser\n          .command(command.usage, command.description, y => {\n            y.usage(`Usage: $0 ${command.usage}`);\n            y.option(command.options);\n\n            y.group(Object.keys(command.options), 'Command specific options:');\n            y.group(globalOptionNames, 'Global options:');\n\n            y.strict();\n            y.help('help', Options.help.desc);\n            y.demandCommand(...command.demandCommand);\n          }, () => (this.command = command)),\n        yargs()\n          .env('ATSCM')\n          .usage('Usage: $0 [cmd=run]')\n          .options(GlobalOptions)\n          .global(globalOptionNames)\n          .strict()\n          .help('help', Options.help.desc)\n          .alias('help', 'h')\n      );\n  }\n\n  /**\n   * Used to expose project config overrides via environment variables. All project options are\n   * exposed as `ATSCM_PROJECT__{KEY}={VALUE}`.\n   * @param {Object} config The object to expose.\n   * @param {string} key The key currently handled.\n   * @param {string} [base=ATSCM_PROJECT__] The parent key.\n   */\n  _exposeOverride(config, key, base = 'ATSCM_PROJECT__') {\n    const currentKey = `${base}${key.toUpperCase()}`;\n\n    if (typeof config[key] === 'object') {\n      const c = config[key];\n\n      Object.keys(c).forEach(k => this._exposeOverride(c, k, `${currentKey}__`));\n    } else {\n      process.env[currentKey] = config[key];\n      Logger.debug(`Setting ${currentKey}:`, Logger.format.value(config[key]));\n    }\n  }\n\n  /**\n   * Parses arguments and exposes the project options as environment variables.\n   * @return {Promise<Object, UsageError>} Rejected with a {@link UsageError} if parsing failed,\n   * otherwise fulfilled with the parsed arguments.\n   */\n  parseArguments() {\n    return new Promise((resolve, reject) => {\n      this.options = this.argumentsParser\n        .fail((msg, err, y) => reject(new UsageError(msg, y.help())))\n        .parse(this._argv);\n\n      Object.keys(this.options.project)\n        .forEach(key => this._exposeOverride(this.options.project, key));\n\n      resolve(this.options);\n    });\n  }\n\n  /**\n   * Returns a {@link Liftoff.Environment} for the Cli.\n   * @param {boolean} [findUp=false] If the environment should be searched for in parent\n   * directories.\n   * @return {Promise<Object>} Fulfilled with a {@link Liftoff} environment.\n   */\n  getEnvironment(findUp = true) {\n    return new Promise(resolve => {\n      super.launch({\n        cwd: this.options.cwd,\n        configPath: findUp ?\n          this.options.projectfile :\n          join((this.options.cwd || process.cwd()), `${this.constructor.ConfigName}.js`),\n        require: this.options.require,\n      }, env => resolve(this.environment = env));\n    });\n  }\n\n  /**\n   * Gets a {@link Liftoff.Environment} and validates a config file and a local module was found.\n   * @return {Promise<Object, Error>} Resolved with the {@link Liftoff environment}, rejected if the\n   * config file or the local module cannot be found.\n   */\n  requireEnvironment() {\n    return this.getEnvironment()\n      .then(env => {\n        if (!env.modulePath) {\n          throw new Error(`Local ${AtSCMCli.BinName} not found`);\n        }\n\n        if (!env.configPath) {\n          throw new Error('No config file found');\n        }\n\n        return env;\n      });\n  }\n\n  /**\n   * Returns the CLI version and, if a local module could be found, the local version.\n   * @return {Promise<{cli: String, local: ?String}>} Fulfilled with the found cli and local\n   * version.\n   */\n  getVersion() {\n    return this.getEnvironment()\n      .then(env => ({\n        cli: pkg.version,\n        local: env.modulePath ? env.modulePackage.version : null,\n      }));\n  }\n\n  /**\n   * Gets and prints the CLI version and, if a local module could be found, the local version.\n   * @return {Promise<{cli: String, local: ?String}>} Fulfilled with the found cli and local\n   * version.\n   */\n  printVersion() {\n    return this.getVersion()\n      .then(version => {\n        Logger.info('CLI version', Logger.format.number(version.cli));\n\n        if (version.local) {\n          Logger.info('Local version', Logger.format.number(version.local));\n        }\n\n        return version;\n      });\n  }\n\n  /**\n   * Runs the command specified in the command line arguments ({@link AtSCMCli#_argv}). **Note that\n   * this will only work if {@link AtSCMCli#parseArguments} was called before.**.\n   * @return {Promise<*, Error>} Fulfilled if the command succeeded.\n   */\n  runCommand() {\n    if (this.options.version) {\n      return this.printVersion();\n    }\n\n    if (this.command) {\n      return (this.command.requiresEnvironment(this) ?\n        this.requireEnvironment() :\n        Promise.resolve()\n      )\n        .then(() => this.command.run(this));\n    }\n\n    Logger.warn('No command specified');\n\n    return Promise.resolve(this);\n  }\n\n  /**\n   * Parses arguments and runs the specified command.\n   * @return {Promise<*, Error>} Fulfilled if the command succeeded. Note that, if the instance is\n   * run through the binary all rejections will be handled.\n   */\n  launch() {\n    const app = this.parseArguments()\n      .then(() => this.runCommand());\n\n    if (this.runViaCli) {\n      return app\n        .catch(err => this._reportCliError(err));\n    }\n\n    return app;\n  }\n\n}\n",
     "static": true,
     "longname": "/home/circleci/project/src/AtSCMCli.js",
     "access": "public",
@@ -607,7 +607,7 @@
     "type": {
       "nullable": null,
       "types": [
-        "String"
+        "string"
       ],
       "spread": false,
       "description": null
@@ -628,7 +628,7 @@
     "type": {
       "nullable": null,
       "types": [
-        "String"
+        "string"
       ],
       "spread": false,
       "description": null
@@ -759,7 +759,7 @@
     "longname": "src/AtSCMCli.js~AtSCMCli#argumentsParser",
     "access": "public",
     "description": "An instance of {@link yargs} responible for parsing options.",
-    "lineNumber": 126,
+    "lineNumber": 128,
     "type": {
       "nullable": null,
       "types": [
@@ -780,7 +780,7 @@
     "longname": "src/AtSCMCli.js~AtSCMCli#_exposeOverride",
     "access": "private",
     "description": "Used to expose project config overrides via environment variables. All project options are\nexposed as `ATSCM_PROJECT__{KEY}={VALUE}`.",
-    "lineNumber": 158,
+    "lineNumber": 160,
     "params": [
       {
         "nullable": null,
@@ -828,7 +828,7 @@
     "longname": "src/AtSCMCli.js~AtSCMCli#parseArguments",
     "access": "public",
     "description": "Parses arguments and exposes the project options as environment variables.",
-    "lineNumber": 176,
+    "lineNumber": 178,
     "return": {
       "nullable": null,
       "types": [
@@ -850,12 +850,12 @@
     "longname": "src/AtSCMCli.js~AtSCMCli#getEnvironment",
     "access": "public",
     "description": "Returns a {@link Liftoff.Environment} for the Cli.",
-    "lineNumber": 195,
+    "lineNumber": 197,
     "params": [
       {
         "nullable": null,
         "types": [
-          "Boolean"
+          "boolean"
         ],
         "spread": false,
         "optional": true,
@@ -885,7 +885,7 @@
     "longname": "src/AtSCMCli.js~AtSCMCli#requireEnvironment",
     "access": "public",
     "description": "Gets a {@link Liftoff.Environment} and validates a config file and a local module was found.",
-    "lineNumber": 212,
+    "lineNumber": 214,
     "return": {
       "nullable": null,
       "types": [
@@ -907,7 +907,7 @@
     "longname": "src/AtSCMCli.js~AtSCMCli#getVersion",
     "access": "public",
     "description": "Returns the CLI version and, if a local module could be found, the local version.",
-    "lineNumber": 232,
+    "lineNumber": 234,
     "return": {
       "nullable": null,
       "types": [
@@ -929,7 +929,7 @@
     "longname": "src/AtSCMCli.js~AtSCMCli#printVersion",
     "access": "public",
     "description": "Gets and prints the CLI version and, if a local module could be found, the local version.",
-    "lineNumber": 245,
+    "lineNumber": 247,
     "return": {
       "nullable": null,
       "types": [
@@ -950,8 +950,8 @@
     "static": false,
     "longname": "src/AtSCMCli.js~AtSCMCli#runCommand",
     "access": "public",
-    "description": "Runs the command specified in the command line arguments ({@link AtSCMCli#_argv}). **Note that\nthis will only work if {@link AtSCMCli#parseArguments} was called before.**",
-    "lineNumber": 263,
+    "description": "Runs the command specified in the command line arguments ({@link AtSCMCli#_argv}). **Note that\nthis will only work if {@link AtSCMCli#parseArguments} was called before.**.",
+    "lineNumber": 265,
     "return": {
       "nullable": null,
       "types": [
@@ -973,7 +973,7 @@
     "longname": "src/AtSCMCli.js~AtSCMCli#launch",
     "access": "public",
     "description": "Parses arguments and runs the specified command.",
-    "lineNumber": 286,
+    "lineNumber": 288,
     "return": {
       "nullable": null,
       "types": [
@@ -1032,7 +1032,7 @@
     "__docId__": 70,
     "kind": "file",
     "name": "src/cli/Options.js",
-    "content": "import Option from '../lib/cli/Option';\n\n/**\n * Command line options available.\n * @type {Object}\n * @property {Option} browser Which browser to open in.\n * @property {Option} cli Open CLI documentation.\n * @property {Option} config Print project configuration.\n * @property {Option} cwd Manually set the CWD.\n * @property {Option} force Overwrite existing files.\n * @property {Option} help Show help.\n * @property {Option} logLevel Set the Logger level.\n * @property {Option} projectfile Manually set path of Atviseproject file to use.\n * @property {Option} remote Open hosted documentation.\n * @property {Option} silent Supress all logging.\n * @property {Option} version Print version.\n * @property {Option} beta Use atscm beta resources.\n */\nconst Options = {\n  browser: Option.string('Which browser to open in.'),\n  cli: Option.boolean('Open CLI documentation.'),\n  continue: Option.boolean('Continue execution of tasks upon failure.'),\n  cwd: Option.string('Manually set the CWD.'),\n  force: Option.boolean('Overwrite existing files.'),\n  help: Option.boolean('Show this help.'),\n  'log-level': new Option('Set the Logger level. ' +\n    '-L for least verbose and -LLLL for most verbose. -LLL is default.', {\n      alias: 'L',\n      count: true,\n      default: 3,\n    }\n  ),\n  project: new Option('Override Atviseproject values.', { default: {} }),\n  projectfile: Option.string('Manually set path of Atviseproject file to use. ' +\n    'This will set the CWD to the Atviseproject file\\'s directory as well.',\n    { alias: 'p' }),\n  require: Option.string('Will require a module before running atscm.'),\n  remote: Option.boolean('Open hosted documentation.', {\n    default: undefined,\n  }),\n  silent: Option.boolean('Suppress all logging.', { alias: 'S' }),\n  tasks: Option.boolean('Print the task dependency tree.', {\n    alias: 'T',\n  }),\n  'tasks-simple': Option.boolean('Print a plaintext list of tasks.'),\n  'tasks-json': Option.boolean('Print the task dependency tree, in JSON format.'),\n  version: Option.boolean('Print version.', { alias: 'v' }),\n  beta: Option.boolean('Use atscm beta resources.'),\n};\n\nexport default Options;\n\n/**\n * Options that can be used globally.\n * @type {Map<String, Option>}\n */\nexport const GlobalOptions = {\n  projectfile: Options.projectfile,\n  cwd: Options.cwd,\n  project: Options.project,\n  require: Options.require,\n  version: Options.version,\n  help: Options.help,\n  silent: Options.silent,\n  'log-level': Options['log-level'],\n};\n",
+    "content": "import Option from '../lib/cli/Option';\n\n/**\n * Command line options available.\n * @type {Object}\n * @property {Option} browser Which browser to open in.\n * @property {Option} cli Open CLI documentation.\n * @property {Option} config Print project configuration.\n * @property {Option} cwd Manually set the CWD.\n * @property {Option} force Overwrite existing files.\n * @property {Option} help Show help.\n * @property {Option} logLevel Set the Logger level.\n * @property {Option} projectfile Manually set path of Atviseproject file to use.\n * @property {Option} remote Open hosted documentation.\n * @property {Option} silent Supress all logging.\n * @property {Option} version Print version.\n * @property {Option} beta Use atscm beta resources.\n */\nconst Options = {\n  browser: Option.string('Which browser to open in.'),\n  cli: Option.boolean('Open CLI documentation.'),\n  continue: Option.boolean('Continue execution of tasks upon failure.'),\n  cwd: Option.string('Manually set the CWD.'),\n  force: Option.boolean('Overwrite existing files.'),\n  help: Option.boolean('Show this help.'),\n  'log-level': new Option(\n    'Set the Logger level. -L for least verbose and -LLLL for most verbose. -LLL is default.',\n    {\n      alias: 'L',\n      count: true,\n      default: 3,\n    }\n  ),\n  project: new Option('Override Atviseproject values.', { default: {} }),\n  projectfile: Option.string(\n    'Manually set path of Atviseproject file to use. ' +\n    'This will set the CWD to the Atviseproject file\\'s directory as well.',\n    { alias: 'p' }\n  ),\n  require: Option.string('Will require a module before running atscm.'),\n  remote: Option.boolean('Open hosted documentation.', {\n    default: undefined,\n  }),\n  silent: Option.boolean('Suppress all logging.', { alias: 'S' }),\n  tasks: Option.boolean('Print the task dependency tree.', {\n    alias: 'T',\n  }),\n  'tasks-simple': Option.boolean('Print a plaintext list of tasks.'),\n  'tasks-json': Option.boolean('Print the task dependency tree, in JSON format.'),\n  version: Option.boolean('Print version.', { alias: 'v' }),\n  beta: Option.boolean('Use atscm beta resources.'),\n};\n\nexport default Options;\n\n/**\n * Options that can be used globally.\n * @type {Map<String, Option>}\n */\nexport const GlobalOptions = {\n  projectfile: Options.projectfile,\n  cwd: Options.cwd,\n  project: Options.project,\n  require: Options.require,\n  version: Options.version,\n  help: Options.help,\n  silent: Options.silent,\n  'log-level': Options['log-level'],\n};\n",
     "static": true,
     "longname": "/home/circleci/project/src/cli/Options.js",
     "access": "public",
@@ -1051,7 +1051,7 @@
     "importPath": "atscm-cli/src/cli/Options.js",
     "importStyle": "{GlobalOptions}",
     "description": "Options that can be used globally.",
-    "lineNumber": 57,
+    "lineNumber": 60,
     "type": {
       "nullable": null,
       "types": [
@@ -1209,7 +1209,7 @@
     "__docId__": 73,
     "kind": "file",
     "name": "src/cli/commands/Config.js",
-    "content": "import { inspect } from 'util';\nimport Logger from '../../lib/util/Logger';\nimport Command from '../../lib/cli/Command';\n\n/**\n * The command invoked when running \"config\".\n */\nexport default class ConfigCommand extends Command {\n\n  /**\n   * Creates a new {@link ConfigCommand} with the specified name and description.\n   * @param {String} name The command's name.\n   * @param {String} description The command's description.\n   */\n  constructor(name, description) {\n    super(name, description, {\n      maxArguments: 0,\n    });\n  }\n\n  /**\n   * Prints the project's configuration.\n   * @param {AtSCMCli} cli The current Cli instance.\n   */\n  run(cli) {\n    process.env.ATSCM_CONFIG_PATH = cli.environment.configPath;\n\n    // eslint-disable-next-line global-require\n    const config = require(cli.environment.modulePath).ProjectConfig ||\n      require(cli.environment.configPath).default; // eslint-disable-line global-require\n\n    inspect.styles.number = 'magenta';\n    inspect.styles.string = 'cyan';\n\n    Logger.info(\n      'Configuration at', Logger.format.path(cli.environment.configPath),\n      `\\n${inspect(config, { colors: true, depth: null, breakLength: 0 })}`\n    );\n\n    if (cli.options.project && config.name !== 'ProjectConfig') {\n      Logger.warn('Overriding runtime configuration requires atscm version >= 0.4');\n      Logger.info('Run', Logger.format.command('atscm update'), 'to update to the newest version');\n    }\n  }\n\n}\n",
+    "content": "import { inspect } from 'util';\nimport Logger from '../../lib/util/Logger';\nimport Command from '../../lib/cli/Command';\n\n/**\n * The command invoked when running \"config\".\n */\nexport default class ConfigCommand extends Command {\n\n  /**\n   * Creates a new {@link ConfigCommand} with the specified name and description.\n   * @param {string} name The command's name.\n   * @param {string} description The command's description.\n   */\n  constructor(name, description) {\n    super(name, description, {\n      maxArguments: 0,\n    });\n  }\n\n  /**\n   * Prints the project's configuration.\n   * @param {AtSCMCli} cli The current Cli instance.\n   */\n  run(cli) {\n    process.env.ATSCM_CONFIG_PATH = cli.environment.configPath;\n\n    // eslint-disable-next-line global-require\n    const config = require(cli.environment.modulePath).ProjectConfig ||\n      require(cli.environment.configPath).default; // eslint-disable-line global-require\n\n    inspect.styles.number = 'magenta';\n    inspect.styles.string = 'cyan';\n\n    Logger.info(\n      'Configuration at', Logger.format.path(cli.environment.configPath),\n      `\\n${inspect(config, { colors: true, depth: null, breakLength: 0 })}`\n    );\n\n    if (cli.options.project && config.name !== 'ProjectConfig') {\n      Logger.warn('Overriding runtime configuration requires atscm version >= 0.4');\n      Logger.info('Run', Logger.format.command('atscm update'), 'to update to the newest version');\n    }\n  }\n\n}\n",
     "static": true,
     "longname": "/home/circleci/project/src/cli/commands/Config.js",
     "access": "public",
@@ -1250,7 +1250,7 @@
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -1260,7 +1260,7 @@
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -1299,7 +1299,7 @@
     "__docId__": 77,
     "kind": "file",
     "name": "src/cli/commands/Docs.js",
-    "content": "import { join } from 'path';\nimport { resolve } from 'url';\nimport open from 'open';\nimport Command from '../../lib/cli/Command';\nimport CliOptions from '../Options';\nimport Logger from '../../lib/util/Logger';\n\n/**\n * The command invoked when running \"docs\". Handles the options --cli and --browser.\n */\nexport default class DocsCommand extends Command {\n\n  /**\n   * Base URL of the hosted API documentation.\n   * @type {string}\n   */\n  static get RemoteDocsBase() {\n    return 'https://atscm.github.io/';\n  }\n\n  /**\n   * Creates a new {@link DocsCommand} with the specified name and description.\n   * @param {String} name The command's name.\n   * @param {String} description The command's description.\n   */\n  constructor(name, description) {\n    super(name, description, {\n      options: {\n        cli: CliOptions.cli,\n        browser: CliOptions.browser,\n        remote: CliOptions.remote,\n      },\n      maxArguments: 0,\n    });\n  }\n\n  /**\n   * Returns the path to the local api docs.\n   * @param {AtSCMCli} cli The current Cli instance.\n   * @return {string} The path to the local api docs.\n   */\n  localDocsPath(cli) {\n    return join(\n      cli.options.cli ?\n        join(__dirname, '../../../') :\n        join(cli.environment.modulePath, '../../'),\n      'docs/api/index.html'\n    );\n  }\n\n  /**\n   * Returns the URL of the remote api docs.\n   * @param {AtSCMCli} cli The current Cli instance.\n   * @return {string} The URL of the remote api docs.\n   */\n  remoteDocsUrl(cli) {\n    return resolve(this.constructor.RemoteDocsBase, cli.options.cli ?\n      'atscm-cli' :\n      'atscm');\n  }\n\n  /**\n   * Returns the path or url to open. This is resolved in the following way:\n   *  1. If `--remote` is passed, always return the URL of the hosted docs of atscm-cli or atscm\n   *     based on the `--cli` option passed.\n   *  2. If `--cli` is passed, always return the path to the local atscm-cli docs.\n   *  3. Otherwise, check if a local module was found:\n   *     - If *true* return the local module docs path,\n   *     - else return the URL of the hosted atscm docs.\n   * @param {AtSCMCli} cli The calling Cli instance.\n   * @return {{address: string, isPath: boolean}} The resolved address and a flag indicating if the\n   * address describes a file path.\n   */\n  addressToOpen(cli) {\n    if (cli.options.remote !== true && (cli.options.cli || cli.environment.modulePath)) {\n      return {\n        address: this.localDocsPath(cli),\n        isPath: true,\n      };\n    }\n\n    return {\n      address: this.remoteDocsUrl(cli),\n      isPath: false,\n    };\n  }\n\n  /**\n   * Opens the requested docs in the requested browser.\n   * @param {AtSCMCli} cli The current Cli instance.\n   * @return {Promise} Resolved after the os-specific open command was started.\n   */\n  run(cli) {\n    return (!cli.options.cli && !cli.environment ? cli.getEnvironment() : Promise.resolve())\n      .then(() => this.addressToOpen(cli))\n      .then(({ address, isPath }) => {\n        Logger.debug('Opening', isPath ? Logger.format.path(address) : address);\n        open(address, cli.options.browser);\n      });\n  }\n\n  /**\n   * Returns `false` if the `--cli` option is used.\n   * @param {AtSCMCli} cli The current cli instance.\n   * @return {Boolean} `false` if the `--cli` option is used.\n   */\n  requiresEnvironment(cli) {\n    return cli.options.remote === false && !cli.options.cli;\n  }\n\n}\n",
+    "content": "import { join } from 'path';\nimport { resolve } from 'url';\nimport open from 'open';\nimport Command from '../../lib/cli/Command';\nimport CliOptions from '../Options';\nimport Logger from '../../lib/util/Logger';\n\n/**\n * The command invoked when running \"docs\". Handles the options --cli and --browser.\n */\nexport default class DocsCommand extends Command {\n\n  /**\n   * Base URL of the hosted API documentation.\n   * @type {string}\n   */\n  static get RemoteDocsBase() {\n    return 'https://atscm.github.io/';\n  }\n\n  /**\n   * Creates a new {@link DocsCommand} with the specified name and description.\n   * @param {string} name The command's name.\n   * @param {string} description The command's description.\n   */\n  constructor(name, description) {\n    super(name, description, {\n      options: {\n        cli: CliOptions.cli,\n        browser: CliOptions.browser,\n        remote: CliOptions.remote,\n      },\n      maxArguments: 0,\n    });\n  }\n\n  /**\n   * Returns the path to the local api docs.\n   * @param {AtSCMCli} cli The current Cli instance.\n   * @return {string} The path to the local api docs.\n   */\n  localDocsPath(cli) {\n    return join(\n      cli.options.cli ?\n        join(__dirname, '../../../') :\n        join(cli.environment.modulePath, '../../'),\n      'docs/api/index.html'\n    );\n  }\n\n  /**\n   * Returns the URL of the remote api docs.\n   * @param {AtSCMCli} cli The current Cli instance.\n   * @return {string} The URL of the remote api docs.\n   */\n  remoteDocsUrl(cli) {\n    return resolve(this.constructor.RemoteDocsBase, cli.options.cli ?\n      'atscm-cli' :\n      'atscm');\n  }\n\n  /**\n   * Returns the path or url to open. This is resolved in the following way:\n   *  1. If `--remote` is passed, always return the URL of the hosted docs of atscm-cli or atscm\n   *     based on the `--cli` option passed.\n   *  2. If `--cli` is passed, always return the path to the local atscm-cli docs.\n   *  3. Otherwise, check if a local module was found:\n   *     - If *true* return the local module docs path,\n   *     - else return the URL of the hosted atscm docs.\n   * @param {AtSCMCli} cli The calling Cli instance.\n   * @return {{address: string, isPath: boolean}} The resolved address and a flag indicating if the\n   * address describes a file path.\n   */\n  addressToOpen(cli) {\n    if (cli.options.remote !== true && (cli.options.cli || cli.environment.modulePath)) {\n      return {\n        address: this.localDocsPath(cli),\n        isPath: true,\n      };\n    }\n\n    return {\n      address: this.remoteDocsUrl(cli),\n      isPath: false,\n    };\n  }\n\n  /**\n   * Opens the requested docs in the requested browser.\n   * @param {AtSCMCli} cli The current Cli instance.\n   * @return {Promise} Resolved after the os-specific open command was started.\n   */\n  run(cli) {\n    return (!cli.options.cli && !cli.environment ? cli.getEnvironment() : Promise.resolve())\n      .then(() => this.addressToOpen(cli))\n      .then(({ address, isPath }) => {\n        Logger.debug('Opening', isPath ? Logger.format.path(address) : address);\n        open(address, cli.options.browser);\n      });\n  }\n\n  /**\n   * Returns `false` if the `--cli` option is used.\n   * @param {AtSCMCli} cli The current cli instance.\n   * @return {boolean} `false` if the `--cli` option is used.\n   */\n  requiresEnvironment(cli) {\n    return cli.options.remote === false && !cli.options.cli;\n  }\n\n}\n",
     "static": true,
     "longname": "/home/circleci/project/src/cli/commands/Docs.js",
     "access": "public",
@@ -1361,7 +1361,7 @@
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -1371,7 +1371,7 @@
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -1539,7 +1539,7 @@
     "return": {
       "nullable": null,
       "types": [
-        "Boolean"
+        "boolean"
       ],
       "spread": false,
       "description": "`false` if the `--cli` option is used."
@@ -1549,7 +1549,7 @@
     "__docId__": 86,
     "kind": "file",
     "name": "src/cli/commands/Init.js",
-    "content": "import { readdir, writeFile } from 'fs';\nimport { join } from 'path';\nimport { spawn } from 'child_process';\nimport which from 'which';\nimport { prompt } from 'inquirer';\nimport { satisfies as validVersion } from 'semver';\nimport Command from '../../lib/cli/Command';\nimport Logger from '../../lib/util/Logger';\nimport pkg from '../../../package.json';\nimport CliOptions from '../Options';\n\nconst IgnoredFiles = ['.ds_store', 'thumbs.db'];\n\n/**\n * The command invoked when running \"init\".\n */\nexport default class InitCommand extends Command {\n\n  /**\n   * Creates a new {@link InitCommand} with the specified name and description.\n   * @param {String} name The command's name.\n   * @param {String} description The command's description.\n   */\n  constructor(name, description) {\n    super(name, description, {\n      options: {\n        force: CliOptions.force,\n        beta: CliOptions.beta,\n      },\n    });\n  }\n\n  /**\n   * Checks if the given path contains an empty directory. OS specific temporary files (.DS_Store\n   * under macOS, thumbs.db under Windows) are ignored.\n   * @param {String} path The path to check.\n   * @param {Boolean} [overwrite=false] If existing files should be overwritten.\n   * @return {Promise<String, Error>} Fulfilled with the valid directory's path, rejected if `path`\n   * contains no or a non-empty directory.\n   */\n  checkDirectory(path, overwrite = false) {\n    return new Promise((resolve, reject) => {\n      readdir(path, (err, files) => {\n        if (err) {\n          if (err.code === 'ENOENT') {\n            reject(new Error(`${Logger.format.path(path)} does not exist`));\n          } else if (err.code === 'ENOTDIR') {\n            reject(new Error(`${Logger.format.path(path)} is not a directory`));\n          } else {\n            reject(err);\n          }\n        } else if (files.filter(f => !IgnoredFiles.includes(f.toLowerCase())).length > 0) {\n          const message = `${Logger.format.path(path)} is not empty`;\n\n          if (overwrite) {\n            Logger.warn(message);\n            Logger.warn(Logger.colors.yellow('Using --force, continue...'));\n            resolve(path);\n          } else {\n            reject(new Error(message));\n          }\n        } else {\n          resolve(path);\n        }\n      });\n    });\n  }\n\n  /**\n   * Creates a an empty *package.json* file at the given path.\n   * @param {String} path The location to create the package at.\n   * @return {Promise<undefined, Error>} Rejected if an error occurred while writing the file.\n   */\n  createEmptyPackage(path) {\n    return new Promise((resolve, reject) => {\n      writeFile(join(path, 'package.json'), '{}', err => {\n        if (err) {\n          // FIXME: Call with SystemError class\n          reject(Object.assign(err, {\n            message: `Unable to create package.json at ${path}`,\n            originalMessage: err.message,\n          }));\n        } else {\n          resolve();\n        }\n      });\n    });\n  }\n\n  /**\n   * Runs `npm install --save-dev {packages}` at the given path.\n   * @param {String} path The path to install packages at.\n   * @param {String|String[]} packages Names of the packages to install.\n   * @return {Promise<undefined, Error>} Rejected if installing failed, resolved otherwise.\n   */\n  install(path, packages) {\n    return new Promise((resolve, reject) => {\n      which('npm', (err, npm) => {\n        if (err) {\n          reject(err);\n        } else {\n          const child = spawn(npm, ['install', '--save-dev'].concat(packages), { cwd: path })\n            .on('error', npmErr => reject(npmErr))\n            .on('close', code => {\n              if (code > 0) {\n                reject(new Error(`npm install returned code ${code}`));\n              } else {\n                resolve();\n              }\n            });\n\n          Logger.pipeLastLine(child.stdout);\n        }\n      });\n    });\n  }\n\n  /**\n   * Installs the local atscm module at the given path.\n   * @param {String} path The path to install the module at.\n   * @param {Boolean} [useBetaRelease=false] If beta versions should be used.\n   * @return {Promise<undefined, Error>} Rejected if installing failed, resolved otherwise.\n   */\n  installLocal(path, useBetaRelease = false) {\n    Logger.info('Installing latest version of atscm...');\n\n    if (useBetaRelease) {\n      Logger.debug(Logger.colors.gray('Using beta release'));\n    }\n\n    // FIXME: call with (path, 'atscm') once atscm is published\n    return this.install(path, useBetaRelease ? 'atscm@beta' : 'atscm');\n  }\n\n  /**\n   * Checks the version of this package against the \"engines.atscm-cli\" field of the newly installed\n   * atscm module's package.json.\n   * @param {Liftoff.Environment} env The environment to check.\n   * @return {Liftoff.Environment} The environment to check.\n   * @throws {Error} Throws an error if the atscm-cli version does not match.\n   */\n  checkCliVersion(env) {\n    Logger.debug('Checking atscm-cli version...');\n\n    const required = env.modulePackage.engines['atscm-cli'];\n    if (!validVersion(pkg.version.split('-beta')[0], required)) {\n      Logger.info('Your version of atscm-cli is not compatible with the latest version atscm.');\n      Logger.info('Please run', Logger.format.command('npm install -g atscm-cli'), 'to update.');\n\n      throw new Error(`Invalid atscm-cli version: ${required} required.`);\n    }\n\n    return env;\n  }\n\n  /**\n   * Resolves the needed options from the local atscm module and asks for them. These options are\n   * stored in the `atscm` module inside `out/init/options.js`.\n   * @param {String} modulePath The path to the local module to use.\n   * @return {Promise<Object, Error>} Resolved with the chosen options.\n   */\n  getOptions(modulePath) {\n    Logger.info('Answer these questions to create a new project:');\n\n    // eslint-disable-next-line global-require\n    const options = require(join(modulePath, '../init/options')).default;\n\n    return prompt(options);\n  }\n\n  /**\n   * Runs the local atscm module's init script. This script is stored in the `atscm` module inside\n   * `out/init/init.js`.\n   * @param {String} modulePath The path to the local module to use.\n   * @param {Object} options The options to apply (Received by calling\n   * {@link InitCommand#getOptions}).\n   * @return {Promise<{install: String[]}, Error>} Resolved with information on the further init\n   * steps (e.g. which dependencies are needed), rejected with an error if running the init script\n   * failed.\n   */\n  writeFiles(modulePath, options) {\n    // eslint-disable-next-line global-require\n    return require(join(modulePath, '../init/init')).default(options);\n  }\n\n  /**\n   * Installs any additional dependencies needed after writing files.\n   * @param {String} path The path to install the dependencies at.\n   * @param {String[]} deps Names of the packages to install.\n   * @return {Promise<undefined, Error>} Rejected if installing failed, resolved otherwise.\n   */\n  installDependencies(path, deps) {\n    Logger.info('Installing dependencies...');\n\n    return this.install(path, deps);\n  }\n\n  /**\n   * Creates a new atscm project.\n   * @param {AtSCMCli} cli The current Cli instance.\n   */\n  run(cli) {\n    return cli.getEnvironment(false)\n      .then(env => this.checkDirectory(env.cwd, cli.options.force))\n      .then(() => this.createEmptyPackage(cli.environment.cwd))\n      .then(() => this.installLocal(cli.environment.cwd, cli.options.beta))\n      .then(() => cli.getEnvironment(false))\n      .then(env => this.checkCliVersion(env))\n      .then(env => process.chdir(env.cwd))\n      .then(() => this.getOptions(cli.environment.modulePath))\n      .then(options => this.writeFiles(\n        cli.environment.modulePath,\n        Object.assign({}, cli.environment, options)\n      ))\n      .then(result => this.installDependencies(cli.environment.cwd, result.install))\n      .then(() => {\n        Logger.info('Created new project at', Logger.format.path(cli.environment.cwd));\n      });\n  }\n\n  /**\n   * This command never requires an {@link Liftoff.Environment}.\n   * @return {Boolean} Always `false`.\n   */\n  requiresEnvironment() {\n    return false;\n  }\n\n}\n",
+    "content": "import { readdir, writeFile } from 'fs';\nimport { join } from 'path';\nimport { spawn } from 'child_process';\nimport which from 'which';\nimport { prompt } from 'inquirer';\nimport { satisfies as validVersion } from 'semver';\nimport Command from '../../lib/cli/Command';\nimport Logger from '../../lib/util/Logger';\nimport pkg from '../../../package.json';\nimport CliOptions from '../Options';\n\nconst IgnoredFiles = ['.ds_store', 'thumbs.db'];\n\n/**\n * The command invoked when running \"init\".\n */\nexport default class InitCommand extends Command {\n\n  /**\n   * Creates a new {@link InitCommand} with the specified name and description.\n   * @param {string} name The command's name.\n   * @param {string} description The command's description.\n   */\n  constructor(name, description) {\n    super(name, description, {\n      options: {\n        force: CliOptions.force,\n        beta: CliOptions.beta,\n      },\n    });\n  }\n\n  /**\n   * Checks if the given path contains an empty directory. OS specific temporary files (*.DS_Store*\n   * under macOS, *thumbs* under Windows) are ignored.\n   * @param {string} path The path to check.\n   * @param {boolean} [overwrite=false] If existing files should be overwritten.\n   * @return {Promise<String, Error>} Fulfilled with the valid directory's path, rejected if `path`\n   * contains no or a non-empty directory.\n   */\n  checkDirectory(path, overwrite = false) {\n    return new Promise((resolve, reject) => {\n      readdir(path, (err, files) => {\n        if (err) {\n          if (err.code === 'ENOENT') {\n            reject(new Error(`${Logger.format.path(path)} does not exist`));\n          } else if (err.code === 'ENOTDIR') {\n            reject(new Error(`${Logger.format.path(path)} is not a directory`));\n          } else {\n            reject(err);\n          }\n        } else if (files.filter(f => !IgnoredFiles.includes(f.toLowerCase())).length > 0) {\n          const message = `${Logger.format.path(path)} is not empty`;\n\n          if (overwrite) {\n            Logger.warn(message);\n            Logger.warn(Logger.colors.yellow('Using --force, continue...'));\n            resolve(path);\n          } else {\n            reject(new Error(message));\n          }\n        } else {\n          resolve(path);\n        }\n      });\n    });\n  }\n\n  /**\n   * Creates a an empty *package* file at the given path.\n   * @param {string} path The location to create the package at.\n   * @return {Promise<undefined, Error>} Rejected if an error occurred while writing the file.\n   */\n  createEmptyPackage(path) {\n    return new Promise((resolve, reject) => {\n      writeFile(join(path, 'package.json'), '{}', err => {\n        if (err) {\n          // FIXME: Call with SystemError class\n          reject(Object.assign(err, {\n            message: `Unable to create package.json at ${path}`,\n            originalMessage: err.message,\n          }));\n        } else {\n          resolve();\n        }\n      });\n    });\n  }\n\n  /**\n   * Runs `npm install --save-dev {packages}` at the given path.\n   * @param {string} path The path to install packages at.\n   * @param {String|String[]} packages Names of the packages to install.\n   * @return {Promise<undefined, Error>} Rejected if installing failed, resolved otherwise.\n   */\n  install(path, packages) {\n    return new Promise((resolve, reject) => {\n      which('npm', (err, npm) => {\n        if (err) {\n          reject(err);\n        } else {\n          const child = spawn(npm, ['install', '--save-dev'].concat(packages), { cwd: path })\n            .on('error', npmErr => reject(npmErr))\n            .on('close', code => {\n              if (code > 0) {\n                reject(new Error(`npm install returned code ${code}`));\n              } else {\n                resolve();\n              }\n            });\n\n          Logger.pipeLastLine(child.stdout);\n        }\n      });\n    });\n  }\n\n  /**\n   * Installs the local atscm module at the given path.\n   * @param {string} path The path to install the module at.\n   * @param {boolean} [useBetaRelease=false] If beta versions should be used.\n   * @return {Promise<undefined, Error>} Rejected if installing failed, resolved otherwise.\n   */\n  installLocal(path, useBetaRelease = false) {\n    Logger.info('Installing latest version of atscm...');\n\n    if (useBetaRelease) {\n      Logger.debug(Logger.colors.gray('Using beta release'));\n    }\n\n    // FIXME: call with (path, 'atscm') once atscm is published\n    return this.install(path, useBetaRelease ? 'atscm@beta' : 'atscm');\n  }\n\n  /**\n   * Checks the version of this package against the \"engines > atscm-cli\" field of the newly\n   * installed atscm module's package file.\n   * @param {Liftoff.Environment} env The environment to check.\n   * @return {Liftoff.Environment} The environment to check.\n   * @throws {Error} Throws an error if the atscm-cli version does not match.\n   */\n  checkCliVersion(env) {\n    Logger.debug('Checking atscm-cli version...');\n\n    const required = env.modulePackage.engines['atscm-cli'];\n    if (!validVersion(pkg.version.split('-beta')[0], required)) {\n      Logger.info('Your version of atscm-cli is not compatible with the latest version atscm.');\n      Logger.info('Please run', Logger.format.command('npm install -g atscm-cli'), 'to update.');\n\n      throw new Error(`Invalid atscm-cli version: ${required} required.`);\n    }\n\n    return env;\n  }\n\n  /**\n   * Resolves the needed options from the local atscm module and asks for them. These options are\n   * stored in the `atscm` module inside `out/init/options`.\n   * @param {string} modulePath The path to the local module to use.\n   * @return {Promise<Object, Error>} Resolved with the chosen options.\n   */\n  getOptions(modulePath) {\n    Logger.info('Answer these questions to create a new project:');\n\n    // eslint-disable-next-line global-require\n    const options = require(join(modulePath, '../init/options')).default;\n\n    return prompt(options);\n  }\n\n  /**\n   * Runs the local atscm module's init script. This script is stored in the `atscm` module inside\n   * `out/init/init`.\n   * @param {string} modulePath The path to the local module to use.\n   * @param {Object} options The options to apply (Received by calling\n   * {@link InitCommand#getOptions}).\n   * @return {Promise<{install: String[]}, Error>} Resolved with information on the further init\n   * steps (e.g. which dependencies are needed), rejected with an error if running the init script\n   * failed.\n   */\n  writeFiles(modulePath, options) {\n    // eslint-disable-next-line global-require\n    return require(join(modulePath, '../init/init')).default(options);\n  }\n\n  /**\n   * Installs any additional dependencies needed after writing files.\n   * @param {string} path The path to install the dependencies at.\n   * @param {String[]} deps Names of the packages to install.\n   * @return {Promise<undefined, Error>} Rejected if installing failed, resolved otherwise.\n   */\n  installDependencies(path, deps) {\n    Logger.info('Installing dependencies...');\n\n    return this.install(path, deps);\n  }\n\n  /**\n   * Creates a new atscm project.\n   * @param {AtSCMCli} cli The current Cli instance.\n   */\n  run(cli) {\n    return cli.getEnvironment(false)\n      .then(env => this.checkDirectory(env.cwd, cli.options.force))\n      .then(() => this.createEmptyPackage(cli.environment.cwd))\n      .then(() => this.installLocal(cli.environment.cwd, cli.options.beta))\n      .then(() => cli.getEnvironment(false))\n      .then(env => this.checkCliVersion(env))\n      .then(env => process.chdir(env.cwd))\n      .then(() => this.getOptions(cli.environment.modulePath))\n      .then(options => this.writeFiles(\n        cli.environment.modulePath,\n        Object.assign({}, cli.environment, options)\n      ))\n      .then(result => this.installDependencies(cli.environment.cwd, result.install))\n      .then(() => {\n        Logger.info('Created new project at', Logger.format.path(cli.environment.cwd));\n      });\n  }\n\n  /**\n   * This command never requires an {@link Liftoff.Environment}.\n   * @return {boolean} Always `false`.\n   */\n  requiresEnvironment() {\n    return false;\n  }\n\n}\n",
     "static": true,
     "longname": "/home/circleci/project/src/cli/commands/Init.js",
     "access": "public",
@@ -1611,7 +1611,7 @@
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -1621,7 +1621,7 @@
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -1640,13 +1640,13 @@
     "static": false,
     "longname": "src/cli/commands/Init.js~InitCommand#checkDirectory",
     "access": "public",
-    "description": "Checks if the given path contains an empty directory. OS specific temporary files (.DS_Store\nunder macOS, thumbs.db under Windows) are ignored.",
+    "description": "Checks if the given path contains an empty directory. OS specific temporary files (*.DS_Store*\nunder macOS, *thumbs* under Windows) are ignored.",
     "lineNumber": 41,
     "params": [
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -1656,7 +1656,7 @@
       {
         "nullable": null,
         "types": [
-          "Boolean"
+          "boolean"
         ],
         "spread": false,
         "optional": true,
@@ -1685,13 +1685,13 @@
     "static": false,
     "longname": "src/cli/commands/Init.js~InitCommand#createEmptyPackage",
     "access": "public",
-    "description": "Creates a an empty *package.json* file at the given path.",
+    "description": "Creates a an empty *package* file at the given path.",
     "lineNumber": 74,
     "params": [
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -1724,7 +1724,7 @@
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -1768,7 +1768,7 @@
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -1778,7 +1778,7 @@
       {
         "nullable": null,
         "types": [
-          "Boolean"
+          "boolean"
         ],
         "spread": false,
         "optional": true,
@@ -1807,7 +1807,7 @@
     "static": false,
     "longname": "src/cli/commands/Init.js~InitCommand#checkCliVersion",
     "access": "public",
-    "description": "Checks the version of this package against the \"engines.atscm-cli\" field of the newly installed\natscm module's package.json.",
+    "description": "Checks the version of this package against the \"engines > atscm-cli\" field of the newly\ninstalled atscm module's package file.",
     "lineNumber": 142,
     "params": [
       {
@@ -1848,13 +1848,13 @@
     "static": false,
     "longname": "src/cli/commands/Init.js~InitCommand#getOptions",
     "access": "public",
-    "description": "Resolves the needed options from the local atscm module and asks for them. These options are\nstored in the `atscm` module inside `out/init/options.js`.",
+    "description": "Resolves the needed options from the local atscm module and asks for them. These options are\nstored in the `atscm` module inside `out/init/options`.",
     "lineNumber": 162,
     "params": [
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -1881,13 +1881,13 @@
     "static": false,
     "longname": "src/cli/commands/Init.js~InitCommand#writeFiles",
     "access": "public",
-    "description": "Runs the local atscm module's init script. This script is stored in the `atscm` module inside\n`out/init/init.js`.",
+    "description": "Runs the local atscm module's init script. This script is stored in the `atscm` module inside\n`out/init/init`.",
     "lineNumber": 181,
     "params": [
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -1930,7 +1930,7 @@
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -2002,7 +2002,7 @@
     "return": {
       "nullable": null,
       "types": [
-        "Boolean"
+        "boolean"
       ],
       "spread": false,
       "description": "Always `false`."
@@ -2013,7 +2013,7 @@
     "__docId__": 100,
     "kind": "file",
     "name": "src/cli/commands/Run.js",
-    "content": "import { join } from 'path';\nimport colors from 'chalk';\nimport Command from '../../lib/cli/Command';\nimport CliOptions from '../Options';\n\n/**\n * The command invoked when running \"run\".\n */\nexport default class RunCommand extends Command {\n\n  /**\n   * Creates a new {@link RunCommand} with the specified name and description.\n   * @param {String} name The command's name.\n   * @param {String} description The command's description.\n   */\n  constructor(name, description) {\n    super(name, description, {\n      arguments: '[tasks...]',\n      options: {\n        tasks: CliOptions.tasks,\n        'tasks-simple': CliOptions['tasks-simple'],\n        'tasks-json': CliOptions['tasks-json'],\n        continue: CliOptions.continue,\n      },\n    });\n  }\n\n  /**\n   * Runs gulp with the specified tasks.\n   * @param {AtSCMCli} cli The current Cli instance.\n   */\n  run(cli) {\n    const opts = {\n      _: cli.options.tasks,\n      tasks: cli.options.T,\n      tasksSimple: cli.options.tasksSimple,\n      tasksJson: cli.options.tasksJson,\n      continue: cli.options.continue,\n    };\n\n    process.env.ATSCM_CONFIG_PATH = cli.environment.configPath;\n\n    // eslint-disable-next-line global-require\n    require('gulp-cli/lib/versioned/^4.0.0-alpha.2/')(\n      opts,\n      {\n        configPath: join(cli.environment.modulePath, '../Gulpfile.js'),\n        modulePath: join(cli.environment.cwd, 'node_modules/gulp'),\n      }, {\n        description: colors.bold('Available tasks:'),\n      });\n  }\n\n}\n",
+    "content": "import { join } from 'path';\nimport colors from 'chalk';\nimport Command from '../../lib/cli/Command';\nimport CliOptions from '../Options';\n\n/**\n * The command invoked when running \"run\".\n */\nexport default class RunCommand extends Command {\n\n  /**\n   * Creates a new {@link RunCommand} with the specified name and description.\n   * @param {string} name The command's name.\n   * @param {string} description The command's description.\n   */\n  constructor(name, description) {\n    super(name, description, {\n      arguments: '[tasks...]',\n      options: {\n        tasks: CliOptions.tasks,\n        'tasks-simple': CliOptions['tasks-simple'],\n        'tasks-json': CliOptions['tasks-json'],\n        continue: CliOptions.continue,\n      },\n    });\n  }\n\n  /**\n   * Runs gulp with the specified tasks.\n   * @param {AtSCMCli} cli The current Cli instance.\n   */\n  run(cli) {\n    const opts = {\n      _: cli.options.tasks,\n      tasks: cli.options.T,\n      tasksSimple: cli.options.tasksSimple,\n      tasksJson: cli.options.tasksJson,\n      continue: cli.options.continue,\n    };\n\n    process.env.ATSCM_CONFIG_PATH = cli.environment.configPath;\n\n    // eslint-disable-next-line global-require\n    require('gulp-cli/lib/versioned/^4.0.0-alpha.2/')(\n      opts,\n      {\n        configPath: join(cli.environment.modulePath, '../Gulpfile.js'),\n        modulePath: join(cli.environment.cwd, 'node_modules/gulp'),\n      }, {\n        description: colors.bold('Available tasks:'),\n      });\n  }\n\n}\n",
     "static": true,
     "longname": "/home/circleci/project/src/cli/commands/Run.js",
     "access": "public",
@@ -2054,7 +2054,7 @@
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -2064,7 +2064,7 @@
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -2103,7 +2103,7 @@
     "__docId__": 104,
     "kind": "file",
     "name": "src/cli/commands/Update.js",
-    "content": "import { get } from 'axios';\nimport { gt } from 'semver';\nimport Logger from '../../lib/util/Logger';\nimport Command from '../../lib/cli/Command';\nimport ExternalCommand from '../../lib/util/ExternalCommand';\nimport CliOptions from '../Options';\n\n/**\n * The command invoked by running \"update\".\n */\nexport default class UpdateCommand extends Command {\n\n  /**\n   * Creates a new {@link UpdateCommand} with the specified name and description.\n   * @param {String} name The command's name.\n   * @param {String} description The command's description.\n   */\n  constructor(name, description) {\n    super(name, description, {\n      options: {\n        beta: CliOptions.beta,\n      },\n    });\n  }\n\n  /**\n   * Checks atscm's dist-tags in the npm registry and resolves with the latest version available.\n   * @param {Boolean} [useBetaRelease=false] If beta versions should be used.\n   * @return {Promise<string>} Fulfilled with the latest atscm version available.\n   */\n  getLatestVersion(useBetaRelease = false) {\n    return get('https://registry.npmjs.org/-/package/atscm/dist-tags')\n      .then(res => res.data[useBetaRelease ? 'beta' : 'latest']);\n  }\n\n  /**\n   * Checks if an update is required with the given latest and current version.\n   * @param {string} latestVersion The latest version available.\n   * @param {string} currentVersion The current version to check against.\n   * @return {boolean|string} Returns `false` if no update is required or the version to install if\n   * an update is required.\n   */\n  updateNeeded(latestVersion, currentVersion) {\n    Logger.debug('Latest version:    ', Logger.format.value(latestVersion));\n    Logger.debug('Current version:   ', Logger.format.value(currentVersion));\n\n    return gt(latestVersion, currentVersion) && latestVersion;\n  }\n\n  /**\n   * Runs `npm install --save-dev atscm@latest` in a separate process.\n   * @param {AtSCMCli} cli The cli instance used.\n   * @param {Boolean} [useBetaRelease=false] If beta versions should be used.\n   * @return {Promise<string, Error>} Fulfilled with npm's stdout or rejected with a spawn error or\n   * error code.\n   */\n  update(cli, useBetaRelease = false) {\n    return ExternalCommand.run('npm',\n      ['install', '--save-dev', `atscm@${useBetaRelease ? 'beta' : 'latest'}`],\n      {\n        spawn: {\n          cwd: cli.environment.cwd,\n        },\n      });\n  }\n\n  /**\n   * Updates atscm if a newer version is available.\n   * @param {AtSCMCli} cli The cli instance used.\n   * @return {Promise<*>} Resolved if the command completed suceessfully, rejected with the error\n   * that occurred otherwise.\n   */\n  run(cli) {\n    return Promise.all([\n      this.getLatestVersion(cli.options.beta),\n      Promise.resolve(cli.environment.modulePackage.version),\n    ])\n      .then(versions => this.updateNeeded(...versions))\n      .then(needed => {\n        if (needed) {\n          Logger.info('Updating to version', Logger.format.value(needed));\n\n          return this.update(cli, cli.options.beta)\n            .then(() => Logger.info('Done.'));\n        }\n\n        return Logger.info('Already up-to-date.');\n      });\n  }\n\n  /**\n   * This command always needs to be run inside an existant atscm project.\n   * @return {boolean} Always `true`.\n   */\n  requiresEnvironment() {\n    return true;\n  }\n\n}\n",
+    "content": "import { get } from 'axios';\nimport { gt } from 'semver';\nimport Logger from '../../lib/util/Logger';\nimport Command from '../../lib/cli/Command';\nimport ExternalCommand from '../../lib/util/ExternalCommand';\nimport CliOptions from '../Options';\n\n/**\n * The command invoked by running \"update\".\n */\nexport default class UpdateCommand extends Command {\n\n  /**\n   * Creates a new {@link UpdateCommand} with the specified name and description.\n   * @param {string} name The command's name.\n   * @param {string} description The command's description.\n   */\n  constructor(name, description) {\n    super(name, description, {\n      options: {\n        beta: CliOptions.beta,\n      },\n    });\n  }\n\n  /**\n   * Checks atscm's dist-tags in the npm registry and resolves with the latest version available.\n   * @param {boolean} [useBetaRelease=false] If beta versions should be used.\n   * @return {Promise<string>} Fulfilled with the latest atscm version available.\n   */\n  getLatestVersion(useBetaRelease = false) {\n    return get('https://registry.npmjs.org/-/package/atscm/dist-tags')\n      .then(res => res.data[useBetaRelease ? 'beta' : 'latest']);\n  }\n\n  /**\n   * Checks if an update is required with the given latest and current version.\n   * @param {string} latestVersion The latest version available.\n   * @param {string} currentVersion The current version to check against.\n   * @return {boolean|string} Returns `false` if no update is required or the version to install if\n   * an update is required.\n   */\n  updateNeeded(latestVersion, currentVersion) {\n    Logger.debug('Latest version:    ', Logger.format.value(latestVersion));\n    Logger.debug('Current version:   ', Logger.format.value(currentVersion));\n\n    return gt(latestVersion, currentVersion) && latestVersion;\n  }\n\n  /**\n   * Runs `npm install --save-dev atscm@latest` in a separate process.\n   * @param {AtSCMCli} cli The cli instance used.\n   * @param {boolean} [useBetaRelease=false] If beta versions should be used.\n   * @return {Promise<string, Error>} Fulfilled with npm's stdout or rejected with a spawn error or\n   * error code.\n   */\n  update(cli, useBetaRelease = false) {\n    return ExternalCommand.run('npm',\n      ['install', '--save-dev', `atscm@${useBetaRelease ? 'beta' : 'latest'}`],\n      {\n        spawn: {\n          cwd: cli.environment.cwd,\n        },\n      });\n  }\n\n  /**\n   * Updates atscm if a newer version is available.\n   * @param {AtSCMCli} cli The cli instance used.\n   * @return {Promise<*>} Resolved if the command completed suceessfully, rejected with the error\n   * that occurred otherwise.\n   */\n  run(cli) {\n    return Promise.all([\n      this.getLatestVersion(cli.options.beta),\n      Promise.resolve(cli.environment.modulePackage.version),\n    ])\n      .then(versions => this.updateNeeded(...versions))\n      .then(needed => {\n        if (needed) {\n          Logger.info('Updating to version', Logger.format.value(needed));\n\n          return this.update(cli, cli.options.beta)\n            .then(() => Logger.info('Done.'));\n        }\n\n        return Logger.info('Already up-to-date.');\n      });\n  }\n\n  /**\n   * This command always needs to be run inside an existant atscm project.\n   * @return {boolean} Always `true`.\n   */\n  requiresEnvironment() {\n    return true;\n  }\n\n}\n",
     "static": true,
     "longname": "/home/circleci/project/src/cli/commands/Update.js",
     "access": "public",
@@ -2144,7 +2144,7 @@
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -2154,7 +2154,7 @@
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -2179,7 +2179,7 @@
       {
         "nullable": null,
         "types": [
-          "Boolean"
+          "boolean"
         ],
         "spread": false,
         "optional": true,
@@ -2268,7 +2268,7 @@
       {
         "nullable": null,
         "types": [
-          "Boolean"
+          "boolean"
         ],
         "spread": false,
         "optional": true,
@@ -2346,7 +2346,7 @@
     "__docId__": 112,
     "kind": "file",
     "name": "src/lib/cli/Command.js",
-    "content": "/**\n * A command that can be run through the CLI.\n * @abstract\n */\nexport default class Command {\n\n  /**\n   * Creates a new Command with the given name and options.\n   * @param {String} name The command's name.\n   * @param {String} description The command's description.\n   * @param {Object} options The options to apply.\n   * @param {Map<String, Option>} options.options The options available for this command.\n   * @param {String} [options.arguments] The command's argument string. See\n   * [yargs' documentation](http://yargs.js.org/docs/#methods-commandmodule-positional-arguments)\n   * for details.\n   * @param {Number} [options.minArguments] The minimum number or (non-option) arguments the command\n   * requires.\n   * @param {Number} [options.maxArguments] The maximum number or (non-option) arguments the command\n   * requires.\n   * @throws {Error} Throws an error if options.maxArguments is less than options.minArguments.\n   */\n  constructor(name, description, options = {}) {\n    /**\n     * The command's name.\n     * @type {String}\n     */\n    this.name = name;\n\n    /**\n     * The command descriptions.\n     * @type {String}\n     */\n    this.description = description;\n\n    if (options.minArguments && options.maxArguments !== undefined\n      && options.maxArguments < options.minArguments) {\n      throw new Error('options.maxArguments must not be less than options.minArguments');\n    }\n\n    /**\n     * The command's raw options.\n     * @type {Object}\n     * @private\n     */\n    this._options = options;\n  }\n\n  /**\n   * Runs the command with the current Cli instance. **Asynchronous commands should return a Promise\n   * here.**\n   * @param {AtSCMCli} cli The current cli instance.\n   */\n  run(cli) { // eslint-disable-line no-unused-vars\n    throw new Error('Must be implemented by all subclasses');\n  }\n\n  /**\n   * Returns `true` if the command requires a {@link Liftoff.Environment} before it can be run.\n   * @param {AtSCMCli} cli The current cli instance.\n   * @return {Boolean} `true` if the command requires a {@link Liftoff.Environment}.\n   */\n  requiresEnvironment(cli) { // eslint-disable-line no-unused-vars\n    return true;\n  }\n\n  /**\n   * Returns the usage string for the command. Something like \"{name} {arguments}\".\n   * @type {String}\n   */\n  get usage() {\n    if (this._options.arguments) {\n      return `${this.name} ${this._options.arguments}`;\n    }\n\n    return this.name;\n  }\n\n  /**\n   * The options available for the command.\n   * @type {Map<String, Option>}\n   */\n  get options() {\n    return this._options.options || {};\n  }\n\n  /**\n   * The minimum and maximum number of (non-option) arguments the command handles.\n   * @type {Number[]}\n   */\n  get demandCommand() {\n    const ret = [this._options.minArguments || 0];\n\n    if (this._options.maxArguments !== undefined) {\n      ret.push(this._options.maxArguments);\n    }\n\n    return ret;\n  }\n\n}\n",
+    "content": "/**\n * A command that can be run through the CLI.\n * @abstract\n */\nexport default class Command {\n\n  /**\n   * Creates a new Command with the given name and options.\n   * @param {string} name The command's name.\n   * @param {string} description The command's description.\n   * @param {Object} options The options to apply.\n   * @param {Map<String, Option>} options.options The options available for this command.\n   * @param {string} [options.arguments] The command's argument string. See yargs' documentation\n   * for details.\n   * @param {number} [options.minArguments] The minimum number or (non-option) arguments the command\n   * requires.\n   * @param {number} [options.maxArguments] The maximum number or (non-option) arguments the command\n   * requires.\n   * @throws {Error} Throws an error if options.maxArguments is less than options.minArguments.\n   * @see {@link yargs}\n   */\n  constructor(name, description, options = {}) {\n    /**\n     * The command's name.\n     * @type {String}\n     */\n    this.name = name;\n\n    /**\n     * The command descriptions.\n     * @type {String}\n     */\n    this.description = description;\n\n    if (options.minArguments && options.maxArguments !== undefined\n      && options.maxArguments < options.minArguments) {\n      throw new Error('options.maxArguments must not be less than options.minArguments');\n    }\n\n    /**\n     * The command's raw options.\n     * @type {Object}\n     * @private\n     */\n    this._options = options;\n  }\n\n  /**\n   * Runs the command with the current Cli instance. **Asynchronous commands should return a Promise\n   * here.**.\n   * @param {AtSCMCli} cli The current cli instance.\n   */\n  run(cli) { // eslint-disable-line no-unused-vars\n    throw new Error('Must be implemented by all subclasses');\n  }\n\n  /**\n   * Returns `true` if the command requires a {@link Liftoff.Environment} before it can be run.\n   * @param {AtSCMCli} cli The current cli instance.\n   * @return {boolean} `true` if the command requires a {@link Liftoff.Environment}.\n   */\n  requiresEnvironment(cli) { // eslint-disable-line no-unused-vars\n    return true;\n  }\n\n  /**\n   * Returns the usage string for the command. Something like \"{name} {arguments}\".\n   * @type {string}\n   */\n  get usage() {\n    if (this._options.arguments) {\n      return `${this.name} ${this._options.arguments}`;\n    }\n\n    return this.name;\n  }\n\n  /**\n   * The options available for the command.\n   * @type {Map<String, Option>}\n   */\n  get options() {\n    return this._options.options || {};\n  }\n\n  /**\n   * The minimum and maximum number of (non-option) arguments the command handles.\n   * @type {Number[]}\n   */\n  get demandCommand() {\n    const ret = [this._options.minArguments || 0];\n\n    if (this._options.maxArguments !== undefined) {\n      ret.push(this._options.maxArguments);\n    }\n\n    return ret;\n  }\n\n}\n",
     "static": true,
     "longname": "/home/circleci/project/src/lib/cli/Command.js",
     "access": "public",
@@ -2380,12 +2380,15 @@
     "longname": "src/lib/cli/Command.js~Command#constructor",
     "access": "public",
     "description": "Creates a new Command with the given name and options.",
+    "see": [
+      "{@link yargs}"
+    ],
     "lineNumber": 22,
     "params": [
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -2395,7 +2398,7 @@
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -2425,17 +2428,17 @@
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": true,
         "name": "options.arguments",
-        "description": "The command's argument string. See\n[yargs' documentation](http://yargs.js.org/docs/#methods-commandmodule-positional-arguments)\nfor details."
+        "description": "The command's argument string. See yargs' documentation\nfor details."
       },
       {
         "nullable": null,
         "types": [
-          "Number"
+          "number"
         ],
         "spread": false,
         "optional": true,
@@ -2445,7 +2448,7 @@
       {
         "nullable": null,
         "types": [
-          "Number"
+          "number"
         ],
         "spread": false,
         "optional": true,
@@ -2529,7 +2532,7 @@
     "static": false,
     "longname": "src/lib/cli/Command.js~Command#run",
     "access": "public",
-    "description": "Runs the command with the current Cli instance. **Asynchronous commands should return a Promise\nhere.**",
+    "description": "Runs the command with the current Cli instance. **Asynchronous commands should return a Promise\nhere.**.",
     "lineNumber": 53,
     "params": [
       {
@@ -2572,7 +2575,7 @@
     "return": {
       "nullable": null,
       "types": [
-        "Boolean"
+        "boolean"
       ],
       "spread": false,
       "description": "`true` if the command requires a {@link Liftoff.Environment}."
@@ -2593,7 +2596,7 @@
     "type": {
       "nullable": null,
       "types": [
-        "String"
+        "string"
       ],
       "spread": false,
       "description": null
@@ -2645,7 +2648,7 @@
     "__docId__": 123,
     "kind": "file",
     "name": "src/lib/cli/Option.js",
-    "content": "/**\n * A command line option.\n */\nexport default class Option {\n\n  /**\n   * Creates a new {@link Option} based on a description and some options.\n   * @param {String} desc A string describing the option. Used for help texts.\n   * @param {Object} [options={}] The options to create the {@link Option} with. Refer to\n   * [yarg's documentation](http://yargs.js.org/docs/#methods-optionskey-opt) in order to know what\n   * options can be used here.\n   */\n  constructor(desc, options = {}) {\n    /**\n     * A string describing the option. Used for help texts.\n     * @type {String}\n     */\n    this.desc = desc;\n\n    Object.keys(options)\n      .forEach(k => (this[k] = options[k]));\n  }\n\n  /**\n   * Shorthand to create an {@link Option} with type boolean.\n   * @param {String} desc A string describing the option. Used for help texts.\n   * @param {Object} [options={type: 'boolean'}] The options to create the {@link Option} with.\n   * @return {Option} An {@link Option} with type boolean.\n   */\n  static boolean(desc, options = {}) {\n    return new this(desc, Object.assign(options, { type: 'boolean' }));\n  }\n\n  /**\n   * Shorthand to create an {@link Option} with type string.\n   * @param {String} desc A string describing the option. Used for help texts.\n   * @param {Object} [options={type: 'string', requiresArg: true}] The options to create the\n   * {@link Option} with.\n   * @return {Option} An {@link Option} with type string.\n   */\n  static string(desc, options = {}) {\n    return new this(desc, Object.assign(options, { type: 'string', requiresArg: true }));\n  }\n\n}\n",
+    "content": "/**\n * A command line option.\n */\nexport default class Option {\n\n  /**\n   * Creates a new {@link Option} based on a description and some options.\n   * @param {string} desc A string describing the option. Used for help texts.\n   * @param {Object} [options={}] The options to create the {@link Option} with. Refer to\n   * yarg's documentation in order to know what options can be used here.\n   * @see {@link yargs}\n   */\n  constructor(desc, options = {}) {\n    /**\n     * A string describing the option. Used for help texts.\n     * @type {String}\n     */\n    this.desc = desc;\n\n    Object.keys(options)\n      .forEach(k => (this[k] = options[k]));\n  }\n\n  /**\n   * Shorthand to create an {@link Option} with type boolean.\n   * @param {string} desc A string describing the option. Used for help texts.\n   * @param {Object} [options={type: 'boolean'}] The options to create the {@link Option} with.\n   * @return {Option} An {@link Option} with type boolean.\n   */\n  static boolean(desc, options = {}) {\n    return new this(desc, Object.assign(options, { type: 'boolean' }));\n  }\n\n  /**\n   * Shorthand to create an {@link Option} with type string.\n   * @param {string} desc A string describing the option. Used for help texts.\n   * @param {Object} [options={type: 'string', requiresArg: true}] The options to create the\n   * {@link Option} with.\n   * @return {Option} An {@link Option} with type string.\n   */\n  static string(desc, options = {}) {\n    return new this(desc, Object.assign(options, { type: 'string', requiresArg: true }));\n  }\n\n}\n",
     "static": true,
     "longname": "/home/circleci/project/src/lib/cli/Option.js",
     "access": "public",
@@ -2678,12 +2681,15 @@
     "longname": "src/lib/cli/Option.js~Option#constructor",
     "access": "public",
     "description": "Creates a new {@link Option} based on a description and some options.",
+    "see": [
+      "{@link yargs}"
+    ],
     "lineNumber": 13,
     "params": [
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -2700,7 +2706,7 @@
         "defaultValue": "{}",
         "defaultRaw": {},
         "name": "options",
-        "description": "The options to create the {@link Option} with. Refer to\n[yarg's documentation](http://yargs.js.org/docs/#methods-optionskey-opt) in order to know what\noptions can be used here."
+        "description": "The options to create the {@link Option} with. Refer to\nyarg's documentation in order to know what options can be used here."
       }
     ]
   },
@@ -2739,7 +2745,7 @@
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -2784,7 +2790,7 @@
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -2817,7 +2823,7 @@
     "__docId__": 129,
     "kind": "file",
     "name": "src/lib/error/UsageError.js",
-    "content": "/**\n * An error reported when {@link yargs} fails to parse arguments.\n */\nexport default class UsageError extends Error {\n\n  /**\n   * Creates a new {@link UsageError} based on an error message and the failing parser.\n   * @param {String} message The error message.\n   * @param {String} help Help text for the failing command.\n   */\n  constructor(message, help) {\n    super(message);\n\n    /**\n     * Help text for the failing command.\n     * @type {String}\n     */\n    this.help = help;\n  }\n\n}\n",
+    "content": "/**\n * An error reported when {@link yargs} fails to parse arguments.\n */\nexport default class UsageError extends Error {\n\n  /**\n   * Creates a new {@link UsageError} based on an error message and the failing parser.\n   * @param {string} message The error message.\n   * @param {string} help Help text for the failing command.\n   */\n  constructor(message, help) {\n    super(message);\n\n    /**\n     * Help text for the failing command.\n     * @type {String}\n     */\n    this.help = help;\n  }\n\n}\n",
     "static": true,
     "longname": "/home/circleci/project/src/lib/error/UsageError.js",
     "access": "public",
@@ -2858,7 +2864,7 @@
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -2868,7 +2874,7 @@
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -2900,7 +2906,7 @@
     "__docId__": 133,
     "kind": "file",
     "name": "src/lib/util/ExternalCommand.js",
-    "content": "import { spawn } from 'child_process';\nimport which from 'which';\nimport Logger from './Logger';\n\n/**\n * A static class providing utilities to run external commands.\n */\nexport default class ExternalCommand {\n\n  /**\n   * Resolves the executable path for the given command.\n   * @param {string} name The command to resolve.\n   * @return {Promise<string, Error>} Fulfilled with the executable path or the error that occured\n   * while running `which`.\n   */\n  static resolveBin(name) {\n    return new Promise((resolve, reject) => {\n      which(name, (err, path) => {\n        if (err) {\n          reject(err);\n        } else {\n          resolve(path);\n        }\n      });\n    });\n  }\n\n  /**\n   * Spawns an executable with the given args and options. See the [node.js docs on the\n   * `child_process` module](https://nodejs.org/api/child_process.html#child_process_child_process)\n   * for all available spawn options.\n   * @param {string} bin Path to the executable to run.\n   * @param {string[]} [args=[]] The arguments to use.\n   * @param {Object} [options] The options to use.\n   * @param {Object} [options.spawn] Options to use for the spawned process.\n   * @param {function(process: node.ChildProcess)} [options.onspawn] Callback to call once the\n   * process was created. Useful for handling stdio events etc.\n   * @return {Promise<string, Error>} Fulfilled with the child process' stdout or rejected with a\n   * spawn error or non-zero exit code.\n   */\n  static spawn(bin, args = [], options = {}) {\n    return new Promise((resolve, reject) => {\n      let stdout = '';\n\n      Logger.debug('Running', Logger.format.command(`${bin} ${args.join(' ')}`));\n      const child = spawn(bin, args, options.spawn || options)\n        .once('error', err => reject(err))\n        .once('close', code => {\n          if (code > 0) {\n            reject(new Error(`${bin} ${args.join(' ')} returned code ${code}`));\n          } else {\n            resolve(stdout.trim());\n          }\n        });\n\n      child.stdout.on('data', d => (stdout += d.toString()));\n\n      if (options.onspawn) {\n        options.onspawn(child);\n      }\n    });\n  }\n\n  /**\n   * Resolves the executable for the given command and runs it with the arguments and options given.\n   * See the [node.js docs on the\n   * `child_process` module](https://nodejs.org/api/child_process.html#child_process_child_process)\n   * for all available spawn options.\n   * @param {string} name The command to run.\n   * @param {string[]} [args] The arguments to use.\n   * @param {Object} [options] The options to use.\n   * @param {Object} [options.spawn] Options to use for the spawned process.\n   * @param {function(process: node.ChildProcess)} [options.onspawn] Callback to call once the\n   * process was created. Useful for handling stdio events etc.\n   * @return {Promise<string, Error>} Fulfilled with the child process' stdout or rejected with a\n   * spawn error, a non-zero exit code or an error that occured while running `which`.\n   */\n  static run(name, args, options) {\n    return this.resolveBin(name)\n      .then(bin => this.spawn(bin, args, options));\n  }\n\n}\n",
+    "content": "import { spawn } from 'child_process';\nimport which from 'which';\nimport Logger from './Logger';\n\n/**\n * A static class providing utilities to run external commands.\n */\nexport default class ExternalCommand {\n\n  /**\n   * Resolves the executable path for the given command.\n   * @param {string} name The command to resolve.\n   * @return {Promise<string, Error>} Fulfilled with the executable path or the error that occured\n   * while running `which`.\n   */\n  static resolveBin(name) {\n    return new Promise((resolve, reject) => {\n      which(name, (err, path) => {\n        if (err) {\n          reject(err);\n        } else {\n          resolve(path);\n        }\n      });\n    });\n  }\n\n  /**\n   * Spawns an executable with the given args and options. See the node docs on the `child_process`\n   * module for all available spawn options.\n   * @param {string} bin Path to the executable to run.\n   * @param {string[]} [args=[]] The arguments to use.\n   * @param {Object} [options] The options to use.\n   * @param {Object} [options.spawn] Options to use for the spawned process.\n   * @param {function(process: node.ChildProcess)} [options.onspawn] Callback to call once the\n   * process was created. Useful for handling stdio events etc.\n   * @return {Promise<string, Error>} Fulfilled with the child process' stdout or rejected with a\n   * spawn error or non-zero exit code.\n   * @see {@link node.ChildProcess}\n   */\n  static spawn(bin, args = [], options = {}) {\n    return new Promise((resolve, reject) => {\n      let stdout = '';\n\n      Logger.debug('Running', Logger.format.command(`${bin} ${args.join(' ')}`));\n      const child = spawn(bin, args, options.spawn || options)\n        .once('error', err => reject(err))\n        .once('close', code => {\n          if (code > 0) {\n            reject(new Error(`${bin} ${args.join(' ')} returned code ${code}`));\n          } else {\n            resolve(stdout.trim());\n          }\n        });\n\n      child.stdout.on('data', d => (stdout += d.toString()));\n\n      if (options.onspawn) {\n        options.onspawn(child);\n      }\n    });\n  }\n\n  /**\n   * Resolves the executable for the given command and runs it with the arguments and options given.\n   * See the node docs on the `child_process` module for all available spawn options.\n   * @param {string} name The command to run.\n   * @param {string[]} [args] The arguments to use.\n   * @param {Object} [options] The options to use.\n   * @param {Object} [options.spawn] Options to use for the spawned process.\n   * @param {function(process: node.ChildProcess)} [options.onspawn] Callback to call once the\n   * process was created. Useful for handling stdio events etc.\n   * @return {Promise<string, Error>} Fulfilled with the child process' stdout or rejected with a\n   * spawn error, a non-zero exit code or an error that occured while running `which`.\n   * @see {@link node.ChildProcess}\n   */\n  static run(name, args, options) {\n    return this.resolveBin(name)\n      .then(bin => this.spawn(bin, args, options));\n  }\n\n}\n",
     "static": true,
     "longname": "/home/circleci/project/src/lib/util/ExternalCommand.js",
     "access": "public",
@@ -2965,7 +2971,10 @@
     "static": true,
     "longname": "src/lib/util/ExternalCommand.js~ExternalCommand.spawn",
     "access": "public",
-    "description": "Spawns an executable with the given args and options. See the [node.js docs on the\n`child_process` module](https://nodejs.org/api/child_process.html#child_process_child_process)\nfor all available spawn options.",
+    "description": "Spawns an executable with the given args and options. See the node docs on the `child_process`\nmodule for all available spawn options.",
+    "see": [
+      "{@link node.ChildProcess}"
+    ],
     "lineNumber": 41,
     "params": [
       {
@@ -3040,8 +3049,11 @@
     "static": true,
     "longname": "src/lib/util/ExternalCommand.js~ExternalCommand.run",
     "access": "public",
-    "description": "Resolves the executable for the given command and runs it with the arguments and options given.\nSee the [node.js docs on the\n`child_process` module](https://nodejs.org/api/child_process.html#child_process_child_process)\nfor all available spawn options.",
-    "lineNumber": 78,
+    "description": "Resolves the executable for the given command and runs it with the arguments and options given.\nSee the node docs on the `child_process` module for all available spawn options.",
+    "see": [
+      "{@link node.ChildProcess}"
+    ],
+    "lineNumber": 77,
     "params": [
       {
         "nullable": null,
@@ -3107,7 +3119,7 @@
     "__docId__": 138,
     "kind": "file",
     "name": "src/lib/util/Logger.js",
-    "content": "import readline from 'readline';\nimport { Console } from 'console';\nimport gulplog from 'gulplog';\nimport chalk from 'chalk';\nimport tildify from 'tildify';\n\nconst logConsole = new Console(process.stdout, process.stderr);\n\n/**\n * Formats strings to be used in the {@link Logger}.\n */\nexport class LogFormat {\n\n  /**\n   * Formats a string to represent a path.\n   * @param {String} path The path to format.\n   * @return {String} The formatted string.\n   */\n  static path(path) {\n    return chalk.magenta(tildify(path));\n  }\n\n  /**\n   * Formats a string to represent a command.\n   * @param {String} command The command to format.\n   * @return {String} The formatted string.\n   */\n  static command(command) {\n    return chalk.bold(command);\n  }\n\n  /**\n   * Formats a string to represent a value. Use this format for files, module names, etc.\n   * @param {String} value The value to format.\n   * @return {String} The formatted string.\n   */\n  static value(value) {\n    return chalk.cyan(value);\n  }\n\n  /**\n   * Formats a string to represent a number. Use this format for times, counts, etc.\n   * @param {String} number The value to format.\n   * @return {String} The formatted string.\n   */\n  static number(number) {\n    return chalk.magenta(number);\n  }\n\n}\n\n/**\n * A logger used in all console outputs.\n * **Should never be instantiated.**\n * Log levels, `--silent`-flags etc. are handled automatically by {@link gulplog}.\n */\nexport default class Logger {\n\n  /**\n   * An instance of {@link chalk}.\n   * @type {chalk}\n   */\n  static get colors() {\n    return chalk;\n  }\n\n  /**\n   * An instance of {@link LogFormat}.\n   * @type {LogFormat}\n   */\n  static get format() {\n    return LogFormat;\n  }\n\n  /**\n   * The prefix added to each log. Should always equal\n   * [fancy-logs prefix](https://github.com/js-cli/fancy-log/blob/master/index.js#L8).\n   * @type {String}\n   */\n  static get prefix() {\n    function pad(val) {\n      return `00${val}`.slice(-2);\n    }\n\n    const now = new Date();\n    const timestamp = [\n      pad(now.getHours()),\n      pad(now.getMinutes()),\n      pad(now.getSeconds()),\n    ].join(':');\n\n    return `[${chalk.gray(timestamp)}]`;\n  }\n\n  /**\n   * Print debug messages.\n   * @param {...String} message The message(s) to print.\n   */\n  static debug(...message) {\n    gulplog.debug(...message);\n  }\n\n  /**\n   * Print regular logs.\n   * @param {...String} message The message(s) to print.\n   */\n  static info(...message) {\n    gulplog.info(...message);\n  }\n\n  /**\n   * Print warnings.\n   * @param {...String} message The message(s) to print.\n   */\n  static warn(...message) {\n    gulplog.warn(...message);\n  }\n\n  /**\n   * Print error messages.\n   * @param {...String} message The message(s) to print.\n   */\n  static error(...message) {\n    gulplog.error(...message);\n  }\n\n  /**\n   * The log types available.\n   * @type {String[]}\n   */\n  static get types() {\n    return ['error', 'warn', 'info', 'debug'];\n  }\n\n  /**\n   * Apply options to the logger.\n   * **Should only be called once.**\n   * @param {Object} options Options passed to {@link gulplog}.\n   */\n  static applyOptions(options) {\n    if (options.tasksSimple || options.silent || options.logLevel === 0) {\n      gulplog.on('error', () => {});\n      return;\n    }\n\n    /**\n     * The log types handled.\n     * @type {Map<String, Boolean>}\n     */\n    this._handled = {};\n\n    this.types\n      .filter((item, i) => {\n        const handle = (i < options.logLevel);\n\n        this._handled[item] = handle;\n\n        return handle;\n      })\n      .forEach(level => gulplog.on(level, (...args) => {\n        logConsole[level === 'error' ? 'error' : 'info'](...[this.prefix].concat(args));\n      }));\n  }\n\n  /**\n   * Pipes a readable stream and logs the last line of each chunk processed.\n   * @param {node.stream.Readable} stream The stream to pipe.\n   */\n  static pipeLastLine(stream) {\n    let loggedBefore = false;\n\n    stream\n      .on('data', d => {\n        const lines = d.toString().split('\\n').filter(l => l.trim() !== '');\n\n        if (loggedBefore && this._handled.info) {\n          readline.moveCursor(process.stdout, 0, -1);\n          readline.clearLine(process.stdout);\n        }\n\n        Logger.info(lines[lines.length - 1]);\n        loggedBefore = true;\n      })\n      .on('end', () => {\n        if (loggedBefore && this._handled.info) {\n          readline.moveCursor(process.stdout, 0, -1);\n          readline.clearLine(process.stdout);\n          readline.cursorTo(process.stdout, 0);\n        }\n      });\n  }\n\n}\n",
+    "content": "import readline from 'readline';\nimport { Console } from 'console';\nimport gulplog from 'gulplog';\nimport chalk from 'chalk';\nimport tildify from 'tildify';\n\nconst logConsole = new Console(process.stdout, process.stderr);\n\n/**\n * Formats strings to be used in the {@link Logger}.\n */\nexport class LogFormat {\n\n  /**\n   * Formats a string to represent a path.\n   * @param {string} path The path to format.\n   * @return {string} The formatted string.\n   */\n  static path(path) {\n    return chalk.magenta(tildify(path));\n  }\n\n  /**\n   * Formats a string to represent a command.\n   * @param {string} command The command to format.\n   * @return {string} The formatted string.\n   */\n  static command(command) {\n    return chalk.bold(command);\n  }\n\n  /**\n   * Formats a string to represent a value. Use this format for files, module names, etc.\n   * @param {string} value The value to format.\n   * @return {string} The formatted string.\n   */\n  static value(value) {\n    return chalk.cyan(value);\n  }\n\n  /**\n   * Formats a string to represent a number. Use this format for times, counts, etc.\n   * @param {string} number The value to format.\n   * @return {string} The formatted string.\n   */\n  static number(number) {\n    return chalk.magenta(number);\n  }\n\n}\n\n/**\n * A logger used in all console outputs.\n * **Should never be instantiated.**\n * Log levels, `--silent`-flags etc. are handled automatically by {@link gulplog}.\n */\nexport default class Logger {\n\n  /**\n   * An instance of {@link chalk}.\n   * @type {chalk}\n   */\n  static get colors() {\n    return chalk;\n  }\n\n  /**\n   * An instance of {@link LogFormat}.\n   * @type {LogFormat}\n   */\n  static get format() {\n    return LogFormat;\n  }\n\n  /**\n   * The prefix added to each log. Should always equal fancy-log's prefix.\n   * @type {string}\n   * @see {@link gulplog}\n   */\n  static get prefix() {\n    function pad(val) {\n      return `00${val}`.slice(-2);\n    }\n\n    const now = new Date();\n    const timestamp = [\n      pad(now.getHours()),\n      pad(now.getMinutes()),\n      pad(now.getSeconds()),\n    ].join(':');\n\n    return `[${chalk.gray(timestamp)}]`;\n  }\n\n  /**\n   * Print debug messages.\n   * @param {...String} message The message(s) to print.\n   */\n  static debug(...message) {\n    gulplog.debug(...message);\n  }\n\n  /**\n   * Print regular logs.\n   * @param {...String} message The message(s) to print.\n   */\n  static info(...message) {\n    gulplog.info(...message);\n  }\n\n  /**\n   * Print warnings.\n   * @param {...String} message The message(s) to print.\n   */\n  static warn(...message) {\n    gulplog.warn(...message);\n  }\n\n  /**\n   * Print error messages.\n   * @param {...String} message The message(s) to print.\n   */\n  static error(...message) {\n    gulplog.error(...message);\n  }\n\n  /**\n   * The log types available.\n   * @type {String[]}\n   */\n  static get types() {\n    return ['error', 'warn', 'info', 'debug'];\n  }\n\n  /**\n   * Apply options to the logger.\n   * **Should only be called once.**.\n   * @param {Object} options Options passed to {@link gulplog}.\n   */\n  static applyOptions(options) {\n    if (options.tasksSimple || options.silent || options.logLevel === 0) {\n      gulplog.on('error', () => {});\n      return;\n    }\n\n    /**\n     * The log types handled.\n     * @type {Map<String, Boolean>}\n     */\n    this._handled = {};\n\n    this.types\n      .filter((item, i) => {\n        const handle = (i < options.logLevel);\n\n        this._handled[item] = handle;\n\n        return handle;\n      })\n      .forEach(level => gulplog.on(level, (...args) => {\n        logConsole[level === 'error' ? 'error' : 'info'](...[this.prefix].concat(args));\n      }));\n  }\n\n  /**\n   * Pipes a readable stream and logs the last line of each chunk processed.\n   * @param {node.stream.Readable} stream The stream to pipe.\n   */\n  static pipeLastLine(stream) {\n    let loggedBefore = false;\n\n    stream\n      .on('data', d => {\n        const lines = d.toString().split('\\n').filter(l => l.trim() !== '');\n\n        if (loggedBefore && this._handled.info) {\n          readline.moveCursor(process.stdout, 0, -1);\n          readline.clearLine(process.stdout);\n        }\n\n        Logger.info(lines[lines.length - 1]);\n        loggedBefore = true;\n      })\n      .on('end', () => {\n        if (loggedBefore && this._handled.info) {\n          readline.moveCursor(process.stdout, 0, -1);\n          readline.clearLine(process.stdout);\n          readline.cursorTo(process.stdout, 0);\n        }\n      });\n  }\n\n}\n",
     "static": true,
     "longname": "/home/circleci/project/src/lib/util/Logger.js",
     "access": "public",
@@ -3166,7 +3178,7 @@
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -3177,7 +3189,7 @@
     "return": {
       "nullable": null,
       "types": [
-        "String"
+        "string"
       ],
       "spread": false,
       "description": "The formatted string."
@@ -3199,7 +3211,7 @@
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -3210,7 +3222,7 @@
     "return": {
       "nullable": null,
       "types": [
-        "String"
+        "string"
       ],
       "spread": false,
       "description": "The formatted string."
@@ -3232,7 +3244,7 @@
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -3243,7 +3255,7 @@
     "return": {
       "nullable": null,
       "types": [
-        "String"
+        "string"
       ],
       "spread": false,
       "description": "The formatted string."
@@ -3265,7 +3277,7 @@
       {
         "nullable": null,
         "types": [
-          "String"
+          "string"
         ],
         "spread": false,
         "optional": false,
@@ -3276,7 +3288,7 @@
     "return": {
       "nullable": null,
       "types": [
-        "String"
+        "string"
       ],
       "spread": false,
       "description": "The formatted string."
@@ -3349,12 +3361,15 @@
     "static": true,
     "longname": "src/lib/util/Logger.js~Logger.prefix",
     "access": "public",
-    "description": "The prefix added to each log. Should always equal\n[fancy-logs prefix](https://github.com/js-cli/fancy-log/blob/master/index.js#L8).",
+    "description": "The prefix added to each log. Should always equal fancy-log's prefix.",
+    "see": [
+      "{@link gulplog}"
+    ],
     "lineNumber": 80,
     "type": {
       "nullable": null,
       "types": [
-        "String"
+        "string"
       ],
       "spread": false,
       "description": null
@@ -3495,7 +3510,7 @@
     "static": true,
     "longname": "src/lib/util/Logger.js~Logger.applyOptions",
     "access": "public",
-    "description": "Apply options to the logger.\n**Should only be called once.**",
+    "description": "Apply options to the logger.\n**Should only be called once.**.",
     "lineNumber": 140,
     "params": [
       {
@@ -3706,7 +3721,7 @@
   },
   {
     "kind": "index",
-    "content": "# atscm-cli\n\n> [atSCM](https://github.com/atSCM/atscm) command line interface\n\n[![CircleCI](https://circleci.com/gh/atSCM/atscm-cli.svg?style=shield)](https://circleci.com/gh/atSCM/atscm-cli)\n[![AppVeyor](https://ci.appveyor.com/api/projects/status/m7dy3spqfg4b2d9f?svg=true&pendingText=windows%20tests%20pending&passingText=windows%20tests%20passing&failingText=windows%20tests%20failing)](https://ci.appveyor.com/project/LukasHechenberger/atscm-cli)\n[![codecov](https://codecov.io/gh/atSCM/atscm-cli/branch/master/graph/badge.svg)](https://codecov.io/gh/atSCM/atscm-cli)\n[![ESDoc](https://atscm.github.io/atscm-cli/badge.svg)](https://atscm.github.io/atscm-cli)\n\n## Installation\n\nThis module can be installed via [npm](https://www.npmjs.com). With [node.js](https://nodejs.org/en/) **version 6 or later** installed run:\n\n```bash\n# Install atscm-cli globally\nnpm install -g atscm-cli\n```\n\n*You may have to run this command as an administrator.*\n\n## Basic usage\n\n> You can find more detailed usage information in the [usage manuals](https://atscm.github.io/atscm-cli/manual/CLI.html).\n\n### Creating a new *atSCM* project\n\nRunning `atscm init` will prompt you for a project name, description, etc. and create a new *atSCM* project.\n\nFor more detailed information on the init command look at the [manuals](https://atscm.github.io/atscm-cli/manual/index.html).\n\n### Running tasks\n\nRun tasks by typing `atscm [task]` inside a project directory.\n\nLookup the tasks available in [the atscm manuals](https://atscm.github.io/atscm/manual/index.html) or by running `atscm --tasks`.\n\n### Open documentation\n\nRunning `atscm docs` will open the API documentation of the *atscm* module, running `atscm docs --cli` will open the documentation of this module.\n",
+    "content": "# atscm-cli\n\n> [atSCM](https://github.com/atSCM/atscm) command line interface\n\n[![CircleCI](https://circleci.com/gh/atSCM/atscm-cli.svg?style=shield)](https://circleci.com/gh/atSCM/atscm-cli)\n[![AppVeyor](https://ci.appveyor.com/api/projects/status/m7dy3spqfg4b2d9f?svg=true&pendingText=windows%20tests%20pending&passingText=windows%20tests%20passing&failingText=windows%20tests%20failing)](https://ci.appveyor.com/project/LukasHechenberger/atscm-cli)\n[![codecov](https://codecov.io/gh/atSCM/atscm-cli/branch/master/graph/badge.svg)](https://codecov.io/gh/atSCM/atscm-cli)\n[![ESDoc](https://atscm.github.io/atscm-cli/badge.svg)](https://atscm.github.io/atscm-cli)\n[![Greenkeeper badge](https://badges.greenkeeper.io/atSCM/atscm-cli.svg)](https://greenkeeper.io/)\n\n## Installation\n\nThis module can be installed via [npm](https://www.npmjs.com). With [node.js](https://nodejs.org/en/) **version 6 or later** installed run:\n\n```bash\n# Install atscm-cli globally\nnpm install -g atscm-cli\n```\n\n*You may have to run this command as an administrator.*\n\n## Basic usage\n\n> You can find more detailed usage information in the [usage manuals](https://atscm.github.io/atscm-cli/manual/CLI.html).\n\n### Creating a new *atSCM* project\n\nRunning `atscm init` will prompt you for a project name, description, etc. and create a new *atSCM* project.\n\nFor more detailed information on the init command look at the [manuals](https://atscm.github.io/atscm-cli/manual/index.html).\n\n### Running tasks\n\nRun tasks by typing `atscm [task]` inside a project directory.\n\nLookup the tasks available in [the atscm manuals](https://atscm.github.io/atscm/manual/index.html) or by running `atscm --tasks`.\n\n### Open documentation\n\nRunning `atscm docs` will open the API documentation of the *atscm* module, running `atscm docs --cli` will open the documentation of this module.\n",
     "longname": "/home/circleci/project/README.md",
     "name": "./README.md",
     "static": true,
@@ -3714,7 +3729,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"atscm-cli\",\n  \"version\": \"0.3.1\",\n  \"description\": \"atSCM command line interface\",\n  \"main\": \"out/AtSCMCli.js\",\n  \"bin\": {\n    \"atscm\": \"out/bin/atscm.js\"\n  },\n  \"engines\": {\n    \"node\": \">=6.0\"\n  },\n  \"scripts\": {\n    \"compile\": \"babel src --out-dir out --source-maps\",\n    \"compile:watch\": \"npm run compile -- --watch\",\n    \"docs\": \"esdoc -c esdoc.json\",\n    \"docs:coverage\": \"esdoc-coverage -c esdoc.json\",\n    \"lint\": \"eslint src\",\n    \"lint:test\": \"eslint test\",\n    \"predocs\": \"node docs/helpers/createReadme\",\n    \"prepublishOnly\": \"npm run compile && npm run docs\",\n    \"test\": \"mocha --recursive --require babel-register \\\"./test/**/*.spec.js\\\"\",\n    \"test:watch\": \"npm test -- --watch --reporter min\",\n    \"test:coverage\": \"NODE_ENV=test nyc --reporter=html npm test\",\n    \"test:docs\": \"blcl docs/api --exclude https://circleci.com/gh/atSCM/atscm-cli\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/atSCM/atscm-cli.git\"\n  },\n  \"author\": \"Lukas Hechenberger <lukas.hechenberger@bachmann.info>\",\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/atSCM/atscm-cli/issues\"\n  },\n  \"homepage\": \"https://github.com/atSCM/atscm-cli#readme\",\n  \"devDependencies\": {\n    \"@ls-age/bump-version\": \"^0.1.2\",\n    \"@ls-age/esdoc-coverage\": \"^0.1.6\",\n    \"babel-cli\": \"^6.18.0\",\n    \"babel-plugin-istanbul\": \"^3.0.0\",\n    \"babel-preset-node6\": \"^11.0.0\",\n    \"babel-register\": \"^6.22.0\",\n    \"broken-link-checker-local\": \"^0.1.1\",\n    \"codecov\": \"^3.0.0\",\n    \"esdoc\": \"^1.0.3\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint\": \"^3.12.0\",\n    \"eslint-config-lsage\": \"^0.1.0\",\n    \"mocha\": \"^3.2.0\",\n    \"mocha-circleci-reporter\": \"0.0.2\",\n    \"nyc\": \"^10.0.0\",\n    \"proxyquire\": \"^1.7.10\",\n    \"rimraf\": \"^2.5.4\",\n    \"sinon\": \"^2.3.2\",\n    \"through2\": \"^2.0.3\",\n    \"unexpected\": \"^10.20.0\"\n  },\n  \"dependencies\": {\n    \"axios\": \"^0.16.2\",\n    \"chalk\": \"^1.1.3\",\n    \"gulp-cli\": \"^1.2.2\",\n    \"gulplog\": \"^1.0.0\",\n    \"inquirer\": \"^3.0.1\",\n    \"interpret\": \"^1.0.1\",\n    \"liftoff\": \"^2.3.0\",\n    \"open\": \"0.0.5\",\n    \"semver\": \"^5.3.0\",\n    \"tildify\": \"^1.2.0\",\n    \"update-notifier\": \"^2.2.0\",\n    \"which\": \"^1.2.12\",\n    \"yargs\": \"^6.6.0\"\n  },\n  \"eslintConfig\": {\n    \"extends\": \"lsage\"\n  },\n  \"babel\": {\n    \"presets\": [\n      \"node6\"\n    ],\n    \"env\": {\n      \"test\": {\n        \"plugins\": [\n          \"istanbul\"\n        ]\n      }\n    }\n  },\n  \"nyc\": {\n    \"all\": true,\n    \"include\": [\n      \"src/**/*.js\"\n    ],\n    \"require\": [\n      \"babel-register\"\n    ],\n    \"sourceMap\": false,\n    \"instrument\": false,\n    \"check-coverage\": true\n  }\n}\n",
+    "content": "{\n  \"name\": \"atscm-cli\",\n  \"version\": \"0.3.1\",\n  \"description\": \"atSCM command line interface\",\n  \"main\": \"out/AtSCMCli.js\",\n  \"bin\": {\n    \"atscm\": \"out/bin/atscm.js\"\n  },\n  \"engines\": {\n    \"node\": \">=6.0\"\n  },\n  \"scripts\": {\n    \"compile\": \"babel src --out-dir out --source-maps\",\n    \"compile:watch\": \"npm run compile -- --watch\",\n    \"docs\": \"esdoc -c esdoc.json\",\n    \"docs:coverage\": \"esdoc-coverage -c esdoc.json\",\n    \"lint\": \"eslint src\",\n    \"lint:test\": \"eslint test\",\n    \"predocs\": \"node docs/helpers/createReadme\",\n    \"prepublishOnly\": \"npm run compile && npm run docs\",\n    \"test\": \"mocha --recursive --require babel-register \\\"./test/**/*.spec.js\\\" --exit\",\n    \"test:watch\": \"npm test -- --watch --reporter min\",\n    \"test:coverage\": \"NODE_ENV=test nyc --reporter=html npm test\",\n    \"test:docs\": \"blcl docs/api --exclude https://circleci.com/gh/atSCM/atscm-cli\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/atSCM/atscm-cli.git\"\n  },\n  \"author\": \"Lukas Hechenberger <lukas.hechenberger@bachmann.info>\",\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/atSCM/atscm-cli/issues\"\n  },\n  \"homepage\": \"https://github.com/atSCM/atscm-cli#readme\",\n  \"devDependencies\": {\n    \"@ls-age/bump-version\": \"^0.1.2\",\n    \"@ls-age/esdoc-coverage\": \"^0.1.6\",\n    \"babel-cli\": \"^6.18.0\",\n    \"babel-plugin-istanbul\": \"^4.1.5\",\n    \"babel-preset-node6\": \"^11.0.0\",\n    \"babel-register\": \"^6.22.0\",\n    \"broken-link-checker-local\": \"^0.1.1\",\n    \"codecov\": \"^3.0.0\",\n    \"esdoc\": \"^1.0.3\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint\": \"^4.13.1\",\n    \"eslint-config-lsage\": \"^0.3.0\",\n    \"greenkeeper-lockfile\": \"^1.12.0\",\n    \"mocha\": \"^4.0.1\",\n    \"mocha-circleci-reporter\": \"0.0.2\",\n    \"nyc\": \"^11.3.0\",\n    \"proxyquire\": \"^1.7.10\",\n    \"rimraf\": \"^2.5.4\",\n    \"sinon\": \"^4.1.3\",\n    \"through2\": \"^2.0.3\",\n    \"unexpected\": \"^10.20.0\"\n  },\n  \"dependencies\": {\n    \"axios\": \"^0.17.1\",\n    \"chalk\": \"^2.3.0\",\n    \"gulp-cli\": \"^1.2.2\",\n    \"gulplog\": \"^1.0.0\",\n    \"inquirer\": \"^4.0.1\",\n    \"interpret\": \"^1.0.1\",\n    \"liftoff\": \"^2.3.0\",\n    \"open\": \"0.0.5\",\n    \"semver\": \"^5.3.0\",\n    \"tildify\": \"^1.2.0\",\n    \"update-notifier\": \"^2.2.0\",\n    \"which\": \"^1.2.12\",\n    \"yargs\": \"^10.0.3\"\n  },\n  \"eslintConfig\": {\n    \"extends\": \"lsage\"\n  },\n  \"babel\": {\n    \"presets\": [\n      \"node6\"\n    ],\n    \"env\": {\n      \"test\": {\n        \"plugins\": [\n          \"istanbul\"\n        ]\n      }\n    }\n  },\n  \"nyc\": {\n    \"all\": true,\n    \"include\": [\n      \"src/**/*.js\"\n    ],\n    \"require\": [\n      \"babel-register\"\n    ],\n    \"sourceMap\": false,\n    \"instrument\": false,\n    \"check-coverage\": true\n  }\n}\n",
     "longname": "/home/circleci/project/package.json",
     "name": "package.json",
     "static": true,
@@ -6449,7 +6464,7 @@
     "__docId__": 361,
     "kind": "testFile",
     "name": "test/lib/util/Logger.spec.js",
-    "content": "/* eslint-disable no-console */\nimport expect from 'unexpected';\nimport { stub, spy } from 'sinon';\n\nimport gulplog from 'gulplog';\nimport { obj as createStream } from 'through2';\n\nimport Logger from '../../../src/lib/util/Logger';\n\n/** @test {LogFormat} */\ndescribe('LogFormat', function() {\n  const text = 'Test string';\n\n  const orgEnabled = Logger.colors.supportsColor;\n  before(() => (Logger.colors.enabled = true));\n  after(() => (Logger.colors.enabled = orgEnabled));\n\n  function expectStyle(styledText, style) {\n    expect(styledText, 'to equal', `${style.open}${text}${style.close}`);\n  }\n\n  /** @test {LogFormat.path} */\n  describe('.path', function() {\n    it('should change color to magenta', function() {\n      expectStyle(Logger.format.path(text), Logger.colors.styles.magenta);\n    });\n\n    it('should prettify user path', function() {\n      expect(Logger.format.path(process.env.HOME), 'to contain', '~');\n    });\n  });\n\n  /** @test {LogFormat.command} */\n  describe('.command', function() {\n    it('should return bold text', function() {\n      expectStyle(Logger.format.command(text), Logger.colors.styles.bold);\n    });\n  });\n\n  /** @test {LogFormat.value} */\n  describe('.value', function() {\n    it('should return cyan colored text', function() {\n      expectStyle(Logger.format.value(text), Logger.colors.styles.cyan);\n    });\n  });\n\n  /** @test {LogFormat.number} */\n  describe('.number', function() {\n    it('should return magenta colored text', function() {\n      expectStyle(Logger.format.number(text), Logger.colors.styles.magenta);\n    });\n  });\n});\n\n/** @test {Logger} */\ndescribe('Logger', function() {\n  function getText() {\n    return `Text ${(new Date())}`;\n  }\n\n  let debugSpy;\n  let infoSpy;\n  let warnSpy;\n  let errorSpy;\n\n  beforeEach(function() {\n    debugSpy = stub(gulplog, 'debug');\n    infoSpy = stub(gulplog, 'info');\n    warnSpy = stub(gulplog, 'warn');\n    errorSpy = stub(gulplog, 'error');\n  });\n\n  afterEach(function() {\n    gulplog.debug.restore();\n    gulplog.info.restore();\n    gulplog.warn.restore();\n    gulplog.error.restore();\n  });\n\n  /** @test {Logger.debug} */\n  describe('.debug', function() {\n    it('should call gulplog.debug', function() {\n      const t = getText();\n      Logger.debug(t);\n\n      expect(debugSpy.calledOnce, 'to be', true);\n      expect(debugSpy.lastCall.args, 'to equal', [t]);\n    });\n  });\n\n  /** @test {Logger.info} */\n  describe('.info', function() {\n    it('should call gulplog.info', function() {\n      const t = getText();\n      Logger.info(t);\n\n      expect(infoSpy.calledOnce, 'to be', true);\n      expect(infoSpy.lastCall.args, 'to equal', [t]);\n    });\n  });\n\n  /** @test {Logger.warn} */\n  describe('.warn', function() {\n    it('should call gulplog.warn', function() {\n      const t = getText();\n      Logger.warn(t);\n\n      expect(warnSpy.calledOnce, 'to be', true);\n      expect(warnSpy.lastCall.args, 'to equal', [t]);\n    });\n  });\n\n  /** @test {Logger.warn} */\n  describe('.error', function() {\n    it('should call gulplog.error', function() {\n      const t = getText();\n      Logger.error(t);\n\n      expect(errorSpy.calledOnce, 'to be', true);\n\n      expect(errorSpy.lastCall.args, 'to equal', [t]);\n    });\n  });\n\n  /** @test {Logger.applyOptions} */\n  describe('.applyOptions', function() {\n    afterEach(() => {\n      Logger.types.forEach(name => gulplog.removeAllListeners(name));\n    });\n\n    function expectListeners(levels) {\n      Logger.types.forEach((name, i) => {\n        expect(gulplog.listenerCount(name), 'to equal', levels[i] ? 1 : 0);\n      });\n    }\n\n    context('when using option \"silent\"', function() {\n      it('should only add a noop listener for \"error\" events', function() {\n        Logger.applyOptions({ silent: true });\n\n        expectListeners([true, false, false, false]);\n      });\n    });\n\n    context('when using \"logLevel\" 0', function() {\n      it('should only add a noop listener for \"error\" events', function() {\n        Logger.applyOptions({ logLevel: 0 });\n\n        expectListeners([true, false, false, false]);\n      });\n    });\n\n    context('when using \"logLevel\" 1', function() {\n      it('should only add a listener for \"error\" events', function() {\n        Logger.applyOptions({ logLevel: 1 });\n\n        expectListeners([true, false, false, false]);\n      });\n    });\n\n    context('when using \"logLevel\" 2', function() {\n      it('should add listeners for \"error\" and \"warn\" events', function() {\n        Logger.applyOptions({ logLevel: 2 });\n\n        expectListeners([true, true, false, false]);\n      });\n    });\n\n    context('when using \"logLevel\" 3', function() {\n      it('should add listeners for \"error\", \"warn\" and \"info\" events', function() {\n        Logger.applyOptions({ logLevel: 3 });\n\n        expectListeners([true, true, true, false]);\n      });\n    });\n\n    context('when using \"logLevel\" 4', function() {\n      it('should add listeners for all events', function() {\n        Logger.applyOptions({ logLevel: 4 });\n\n        expectListeners([true, true, true, true]);\n      });\n    });\n  });\n\n  /** @test {Logger.pipeLastLine} */\n  describe('.pipeLastLine', function() {\n    it('should print last line of each chunk', function(done) {\n      const stream = createStream((c, e, cb) => cb(null, c));\n\n      Logger.pipeLastLine(stream);\n\n      stream.on('end', () => {\n        expect(gulplog.info.callCount, 'to be', 2);\n        expect(gulplog.info.getCall(0).args[0], 'to match', /last 1$/);\n        expect(gulplog.info.lastCall.args[0], 'to match', /last 2$/);\n\n        done();\n      });\n\n      stream.push('first\\nlast 1'); // should log [HH:MM:SS] last 1\n      stream.push('first\\nlast 2'); // should log [HH:MM:SS] last 2\n      stream.end();\n    });\n\n    it('should ignore empty lines', function(done) {\n      const stream = createStream((c, e, cb) => cb(null, c));\n\n      Logger.pipeLastLine(stream);\n\n      stream.on('end', () => {\n        expect(gulplog.info.callCount, 'to be', 2);\n        expect(gulplog.info.getCall(0).args[0], 'to match', /last 1$/);\n        expect(gulplog.info.lastCall.args[0], 'to match', /last 2$/);\n\n        done();\n      });\n\n      stream.push('first\\nlast 1\\n'); // should log [HH:MM:SS] last 1\n      stream.push('first\\nlast 2\\n '); // should log [HH:MM:SS] last 2\n      stream.end();\n    });\n  });\n});\n",
+    "content": "/* eslint-disable no-console */\nimport expect from 'unexpected';\nimport { stub } from 'sinon';\nimport gulplog from 'gulplog';\nimport { obj as createStream } from 'through2';\nimport Logger from '../../../src/lib/util/Logger';\n\n/** @test {LogFormat} */\ndescribe('LogFormat', function() {\n  const text = 'Test string';\n\n  const orgEnabled = Logger.colors.supportsColor;\n  before(() => (Logger.colors.enabled = true));\n  after(() => (Logger.colors.enabled = orgEnabled));\n\n  function expectStyle(styledText, style) {\n    const { open, close } = style._styles[0];\n    expect(styledText, 'to equal', `${open}${text}${close}`);\n  }\n\n  /** @test {LogFormat.path} */\n  describe('.path', function() {\n    it('should change color to magenta', function() {\n      expectStyle(Logger.format.path(text), Logger.colors.magenta);\n    });\n\n    it('should prettify user path', function() {\n      expect(Logger.format.path(process.env.HOME), 'to contain', '~');\n    });\n  });\n\n  /** @test {LogFormat.command} */\n  describe('.command', function() {\n    it('should return bold text', function() {\n      expectStyle(Logger.format.command(text), Logger.colors.bold);\n    });\n  });\n\n  /** @test {LogFormat.value} */\n  describe('.value', function() {\n    it('should return cyan colored text', function() {\n      expectStyle(Logger.format.value(text), Logger.colors.cyan);\n    });\n  });\n\n  /** @test {LogFormat.number} */\n  describe('.number', function() {\n    it('should return magenta colored text', function() {\n      expectStyle(Logger.format.number(text), Logger.colors.magenta);\n    });\n  });\n});\n\n/** @test {Logger} */\ndescribe('Logger', function() {\n  function getText() {\n    return `Text ${(new Date())}`;\n  }\n\n  let debugSpy;\n  let infoSpy;\n  let warnSpy;\n  let errorSpy;\n\n  beforeEach(function() {\n    debugSpy = stub(gulplog, 'debug');\n    infoSpy = stub(gulplog, 'info');\n    warnSpy = stub(gulplog, 'warn');\n    errorSpy = stub(gulplog, 'error');\n  });\n\n  afterEach(function() {\n    gulplog.debug.restore();\n    gulplog.info.restore();\n    gulplog.warn.restore();\n    gulplog.error.restore();\n  });\n\n  /** @test {Logger.debug} */\n  describe('.debug', function() {\n    it('should call gulplog.debug', function() {\n      const t = getText();\n      Logger.debug(t);\n\n      expect(debugSpy.calledOnce, 'to be', true);\n      expect(debugSpy.lastCall.args, 'to equal', [t]);\n    });\n  });\n\n  /** @test {Logger.info} */\n  describe('.info', function() {\n    it('should call gulplog.info', function() {\n      const t = getText();\n      Logger.info(t);\n\n      expect(infoSpy.calledOnce, 'to be', true);\n      expect(infoSpy.lastCall.args, 'to equal', [t]);\n    });\n  });\n\n  /** @test {Logger.warn} */\n  describe('.warn', function() {\n    it('should call gulplog.warn', function() {\n      const t = getText();\n      Logger.warn(t);\n\n      expect(warnSpy.calledOnce, 'to be', true);\n      expect(warnSpy.lastCall.args, 'to equal', [t]);\n    });\n  });\n\n  /** @test {Logger.warn} */\n  describe('.error', function() {\n    it('should call gulplog.error', function() {\n      const t = getText();\n      Logger.error(t);\n\n      expect(errorSpy.calledOnce, 'to be', true);\n\n      expect(errorSpy.lastCall.args, 'to equal', [t]);\n    });\n  });\n\n  /** @test {Logger.applyOptions} */\n  describe('.applyOptions', function() {\n    afterEach(() => {\n      Logger.types.forEach(name => gulplog.removeAllListeners(name));\n    });\n\n    function expectListeners(levels) {\n      Logger.types.forEach((name, i) => {\n        expect(gulplog.listenerCount(name), 'to equal', levels[i] ? 1 : 0);\n      });\n    }\n\n    context('when using option \"silent\"', function() {\n      it('should only add a noop listener for \"error\" events', function() {\n        Logger.applyOptions({ silent: true });\n\n        expectListeners([true, false, false, false]);\n      });\n    });\n\n    context('when using \"logLevel\" 0', function() {\n      it('should only add a noop listener for \"error\" events', function() {\n        Logger.applyOptions({ logLevel: 0 });\n\n        expectListeners([true, false, false, false]);\n      });\n    });\n\n    context('when using \"logLevel\" 1', function() {\n      it('should only add a listener for \"error\" events', function() {\n        Logger.applyOptions({ logLevel: 1 });\n\n        expectListeners([true, false, false, false]);\n      });\n    });\n\n    context('when using \"logLevel\" 2', function() {\n      it('should add listeners for \"error\" and \"warn\" events', function() {\n        Logger.applyOptions({ logLevel: 2 });\n\n        expectListeners([true, true, false, false]);\n      });\n    });\n\n    context('when using \"logLevel\" 3', function() {\n      it('should add listeners for \"error\", \"warn\" and \"info\" events', function() {\n        Logger.applyOptions({ logLevel: 3 });\n\n        expectListeners([true, true, true, false]);\n      });\n    });\n\n    context('when using \"logLevel\" 4', function() {\n      it('should add listeners for all events', function() {\n        Logger.applyOptions({ logLevel: 4 });\n\n        expectListeners([true, true, true, true]);\n      });\n    });\n  });\n\n  /** @test {Logger.pipeLastLine} */\n  describe('.pipeLastLine', function() {\n    it('should print last line of each chunk', function(done) {\n      const stream = createStream((c, e, cb) => cb(null, c));\n\n      Logger.pipeLastLine(stream);\n\n      stream.on('end', () => {\n        expect(gulplog.info.callCount, 'to be', 2);\n        expect(gulplog.info.getCall(0).args[0], 'to match', /last 1$/);\n        expect(gulplog.info.lastCall.args[0], 'to match', /last 2$/);\n\n        done();\n      });\n\n      stream.push('first\\nlast 1'); // should log [HH:MM:SS] last 1\n      stream.push('first\\nlast 2'); // should log [HH:MM:SS] last 2\n      stream.end();\n    });\n\n    it('should ignore empty lines', function(done) {\n      const stream = createStream((c, e, cb) => cb(null, c));\n\n      Logger.pipeLastLine(stream);\n\n      stream.on('end', () => {\n        expect(gulplog.info.callCount, 'to be', 2);\n        expect(gulplog.info.getCall(0).args[0], 'to match', /last 1$/);\n        expect(gulplog.info.lastCall.args[0], 'to match', /last 2$/);\n\n        done();\n      });\n\n      stream.push('first\\nlast 1\\n'); // should log [HH:MM:SS] last 1\n      stream.push('first\\nlast 2\\n '); // should log [HH:MM:SS] last 2\n      stream.end();\n    });\n  });\n});\n",
     "static": true,
     "longname": "/home/circleci/project/test/lib/util/Logger.spec.js",
     "access": null,
@@ -6467,7 +6482,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe185",
     "access": null,
     "description": "LogFormat",
-    "lineNumber": 11,
+    "lineNumber": 9,
     "testTargets": [
       "LogFormat"
     ]
@@ -6483,7 +6498,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe185.describe186",
     "access": null,
     "description": ".path",
-    "lineNumber": 23,
+    "lineNumber": 22,
     "testTargets": [
       "LogFormat.path"
     ]
@@ -6499,7 +6514,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe185.describe186.it187",
     "access": null,
     "description": "should change color to magenta",
-    "lineNumber": 24
+    "lineNumber": 23
   },
   {
     "__docId__": 365,
@@ -6512,7 +6527,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe185.describe186.it188",
     "access": null,
     "description": "should prettify user path",
-    "lineNumber": 28
+    "lineNumber": 27
   },
   {
     "__docId__": 366,
@@ -6525,7 +6540,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe185.describe189",
     "access": null,
     "description": ".command",
-    "lineNumber": 34,
+    "lineNumber": 33,
     "testTargets": [
       "LogFormat.command"
     ]
@@ -6541,7 +6556,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe185.describe189.it190",
     "access": null,
     "description": "should return bold text",
-    "lineNumber": 35
+    "lineNumber": 34
   },
   {
     "__docId__": 368,
@@ -6554,7 +6569,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe185.describe191",
     "access": null,
     "description": ".value",
-    "lineNumber": 41,
+    "lineNumber": 40,
     "testTargets": [
       "LogFormat.value"
     ]
@@ -6570,7 +6585,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe185.describe191.it192",
     "access": null,
     "description": "should return cyan colored text",
-    "lineNumber": 42
+    "lineNumber": 41
   },
   {
     "__docId__": 370,
@@ -6583,7 +6598,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe185.describe193",
     "access": null,
     "description": ".number",
-    "lineNumber": 48,
+    "lineNumber": 47,
     "testTargets": [
       "LogFormat.number"
     ]
@@ -6599,7 +6614,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe185.describe193.it194",
     "access": null,
     "description": "should return magenta colored text",
-    "lineNumber": 49
+    "lineNumber": 48
   },
   {
     "__docId__": 372,
@@ -6612,7 +6627,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe195",
     "access": null,
     "description": "Logger",
-    "lineNumber": 56,
+    "lineNumber": 55,
     "testTargets": [
       "Logger"
     ]
@@ -6628,7 +6643,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe195.describe196",
     "access": null,
     "description": ".debug",
-    "lineNumber": 81,
+    "lineNumber": 80,
     "testTargets": [
       "Logger.debug"
     ]
@@ -6644,7 +6659,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe195.describe196.it197",
     "access": null,
     "description": "should call gulplog.debug",
-    "lineNumber": 82
+    "lineNumber": 81
   },
   {
     "__docId__": 375,
@@ -6657,7 +6672,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe195.describe198",
     "access": null,
     "description": ".info",
-    "lineNumber": 92,
+    "lineNumber": 91,
     "testTargets": [
       "Logger.info"
     ]
@@ -6673,7 +6688,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe195.describe198.it199",
     "access": null,
     "description": "should call gulplog.info",
-    "lineNumber": 93
+    "lineNumber": 92
   },
   {
     "__docId__": 377,
@@ -6686,7 +6701,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe195.describe200",
     "access": null,
     "description": ".warn",
-    "lineNumber": 103,
+    "lineNumber": 102,
     "testTargets": [
       "Logger.warn"
     ]
@@ -6702,7 +6717,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe195.describe200.it201",
     "access": null,
     "description": "should call gulplog.warn",
-    "lineNumber": 104
+    "lineNumber": 103
   },
   {
     "__docId__": 379,
@@ -6715,7 +6730,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe195.describe202",
     "access": null,
     "description": ".error",
-    "lineNumber": 114,
+    "lineNumber": 113,
     "testTargets": [
       "Logger.warn"
     ]
@@ -6731,7 +6746,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe195.describe202.it203",
     "access": null,
     "description": "should call gulplog.error",
-    "lineNumber": 115
+    "lineNumber": 114
   },
   {
     "__docId__": 381,
@@ -6744,7 +6759,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe195.describe204",
     "access": null,
     "description": ".applyOptions",
-    "lineNumber": 126,
+    "lineNumber": 125,
     "testTargets": [
       "Logger.applyOptions"
     ]
@@ -6760,7 +6775,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe195.describe204.context205",
     "access": null,
     "description": "when using option \"silent\"",
-    "lineNumber": 137
+    "lineNumber": 136
   },
   {
     "__docId__": 383,
@@ -6773,7 +6788,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe195.describe204.context205.it206",
     "access": null,
     "description": "should only add a noop listener for \"error\" events",
-    "lineNumber": 138
+    "lineNumber": 137
   },
   {
     "__docId__": 384,
@@ -6786,7 +6801,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe195.describe204.context207",
     "access": null,
     "description": "when using \"logLevel\" 0",
-    "lineNumber": 145
+    "lineNumber": 144
   },
   {
     "__docId__": 385,
@@ -6799,7 +6814,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe195.describe204.context207.it208",
     "access": null,
     "description": "should only add a noop listener for \"error\" events",
-    "lineNumber": 146
+    "lineNumber": 145
   },
   {
     "__docId__": 386,
@@ -6812,7 +6827,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe195.describe204.context209",
     "access": null,
     "description": "when using \"logLevel\" 1",
-    "lineNumber": 153
+    "lineNumber": 152
   },
   {
     "__docId__": 387,
@@ -6825,7 +6840,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe195.describe204.context209.it210",
     "access": null,
     "description": "should only add a listener for \"error\" events",
-    "lineNumber": 154
+    "lineNumber": 153
   },
   {
     "__docId__": 388,
@@ -6838,7 +6853,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe195.describe204.context211",
     "access": null,
     "description": "when using \"logLevel\" 2",
-    "lineNumber": 161
+    "lineNumber": 160
   },
   {
     "__docId__": 389,
@@ -6851,7 +6866,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe195.describe204.context211.it212",
     "access": null,
     "description": "should add listeners for \"error\" and \"warn\" events",
-    "lineNumber": 162
+    "lineNumber": 161
   },
   {
     "__docId__": 390,
@@ -6864,7 +6879,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe195.describe204.context213",
     "access": null,
     "description": "when using \"logLevel\" 3",
-    "lineNumber": 169
+    "lineNumber": 168
   },
   {
     "__docId__": 391,
@@ -6877,7 +6892,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe195.describe204.context213.it214",
     "access": null,
     "description": "should add listeners for \"error\", \"warn\" and \"info\" events",
-    "lineNumber": 170
+    "lineNumber": 169
   },
   {
     "__docId__": 392,
@@ -6890,7 +6905,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe195.describe204.context215",
     "access": null,
     "description": "when using \"logLevel\" 4",
-    "lineNumber": 177
+    "lineNumber": 176
   },
   {
     "__docId__": 393,
@@ -6903,7 +6918,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe195.describe204.context215.it216",
     "access": null,
     "description": "should add listeners for all events",
-    "lineNumber": 178
+    "lineNumber": 177
   },
   {
     "__docId__": 394,
@@ -6916,7 +6931,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe195.describe217",
     "access": null,
     "description": ".pipeLastLine",
-    "lineNumber": 187,
+    "lineNumber": 186,
     "testTargets": [
       "Logger.pipeLastLine"
     ]
@@ -6932,7 +6947,7 @@
     "longname": "test/lib/util/Logger.spec.js~describe195.describe217.it218",
     "access": null,
     "description": "should print last line of each chunk",
-    "lineNumber": 188
+    "lineNumber": 187
   },
   {
     "__docId__": 396,
@@ -6945,6 +6960,6 @@
     "longname": "test/lib/util/Logger.spec.js~describe195.describe217.it219",
     "access": null,
     "description": "should ignore empty lines",
-    "lineNumber": 206
+    "lineNumber": 205
   }
 ]

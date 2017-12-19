@@ -58,11 +58,9 @@
 <div class="content" data-ice="content"><h1 data-ice="title">test/lib/util/Logger.spec.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/* eslint-disable no-console */
 import expect from &apos;unexpected&apos;;
-import { stub, spy } from &apos;sinon&apos;;
-
+import { stub } from &apos;sinon&apos;;
 import gulplog from &apos;gulplog&apos;;
 import { obj as createStream } from &apos;through2&apos;;
-
 import Logger from &apos;../../../src/lib/util/Logger&apos;;
 
 /** @test {LogFormat} */
@@ -74,13 +72,14 @@ describe(&apos;LogFormat&apos;, function() {
   after(() =&gt; (Logger.colors.enabled = orgEnabled));
 
   function expectStyle(styledText, style) {
-    expect(styledText, &apos;to equal&apos;, `${style.open}${text}${style.close}`);
+    const { open, close } = style._styles[0];
+    expect(styledText, &apos;to equal&apos;, `${open}${text}${close}`);
   }
 
   /** @test {LogFormat.path} */
   describe(&apos;.path&apos;, function() {
     it(&apos;should change color to magenta&apos;, function() {
-      expectStyle(Logger.format.path(text), Logger.colors.styles.magenta);
+      expectStyle(Logger.format.path(text), Logger.colors.magenta);
     });
 
     it(&apos;should prettify user path&apos;, function() {
@@ -91,21 +90,21 @@ describe(&apos;LogFormat&apos;, function() {
   /** @test {LogFormat.command} */
   describe(&apos;.command&apos;, function() {
     it(&apos;should return bold text&apos;, function() {
-      expectStyle(Logger.format.command(text), Logger.colors.styles.bold);
+      expectStyle(Logger.format.command(text), Logger.colors.bold);
     });
   });
 
   /** @test {LogFormat.value} */
   describe(&apos;.value&apos;, function() {
     it(&apos;should return cyan colored text&apos;, function() {
-      expectStyle(Logger.format.value(text), Logger.colors.styles.cyan);
+      expectStyle(Logger.format.value(text), Logger.colors.cyan);
     });
   });
 
   /** @test {LogFormat.number} */
   describe(&apos;.number&apos;, function() {
     it(&apos;should return magenta colored text&apos;, function() {
-      expectStyle(Logger.format.number(text), Logger.colors.styles.magenta);
+      expectStyle(Logger.format.number(text), Logger.colors.magenta);
     });
   });
 });
