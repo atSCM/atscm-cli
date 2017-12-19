@@ -9,6 +9,9 @@ jobs:
           keys:
             - v1-npm-deps-{{ checksum "package-lock.json" }}
       - run:
+          name: Preparing lockfile update
+          command: npx greenkeeper-lockfile-update
+      - run:
           name: Installing npm dependencies
           command: npm install
       - run:
@@ -68,6 +71,9 @@ jobs:
 
       # Deployment
       - add_ssh_keys
+      - deploy:
+          name: Updating lockfile
+          command: greenkeeper-lockfile-upload
       - deploy:
           name: Deploy changes
           command: |
