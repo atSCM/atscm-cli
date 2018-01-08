@@ -73,7 +73,7 @@ export default class RunCommand extends Command {
    */
   constructor(name, description) {
     super(name, description, {
-      arguments: &apos;[tasks...]&apos;,
+      arguments: &apos;[task...]&apos;,
       options: {
         tasks: CliOptions.tasks,
         &apos;tasks-simple&apos;: CliOptions[&apos;tasks-simple&apos;],
@@ -89,7 +89,7 @@ export default class RunCommand extends Command {
    */
   run(cli) {
     const opts = {
-      _: cli.options.tasks,
+      _: cli.options.task,
       tasks: cli.options.T,
       tasksSimple: cli.options.tasksSimple,
       tasksJson: cli.options.tasksJson,
