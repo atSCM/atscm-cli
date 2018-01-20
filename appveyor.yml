@@ -21,7 +21,7 @@ test_script:
   - node_modules/.bin/eslint -f junit src > eslint.xml
 
   # Transpile source code
-  - npm run build
+  - npm run compile
 
   # Run tests
   - set NODE_ENV=TEST
