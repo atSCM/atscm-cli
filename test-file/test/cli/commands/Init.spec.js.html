@@ -196,7 +196,7 @@ describe(&apos;InitCommand&apos;, function() {
 
   /** @test {InitCommand#install} */
   describe(&apos;#install&apos;, function() {
-    beforeEach(() =&gt; whichStub.default.reset());
+    beforeEach(() =&gt; whichStub.default.resetHistory());
 
     it(&apos;should run which for npm&apos;, function() {
       const deps = [&apos;dep1&apos;, &apos;dep2&apos;];

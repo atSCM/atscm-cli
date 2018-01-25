@@ -158,7 +158,7 @@ describe(&apos;DocsCommand&apos;, function() {
 
   /** @test {DocsCommand#run} */
   describe(&apos;#run&apos;, function() {
-    beforeEach(() =&gt; openSpy.reset());
+    beforeEach(() =&gt; openSpy.resetHistory());
 
     it(&apos;should open local api docs by default&apos;, function() {
       command.run({

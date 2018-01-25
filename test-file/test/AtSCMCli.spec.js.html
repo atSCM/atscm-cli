@@ -88,11 +88,11 @@ const AtSCMCli = proxyquire(&apos;../src/AtSCMCli&apos;, {
 /** @test {AtSCMCli} */
 describe(&apos;AtSCMCli&apos;, function() {
   beforeEach(() =&gt; {
-    LoggerSpy.debug.reset();
-    LoggerSpy.info.reset();
-    LoggerSpy.warn.reset();
-    LoggerSpy.error.reset();
-    LoggerSpy.applyOptions.reset();
+    LoggerSpy.debug.resetHistory();
+    LoggerSpy.info.resetHistory();
+    LoggerSpy.warn.resetHistory();
+    LoggerSpy.error.resetHistory();
+    LoggerSpy.applyOptions.resetHistory();
   });
 
   /** @test {AtSCMCli#constructor} */

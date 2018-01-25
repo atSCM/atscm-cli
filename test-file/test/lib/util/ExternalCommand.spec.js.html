@@ -79,7 +79,7 @@ const External = proxyquire(&apos;../../../src/lib/util/ExternalCommand&apos;, {
 /** @test {ExternalCommand} */
 describe(&apos;External&apos;, function() {
   beforeEach(function() {
-    which.reset();
+    which.resetHistory();
     which.callsArgWith(1, null, &apos;bin&apos;);
   });
 
