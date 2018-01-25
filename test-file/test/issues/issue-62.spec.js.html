@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl" href="../../../../">
-  <title data-ice="title">src/cli/commands/Run.js | atscm-cli</title>
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">test/issues/issue-62.spec.js | atscm-cli</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -55,61 +55,34 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/cli/commands/Run.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">test/issues/issue-62.spec.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { join } from &apos;path&apos;;
-import colors from &apos;chalk&apos;;
-import Command from &apos;../../lib/cli/Command&apos;;
-import CliOptions from &apos;../Options&apos;;
+import expect from &apos;unexpected&apos;;
+import { spy } from &apos;sinon&apos;;
+import proxyquire from &apos;proxyquire&apos;;
 
-/**
- * The command invoked when running &quot;run&quot;.
- */
-export default class RunCommand extends Command {
+const gulpCli = spy();
+const RunCommand = proxyquire(&apos;../../src/cli/commands/Run&apos;, {
+  &apos;gulp-cli/lib/versioned/^4.0.0/&apos;: gulpCli,
+}).default;
 
-  /**
-   * Creates a new {@link RunCommand} with the specified name and description.
-   * @param {string} name The command&apos;s name.
-   * @param {string} description The command&apos;s description.
-   */
-  constructor(name, description) {
-    super(name, description, {
-      arguments: &apos;[task...]&apos;,
+describe(&apos;Issue #62&apos;, function() {
+  it(&apos;should not throw on missing task&apos;, function() {
+    const command = new RunCommand(&apos;run&apos;, &apos;Run tasks.&apos;);
+
+    command.run({
+      environment: {
+        cwd: __dirname,
+        modulePath: join(__dirname, &apos;out/index.js&apos;),
+      },
       options: {
-        tasks: CliOptions.tasks,
-        &apos;tasks-simple&apos;: CliOptions[&apos;tasks-simple&apos;],
-        &apos;tasks-json&apos;: CliOptions[&apos;tasks-json&apos;],
-        continue: CliOptions.continue,
+        T: true,
       },
     });
-  }
 
-  /**
-   * Runs gulp with the specified tasks.
-   * @param {AtSCMCli} cli The current Cli instance.
-   */
-  run(cli) {
-    const opts = {
-      _: cli.options.task || [],
-      tasks: cli.options.T,
-      tasksSimple: cli.options.tasksSimple,
-      tasksJson: cli.options.tasksJson,
-      continue: cli.options.continue,
-    };
-
-    process.env.ATSCM_CONFIG_PATH = cli.environment.configPath;
-
-    // eslint-disable-next-line global-require
-    require(&apos;gulp-cli/lib/versioned/^4.0.0/&apos;)(
-      opts,
-      {
-        configPath: join(cli.environment.modulePath, &apos;../Gulpfile.js&apos;),
-        modulePath: join(cli.environment.cwd, &apos;node_modules/gulp&apos;),
-      }, {
-        description: colors.bold(&apos;Available tasks:&apos;),
-      });
-  }
-
-}
+    return expect(gulpCli.lastCall.args[0]._, &apos;to be defined&apos;);
+  });
+});
 </code></pre>
 
 </div>

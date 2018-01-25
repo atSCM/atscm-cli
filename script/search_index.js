@@ -978,6 +978,18 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "",
+    "test-file/test/issues/issue-62.spec.js.html#lineNumber11",
+    "Issue #62",
+    "test"
+  ],
+  [
+    "",
+    "test-file/test/issues/issue-62.spec.js.html#lineNumber12",
+    "Issue #62 should not throw on missing task",
+    "test"
+  ],
+  [
     "logformat src/lib/util/logger.js~logformat,logformat",
     "test-file/test/lib/util/Logger.spec.js.html#lineNumber9",
     "LogFormat",
@@ -2325,6 +2337,12 @@ window.esdocSearchIndex = [
     "test/cli/commands/update.spec.js",
     "test-file/test/cli/commands/Update.spec.js.html",
     "test/cli/commands/Update.spec.js",
+    "testFile"
+  ],
+  [
+    "test/issues/issue-62.spec.js",
+    "test-file/test/issues/issue-62.spec.js.html",
+    "test/issues/issue-62.spec.js",
     "testFile"
   ],
   [
