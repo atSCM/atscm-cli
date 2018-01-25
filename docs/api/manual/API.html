@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../">
+  <title data-ice="title">Manual | atscm-cli</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="atSCM command line interface"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="atscm-cli"><meta property="twitter:description" content="atSCM command line interface"></head>
+<body class="layout-container manual-root" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/atSCM/atscm-cli"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div class="manual-toc-root">
+  
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/CLI.html"><a href="manual/CLI.html" data-ice="link">Command line interface</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CLI.html"><a href="manual/CLI.html#commands" data-ice="link">Commands</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CLI.html"><a href="manual/CLI.html#options--em--incomplete---em-" data-ice="link">Options (incomplete)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CLI.html"><a href="manual/CLI.html#how-to-pass-options" data-ice="link">How to pass options</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CLI.html"><a href="manual/CLI.html#overriding-project-configuration" data-ice="link">Overriding project configuration</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/API.html"><a href="manual/API.html" data-ice="link">Programmatic usage</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/API.html"><a href="manual/API.html#es6-javascript" data-ice="link">ES6 JavaScript</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/API.html"><a href="manual/API.html#creating-a-cli-instance" data-ice="link">Creating a Cli instance</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html" data-ice="link">Contributing</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html#code-quality-control" data-ice="link">Code quality control</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html#setting-up-the-development-environment" data-ice="link">Setting up the development environment</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html#linting-files" data-ice="link">Linting files</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html#running-tests" data-ice="link">Running tests</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html#creating-api-documentation" data-ice="link">Creating API documentation</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html#providing-fixes---adding-features" data-ice="link">Providing fixes / adding features</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-3-5--2018-01-25-" data-ice="link">0.3.5 (2018-01-25)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-3-4--2018-01-25-" data-ice="link">0.3.4 (2018-01-25)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-3-3--2018-01-25-" data-ice="link">0.3.3 (2018-01-25)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#reverts" data-ice="link">Reverts</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-3-2--2018-01-08-" data-ice="link">0.3.2 (2018-01-08)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-3-1--2017-12-19-" data-ice="link">0.3.1 (2017-12-19)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-3-0--2017-11-06-" data-ice="link">0.3.0 (2017-11-06)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-2-4--2017-10-17-" data-ice="link">0.2.4 (2017-10-17)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-2-2--2017-03-15-" data-ice="link">0.2.2 (2017-03-15)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-2-1--2017-03-13-" data-ice="link">0.2.1 (2017-03-13)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-2-0--2017-03-13-" data-ice="link">0.2.0 (2017-03-13)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-1-2--2017-02-22-" data-ice="link">0.1.2 (2017-02-22)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-1-1--2017-02-21-" data-ice="link">0.1.1 (2017-02-21)</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-1-0--2017-02-21-" data-ice="link">0.1.0 (2017-02-21)</a></li>
+</ul>
+  </div>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="programmatic-usage">Programmatic usage</h1><blockquote>
+<p>Please note that using the <em>atscm-cli</em> API is an advanced topic.  </p>
+<p><strong>It&apos;s recommended to use the <a href="./manual/usage/CLI.html">command line interface</a> whenever possible.</strong></p>
+</blockquote>
+<h2 id="es6-javascript">ES6 JavaScript</h2><p>The code provided in this document is written in <a href="http://babeljs.io/learn-es2015/">ES2015 JavaScript</a>.</p>
+<p>You will have to transpile it (e.g with <a href="http://babeljs.io">Babel</a>) in order to get it running.</p>
+<h2 id="creating-a-cli-instance">Creating a Cli instance</h2><p>Basically, the <a href="./manual/../../class/src/AtSCMCli.js~AtSCMCli.html">AtSCMCli</a> class can be used just like any other class:</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import AtSCMCli from &apos;atscm-cli&apos;;
+
+const cli = new AtSCMCli();</code>
+</code></pre>
+<p>As stated in the <a href="./manual/../../api/class/src/AtSCMCli.js~AtSCMCli.html#instance-constructor-constructor">API reference</a> the constructor takes any arguments the <a href="./manual/usage/CLI.html">command line interface</a> can handle. E.g. running</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import AtSCMCli from &apos;atscm-cli&apos;;
+
+const cli = new AtSCMCli([&apos;--version&apos;]);
+cli.launch();</code>
+</code></pre>
+<p>will print the version, just as if we ran the <em>atscm-cli</em> from the command line.</p>
+<p>The main difference between API and command line usage is, that <strong>exceptions are not handled</strong>. You&apos;ll have to do that yourself:</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import AtSCMCli from &apos;atscm-cli&apos;;
+
+(new AtSCMCli([&apos;--version&apos;])).launch() // Note: AtSCMCli#launch returns a Promise
+  .then(() =&gt; console.log(&apos;success!&apos;))
+  .catch(err =&gt; console.error(`Oops! An error occured: ${err.message}`));</code>
+</code></pre>
+<hr>
+<p>Please refer to <a href="./manual/../../class/src/AtSCMCli.js~AtSCMCli.html">AtSCMCli&apos;s class reference</a> in order to see all methods and properties available.</p>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.3)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
