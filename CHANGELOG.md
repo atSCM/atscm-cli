@@ -1,3 +1,14 @@
+<a name="0.3.5-beta.0"></a>
+## 0.3.5-beta.0 (2018-01-25)
+
+
+### Bug Fixes
+
+* **npm:** Update package-lock ([11142f2](https://github.com/atSCM/atscm-cli/commits/11142f2))
+
+
+
+
 <a name="0.3.4"></a>
 ## 0.3.4 (2018-01-25)
 
