@@ -7,7 +7,7 @@
     "atscm": "out/bin/atscm.js"
   },
   "engines": {
-    "node": ">=6.0"
+    "node": ">=8.0"
   },
   "scripts": {
     "compile": "babel src --out-dir out --source-maps",
