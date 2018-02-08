@@ -83,18 +83,20 @@ jobs:
       # Deployment
       - add_ssh_keys
       - deploy:
-          name: Updating lockfile
-          command: |
-            git push
-      - deploy:
-          name: Deploy changes
+          name: Setting up deployment environment
           command: |
             echo "Setting up git user"
             git config --global user.email circleci@circleci && git config --global user.name CircleCI
 
             echo "Logging in to npm"
             echo "$NPM_TOKEN" > ~/.npmrc
-
+      - deploy:
+          name: Updating lockfile
+          command: |
+            git push
+      - deploy:
+          name: Deploy changes
+          command: |
             npx bump-version release --release-files out docs/api --gh-token $RELEASE_GITHUB_TOKEN
 
             if [ $CIRCLE_BRANCH = 'master' ]; then
