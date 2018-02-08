@@ -12,6 +12,14 @@ jobs:
           name: Installing npm dependencies
           command: npm install
       - run:
+          name: Setting up deployment environment
+          command: |
+            echo "Setting up git user"
+            git config --global user.email circleci@circleci && git config --global user.name CircleCI
+
+            echo "Logging in to npm"
+            echo "$NPM_TOKEN" > ~/.npmrc
+      - run:
           name: Handling package-lock changes
           command: |
             if git diff --exit-code package-lock.json; then
@@ -82,14 +90,6 @@ jobs:
 
       # Deployment
       - add_ssh_keys
-      - deploy:
-          name: Setting up deployment environment
-          command: |
-            echo "Setting up git user"
-            git config --global user.email circleci@circleci && git config --global user.name CircleCI
-
-            echo "Logging in to npm"
-            echo "$NPM_TOKEN" > ~/.npmrc
       - deploy:
           name: Updating lockfile
           command: |
