@@ -93,7 +93,7 @@ jobs:
       - deploy:
           name: Updating lockfile
           command: |
-            git push
+            git push origin $CIRCLE_BRANCH
       - deploy:
           name: Deploy changes
           command: |
