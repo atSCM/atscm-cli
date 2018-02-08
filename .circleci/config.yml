@@ -28,7 +28,7 @@ jobs:
               if [[ $CIRCLE_BRANCH = *"greenkeeper/"* ]]; then
                 echo "Committing package-lock changes"
                 git add package-lock.json
-                git commit -m 'chore(package): Update package-lock';
+                git commit -m 'chore(package): Update lockfile [ci skip]';
               else
                 echo "Resetting package-lock changes"
                 git checkout -- package-lock.json
