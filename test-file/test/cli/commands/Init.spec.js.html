@@ -186,9 +186,9 @@ describe(&apos;InitCommand&apos;, function() {
         return expect(command.createEmptyPackage(path), &apos;to be fulfilled&apos;)
           .then(() =&gt; {
             let pkg;
+            // eslint-disable-next-line global-require
             expect(() =&gt; (pkg = require(join(path, &apos;package.json&apos;))), &apos;not to throw&apos;);
             expect(pkg, &apos;to equal&apos;, {});
-
           });
       });
     });
@@ -315,7 +315,7 @@ describe(&apos;InitCommand&apos;, function() {
       const options = { test: 123 };
 
       return expect(command.writeFiles(stubModulePath, options),
-          &apos;to be fulfilled&apos;)
+        &apos;to be fulfilled&apos;)
         .then(() =&gt; {
           expect(initStub.default.calledOnce, &apos;to be&apos;, true);
           expect(initStub.default.lastCall.args[0], &apos;to be&apos;, options);

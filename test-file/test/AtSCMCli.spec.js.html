@@ -60,7 +60,6 @@
 import expect from &apos;unexpected&apos;;
 import { spy, stub } from &apos;sinon&apos;;
 import proxyquire from &apos;proxyquire&apos;;
-
 import colors from &apos;chalk&apos;;
 import Liftoff from &apos;liftoff&apos;;
 import { LogFormat } from &apos;../src/lib/util/Logger&apos;;
@@ -150,7 +149,7 @@ describe(&apos;AtSCMCli&apos;, function() {
       expect(process.env.ATSCM_PROJECT__TEST, &apos;to equal&apos;, &apos;13&apos;);
 
       delete process.env.ATSCM_PROJECT__TEST;
-    })
+    });
   });
 
   /** @test {AtSCMCli#parseArguments} */

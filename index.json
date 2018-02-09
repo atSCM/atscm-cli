@@ -3729,7 +3729,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"atscm-cli\",\n  \"version\": \"0.4.0\",\n  \"description\": \"atSCM command line interface\",\n  \"main\": \"out/AtSCMCli.js\",\n  \"bin\": {\n    \"atscm\": \"out/bin/atscm.js\"\n  },\n  \"engines\": {\n    \"node\": \">=8.0\"\n  },\n  \"scripts\": {\n    \"compile\": \"babel src --out-dir out --source-maps\",\n    \"compile:watch\": \"npm run compile -- --watch\",\n    \"docs\": \"esdoc -c esdoc.json\",\n    \"docs:coverage\": \"esdoc-coverage -c esdoc.json\",\n    \"lint\": \"eslint src\",\n    \"lint:test\": \"eslint test\",\n    \"predocs\": \"node docs/helpers/createReadme\",\n    \"prepublishOnly\": \"npm run compile && npm run docs\",\n    \"test\": \"mocha --recursive --require babel-register \\\"./test/**/*.spec.js\\\" --exit\",\n    \"test:watch\": \"npm test -- --watch --reporter min\",\n    \"test:coverage\": \"NODE_ENV=test nyc --reporter=html npm test\",\n    \"test:docs\": \"blcl docs/api --exclude https://circleci.com/gh/atSCM/atscm-cli\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/atSCM/atscm-cli.git\"\n  },\n  \"author\": \"Lukas Hechenberger <lukas.hechenberger@bachmann.info>\",\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/atSCM/atscm-cli/issues\"\n  },\n  \"homepage\": \"https://github.com/atSCM/atscm-cli#readme\",\n  \"devDependencies\": {\n    \"@ls-age/babel-preset\": \"^0.4.0\",\n    \"@ls-age/bump-version\": \"^0.1.2\",\n    \"@ls-age/esdoc-coverage\": \"^0.1.6\",\n    \"babel-cli\": \"^6.26.0\",\n    \"babel-plugin-istanbul\": \"^4.1.5\",\n    \"babel-register\": \"^6.26.0\",\n    \"broken-link-checker-local\": \"^0.1.1\",\n    \"codecov\": \"^3.0.0\",\n    \"esdoc\": \"^1.0.4\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint\": \"^4.17.0\",\n    \"eslint-config-lsage\": \"^0.3.0\",\n    \"mocha\": \"^5.0.0\",\n    \"mocha-circleci-reporter\": \"0.0.2\",\n    \"nyc\": \"^11.4.1\",\n    \"proxyquire\": \"^1.7.10\",\n    \"rimraf\": \"^2.6.2\",\n    \"sinon\": \"^4.2.2\",\n    \"through2\": \"^2.0.3\",\n    \"unexpected\": \"^10.37.0\"\n  },\n  \"dependencies\": {\n    \"axios\": \"^0.17.1\",\n    \"chalk\": \"^2.3.0\",\n    \"gulp-cli\": \"^2.0.1\",\n    \"gulplog\": \"^1.0.0\",\n    \"inquirer\": \"^5.1.0\",\n    \"interpret\": \"^1.0.1\",\n    \"liftoff\": \"^2.3.0\",\n    \"open\": \"0.0.5\",\n    \"semver\": \"^5.5.0\",\n    \"tildify\": \"^1.2.0\",\n    \"update-notifier\": \"^2.2.0\",\n    \"which\": \"^1.2.12\",\n    \"yargs\": \"^11.0.0\"\n  },\n  \"eslintConfig\": {\n    \"extends\": \"lsage\"\n  },\n  \"babel\": {\n    \"presets\": [\n      \"@ls-age/babel-preset\"\n    ],\n    \"env\": {\n      \"test\": {\n        \"plugins\": [\n          \"istanbul\"\n        ]\n      }\n    }\n  },\n  \"nyc\": {\n    \"all\": true,\n    \"include\": [\n      \"src/**/*.js\"\n    ],\n    \"require\": [\n      \"babel-register\"\n    ],\n    \"sourceMap\": false,\n    \"instrument\": false,\n    \"check-coverage\": true\n  }\n}\n",
+    "content": "{\n  \"name\": \"atscm-cli\",\n  \"version\": \"0.4.0\",\n  \"description\": \"atSCM command line interface\",\n  \"main\": \"out/AtSCMCli.js\",\n  \"bin\": {\n    \"atscm\": \"out/bin/atscm.js\"\n  },\n  \"engines\": {\n    \"node\": \">=8.0\"\n  },\n  \"scripts\": {\n    \"compile\": \"babel src --out-dir out --source-maps\",\n    \"compile:watch\": \"npm run compile -- --watch\",\n    \"docs\": \"esdoc -c esdoc.json\",\n    \"docs:coverage\": \"esdoc-coverage -c esdoc.json\",\n    \"lint\": \"eslint src test\",\n    \"predocs\": \"node docs/helpers/createReadme\",\n    \"prepublishOnly\": \"npm run compile && npm run docs\",\n    \"test\": \"mocha --recursive --require babel-register \\\"./test/**/*.spec.js\\\" --exit\",\n    \"test:watch\": \"npm test -- --watch --reporter min\",\n    \"test:coverage\": \"NODE_ENV=test nyc --reporter=html npm test\",\n    \"test:docs\": \"blcl docs/api --exclude https://circleci.com/gh/atSCM/atscm-cli\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/atSCM/atscm-cli.git\"\n  },\n  \"author\": \"Lukas Hechenberger <lukas.hechenberger@bachmann.info>\",\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/atSCM/atscm-cli/issues\"\n  },\n  \"homepage\": \"https://github.com/atSCM/atscm-cli#readme\",\n  \"devDependencies\": {\n    \"@ls-age/babel-preset\": \"^0.4.0\",\n    \"@ls-age/bump-version\": \"^0.1.2\",\n    \"@ls-age/esdoc-coverage\": \"^0.1.6\",\n    \"babel-cli\": \"^6.26.0\",\n    \"babel-plugin-istanbul\": \"^4.1.5\",\n    \"babel-register\": \"^6.26.0\",\n    \"broken-link-checker-local\": \"^0.1.1\",\n    \"codecov\": \"^3.0.0\",\n    \"esdoc\": \"^1.0.4\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint\": \"^4.17.0\",\n    \"eslint-config-lsage\": \"^0.3.0\",\n    \"mocha\": \"^5.0.0\",\n    \"mocha-circleci-reporter\": \"0.0.2\",\n    \"nyc\": \"^11.4.1\",\n    \"proxyquire\": \"^1.7.10\",\n    \"rimraf\": \"^2.6.2\",\n    \"sinon\": \"^4.2.2\",\n    \"through2\": \"^2.0.3\",\n    \"unexpected\": \"^10.37.0\"\n  },\n  \"dependencies\": {\n    \"axios\": \"^0.17.1\",\n    \"chalk\": \"^2.3.0\",\n    \"gulp-cli\": \"^2.0.1\",\n    \"gulplog\": \"^1.0.0\",\n    \"inquirer\": \"^5.1.0\",\n    \"interpret\": \"^1.0.1\",\n    \"liftoff\": \"^2.3.0\",\n    \"open\": \"0.0.5\",\n    \"semver\": \"^5.5.0\",\n    \"tildify\": \"^1.2.0\",\n    \"update-notifier\": \"^2.2.0\",\n    \"which\": \"^1.2.12\",\n    \"yargs\": \"^11.0.0\"\n  },\n  \"eslintConfig\": {\n    \"extends\": \"lsage\"\n  },\n  \"babel\": {\n    \"presets\": [\n      \"@ls-age/babel-preset\"\n    ],\n    \"env\": {\n      \"test\": {\n        \"plugins\": [\n          \"istanbul\"\n        ]\n      }\n    }\n  },\n  \"nyc\": {\n    \"all\": true,\n    \"include\": [\n      \"src/**/*.js\"\n    ],\n    \"require\": [\n      \"babel-register\"\n    ],\n    \"sourceMap\": false,\n    \"instrument\": false,\n    \"check-coverage\": true\n  }\n}\n",
     "longname": "/home/circleci/project/package.json",
     "name": "package.json",
     "static": true,
@@ -3779,7 +3779,7 @@
     "__docId__": 165,
     "kind": "testFile",
     "name": "test/AtSCMCli.spec.js",
-    "content": "import { join } from 'path';\nimport expect from 'unexpected';\nimport { spy, stub } from 'sinon';\nimport proxyquire from 'proxyquire';\n\nimport colors from 'chalk';\nimport Liftoff from 'liftoff';\nimport { LogFormat } from '../src/lib/util/Logger';\nimport UsageError from '../src/lib/error/UsageError';\nimport Command from '../src/lib/cli/Command';\nimport pkg from '../package.json';\n\nconst LoggerSpy = {\n  debug: spy(),\n  info: spy(),\n  warn: spy(),\n  error: spy(),\n  applyOptions: spy(),\n  colors,\n  format: LogFormat,\n};\n\nconst AtSCMCli = proxyquire('../src/AtSCMCli', {\n  './lib/util/Logger': {\n    _esModule: true,\n    default: LoggerSpy,\n  },\n}).default;\n\n/** @test {AtSCMCli} */\ndescribe('AtSCMCli', function() {\n  beforeEach(() => {\n    LoggerSpy.debug.resetHistory();\n    LoggerSpy.info.resetHistory();\n    LoggerSpy.warn.resetHistory();\n    LoggerSpy.error.resetHistory();\n    LoggerSpy.applyOptions.resetHistory();\n  });\n\n  /** @test {AtSCMCli#constructor} */\n  describe('#constructor', function() {\n    it('should throw UsageError with invalid options', function() {\n      expect(() => new AtSCMCli(['--cwd']), 'to throw');\n    });\n\n    it('should create an instance of Liftoff', function() {\n      expect(new AtSCMCli(), 'to be a', Liftoff);\n    });\n\n    it('should not add run argument if valid command is given', function() {\n      expect((new AtSCMCli(['docs']))._argv, 'to equal', ['docs']);\n    });\n\n    it('should not add run argument if --help is given', function() {\n      expect((new AtSCMCli(['--help']))._argv, 'to equal', ['--help']);\n    });\n\n    it('should not add run argument if --version is given', function() {\n      expect((new AtSCMCli(['--version']))._argv, 'to equal', ['--version']);\n    });\n\n    it('should add run argument if no command is given', function() {\n      expect((new AtSCMCli())._argv, 'to equal', ['run']);\n    });\n\n    it('should set runViaCli', function() {\n      // runViaCli is always set to false as we don't run this test from the command line directly.\n      expect((new AtSCMCli()).runViaCli, 'to equal', false);\n    });\n  });\n\n  /** @test {AtSCMCli#_exposeOverride} */\n  describe('#_exposeOverride', function() {\n    it('should set single options', function() {\n      AtSCMCli.prototype._exposeOverride({ test: 13 }, 'test', 'TEST_ENVS__');\n\n      expect(process.env.TEST_ENVS__TEST, 'to be defined');\n      expect(process.env.TEST_ENVS__TEST, 'to equal', '13');\n    });\n\n    it('should set object options', function() {\n      AtSCMCli.prototype._exposeOverride({ test: { another: 13 } }, 'test', 'TEST_ENVS__');\n\n      expect(process.env.TEST_ENVS__TEST__ANOTHER, 'to be defined');\n      expect(process.env.TEST_ENVS__TEST__ANOTHER, 'to equal', '13');\n    });\n\n    it('should use default base', function() {\n      AtSCMCli.prototype._exposeOverride({ test: 13 }, 'test');\n\n      expect(process.env.ATSCM_PROJECT__TEST, 'to be defined');\n      expect(process.env.ATSCM_PROJECT__TEST, 'to equal', '13');\n\n      delete process.env.ATSCM_PROJECT__TEST;\n    })\n  });\n\n  /** @test {AtSCMCli#parseArguments} */\n  describe('#parseArguments', function() {\n    const unknownArgCli = new AtSCMCli(['--unknown']);\n\n    it('should fail with UsageError with an unknown argument', function() {\n      return expect(unknownArgCli.parseArguments(), 'when rejected', 'to be a', UsageError);\n    });\n\n    it('should report the invalid argument', function() {\n      return expect(unknownArgCli.parseArguments(), 'when rejected',\n        'to have message', 'Unknown argument: unknown'\n      );\n    });\n\n    it('should return options with valid arguments', function() {\n      return expect((new AtSCMCli(['docs', '--cli'])).parseArguments(), 'when fulfilled',\n        'to have properties', { _: ['docs'], cli: true }\n      );\n    });\n\n    it('should set AtSCMCli#options with valid arguments', function() {\n      const cli = new AtSCMCli(['docs', '--cli']);\n\n      return cli.parseArguments()\n        .then(opts => expect(cli.options, 'to equal', opts));\n    });\n\n    it('should set AtSCMCli#command with valid command', function() {\n      const cli = new AtSCMCli(['docs', '--cli']);\n\n      return cli.parseArguments()\n        .then(() => expect(cli.command.name, 'to equal', 'docs'));\n    });\n\n    it('should expose project options as environment variables', function() {\n      const cli = new AtSCMCli(['--tasks', '--project.test', 'test']);\n\n      return cli.parseArguments()\n        .then(() => expect(process.env.ATSCM_PROJECT__TEST, 'to equal', 'test'));\n    });\n  });\n\n  /** @test {AtSCMCli#getEnvironment} */\n  describe('#getEnvironment', function() {\n    beforeEach(() => spy(Liftoff.prototype, 'launch'));\n    afterEach(() => Liftoff.prototype.launch.restore());\n\n    const cli = new AtSCMCli([\n      '--cwd', 'test/fixtures',\n      '--projectfile', 'test/fixtures/Atviseproject.js',\n    ]);\n\n    it('should call Liftoff#launch with cwd and projectfile option', function() {\n      return cli.getEnvironment()\n        .then(() => {\n          expect(Liftoff.prototype.launch.calledOnce, 'to be', true);\n          expect(Liftoff.prototype.launch.lastCall.args[0], 'to equal', {\n            cwd: 'test/fixtures',\n            configPath: 'test/fixtures/Atviseproject.js',\n          });\n        });\n    });\n\n    it('should set AtSCMCli#environment', function() {\n      return cli.getEnvironment()\n        .then(env => {\n          expect(cli.environment, 'to be defined');\n          expect(cli.environment, 'to equal', env);\n          expect(cli.environment, 'to have keys',\n            ['cwd', 'configPath', 'configBase', 'modulePath', 'modulePackage']\n          );\n        });\n    });\n\n    context('when not looking up parent directories', function() {\n      it('should resolve to initial cwd', function() {\n        return (new AtSCMCli()).getEnvironment(false)\n          .then(env => expect(env.cwd, 'to equal', process.cwd()));\n      });\n\n      const projChildDir = join('test/fixtures/node_modules');\n\n      it('should resolve to initial cwd in project child directories', function() {\n        return (new AtSCMCli([\n          '--cwd', projChildDir,\n        ])).getEnvironment(false)\n          .then(env => expect(env.cwd, 'to end with', projChildDir));\n      });\n\n      it('should ignore --projectfile option', function() {\n        return (new AtSCMCli([\n          '--cwd', projChildDir,\n          '--projectfile', join(projChildDir, '../Atviseproject.js'),\n        ])).getEnvironment(false)\n          .then(env => expect(env.cwd, 'to end with', projChildDir));\n      });\n    });\n  });\n\n  /** @test {AtSCMCli#requireEnvironment} */\n  describe('#requireEnvironment', function() {\n    it('should fail without local module', function() {\n      return expect((new AtSCMCli()).requireEnvironment(),\n        'to be rejected with', /Local .* not found/);\n    });\n\n    it('should return environment if successful', function() {\n      const cli = (new AtSCMCli(['--cwd', 'test/fixtures']));\n\n      return expect(cli.requireEnvironment(),\n        'when fulfilled', 'to have values satisfying', 'not to be falsy');\n    });\n  });\n\n  /** @test {AtSCMCli#getVersion} */\n  describe('#getVersion', function() {\n    it('should return cli version without local module', function() {\n      return expect((new AtSCMCli()).getVersion(), 'when fulfilled',\n        'to equal', { cli: pkg.version, local: null });\n    });\n\n    it('should even return cli version with invalid cwd', function() {\n      return expect((new AtSCMCli(['--cwd', 'invalid/path'])).getVersion(), 'when fulfilled',\n        'to equal', { cli: pkg.version, local: null });\n    });\n\n    it('should return local version with local module', function() {\n      return expect((new AtSCMCli(['--cwd', 'test/fixtures'])).getVersion(), 'to be fulfilled with',\n        { cli: pkg.version, local: 'latest' });\n    });\n  });\n\n  /** @test {AtSCMCli#printVersion} */\n  describe('#printVersion', function() {\n    it('should print cli version only without local module', function() {\n      return expect((new AtSCMCli()).printVersion(), 'to be fulfilled')\n        .then(() => {\n          expect(LoggerSpy.info.calledOnce, 'to be', true);\n          expect(LoggerSpy.info.lastCall.args[0], 'to match', /CLI version/);\n          expect(LoggerSpy.info.lastCall.args[1], 'to match', new RegExp(pkg.version));\n        });\n    });\n\n    it('should print cli and local version with local module', function() {\n      return expect((new AtSCMCli(['--cwd', 'test/fixtures'])).printVersion(), 'to be fulfilled')\n        .then(() => {\n          expect(LoggerSpy.info.calledTwice, 'to be', true);\n          expect(LoggerSpy.info.lastCall.args[0], 'to match', /Local version/);\n          expect(LoggerSpy.info.lastCall.args[1], 'to match', /latest/);\n        });\n    });\n  });\n\n  /** @test {AtSCMCli#runCommand} */\n  describe('#runCommand', function() {\n    it('should print version if --version is used', function() {\n      const cli = new AtSCMCli(['--version']);\n      cli.options.version = true;\n\n      spy(cli, 'printVersion');\n\n      return cli.runCommand()\n        .then(() => {\n          expect(cli.printVersion.calledOnce, 'to be', true);\n        });\n    });\n\n    it('should run command if used', function() {\n      const command = new Command('cmd', 'Just testing');\n      stub(command, 'run');\n      const cli = new AtSCMCli(['--cwd', 'test/fixtures']);\n      cli.command = command;\n\n      return cli.runCommand()\n        .then(() => {\n          expect(command.run.calledOnce, 'to be true');\n        });\n    });\n\n    it('should warn if no command is used', function() {\n      const cli = new AtSCMCli(['--cwd', 'test/fixtures']);\n\n      return cli.runCommand()\n        .then(() => {\n          expect(LoggerSpy.warn.calledOnce, 'to be', true);\n          expect(LoggerSpy.warn.lastCall.args[0], 'to contain', 'No command specified');\n        });\n    });\n  });\n\n  /** @test {AtSCMCli#launch} */\n  describe('#launch', function() {\n    it('should call AtSCMCli#parseArguments', function() {\n      const cli = new AtSCMCli();\n      spy(cli, 'parseArguments');\n      stub(cli, 'runCommand').callsFake(() => Promise.resolve(true));\n\n      return cli.launch()\n        .then(() => {\n          expect(cli.runCommand.calledOnce, 'to be true');\n          expect(cli.parseArguments.calledOnce, 'to be', true);\n        });\n    });\n\n    it('should handle all exceptions if run via cli', function() {\n      const cli = new AtSCMCli();\n      cli.runViaCli = true;\n      stub(cli, 'runCommand').callsFake(() => Promise.reject(new Error('test')));\n\n      return expect(cli.launch(), 'to be fulfilled');\n    });\n\n    it('should report help on usage errors if run via cli', function() {\n      const cli = new AtSCMCli(['--unknown']);\n      cli.runViaCli = true;\n\n      return expect(cli.launch(), 'to be fulfilled');\n    });\n  });\n});\n",
+    "content": "import { join } from 'path';\nimport expect from 'unexpected';\nimport { spy, stub } from 'sinon';\nimport proxyquire from 'proxyquire';\nimport colors from 'chalk';\nimport Liftoff from 'liftoff';\nimport { LogFormat } from '../src/lib/util/Logger';\nimport UsageError from '../src/lib/error/UsageError';\nimport Command from '../src/lib/cli/Command';\nimport pkg from '../package.json';\n\nconst LoggerSpy = {\n  debug: spy(),\n  info: spy(),\n  warn: spy(),\n  error: spy(),\n  applyOptions: spy(),\n  colors,\n  format: LogFormat,\n};\n\nconst AtSCMCli = proxyquire('../src/AtSCMCli', {\n  './lib/util/Logger': {\n    _esModule: true,\n    default: LoggerSpy,\n  },\n}).default;\n\n/** @test {AtSCMCli} */\ndescribe('AtSCMCli', function() {\n  beforeEach(() => {\n    LoggerSpy.debug.resetHistory();\n    LoggerSpy.info.resetHistory();\n    LoggerSpy.warn.resetHistory();\n    LoggerSpy.error.resetHistory();\n    LoggerSpy.applyOptions.resetHistory();\n  });\n\n  /** @test {AtSCMCli#constructor} */\n  describe('#constructor', function() {\n    it('should throw UsageError with invalid options', function() {\n      expect(() => new AtSCMCli(['--cwd']), 'to throw');\n    });\n\n    it('should create an instance of Liftoff', function() {\n      expect(new AtSCMCli(), 'to be a', Liftoff);\n    });\n\n    it('should not add run argument if valid command is given', function() {\n      expect((new AtSCMCli(['docs']))._argv, 'to equal', ['docs']);\n    });\n\n    it('should not add run argument if --help is given', function() {\n      expect((new AtSCMCli(['--help']))._argv, 'to equal', ['--help']);\n    });\n\n    it('should not add run argument if --version is given', function() {\n      expect((new AtSCMCli(['--version']))._argv, 'to equal', ['--version']);\n    });\n\n    it('should add run argument if no command is given', function() {\n      expect((new AtSCMCli())._argv, 'to equal', ['run']);\n    });\n\n    it('should set runViaCli', function() {\n      // runViaCli is always set to false as we don't run this test from the command line directly.\n      expect((new AtSCMCli()).runViaCli, 'to equal', false);\n    });\n  });\n\n  /** @test {AtSCMCli#_exposeOverride} */\n  describe('#_exposeOverride', function() {\n    it('should set single options', function() {\n      AtSCMCli.prototype._exposeOverride({ test: 13 }, 'test', 'TEST_ENVS__');\n\n      expect(process.env.TEST_ENVS__TEST, 'to be defined');\n      expect(process.env.TEST_ENVS__TEST, 'to equal', '13');\n    });\n\n    it('should set object options', function() {\n      AtSCMCli.prototype._exposeOverride({ test: { another: 13 } }, 'test', 'TEST_ENVS__');\n\n      expect(process.env.TEST_ENVS__TEST__ANOTHER, 'to be defined');\n      expect(process.env.TEST_ENVS__TEST__ANOTHER, 'to equal', '13');\n    });\n\n    it('should use default base', function() {\n      AtSCMCli.prototype._exposeOverride({ test: 13 }, 'test');\n\n      expect(process.env.ATSCM_PROJECT__TEST, 'to be defined');\n      expect(process.env.ATSCM_PROJECT__TEST, 'to equal', '13');\n\n      delete process.env.ATSCM_PROJECT__TEST;\n    });\n  });\n\n  /** @test {AtSCMCli#parseArguments} */\n  describe('#parseArguments', function() {\n    const unknownArgCli = new AtSCMCli(['--unknown']);\n\n    it('should fail with UsageError with an unknown argument', function() {\n      return expect(unknownArgCli.parseArguments(), 'when rejected', 'to be a', UsageError);\n    });\n\n    it('should report the invalid argument', function() {\n      return expect(unknownArgCli.parseArguments(), 'when rejected',\n        'to have message', 'Unknown argument: unknown'\n      );\n    });\n\n    it('should return options with valid arguments', function() {\n      return expect((new AtSCMCli(['docs', '--cli'])).parseArguments(), 'when fulfilled',\n        'to have properties', { _: ['docs'], cli: true }\n      );\n    });\n\n    it('should set AtSCMCli#options with valid arguments', function() {\n      const cli = new AtSCMCli(['docs', '--cli']);\n\n      return cli.parseArguments()\n        .then(opts => expect(cli.options, 'to equal', opts));\n    });\n\n    it('should set AtSCMCli#command with valid command', function() {\n      const cli = new AtSCMCli(['docs', '--cli']);\n\n      return cli.parseArguments()\n        .then(() => expect(cli.command.name, 'to equal', 'docs'));\n    });\n\n    it('should expose project options as environment variables', function() {\n      const cli = new AtSCMCli(['--tasks', '--project.test', 'test']);\n\n      return cli.parseArguments()\n        .then(() => expect(process.env.ATSCM_PROJECT__TEST, 'to equal', 'test'));\n    });\n  });\n\n  /** @test {AtSCMCli#getEnvironment} */\n  describe('#getEnvironment', function() {\n    beforeEach(() => spy(Liftoff.prototype, 'launch'));\n    afterEach(() => Liftoff.prototype.launch.restore());\n\n    const cli = new AtSCMCli([\n      '--cwd', 'test/fixtures',\n      '--projectfile', 'test/fixtures/Atviseproject.js',\n    ]);\n\n    it('should call Liftoff#launch with cwd and projectfile option', function() {\n      return cli.getEnvironment()\n        .then(() => {\n          expect(Liftoff.prototype.launch.calledOnce, 'to be', true);\n          expect(Liftoff.prototype.launch.lastCall.args[0], 'to equal', {\n            cwd: 'test/fixtures',\n            configPath: 'test/fixtures/Atviseproject.js',\n          });\n        });\n    });\n\n    it('should set AtSCMCli#environment', function() {\n      return cli.getEnvironment()\n        .then(env => {\n          expect(cli.environment, 'to be defined');\n          expect(cli.environment, 'to equal', env);\n          expect(cli.environment, 'to have keys',\n            ['cwd', 'configPath', 'configBase', 'modulePath', 'modulePackage']\n          );\n        });\n    });\n\n    context('when not looking up parent directories', function() {\n      it('should resolve to initial cwd', function() {\n        return (new AtSCMCli()).getEnvironment(false)\n          .then(env => expect(env.cwd, 'to equal', process.cwd()));\n      });\n\n      const projChildDir = join('test/fixtures/node_modules');\n\n      it('should resolve to initial cwd in project child directories', function() {\n        return (new AtSCMCli([\n          '--cwd', projChildDir,\n        ])).getEnvironment(false)\n          .then(env => expect(env.cwd, 'to end with', projChildDir));\n      });\n\n      it('should ignore --projectfile option', function() {\n        return (new AtSCMCli([\n          '--cwd', projChildDir,\n          '--projectfile', join(projChildDir, '../Atviseproject.js'),\n        ])).getEnvironment(false)\n          .then(env => expect(env.cwd, 'to end with', projChildDir));\n      });\n    });\n  });\n\n  /** @test {AtSCMCli#requireEnvironment} */\n  describe('#requireEnvironment', function() {\n    it('should fail without local module', function() {\n      return expect((new AtSCMCli()).requireEnvironment(),\n        'to be rejected with', /Local .* not found/);\n    });\n\n    it('should return environment if successful', function() {\n      const cli = (new AtSCMCli(['--cwd', 'test/fixtures']));\n\n      return expect(cli.requireEnvironment(),\n        'when fulfilled', 'to have values satisfying', 'not to be falsy');\n    });\n  });\n\n  /** @test {AtSCMCli#getVersion} */\n  describe('#getVersion', function() {\n    it('should return cli version without local module', function() {\n      return expect((new AtSCMCli()).getVersion(), 'when fulfilled',\n        'to equal', { cli: pkg.version, local: null });\n    });\n\n    it('should even return cli version with invalid cwd', function() {\n      return expect((new AtSCMCli(['--cwd', 'invalid/path'])).getVersion(), 'when fulfilled',\n        'to equal', { cli: pkg.version, local: null });\n    });\n\n    it('should return local version with local module', function() {\n      return expect((new AtSCMCli(['--cwd', 'test/fixtures'])).getVersion(), 'to be fulfilled with',\n        { cli: pkg.version, local: 'latest' });\n    });\n  });\n\n  /** @test {AtSCMCli#printVersion} */\n  describe('#printVersion', function() {\n    it('should print cli version only without local module', function() {\n      return expect((new AtSCMCli()).printVersion(), 'to be fulfilled')\n        .then(() => {\n          expect(LoggerSpy.info.calledOnce, 'to be', true);\n          expect(LoggerSpy.info.lastCall.args[0], 'to match', /CLI version/);\n          expect(LoggerSpy.info.lastCall.args[1], 'to match', new RegExp(pkg.version));\n        });\n    });\n\n    it('should print cli and local version with local module', function() {\n      return expect((new AtSCMCli(['--cwd', 'test/fixtures'])).printVersion(), 'to be fulfilled')\n        .then(() => {\n          expect(LoggerSpy.info.calledTwice, 'to be', true);\n          expect(LoggerSpy.info.lastCall.args[0], 'to match', /Local version/);\n          expect(LoggerSpy.info.lastCall.args[1], 'to match', /latest/);\n        });\n    });\n  });\n\n  /** @test {AtSCMCli#runCommand} */\n  describe('#runCommand', function() {\n    it('should print version if --version is used', function() {\n      const cli = new AtSCMCli(['--version']);\n      cli.options.version = true;\n\n      spy(cli, 'printVersion');\n\n      return cli.runCommand()\n        .then(() => {\n          expect(cli.printVersion.calledOnce, 'to be', true);\n        });\n    });\n\n    it('should run command if used', function() {\n      const command = new Command('cmd', 'Just testing');\n      stub(command, 'run');\n      const cli = new AtSCMCli(['--cwd', 'test/fixtures']);\n      cli.command = command;\n\n      return cli.runCommand()\n        .then(() => {\n          expect(command.run.calledOnce, 'to be true');\n        });\n    });\n\n    it('should warn if no command is used', function() {\n      const cli = new AtSCMCli(['--cwd', 'test/fixtures']);\n\n      return cli.runCommand()\n        .then(() => {\n          expect(LoggerSpy.warn.calledOnce, 'to be', true);\n          expect(LoggerSpy.warn.lastCall.args[0], 'to contain', 'No command specified');\n        });\n    });\n  });\n\n  /** @test {AtSCMCli#launch} */\n  describe('#launch', function() {\n    it('should call AtSCMCli#parseArguments', function() {\n      const cli = new AtSCMCli();\n      spy(cli, 'parseArguments');\n      stub(cli, 'runCommand').callsFake(() => Promise.resolve(true));\n\n      return cli.launch()\n        .then(() => {\n          expect(cli.runCommand.calledOnce, 'to be true');\n          expect(cli.parseArguments.calledOnce, 'to be', true);\n        });\n    });\n\n    it('should handle all exceptions if run via cli', function() {\n      const cli = new AtSCMCli();\n      cli.runViaCli = true;\n      stub(cli, 'runCommand').callsFake(() => Promise.reject(new Error('test')));\n\n      return expect(cli.launch(), 'to be fulfilled');\n    });\n\n    it('should report help on usage errors if run via cli', function() {\n      const cli = new AtSCMCli(['--unknown']);\n      cli.runViaCli = true;\n\n      return expect(cli.launch(), 'to be fulfilled');\n    });\n  });\n});\n",
     "static": true,
     "longname": "/home/circleci/project/test/AtSCMCli.spec.js",
     "access": null,
@@ -3797,7 +3797,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0",
     "access": null,
     "description": "AtSCMCli",
-    "lineNumber": 31,
+    "lineNumber": 30,
     "testTargets": [
       "AtSCMCli"
     ]
@@ -3813,7 +3813,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe1",
     "access": null,
     "description": "#constructor",
-    "lineNumber": 41,
+    "lineNumber": 40,
     "testTargets": [
       "AtSCMCli#constructor"
     ]
@@ -3829,7 +3829,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe1.it2",
     "access": null,
     "description": "should throw UsageError with invalid options",
-    "lineNumber": 42
+    "lineNumber": 41
   },
   {
     "__docId__": 169,
@@ -3842,7 +3842,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe1.it3",
     "access": null,
     "description": "should create an instance of Liftoff",
-    "lineNumber": 46
+    "lineNumber": 45
   },
   {
     "__docId__": 170,
@@ -3855,7 +3855,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe1.it4",
     "access": null,
     "description": "should not add run argument if valid command is given",
-    "lineNumber": 50
+    "lineNumber": 49
   },
   {
     "__docId__": 171,
@@ -3868,7 +3868,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe1.it5",
     "access": null,
     "description": "should not add run argument if --help is given",
-    "lineNumber": 54
+    "lineNumber": 53
   },
   {
     "__docId__": 172,
@@ -3881,7 +3881,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe1.it6",
     "access": null,
     "description": "should not add run argument if --version is given",
-    "lineNumber": 58
+    "lineNumber": 57
   },
   {
     "__docId__": 173,
@@ -3894,7 +3894,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe1.it7",
     "access": null,
     "description": "should add run argument if no command is given",
-    "lineNumber": 62
+    "lineNumber": 61
   },
   {
     "__docId__": 174,
@@ -3907,7 +3907,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe1.it8",
     "access": null,
     "description": "should set runViaCli",
-    "lineNumber": 66
+    "lineNumber": 65
   },
   {
     "__docId__": 175,
@@ -3920,7 +3920,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe9",
     "access": null,
     "description": "#_exposeOverride",
-    "lineNumber": 73,
+    "lineNumber": 72,
     "testTargets": [
       "AtSCMCli#_exposeOverride"
     ]
@@ -3936,7 +3936,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe9.it10",
     "access": null,
     "description": "should set single options",
-    "lineNumber": 74
+    "lineNumber": 73
   },
   {
     "__docId__": 177,
@@ -3949,7 +3949,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe9.it11",
     "access": null,
     "description": "should set object options",
-    "lineNumber": 81
+    "lineNumber": 80
   },
   {
     "__docId__": 178,
@@ -3962,7 +3962,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe9.it12",
     "access": null,
     "description": "should use default base",
-    "lineNumber": 88
+    "lineNumber": 87
   },
   {
     "__docId__": 179,
@@ -3975,7 +3975,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe13",
     "access": null,
     "description": "#parseArguments",
-    "lineNumber": 99,
+    "lineNumber": 98,
     "testTargets": [
       "AtSCMCli#parseArguments"
     ]
@@ -3991,7 +3991,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe13.it14",
     "access": null,
     "description": "should fail with UsageError with an unknown argument",
-    "lineNumber": 102
+    "lineNumber": 101
   },
   {
     "__docId__": 181,
@@ -4004,7 +4004,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe13.it15",
     "access": null,
     "description": "should report the invalid argument",
-    "lineNumber": 106
+    "lineNumber": 105
   },
   {
     "__docId__": 182,
@@ -4017,7 +4017,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe13.it16",
     "access": null,
     "description": "should return options with valid arguments",
-    "lineNumber": 112
+    "lineNumber": 111
   },
   {
     "__docId__": 183,
@@ -4030,7 +4030,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe13.it17",
     "access": null,
     "description": "should set AtSCMCli#options with valid arguments",
-    "lineNumber": 118
+    "lineNumber": 117
   },
   {
     "__docId__": 184,
@@ -4043,7 +4043,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe13.it18",
     "access": null,
     "description": "should set AtSCMCli#command with valid command",
-    "lineNumber": 125
+    "lineNumber": 124
   },
   {
     "__docId__": 185,
@@ -4056,7 +4056,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe13.it19",
     "access": null,
     "description": "should expose project options as environment variables",
-    "lineNumber": 132
+    "lineNumber": 131
   },
   {
     "__docId__": 186,
@@ -4069,7 +4069,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe20",
     "access": null,
     "description": "#getEnvironment",
-    "lineNumber": 141,
+    "lineNumber": 140,
     "testTargets": [
       "AtSCMCli#getEnvironment"
     ]
@@ -4085,7 +4085,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe20.it21",
     "access": null,
     "description": "should call Liftoff#launch with cwd and projectfile option",
-    "lineNumber": 150
+    "lineNumber": 149
   },
   {
     "__docId__": 188,
@@ -4098,7 +4098,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe20.it22",
     "access": null,
     "description": "should set AtSCMCli#environment",
-    "lineNumber": 161
+    "lineNumber": 160
   },
   {
     "__docId__": 189,
@@ -4111,7 +4111,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe20.context23",
     "access": null,
     "description": "when not looking up parent directories",
-    "lineNumber": 172
+    "lineNumber": 171
   },
   {
     "__docId__": 190,
@@ -4124,7 +4124,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe20.context23.it24",
     "access": null,
     "description": "should resolve to initial cwd",
-    "lineNumber": 173
+    "lineNumber": 172
   },
   {
     "__docId__": 191,
@@ -4137,7 +4137,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe20.context23.it25",
     "access": null,
     "description": "should resolve to initial cwd in project child directories",
-    "lineNumber": 180
+    "lineNumber": 179
   },
   {
     "__docId__": 192,
@@ -4150,7 +4150,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe20.context23.it26",
     "access": null,
     "description": "should ignore --projectfile option",
-    "lineNumber": 187
+    "lineNumber": 186
   },
   {
     "__docId__": 193,
@@ -4163,7 +4163,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe27",
     "access": null,
     "description": "#requireEnvironment",
-    "lineNumber": 198,
+    "lineNumber": 197,
     "testTargets": [
       "AtSCMCli#requireEnvironment"
     ]
@@ -4179,7 +4179,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe27.it28",
     "access": null,
     "description": "should fail without local module",
-    "lineNumber": 199
+    "lineNumber": 198
   },
   {
     "__docId__": 195,
@@ -4192,7 +4192,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe27.it29",
     "access": null,
     "description": "should return environment if successful",
-    "lineNumber": 204
+    "lineNumber": 203
   },
   {
     "__docId__": 196,
@@ -4205,7 +4205,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe30",
     "access": null,
     "description": "#getVersion",
-    "lineNumber": 213,
+    "lineNumber": 212,
     "testTargets": [
       "AtSCMCli#getVersion"
     ]
@@ -4221,7 +4221,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe30.it31",
     "access": null,
     "description": "should return cli version without local module",
-    "lineNumber": 214
+    "lineNumber": 213
   },
   {
     "__docId__": 198,
@@ -4234,7 +4234,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe30.it32",
     "access": null,
     "description": "should even return cli version with invalid cwd",
-    "lineNumber": 219
+    "lineNumber": 218
   },
   {
     "__docId__": 199,
@@ -4247,7 +4247,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe30.it33",
     "access": null,
     "description": "should return local version with local module",
-    "lineNumber": 224
+    "lineNumber": 223
   },
   {
     "__docId__": 200,
@@ -4260,7 +4260,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe34",
     "access": null,
     "description": "#printVersion",
-    "lineNumber": 231,
+    "lineNumber": 230,
     "testTargets": [
       "AtSCMCli#printVersion"
     ]
@@ -4276,7 +4276,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe34.it35",
     "access": null,
     "description": "should print cli version only without local module",
-    "lineNumber": 232
+    "lineNumber": 231
   },
   {
     "__docId__": 202,
@@ -4289,7 +4289,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe34.it36",
     "access": null,
     "description": "should print cli and local version with local module",
-    "lineNumber": 241
+    "lineNumber": 240
   },
   {
     "__docId__": 203,
@@ -4302,7 +4302,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe37",
     "access": null,
     "description": "#runCommand",
-    "lineNumber": 252,
+    "lineNumber": 251,
     "testTargets": [
       "AtSCMCli#runCommand"
     ]
@@ -4318,7 +4318,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe37.it38",
     "access": null,
     "description": "should print version if --version is used",
-    "lineNumber": 253
+    "lineNumber": 252
   },
   {
     "__docId__": 205,
@@ -4331,7 +4331,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe37.it39",
     "access": null,
     "description": "should run command if used",
-    "lineNumber": 265
+    "lineNumber": 264
   },
   {
     "__docId__": 206,
@@ -4344,7 +4344,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe37.it40",
     "access": null,
     "description": "should warn if no command is used",
-    "lineNumber": 277
+    "lineNumber": 276
   },
   {
     "__docId__": 207,
@@ -4357,7 +4357,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe41",
     "access": null,
     "description": "#launch",
-    "lineNumber": 289,
+    "lineNumber": 288,
     "testTargets": [
       "AtSCMCli#launch"
     ]
@@ -4373,7 +4373,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe41.it42",
     "access": null,
     "description": "should call AtSCMCli#parseArguments",
-    "lineNumber": 290
+    "lineNumber": 289
   },
   {
     "__docId__": 209,
@@ -4386,7 +4386,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe41.it43",
     "access": null,
     "description": "should handle all exceptions if run via cli",
-    "lineNumber": 302
+    "lineNumber": 301
   },
   {
     "__docId__": 210,
@@ -4399,7 +4399,7 @@
     "longname": "test/AtSCMCli.spec.js~describe0.describe41.it44",
     "access": null,
     "description": "should report help on usage errors if run via cli",
-    "lineNumber": 310
+    "lineNumber": 309
   },
   {
     "__docId__": 211,
@@ -4442,7 +4442,7 @@
     "__docId__": 214,
     "kind": "testFile",
     "name": "test/cli/commands/Config.spec.js",
-    "content": "import { join } from 'path';\nimport expect from 'unexpected';\nimport { stub } from 'sinon';\n\nimport ConfigCommand from '../../../src/cli/commands/Config';\nimport Logger from '../../../src/lib/util/Logger';\n\n/** @test {ConfigCommand} */\ndescribe('ConfigCommand', function() {\n  /** @test {ConfigCommand#run} */\n  describe('#run', function() {\n    beforeEach(function() {\n      stub(Logger, 'info');\n      stub(Logger, 'warn');\n    });\n\n    afterEach(function() {\n      Logger.info.restore();\n      Logger.warn.restore();\n    });\n\n    const command = new ConfigCommand('config', 'Print configuration.');\n\n    context('when overrides are available (atscm >= v0.4)', function() {\n      it('should print local module\\'s ProjectConfig class', function() {\n        command.run({\n          options: {\n            project: {},\n          },\n          environment: {\n            modulePath: join(__dirname, '../../fixtures/node_modules/atscm/fake/v0-4.js'),\n            configPath: join(__dirname, '../../fixtures/Atviseproject.js'),\n          },\n        });\n\n        expect(Logger.info.calledOnce, 'to be', true);\n        expect(Logger.info.lastCall.args[0], 'to match', new RegExp('^Configuration at'));\n      });\n    });\n\n    context('when overrides are not available (atscm < v0.4)', function() {\n      it('should print local module\\'s Atviseproject class', function() {\n        command.run({\n          options: {\n            project: {},\n          },\n          environment: {\n            modulePath: join(__dirname, '../../fixtures/node_modules/atscm/fake/v0-3.js'),\n            configPath: join(__dirname, '../../fixtures/Atviseproject.js'),\n          },\n        });\n\n        expect(Logger.info.callCount, 'to equal', 2);\n        expect(Logger.info.firstCall.args[0], 'to match', new RegExp('^Configuration at'));\n      });\n\n      it('should warn that overrides are not available', function() {\n        command.run({\n          options: {\n            project: {},\n          },\n          environment: {\n            modulePath: join(__dirname, '../../fixtures/node_modules/atscm/fake/v0-3.js'),\n            configPath: join(__dirname, '../../fixtures/Atviseproject.js'),\n          },\n        });\n\n        expect(Logger.warn.calledOnce, 'to be', true);\n        expect(Logger.warn.lastCall.args[0], 'to contain',\n          'Overriding runtime configuration requires atscm version >= 0.4');\n      });\n    });\n  });\n});\n",
+    "content": "import { join } from 'path';\nimport expect from 'unexpected';\nimport { stub } from 'sinon';\nimport ConfigCommand from '../../../src/cli/commands/Config';\nimport Logger from '../../../src/lib/util/Logger';\n\n/** @test {ConfigCommand} */\ndescribe('ConfigCommand', function() {\n  /** @test {ConfigCommand#run} */\n  describe('#run', function() {\n    beforeEach(function() {\n      stub(Logger, 'info');\n      stub(Logger, 'warn');\n    });\n\n    afterEach(function() {\n      Logger.info.restore();\n      Logger.warn.restore();\n    });\n\n    const command = new ConfigCommand('config', 'Print configuration.');\n\n    context('when overrides are available (atscm >= v0.4)', function() {\n      it('should print local module\\'s ProjectConfig class', function() {\n        command.run({\n          options: {\n            project: {},\n          },\n          environment: {\n            modulePath: join(__dirname, '../../fixtures/node_modules/atscm/fake/v0-4.js'),\n            configPath: join(__dirname, '../../fixtures/Atviseproject.js'),\n          },\n        });\n\n        expect(Logger.info.calledOnce, 'to be', true);\n        expect(Logger.info.lastCall.args[0], 'to match', new RegExp('^Configuration at'));\n      });\n    });\n\n    context('when overrides are not available (atscm < v0.4)', function() {\n      it('should print local module\\'s Atviseproject class', function() {\n        command.run({\n          options: {\n            project: {},\n          },\n          environment: {\n            modulePath: join(__dirname, '../../fixtures/node_modules/atscm/fake/v0-3.js'),\n            configPath: join(__dirname, '../../fixtures/Atviseproject.js'),\n          },\n        });\n\n        expect(Logger.info.callCount, 'to equal', 2);\n        expect(Logger.info.firstCall.args[0], 'to match', new RegExp('^Configuration at'));\n      });\n\n      it('should warn that overrides are not available', function() {\n        command.run({\n          options: {\n            project: {},\n          },\n          environment: {\n            modulePath: join(__dirname, '../../fixtures/node_modules/atscm/fake/v0-3.js'),\n            configPath: join(__dirname, '../../fixtures/Atviseproject.js'),\n          },\n        });\n\n        expect(Logger.warn.calledOnce, 'to be', true);\n        expect(Logger.warn.lastCall.args[0], 'to contain',\n          'Overriding runtime configuration requires atscm version >= 0.4');\n      });\n    });\n  });\n});\n",
     "static": true,
     "longname": "/home/circleci/project/test/cli/commands/Config.spec.js",
     "access": null,
@@ -4460,7 +4460,7 @@
     "longname": "test/cli/commands/Config.spec.js~describe47",
     "access": null,
     "description": "ConfigCommand",
-    "lineNumber": 9,
+    "lineNumber": 8,
     "testTargets": [
       "ConfigCommand"
     ]
@@ -4476,7 +4476,7 @@
     "longname": "test/cli/commands/Config.spec.js~describe47.describe48",
     "access": null,
     "description": "#run",
-    "lineNumber": 11,
+    "lineNumber": 10,
     "testTargets": [
       "ConfigCommand#run"
     ]
@@ -4492,7 +4492,7 @@
     "longname": "test/cli/commands/Config.spec.js~describe47.describe48.context49",
     "access": null,
     "description": "when overrides are available (atscm >= v0.4)",
-    "lineNumber": 24
+    "lineNumber": 23
   },
   {
     "__docId__": 218,
@@ -4505,7 +4505,7 @@
     "longname": "test/cli/commands/Config.spec.js~describe47.describe48.context49.it50",
     "access": null,
     "description": "should print local module's ProjectConfig class",
-    "lineNumber": 25
+    "lineNumber": 24
   },
   {
     "__docId__": 219,
@@ -4518,7 +4518,7 @@
     "longname": "test/cli/commands/Config.spec.js~describe47.describe48.context51",
     "access": null,
     "description": "when overrides are not available (atscm < v0.4)",
-    "lineNumber": 41
+    "lineNumber": 40
   },
   {
     "__docId__": 220,
@@ -4531,7 +4531,7 @@
     "longname": "test/cli/commands/Config.spec.js~describe47.describe48.context51.it52",
     "access": null,
     "description": "should print local module's Atviseproject class",
-    "lineNumber": 42
+    "lineNumber": 41
   },
   {
     "__docId__": 221,
@@ -4544,13 +4544,13 @@
     "longname": "test/cli/commands/Config.spec.js~describe47.describe48.context51.it53",
     "access": null,
     "description": "should warn that overrides are not available",
-    "lineNumber": 57
+    "lineNumber": 56
   },
   {
     "__docId__": 222,
     "kind": "testFile",
     "name": "test/cli/commands/Docs.spec.js",
-    "content": "import expect from 'unexpected';\nimport { spy } from 'sinon';\nimport proxyquire from 'proxyquire';\nimport { join } from 'path';\n\nconst openSpy = spy();\nconst DocsCommand = proxyquire('../../../src/cli/commands/Docs', {\n  open: openSpy,\n}).default;\n\n/** @test {DocsCommand} */\ndescribe('DocsCommand', function() {\n  const command = new DocsCommand('docs', 'Open documentation.');\n\n  /** @test {DocsCommand#localDocsPath} */\n  describe('#localDocsPath', function() {\n    it('should be local api docs by default', function() {\n      expect(\n        command.localDocsPath({\n          options: {},\n          environment: {\n            modulePath: '/path/to/package.json',\n          },\n        }),\n        'to equal', join('/path/docs/api/index.html')\n      );\n    });\n\n    it('should be cli api docs with --cli option', function() {\n      expect(\n        command.localDocsPath({\n          options: { cli: true },\n        }),\n        'to equal', join(__dirname, '../../../docs/api/index.html')\n      );\n    });\n  });\n\n  /** @test {DocsCommand#remoteDocsUrl} */\n  describe('#remoteDocsUrl', function() {\n    it('should return path to atscm docs by default', function() {\n      expect(command.remoteDocsUrl({ options: {} }),\n        'to equal', `${DocsCommand.RemoteDocsBase}atscm`);\n    });\n\n    it('should return path to atscm-cli docs with `--cli` option passed', function() {\n      expect(command.remoteDocsUrl({ options: { cli: true } }),\n        'to equal', `${DocsCommand.RemoteDocsBase}atscm-cli`);\n    });\n  });\n\n  /** @test {DocsCommand#addressToOpen} */\n  describe('#addressToOpen', function() {\n    it('should return local path if not remote option was passed', function() {\n      const { address, isPath } = command.addressToOpen({\n        options: {},\n        environment: { modulePath: '/path/to/package.json' }\n      });\n\n      expect(address, 'to equal', join('/path/docs/api/index.html'));\n      expect(isPath, 'to equal', true);\n    });\n\n    it('should return local path if remote option was set to false', function() {\n      const { isPath } = command.addressToOpen({\n        options: { remote: false },\n        environment: { modulePath: '/path/to/package.json' }\n      });\n\n      expect(isPath, 'to equal', true);\n    });\n\n    it('should return remote url if remote was set to true', function() {\n      const { isPath } = command.addressToOpen({\n        options: { remote: true },\n        environment: { modulePath: '/path/to/package.json' }\n      });\n\n      expect(isPath, 'to equal', false);\n    });\n\n    it('should return remote url if cli.env.modulePath is undefined', function() {\n      const { isPath } = command.addressToOpen({\n        options: { remote: true },\n        environment: {}\n      });\n\n      expect(isPath, 'to equal', false);\n    });\n\n    it('should return local path if cli option was set', function() {\n      const { isPath } = command.addressToOpen({\n        options: { cli: true },\n        environment: {}\n      });\n\n      expect(isPath, 'to equal', true);\n    });\n  });\n\n  /** @test {DocsCommand#run} */\n  describe('#run', function() {\n    beforeEach(() => openSpy.resetHistory());\n\n    it('should open local api docs by default', function() {\n      command.run({\n        options: {},\n        environment: {\n          modulePath: '/path/to/package.json',\n        },\n      })\n        .then(() => {\n          expect(openSpy.calledOnce, 'to be', true);\n          expect(openSpy.lastCall.args[0], 'to equal', join('/path/docs/api/index.html'));\n          expect(openSpy.lastCall.args[1], 'to be undefined');\n        });\n    });\n\n    it('should open cli api docs with --cli option', function() {\n      command.run({\n        options: {\n          cli: true,\n        },\n      })\n        .then(() => {\n          expect(openSpy.calledOnce, 'to be', true);\n          expect(openSpy.lastCall.args[0],\n            'to equal', join(__dirname, '../../../docs/api/index.html'));\n          expect(openSpy.lastCall.args[1], 'to be undefined');\n        });\n    });\n\n    it('should open in specific browser with --browser option', function() {\n      command.run({\n        options: {\n          cli: false,\n          browser: 'custombrowser',\n        },\n        environment: {\n          modulePath: '/path/to/package.json',\n        },\n      })\n        .then(() => {\n          expect(openSpy.calledOnce, 'to be', true);\n          expect(openSpy.lastCall.args[0], 'to equal', join('/path/docs/api/index.html'));\n          expect(openSpy.lastCall.args[1], 'to equal', 'custombrowser');\n        });\n    });\n\n    it('should call AtSCMCli#getEnvironment if no environment was passed', function() {\n      const cli = {\n        options: {\n          cli: false,\n        },\n        getEnvironment() {\n          return Promise.resolve((this.environment = {\n            modulePath: '/path/to/package.json',\n          }));\n        }\n      };\n\n      spy(cli, 'getEnvironment');\n\n      command.run(cli)\n        .then(() => {\n          expect(cli.getEnvironment.calledOnce, 'to be', true);\n          expect(openSpy.calledOnce, 'to be', true);\n          expect(openSpy.lastCall.args[0], 'to equal', join('/path/docs/api/index.html'));\n        });\n    });\n\n    it('should open remote docs with --remote option passed', function() {\n      command.run({\n        options: {\n          remote: true,\n        },\n        environment: {\n          modulePath: '/path/to/package.json',\n        },\n      })\n        .then(() => {\n          expect(openSpy.calledOnce, 'to be', true);\n          expect(openSpy.lastCall.args[0], 'to begin with', DocsCommand.RemoteDocsBase);\n        });\n    });\n  });\n\n  /** @test {DocsCommand#requiresEnvironment} */\n  describe('#requiresEnvironment', function() {\n    it('should return false if `--cli` is used', function() {\n      expect(command.requiresEnvironment({ options: { cli: true } }), 'to be', false);\n    });\n\n    it('should return false if `--remote`', function() {\n      expect(command.requiresEnvironment({ options: { remote: true } }), 'to be', false);\n    });\n\n    it('should return false if no `--remote` option is passed', function() {\n      expect(command.requiresEnvironment({ options: { } }), 'to be', false);\n    });\n\n    it('should return false if `--no-remote` and `--cli` option is passed', function() {\n      expect(command.requiresEnvironment({ options: {\n        remote: false,\n        cli: true,\n      } }), 'to be', false);\n    });\n\n    it('should return true if `--no-remote` and no `--cli` option is passed', function() {\n      expect(command.requiresEnvironment({ options: { remote: false } }), 'to be', true);\n    });\n  });\n});\n",
+    "content": "import { join } from 'path';\nimport expect from 'unexpected';\nimport { spy } from 'sinon';\nimport proxyquire from 'proxyquire';\n\nconst openSpy = spy();\nconst DocsCommand = proxyquire('../../../src/cli/commands/Docs', {\n  open: openSpy,\n}).default;\n\n/** @test {DocsCommand} */\ndescribe('DocsCommand', function() {\n  const command = new DocsCommand('docs', 'Open documentation.');\n\n  /** @test {DocsCommand#localDocsPath} */\n  describe('#localDocsPath', function() {\n    it('should be local api docs by default', function() {\n      expect(\n        command.localDocsPath({\n          options: {},\n          environment: {\n            modulePath: '/path/to/package.json',\n          },\n        }),\n        'to equal', join('/path/docs/api/index.html')\n      );\n    });\n\n    it('should be cli api docs with --cli option', function() {\n      expect(\n        command.localDocsPath({\n          options: { cli: true },\n        }),\n        'to equal', join(__dirname, '../../../docs/api/index.html')\n      );\n    });\n  });\n\n  /** @test {DocsCommand#remoteDocsUrl} */\n  describe('#remoteDocsUrl', function() {\n    it('should return path to atscm docs by default', function() {\n      expect(command.remoteDocsUrl({ options: {} }),\n        'to equal', `${DocsCommand.RemoteDocsBase}atscm`);\n    });\n\n    it('should return path to atscm-cli docs with `--cli` option passed', function() {\n      expect(command.remoteDocsUrl({ options: { cli: true } }),\n        'to equal', `${DocsCommand.RemoteDocsBase}atscm-cli`);\n    });\n  });\n\n  /** @test {DocsCommand#addressToOpen} */\n  describe('#addressToOpen', function() {\n    it('should return local path if not remote option was passed', function() {\n      const { address, isPath } = command.addressToOpen({\n        options: {},\n        environment: { modulePath: '/path/to/package.json' },\n      });\n\n      expect(address, 'to equal', join('/path/docs/api/index.html'));\n      expect(isPath, 'to equal', true);\n    });\n\n    it('should return local path if remote option was set to false', function() {\n      const { isPath } = command.addressToOpen({\n        options: { remote: false },\n        environment: { modulePath: '/path/to/package.json' },\n      });\n\n      expect(isPath, 'to equal', true);\n    });\n\n    it('should return remote url if remote was set to true', function() {\n      const { isPath } = command.addressToOpen({\n        options: { remote: true },\n        environment: { modulePath: '/path/to/package.json' },\n      });\n\n      expect(isPath, 'to equal', false);\n    });\n\n    it('should return remote url if cli.env.modulePath is undefined', function() {\n      const { isPath } = command.addressToOpen({\n        options: { remote: true },\n        environment: {},\n      });\n\n      expect(isPath, 'to equal', false);\n    });\n\n    it('should return local path if cli option was set', function() {\n      const { isPath } = command.addressToOpen({\n        options: { cli: true },\n        environment: {},\n      });\n\n      expect(isPath, 'to equal', true);\n    });\n  });\n\n  /** @test {DocsCommand#run} */\n  describe('#run', function() {\n    beforeEach(() => openSpy.resetHistory());\n\n    it('should open local api docs by default', function() {\n      command.run({\n        options: {},\n        environment: {\n          modulePath: '/path/to/package.json',\n        },\n      })\n        .then(() => {\n          expect(openSpy.calledOnce, 'to be', true);\n          expect(openSpy.lastCall.args[0], 'to equal', join('/path/docs/api/index.html'));\n          expect(openSpy.lastCall.args[1], 'to be undefined');\n        });\n    });\n\n    it('should open cli api docs with --cli option', function() {\n      command.run({\n        options: {\n          cli: true,\n        },\n      })\n        .then(() => {\n          expect(openSpy.calledOnce, 'to be', true);\n          expect(openSpy.lastCall.args[0],\n            'to equal', join(__dirname, '../../../docs/api/index.html'));\n          expect(openSpy.lastCall.args[1], 'to be undefined');\n        });\n    });\n\n    it('should open in specific browser with --browser option', function() {\n      command.run({\n        options: {\n          cli: false,\n          browser: 'custombrowser',\n        },\n        environment: {\n          modulePath: '/path/to/package.json',\n        },\n      })\n        .then(() => {\n          expect(openSpy.calledOnce, 'to be', true);\n          expect(openSpy.lastCall.args[0], 'to equal', join('/path/docs/api/index.html'));\n          expect(openSpy.lastCall.args[1], 'to equal', 'custombrowser');\n        });\n    });\n\n    it('should call AtSCMCli#getEnvironment if no environment was passed', function() {\n      const cli = {\n        options: {\n          cli: false,\n        },\n        getEnvironment() {\n          return Promise.resolve((this.environment = {\n            modulePath: '/path/to/package.json',\n          }));\n        },\n      };\n\n      spy(cli, 'getEnvironment');\n\n      command.run(cli)\n        .then(() => {\n          expect(cli.getEnvironment.calledOnce, 'to be', true);\n          expect(openSpy.calledOnce, 'to be', true);\n          expect(openSpy.lastCall.args[0], 'to equal', join('/path/docs/api/index.html'));\n        });\n    });\n\n    it('should open remote docs with --remote option passed', function() {\n      command.run({\n        options: {\n          remote: true,\n        },\n        environment: {\n          modulePath: '/path/to/package.json',\n        },\n      })\n        .then(() => {\n          expect(openSpy.calledOnce, 'to be', true);\n          expect(openSpy.lastCall.args[0], 'to begin with', DocsCommand.RemoteDocsBase);\n        });\n    });\n  });\n\n  /** @test {DocsCommand#requiresEnvironment} */\n  describe('#requiresEnvironment', function() {\n    it('should return false if `--cli` is used', function() {\n      expect(command.requiresEnvironment({ options: { cli: true } }), 'to be', false);\n    });\n\n    it('should return false if `--remote`', function() {\n      expect(command.requiresEnvironment({ options: { remote: true } }), 'to be', false);\n    });\n\n    it('should return false if no `--remote` option is passed', function() {\n      expect(command.requiresEnvironment({ options: { } }), 'to be', false);\n    });\n\n    it('should return false if `--no-remote` and `--cli` option is passed', function() {\n      expect(command.requiresEnvironment({ options: {\n        remote: false,\n        cli: true,\n      } }), 'to be', false);\n    });\n\n    it('should return true if `--no-remote` and no `--cli` option is passed', function() {\n      expect(command.requiresEnvironment({ options: { remote: false } }), 'to be', true);\n    });\n  });\n});\n",
     "static": true,
     "longname": "/home/circleci/project/test/cli/commands/Docs.spec.js",
     "access": null,
@@ -4904,7 +4904,7 @@
     "__docId__": 248,
     "kind": "testFile",
     "name": "test/cli/commands/Init.spec.js",
-    "content": "import { readdir, writeFileSync } from 'fs';\nimport { join } from 'path';\nimport Emitter from 'events';\nimport expect from 'unexpected';\nimport { spy, stub } from 'sinon';\nimport proxyquire from 'proxyquire';\nimport inTmpDir from '../../helpers/inTmpDir';\nimport atscmPkg from '../../fixtures/node_modules/atscm/package.json';\n\nclass StubPipe extends Emitter {}\n\nclass StubProcess extends Emitter {\n\n  constructor() {\n    super();\n\n    this.stdout = new StubPipe();\n  }\n\n  close(code) {\n    this.emit('close', code);\n  }\n\n}\n\nconst stubModulePath = join(__dirname, 'stub.js');\n\nfunction createImportStub(func, noCallThru = true) {\n  return {\n    __esModule: true,\n    default: spy(func),\n    '@noCallThru': noCallThru,\n  };\n}\n\nconst stubProcessEmitter = new Emitter();\nconst spawnStub = spy(() => {\n  const process = new StubProcess();\n\n  stubProcessEmitter.emit('new', process);\n\n  return process;\n});\n\nconst fsStub = {\n  readdir: spy(readdir),\n};\nlet whichStub = createImportStub((name, cb) => cb(null, name));\nconst initStub = createImportStub(() => Promise.resolve());\nconst promptSpy = spy(() => Promise.resolve({}));\nconst stubInitOptions = {};\n\nconst InitCommand = proxyquire('../../../src/cli/commands/Init', {\n  fs: fsStub,\n  inquirer: {\n    prompt: promptSpy,\n  },\n  child_process: {\n    __esModule: true,\n    spawn: spawnStub,\n    '@noCallThru': true,\n  },\n  which: whichStub,\n  [join(stubModulePath, '../init/options')]: {\n    __esModule: true,\n    default: stubInitOptions,\n    '@noCallThru': true,\n  },\n  [join(stubModulePath, '../init/init')]: initStub,\n}).default;\n\n/** @test {InitCommand} */\ndescribe('InitCommand', function() {\n  const command = new InitCommand('init', 'Creates a new project.');\n\n  /** @test {InitCommand#checkDirectory} */\n  describe('#checkDirectory', function() {\n    inTmpDir(path => {\n      it('should fail if directory does not exist', function() {\n        return expect(command.checkDirectory('./not/existant'),\n          'to be rejected with', /does not exist$/);\n      });\n\n      it('should fail if path is not a directory', function() {\n        return expect(command.checkDirectory(join(__dirname, './Init.spec.js')),\n          'to be rejected with', /is not a directory$/);\n      });\n\n      it('should fail if directory is not empty', function() {\n        return expect(command.checkDirectory(__dirname),\n          'to be rejected with', /is not empty$/);\n      });\n\n      it('should work with empty dir', function() {\n        return expect(command.checkDirectory(path), 'to be fulfilled');\n      });\n\n      it('should work in non-empty dir with overwrite set', function() {\n        writeFileSync(join(path, 'file.txt'), 'data');\n\n        return expect(command.checkDirectory(path, true), 'to be fulfilled');\n      });\n    });\n\n    context('when non-ENOENT and ENOTDIR occurres', function() {\n      const orgReaddir = fsStub.readdir;\n\n      before(() => (fsStub.readdir = spy((path, cb) => cb(new Error('Any other error')))));\n      after(() => (fsStub.readdir = orgReaddir));\n\n      it('should fail with original error', function() {\n        return expect(command.checkDirectory('path'),\n          'to be rejected with', 'Any other error'\n        );\n      });\n    });\n  });\n\n  /** @test {InitCommand#createEmptyPackage} */\n  describe('#createEmptyPackage', function() {\n    inTmpDir(path => {\n      it('should fail with invalid path', function() {\n        return expect(command.createEmptyPackage('path/that/does/not/exist'),\n          'to be rejected with', /^Unable to create package.json at/);\n      });\n\n      it('should work in empty directory', function() {\n        return expect(command.createEmptyPackage(path), 'to be fulfilled')\n          .then(() => {\n            let pkg;\n            expect(() => (pkg = require(join(path, 'package.json'))), 'not to throw');\n            expect(pkg, 'to equal', {});\n\n          });\n      });\n    });\n  });\n\n  /** @test {InitCommand#install} */\n  describe('#install', function() {\n    beforeEach(() => whichStub.default.resetHistory());\n\n    it('should run which for npm', function() {\n      const deps = ['dep1', 'dep2'];\n\n      stubProcessEmitter.once('new', proc => {\n        setTimeout(() => proc.close(0), 10);\n      });\n\n      return expect(\n        command.install(stubModulePath, deps),\n        'to be fulfilled'\n      )\n        .then(() => {\n          expect(whichStub.default.calledOnce, 'to be', true);\n          expect(whichStub.default.lastCall.args[0], 'to equal', 'npm');\n        });\n    });\n\n    it('should forward errors occuring in npm', function() {\n      const error = new Error('Test');\n\n      stubProcessEmitter.once('new', proc => {\n        setTimeout(() => proc.emit('error', error), 10);\n      });\n\n      return expect(\n        command.install(stubModulePath, ['dep']),\n        'to be rejected with', error\n      );\n    });\n\n    it('should report error if npm fails', function() {\n      const code = Math.round(Math.random() * 100) + 1;\n\n      stubProcessEmitter.once('new', proc => {\n        setTimeout(() => proc.close(code), 10);\n      });\n\n      return expect(\n        command.install(stubModulePath, ['dep']),\n        'to be rejected with', `npm install returned code ${code}`\n      );\n    });\n\n    context('when npm is not installed', function() {\n      const orgWhichStub = whichStub.default;\n\n      before(() => (whichStub.default = spy((name, cb) => cb(new Error('A which error')))));\n      after(() => (whichStub.default = orgWhichStub));\n\n      it('should fail', function() {\n        whichStub = spy((name, cb) => cb(new Error('A which error')));\n\n        return expect(\n          command.install(stubModulePath, ['dep']),\n          'to be rejected with', 'A which error'\n        );\n      });\n    });\n  });\n\n  /** @test {InitCommand#installLocal} */\n  describe('#installLocal', function() {\n    beforeEach(() => stub(command, 'install').callsFake(() => Promise.resolve(true)));\n    afterEach(() => command.install.restore());\n\n    it('should call InitCommand#install', function() {\n      return expect(command.installLocal(stubModulePath), 'to be fulfilled')\n        .then(() => {\n          expect(command.install.calledOnce, 'to be true');\n          expect(command.install.lastCall.args[0], 'to equal', stubModulePath);\n          expect(command.install.lastCall.args[1], 'to equal', 'atscm');\n        });\n    });\n\n    it('should install beta version with `useBetaVersion`', function() {\n      return expect(command.installLocal(stubModulePath, true), 'to be fulfilled')\n        .then(() => {\n          expect(command.install.calledOnce, 'to be true');\n          expect(command.install.lastCall.args[0], 'to equal', stubModulePath);\n          expect(command.install.lastCall.args[1], 'to equal', 'atscm@beta');\n        });\n    });\n  });\n\n  /** @test {InitCommand#checkCliVersion} */\n  describe('#checkCliVersion', function() {\n    it('should throw error if version does not match', function() {\n      expect(() => command.checkCliVersion({\n        modulePackage: {\n          engines: {\n            'atscm-cli': '<0.1.0',\n          },\n        },\n      }), 'to throw error', 'Invalid atscm-cli version: <0.1.0 required.');\n    });\n  });\n\n  /** @test {InitCommand#getOptions} */\n  describe('#getOptions', function() {\n    it('should run inquirer', function() {\n      return expect(\n        command.getOptions(stubModulePath),\n        'to be fulfilled'\n      )\n        .then(() => {\n          expect(promptSpy.calledOnce, 'to be true');\n          expect(promptSpy.lastCall.args[0], 'to be', stubInitOptions);\n        });\n    });\n  });\n\n  /** @test {InitCommand#writeFiles} */\n  describe('#writeFiles', function() {\n    it('should call local package init script', function() {\n      const options = { test: 123 };\n\n      return expect(command.writeFiles(stubModulePath, options),\n          'to be fulfilled')\n        .then(() => {\n          expect(initStub.default.calledOnce, 'to be', true);\n          expect(initStub.default.lastCall.args[0], 'to be', options);\n        });\n    });\n  });\n\n  /** @test {InitCommand#installDependencies} */\n  describe('#installDependencies', function() {\n    beforeEach(() => stub(command, 'install').callsFake(() => Promise.resolve(true)));\n    afterEach(() => command.install.restore());\n\n    it('should run install with given deps', function() {\n      const deps = ['dep1', 'dep2'];\n\n      return expect(command.installDependencies(stubModulePath, deps), 'to be fulfilled')\n        .then(() => {\n          expect(command.install.calledOnce, 'to be true');\n          expect(command.install.lastCall.args[0], 'to equal', stubModulePath);\n          expect(command.install.lastCall.args[1], 'to equal', deps);\n        });\n    });\n  });\n\n  /** @test {InitCommand#run} */\n  describe('#run', function() {\n    const deps = ['dep1', 'dep2'];\n    const cli = {\n      environment: {\n        cwd: stubModulePath,\n      },\n      options: {\n        force: false,\n      },\n      getEnvironment: spy(() => Promise.resolve({\n        cwd: stubModulePath,\n        modulePackage: atscmPkg,\n      })),\n    };\n\n    beforeEach(() => {\n      stub(command, 'checkDirectory').callsFake(() => Promise.resolve());\n      stub(command, 'createEmptyPackage').callsFake(() => Promise.resolve());\n      stub(command, 'installLocal').callsFake(() => Promise.resolve());\n      stub(process, 'chdir');\n      stub(command, 'getOptions').callsFake(() => Promise.resolve());\n      stub(command, 'writeFiles').callsFake(() => Promise.resolve({ dependencies: deps }));\n      stub(command, 'installDependencies').callsFake(() => Promise.resolve());\n    });\n\n    afterEach(() => {\n      command.checkDirectory.restore();\n      command.createEmptyPackage.restore();\n      command.installLocal.restore();\n      process.chdir.restore();\n      command.getOptions.restore();\n      command.writeFiles.restore();\n      command.installDependencies.restore();\n    });\n\n    function expectCalled(method, count = 1) {\n      return expect(command.run(cli), 'to be fulfilled')\n        .then(() => expect(method.callCount, 'to equal', count));\n    }\n\n    it('should call AtSCMCli#getEnvironment twice', function() {\n      return expectCalled(cli.getEnvironment, 2);\n    });\n\n    it('should not search in parent directories', function() {\n      return expect(command.run(cli), 'to be fulfilled')\n        .then(() => expect(cli.getEnvironment.alwaysCalledWith(false), 'to equal', true));\n    });\n\n    it('should call InitCommand#createEmptyPackage', function() {\n      return expectCalled(command.createEmptyPackage);\n    });\n\n    it('should call InitCommand#installLocal', function() {\n      return expectCalled(command.installLocal);\n    });\n\n    it('should call process.chdir', function() {\n      return expectCalled(process.chdir);\n    });\n\n    it('should call InitCommand#getOptions', function() {\n      return expectCalled(command.getOptions);\n    });\n\n    it('should call InitCommand#writeFiles', function() {\n      return expectCalled(command.writeFiles);\n    });\n\n    it('should call InitCommand#installDependencies', function() {\n      return expectCalled(command.installDependencies);\n    });\n  });\n\n  /** @test {InitCommand#requiresEnvironment} */\n  describe('#requiresEnvironment', function() {\n    it('should return false', function() {\n      expect(command.requiresEnvironment(), 'to equal', false);\n    });\n  });\n});\n",
+    "content": "import { readdir, writeFileSync } from 'fs';\nimport { join } from 'path';\nimport Emitter from 'events';\nimport expect from 'unexpected';\nimport { spy, stub } from 'sinon';\nimport proxyquire from 'proxyquire';\nimport inTmpDir from '../../helpers/inTmpDir';\nimport atscmPkg from '../../fixtures/node_modules/atscm/package.json';\n\nclass StubPipe extends Emitter {}\n\nclass StubProcess extends Emitter {\n\n  constructor() {\n    super();\n\n    this.stdout = new StubPipe();\n  }\n\n  close(code) {\n    this.emit('close', code);\n  }\n\n}\n\nconst stubModulePath = join(__dirname, 'stub.js');\n\nfunction createImportStub(func, noCallThru = true) {\n  return {\n    __esModule: true,\n    default: spy(func),\n    '@noCallThru': noCallThru,\n  };\n}\n\nconst stubProcessEmitter = new Emitter();\nconst spawnStub = spy(() => {\n  const process = new StubProcess();\n\n  stubProcessEmitter.emit('new', process);\n\n  return process;\n});\n\nconst fsStub = {\n  readdir: spy(readdir),\n};\nlet whichStub = createImportStub((name, cb) => cb(null, name));\nconst initStub = createImportStub(() => Promise.resolve());\nconst promptSpy = spy(() => Promise.resolve({}));\nconst stubInitOptions = {};\n\nconst InitCommand = proxyquire('../../../src/cli/commands/Init', {\n  fs: fsStub,\n  inquirer: {\n    prompt: promptSpy,\n  },\n  child_process: {\n    __esModule: true,\n    spawn: spawnStub,\n    '@noCallThru': true,\n  },\n  which: whichStub,\n  [join(stubModulePath, '../init/options')]: {\n    __esModule: true,\n    default: stubInitOptions,\n    '@noCallThru': true,\n  },\n  [join(stubModulePath, '../init/init')]: initStub,\n}).default;\n\n/** @test {InitCommand} */\ndescribe('InitCommand', function() {\n  const command = new InitCommand('init', 'Creates a new project.');\n\n  /** @test {InitCommand#checkDirectory} */\n  describe('#checkDirectory', function() {\n    inTmpDir(path => {\n      it('should fail if directory does not exist', function() {\n        return expect(command.checkDirectory('./not/existant'),\n          'to be rejected with', /does not exist$/);\n      });\n\n      it('should fail if path is not a directory', function() {\n        return expect(command.checkDirectory(join(__dirname, './Init.spec.js')),\n          'to be rejected with', /is not a directory$/);\n      });\n\n      it('should fail if directory is not empty', function() {\n        return expect(command.checkDirectory(__dirname),\n          'to be rejected with', /is not empty$/);\n      });\n\n      it('should work with empty dir', function() {\n        return expect(command.checkDirectory(path), 'to be fulfilled');\n      });\n\n      it('should work in non-empty dir with overwrite set', function() {\n        writeFileSync(join(path, 'file.txt'), 'data');\n\n        return expect(command.checkDirectory(path, true), 'to be fulfilled');\n      });\n    });\n\n    context('when non-ENOENT and ENOTDIR occurres', function() {\n      const orgReaddir = fsStub.readdir;\n\n      before(() => (fsStub.readdir = spy((path, cb) => cb(new Error('Any other error')))));\n      after(() => (fsStub.readdir = orgReaddir));\n\n      it('should fail with original error', function() {\n        return expect(command.checkDirectory('path'),\n          'to be rejected with', 'Any other error'\n        );\n      });\n    });\n  });\n\n  /** @test {InitCommand#createEmptyPackage} */\n  describe('#createEmptyPackage', function() {\n    inTmpDir(path => {\n      it('should fail with invalid path', function() {\n        return expect(command.createEmptyPackage('path/that/does/not/exist'),\n          'to be rejected with', /^Unable to create package.json at/);\n      });\n\n      it('should work in empty directory', function() {\n        return expect(command.createEmptyPackage(path), 'to be fulfilled')\n          .then(() => {\n            let pkg;\n            // eslint-disable-next-line global-require\n            expect(() => (pkg = require(join(path, 'package.json'))), 'not to throw');\n            expect(pkg, 'to equal', {});\n          });\n      });\n    });\n  });\n\n  /** @test {InitCommand#install} */\n  describe('#install', function() {\n    beforeEach(() => whichStub.default.resetHistory());\n\n    it('should run which for npm', function() {\n      const deps = ['dep1', 'dep2'];\n\n      stubProcessEmitter.once('new', proc => {\n        setTimeout(() => proc.close(0), 10);\n      });\n\n      return expect(\n        command.install(stubModulePath, deps),\n        'to be fulfilled'\n      )\n        .then(() => {\n          expect(whichStub.default.calledOnce, 'to be', true);\n          expect(whichStub.default.lastCall.args[0], 'to equal', 'npm');\n        });\n    });\n\n    it('should forward errors occuring in npm', function() {\n      const error = new Error('Test');\n\n      stubProcessEmitter.once('new', proc => {\n        setTimeout(() => proc.emit('error', error), 10);\n      });\n\n      return expect(\n        command.install(stubModulePath, ['dep']),\n        'to be rejected with', error\n      );\n    });\n\n    it('should report error if npm fails', function() {\n      const code = Math.round(Math.random() * 100) + 1;\n\n      stubProcessEmitter.once('new', proc => {\n        setTimeout(() => proc.close(code), 10);\n      });\n\n      return expect(\n        command.install(stubModulePath, ['dep']),\n        'to be rejected with', `npm install returned code ${code}`\n      );\n    });\n\n    context('when npm is not installed', function() {\n      const orgWhichStub = whichStub.default;\n\n      before(() => (whichStub.default = spy((name, cb) => cb(new Error('A which error')))));\n      after(() => (whichStub.default = orgWhichStub));\n\n      it('should fail', function() {\n        whichStub = spy((name, cb) => cb(new Error('A which error')));\n\n        return expect(\n          command.install(stubModulePath, ['dep']),\n          'to be rejected with', 'A which error'\n        );\n      });\n    });\n  });\n\n  /** @test {InitCommand#installLocal} */\n  describe('#installLocal', function() {\n    beforeEach(() => stub(command, 'install').callsFake(() => Promise.resolve(true)));\n    afterEach(() => command.install.restore());\n\n    it('should call InitCommand#install', function() {\n      return expect(command.installLocal(stubModulePath), 'to be fulfilled')\n        .then(() => {\n          expect(command.install.calledOnce, 'to be true');\n          expect(command.install.lastCall.args[0], 'to equal', stubModulePath);\n          expect(command.install.lastCall.args[1], 'to equal', 'atscm');\n        });\n    });\n\n    it('should install beta version with `useBetaVersion`', function() {\n      return expect(command.installLocal(stubModulePath, true), 'to be fulfilled')\n        .then(() => {\n          expect(command.install.calledOnce, 'to be true');\n          expect(command.install.lastCall.args[0], 'to equal', stubModulePath);\n          expect(command.install.lastCall.args[1], 'to equal', 'atscm@beta');\n        });\n    });\n  });\n\n  /** @test {InitCommand#checkCliVersion} */\n  describe('#checkCliVersion', function() {\n    it('should throw error if version does not match', function() {\n      expect(() => command.checkCliVersion({\n        modulePackage: {\n          engines: {\n            'atscm-cli': '<0.1.0',\n          },\n        },\n      }), 'to throw error', 'Invalid atscm-cli version: <0.1.0 required.');\n    });\n  });\n\n  /** @test {InitCommand#getOptions} */\n  describe('#getOptions', function() {\n    it('should run inquirer', function() {\n      return expect(\n        command.getOptions(stubModulePath),\n        'to be fulfilled'\n      )\n        .then(() => {\n          expect(promptSpy.calledOnce, 'to be true');\n          expect(promptSpy.lastCall.args[0], 'to be', stubInitOptions);\n        });\n    });\n  });\n\n  /** @test {InitCommand#writeFiles} */\n  describe('#writeFiles', function() {\n    it('should call local package init script', function() {\n      const options = { test: 123 };\n\n      return expect(command.writeFiles(stubModulePath, options),\n        'to be fulfilled')\n        .then(() => {\n          expect(initStub.default.calledOnce, 'to be', true);\n          expect(initStub.default.lastCall.args[0], 'to be', options);\n        });\n    });\n  });\n\n  /** @test {InitCommand#installDependencies} */\n  describe('#installDependencies', function() {\n    beforeEach(() => stub(command, 'install').callsFake(() => Promise.resolve(true)));\n    afterEach(() => command.install.restore());\n\n    it('should run install with given deps', function() {\n      const deps = ['dep1', 'dep2'];\n\n      return expect(command.installDependencies(stubModulePath, deps), 'to be fulfilled')\n        .then(() => {\n          expect(command.install.calledOnce, 'to be true');\n          expect(command.install.lastCall.args[0], 'to equal', stubModulePath);\n          expect(command.install.lastCall.args[1], 'to equal', deps);\n        });\n    });\n  });\n\n  /** @test {InitCommand#run} */\n  describe('#run', function() {\n    const deps = ['dep1', 'dep2'];\n    const cli = {\n      environment: {\n        cwd: stubModulePath,\n      },\n      options: {\n        force: false,\n      },\n      getEnvironment: spy(() => Promise.resolve({\n        cwd: stubModulePath,\n        modulePackage: atscmPkg,\n      })),\n    };\n\n    beforeEach(() => {\n      stub(command, 'checkDirectory').callsFake(() => Promise.resolve());\n      stub(command, 'createEmptyPackage').callsFake(() => Promise.resolve());\n      stub(command, 'installLocal').callsFake(() => Promise.resolve());\n      stub(process, 'chdir');\n      stub(command, 'getOptions').callsFake(() => Promise.resolve());\n      stub(command, 'writeFiles').callsFake(() => Promise.resolve({ dependencies: deps }));\n      stub(command, 'installDependencies').callsFake(() => Promise.resolve());\n    });\n\n    afterEach(() => {\n      command.checkDirectory.restore();\n      command.createEmptyPackage.restore();\n      command.installLocal.restore();\n      process.chdir.restore();\n      command.getOptions.restore();\n      command.writeFiles.restore();\n      command.installDependencies.restore();\n    });\n\n    function expectCalled(method, count = 1) {\n      return expect(command.run(cli), 'to be fulfilled')\n        .then(() => expect(method.callCount, 'to equal', count));\n    }\n\n    it('should call AtSCMCli#getEnvironment twice', function() {\n      return expectCalled(cli.getEnvironment, 2);\n    });\n\n    it('should not search in parent directories', function() {\n      return expect(command.run(cli), 'to be fulfilled')\n        .then(() => expect(cli.getEnvironment.alwaysCalledWith(false), 'to equal', true));\n    });\n\n    it('should call InitCommand#createEmptyPackage', function() {\n      return expectCalled(command.createEmptyPackage);\n    });\n\n    it('should call InitCommand#installLocal', function() {\n      return expectCalled(command.installLocal);\n    });\n\n    it('should call process.chdir', function() {\n      return expectCalled(process.chdir);\n    });\n\n    it('should call InitCommand#getOptions', function() {\n      return expectCalled(command.getOptions);\n    });\n\n    it('should call InitCommand#writeFiles', function() {\n      return expectCalled(command.writeFiles);\n    });\n\n    it('should call InitCommand#installDependencies', function() {\n      return expectCalled(command.installDependencies);\n    });\n  });\n\n  /** @test {InitCommand#requiresEnvironment} */\n  describe('#requiresEnvironment', function() {\n    it('should return false', function() {\n      expect(command.requiresEnvironment(), 'to equal', false);\n    });\n  });\n});\n",
     "static": true,
     "longname": "/home/circleci/project/test/cli/commands/Init.spec.js",
     "access": null,
@@ -5798,7 +5798,7 @@
     "__docId__": 313,
     "kind": "testFile",
     "name": "test/lib/cli/Command.spec.js",
-    "content": "import expect from 'unexpected';\n\nimport Command from '../../../src/lib/cli/Command';\nimport Option from '../../../src/lib/cli/Option';\n\n/** @test {Command} */\ndescribe('Command', function() {\n  const name = 'command';\n  const desc = 'Command description.';\n  const opts = {};\n  const args = '<required> [optional...]';\n\n  /** @test {Command#constructor} */\n  describe('#constructor', function() {\n    it('should fail if options.maxArguments is less than options.maxArguments', function() {\n      expect(() => new Command(name, desc, Object.assign({\n        minArguments: 1,\n        maxArguments: 0,\n      }, opts)), 'to throw error',\n        'options.maxArguments must not be less than options.minArguments');\n    });\n\n    it('should store name, description and options', function() {\n      const command = new Command(name, desc, opts);\n\n      expect(command.name, 'to equal', name);\n      expect(command.description, 'to equal', desc);\n      expect(command._options, 'to equal', opts);\n    });\n  });\n\n  /** @test {Command#run} */\n  describe('#run', function() {\n    it('must be implmented by all subclasses', function() {\n      expect((new Command(name, desc, opts)).run, 'to throw',\n        new Error('Must be implemented by all subclasses'));\n    });\n  });\n\n  /** @test {Command#usage} */\n  describe('#usage', function() {\n    it('should be only name with no options.arguments set', function() {\n      expect((new Command(name, desc, opts)).usage, 'to equal', name);\n    });\n\n    it('should be name followed by arguments with options.arguments set', function() {\n      expect((new Command(name, desc, Object.assign({ arguments: args }, opts))).usage,\n        'to equal', `${name} ${args}`);\n    });\n  });\n\n  /** @test {Command#options} */\n  describe('#options', function() {\n    it('should be empty object if options.options were not set', function() {\n      expect((new Command(name, desc, opts)).options, 'to equal', {});\n    });\n\n    it('should return all options passed as options.options', function() {\n      const options = { test: new Option('description') };\n\n      expect((new Command(name, desc, Object.assign({ options }, opts))).options,\n        'to equal', options);\n    });\n  });\n\n  /** @test {Command#demandCommand} */\n  describe('#demandCommand', function() {\n    it('should default to [0]', function() {\n      expect((new Command(name, desc, opts)).demandCommand, 'to equal', [0]);\n    });\n\n    it('should be use options.maxArguments if set', function() {\n      expect((new Command(name, desc, Object.assign({ maxArguments: 13 }, opts))).demandCommand,\n        'to equal', [0, 13]);\n    });\n\n    it('should be use options.minArguments if set', function() {\n      expect((new Command(name, desc, Object.assign({ minArguments: 13 }, opts))).demandCommand,\n        'to equal', [13]);\n    });\n\n    it('should be use options.minArguments and options.maxArguments if set', function() {\n      expect((new Command(name, desc, Object.assign({\n        minArguments: 1,\n        maxArguments: 2,\n      }, opts))).demandCommand, 'to equal', [1, 2]);\n    });\n  });\n});\n",
+    "content": "import expect from 'unexpected';\nimport Command from '../../../src/lib/cli/Command';\nimport Option from '../../../src/lib/cli/Option';\n\n/** @test {Command} */\ndescribe('Command', function() {\n  const name = 'command';\n  const desc = 'Command description.';\n  const opts = {};\n  const args = '<required> [optional...]';\n\n  /** @test {Command#constructor} */\n  describe('#constructor', function() {\n    it('should fail if options.maxArguments is less than options.maxArguments', function() {\n      expect(() => new Command(name, desc, Object.assign({\n        minArguments: 1,\n        maxArguments: 0,\n      }, opts)), 'to throw error',\n      'options.maxArguments must not be less than options.minArguments');\n    });\n\n    it('should store name, description and options', function() {\n      const command = new Command(name, desc, opts);\n\n      expect(command.name, 'to equal', name);\n      expect(command.description, 'to equal', desc);\n      expect(command._options, 'to equal', opts);\n    });\n  });\n\n  /** @test {Command#run} */\n  describe('#run', function() {\n    it('must be implmented by all subclasses', function() {\n      expect((new Command(name, desc, opts)).run, 'to throw',\n        new Error('Must be implemented by all subclasses'));\n    });\n  });\n\n  /** @test {Command#usage} */\n  describe('#usage', function() {\n    it('should be only name with no options.arguments set', function() {\n      expect((new Command(name, desc, opts)).usage, 'to equal', name);\n    });\n\n    it('should be name followed by arguments with options.arguments set', function() {\n      expect((new Command(name, desc, Object.assign({ arguments: args }, opts))).usage,\n        'to equal', `${name} ${args}`);\n    });\n  });\n\n  /** @test {Command#options} */\n  describe('#options', function() {\n    it('should be empty object if options.options were not set', function() {\n      expect((new Command(name, desc, opts)).options, 'to equal', {});\n    });\n\n    it('should return all options passed as options.options', function() {\n      const options = { test: new Option('description') };\n\n      expect((new Command(name, desc, Object.assign({ options }, opts))).options,\n        'to equal', options);\n    });\n  });\n\n  /** @test {Command#demandCommand} */\n  describe('#demandCommand', function() {\n    it('should default to [0]', function() {\n      expect((new Command(name, desc, opts)).demandCommand, 'to equal', [0]);\n    });\n\n    it('should be use options.maxArguments if set', function() {\n      expect((new Command(name, desc, Object.assign({ maxArguments: 13 }, opts))).demandCommand,\n        'to equal', [0, 13]);\n    });\n\n    it('should be use options.minArguments if set', function() {\n      expect((new Command(name, desc, Object.assign({ minArguments: 13 }, opts))).demandCommand,\n        'to equal', [13]);\n    });\n\n    it('should be use options.minArguments and options.maxArguments if set', function() {\n      expect((new Command(name, desc, Object.assign({\n        minArguments: 1,\n        maxArguments: 2,\n      }, opts))).demandCommand, 'to equal', [1, 2]);\n    });\n  });\n});\n",
     "static": true,
     "longname": "/home/circleci/project/test/lib/cli/Command.spec.js",
     "access": null,
@@ -5816,7 +5816,7 @@
     "longname": "test/lib/cli/Command.spec.js~describe140",
     "access": null,
     "description": "Command",
-    "lineNumber": 7,
+    "lineNumber": 6,
     "testTargets": [
       "Command"
     ]
@@ -5832,7 +5832,7 @@
     "longname": "test/lib/cli/Command.spec.js~describe140.describe141",
     "access": null,
     "description": "#constructor",
-    "lineNumber": 14,
+    "lineNumber": 13,
     "testTargets": [
       "Command#constructor"
     ]
@@ -5848,7 +5848,7 @@
     "longname": "test/lib/cli/Command.spec.js~describe140.describe141.it142",
     "access": null,
     "description": "should fail if options.maxArguments is less than options.maxArguments",
-    "lineNumber": 15
+    "lineNumber": 14
   },
   {
     "__docId__": 317,
@@ -5861,7 +5861,7 @@
     "longname": "test/lib/cli/Command.spec.js~describe140.describe141.it143",
     "access": null,
     "description": "should store name, description and options",
-    "lineNumber": 23
+    "lineNumber": 22
   },
   {
     "__docId__": 318,
@@ -5874,7 +5874,7 @@
     "longname": "test/lib/cli/Command.spec.js~describe140.describe144",
     "access": null,
     "description": "#run",
-    "lineNumber": 33,
+    "lineNumber": 32,
     "testTargets": [
       "Command#run"
     ]
@@ -5890,7 +5890,7 @@
     "longname": "test/lib/cli/Command.spec.js~describe140.describe144.it145",
     "access": null,
     "description": "must be implmented by all subclasses",
-    "lineNumber": 34
+    "lineNumber": 33
   },
   {
     "__docId__": 320,
@@ -5903,7 +5903,7 @@
     "longname": "test/lib/cli/Command.spec.js~describe140.describe146",
     "access": null,
     "description": "#usage",
-    "lineNumber": 41,
+    "lineNumber": 40,
     "testTargets": [
       "Command#usage"
     ]
@@ -5919,7 +5919,7 @@
     "longname": "test/lib/cli/Command.spec.js~describe140.describe146.it147",
     "access": null,
     "description": "should be only name with no options.arguments set",
-    "lineNumber": 42
+    "lineNumber": 41
   },
   {
     "__docId__": 322,
@@ -5932,7 +5932,7 @@
     "longname": "test/lib/cli/Command.spec.js~describe140.describe146.it148",
     "access": null,
     "description": "should be name followed by arguments with options.arguments set",
-    "lineNumber": 46
+    "lineNumber": 45
   },
   {
     "__docId__": 323,
@@ -5945,7 +5945,7 @@
     "longname": "test/lib/cli/Command.spec.js~describe140.describe149",
     "access": null,
     "description": "#options",
-    "lineNumber": 53,
+    "lineNumber": 52,
     "testTargets": [
       "Command#options"
     ]
@@ -5961,7 +5961,7 @@
     "longname": "test/lib/cli/Command.spec.js~describe140.describe149.it150",
     "access": null,
     "description": "should be empty object if options.options were not set",
-    "lineNumber": 54
+    "lineNumber": 53
   },
   {
     "__docId__": 325,
@@ -5974,7 +5974,7 @@
     "longname": "test/lib/cli/Command.spec.js~describe140.describe149.it151",
     "access": null,
     "description": "should return all options passed as options.options",
-    "lineNumber": 58
+    "lineNumber": 57
   },
   {
     "__docId__": 326,
@@ -5987,7 +5987,7 @@
     "longname": "test/lib/cli/Command.spec.js~describe140.describe152",
     "access": null,
     "description": "#demandCommand",
-    "lineNumber": 67,
+    "lineNumber": 66,
     "testTargets": [
       "Command#demandCommand"
     ]
@@ -6003,7 +6003,7 @@
     "longname": "test/lib/cli/Command.spec.js~describe140.describe152.it153",
     "access": null,
     "description": "should default to [0]",
-    "lineNumber": 68
+    "lineNumber": 67
   },
   {
     "__docId__": 328,
@@ -6016,7 +6016,7 @@
     "longname": "test/lib/cli/Command.spec.js~describe140.describe152.it154",
     "access": null,
     "description": "should be use options.maxArguments if set",
-    "lineNumber": 72
+    "lineNumber": 71
   },
   {
     "__docId__": 329,
@@ -6029,7 +6029,7 @@
     "longname": "test/lib/cli/Command.spec.js~describe140.describe152.it155",
     "access": null,
     "description": "should be use options.minArguments if set",
-    "lineNumber": 77
+    "lineNumber": 76
   },
   {
     "__docId__": 330,
@@ -6042,13 +6042,13 @@
     "longname": "test/lib/cli/Command.spec.js~describe140.describe152.it156",
     "access": null,
     "description": "should be use options.minArguments and options.maxArguments if set",
-    "lineNumber": 82
+    "lineNumber": 81
   },
   {
     "__docId__": 331,
     "kind": "testFile",
     "name": "test/lib/cli/Option.spec.js",
-    "content": "import expect from 'unexpected';\n\nimport Option from '../../../src/lib/cli/Option';\n\n/** @test {Option} */\ndescribe('Option', function() {\n  /** @test {Option#constructor} */\n  describe('#constructor', function() {\n    it('should store description', function() {\n      expect(new Option('description').desc, 'to equal', 'description');\n    });\n\n    it('should store all options passed', function() {\n      const options = { test: 123 };\n\n      expect(new Option('description', options), 'to have properties', options);\n    });\n  });\n\n  /** @test {Option.boolean} */\n  describe('.boolean', function() {\n    it('should return an option', function() {\n      expect(Option.boolean('description'), 'to be a', Option);\n    });\n\n    it('should set type to boolean', function() {\n      expect(Option.boolean('description').type, 'to equal', 'boolean');\n    });\n\n    it('should store all options passed', function() {\n      const options = { test: 123 };\n\n      expect(Option.boolean('description', options), 'to have properties', options);\n    });\n  });\n\n  /** @test {Option.string} */\n  describe('.string', function() {\n    it('should return an option', function() {\n      expect(Option.string('description'), 'to be a', Option);\n    });\n\n    it('should set type to string', function() {\n      expect(Option.string('description').type, 'to equal', 'string');\n    });\n\n    it('should store all options passed', function() {\n      const options = { test: 123 };\n\n      expect(Option.string('description', options), 'to have properties', options);\n    });\n  });\n});\n",
+    "content": "import expect from 'unexpected';\nimport Option from '../../../src/lib/cli/Option';\n\n/** @test {Option} */\ndescribe('Option', function() {\n  /** @test {Option#constructor} */\n  describe('#constructor', function() {\n    it('should store description', function() {\n      expect(new Option('description').desc, 'to equal', 'description');\n    });\n\n    it('should store all options passed', function() {\n      const options = { test: 123 };\n\n      expect(new Option('description', options), 'to have properties', options);\n    });\n  });\n\n  /** @test {Option.boolean} */\n  describe('.boolean', function() {\n    it('should return an option', function() {\n      expect(Option.boolean('description'), 'to be a', Option);\n    });\n\n    it('should set type to boolean', function() {\n      expect(Option.boolean('description').type, 'to equal', 'boolean');\n    });\n\n    it('should store all options passed', function() {\n      const options = { test: 123 };\n\n      expect(Option.boolean('description', options), 'to have properties', options);\n    });\n  });\n\n  /** @test {Option.string} */\n  describe('.string', function() {\n    it('should return an option', function() {\n      expect(Option.string('description'), 'to be a', Option);\n    });\n\n    it('should set type to string', function() {\n      expect(Option.string('description').type, 'to equal', 'string');\n    });\n\n    it('should store all options passed', function() {\n      const options = { test: 123 };\n\n      expect(Option.string('description', options), 'to have properties', options);\n    });\n  });\n});\n",
     "static": true,
     "longname": "/home/circleci/project/test/lib/cli/Option.spec.js",
     "access": null,
@@ -6066,7 +6066,7 @@
     "longname": "test/lib/cli/Option.spec.js~describe157",
     "access": null,
     "description": "Option",
-    "lineNumber": 6,
+    "lineNumber": 5,
     "testTargets": [
       "Option"
     ]
@@ -6082,7 +6082,7 @@
     "longname": "test/lib/cli/Option.spec.js~describe157.describe158",
     "access": null,
     "description": "#constructor",
-    "lineNumber": 8,
+    "lineNumber": 7,
     "testTargets": [
       "Option#constructor"
     ]
@@ -6098,7 +6098,7 @@
     "longname": "test/lib/cli/Option.spec.js~describe157.describe158.it159",
     "access": null,
     "description": "should store description",
-    "lineNumber": 9
+    "lineNumber": 8
   },
   {
     "__docId__": 335,
@@ -6111,7 +6111,7 @@
     "longname": "test/lib/cli/Option.spec.js~describe157.describe158.it160",
     "access": null,
     "description": "should store all options passed",
-    "lineNumber": 13
+    "lineNumber": 12
   },
   {
     "__docId__": 336,
@@ -6124,7 +6124,7 @@
     "longname": "test/lib/cli/Option.spec.js~describe157.describe161",
     "access": null,
     "description": ".boolean",
-    "lineNumber": 21,
+    "lineNumber": 20,
     "testTargets": [
       "Option.boolean"
     ]
@@ -6140,7 +6140,7 @@
     "longname": "test/lib/cli/Option.spec.js~describe157.describe161.it162",
     "access": null,
     "description": "should return an option",
-    "lineNumber": 22
+    "lineNumber": 21
   },
   {
     "__docId__": 338,
@@ -6153,7 +6153,7 @@
     "longname": "test/lib/cli/Option.spec.js~describe157.describe161.it163",
     "access": null,
     "description": "should set type to boolean",
-    "lineNumber": 26
+    "lineNumber": 25
   },
   {
     "__docId__": 339,
@@ -6166,7 +6166,7 @@
     "longname": "test/lib/cli/Option.spec.js~describe157.describe161.it164",
     "access": null,
     "description": "should store all options passed",
-    "lineNumber": 30
+    "lineNumber": 29
   },
   {
     "__docId__": 340,
@@ -6179,7 +6179,7 @@
     "longname": "test/lib/cli/Option.spec.js~describe157.describe165",
     "access": null,
     "description": ".string",
-    "lineNumber": 38,
+    "lineNumber": 37,
     "testTargets": [
       "Option.string"
     ]
@@ -6195,7 +6195,7 @@
     "longname": "test/lib/cli/Option.spec.js~describe157.describe165.it166",
     "access": null,
     "description": "should return an option",
-    "lineNumber": 39
+    "lineNumber": 38
   },
   {
     "__docId__": 342,
@@ -6208,7 +6208,7 @@
     "longname": "test/lib/cli/Option.spec.js~describe157.describe165.it167",
     "access": null,
     "description": "should set type to string",
-    "lineNumber": 43
+    "lineNumber": 42
   },
   {
     "__docId__": 343,
@@ -6221,13 +6221,13 @@
     "longname": "test/lib/cli/Option.spec.js~describe157.describe165.it168",
     "access": null,
     "description": "should store all options passed",
-    "lineNumber": 47
+    "lineNumber": 46
   },
   {
     "__docId__": 344,
     "kind": "testFile",
     "name": "test/lib/error/UsageError.spec.js",
-    "content": "import expect from 'unexpected';\n\nimport UsageError from '../../../src/lib/error/UsageError';\n\n/** @test {UsageError} */\ndescribe('UsageError', function() {\n  const msg = 'Invalid argument: missing';\n  const help = 'Usage: ...';\n\n    /** @test {UsageError#constructor} */\n  describe('#constructor', function() {\n    it('should create an instance of Error', function() {\n      expect(new UsageError(msg, help), 'to be a', Error);\n    });\n\n    it('should create a stack trace', function() {\n      expect(new UsageError(msg, help).stack, 'to be defined');\n      expect(new UsageError(msg, help).stack, 'to be a', 'string');\n    });\n  });\n});\n",
+    "content": "import expect from 'unexpected';\nimport UsageError from '../../../src/lib/error/UsageError';\n\n/** @test {UsageError} */\ndescribe('UsageError', function() {\n  const msg = 'Invalid argument: missing';\n  const help = 'Usage: ...';\n\n  /** @test {UsageError#constructor} */\n  describe('#constructor', function() {\n    it('should create an instance of Error', function() {\n      expect(new UsageError(msg, help), 'to be a', Error);\n    });\n\n    it('should create a stack trace', function() {\n      expect(new UsageError(msg, help).stack, 'to be defined');\n      expect(new UsageError(msg, help).stack, 'to be a', 'string');\n    });\n  });\n});\n",
     "static": true,
     "longname": "/home/circleci/project/test/lib/error/UsageError.spec.js",
     "access": null,
@@ -6245,7 +6245,7 @@
     "longname": "test/lib/error/UsageError.spec.js~describe169",
     "access": null,
     "description": "UsageError",
-    "lineNumber": 6,
+    "lineNumber": 5,
     "testTargets": [
       "UsageError"
     ]
@@ -6261,7 +6261,7 @@
     "longname": "test/lib/error/UsageError.spec.js~describe169.describe170",
     "access": null,
     "description": "#constructor",
-    "lineNumber": 11,
+    "lineNumber": 10,
     "testTargets": [
       "UsageError#constructor"
     ]
@@ -6277,7 +6277,7 @@
     "longname": "test/lib/error/UsageError.spec.js~describe169.describe170.it171",
     "access": null,
     "description": "should create an instance of Error",
-    "lineNumber": 12
+    "lineNumber": 11
   },
   {
     "__docId__": 348,
@@ -6290,7 +6290,7 @@
     "longname": "test/lib/error/UsageError.spec.js~describe169.describe170.it172",
     "access": null,
     "description": "should create a stack trace",
-    "lineNumber": 16
+    "lineNumber": 15
   },
   {
     "__docId__": 349,

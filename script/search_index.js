@@ -91,415 +91,415 @@ window.esdocSearchIndex = [
   ],
   [
     "atscmcli src/atscmcli.js~atscmcli,atscmcli",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber31",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber30",
     "AtSCMCli",
     "test"
   ],
   [
     "atscmcli#_exposeoverride src/atscmcli.js~atscmcli#_exposeoverride,atscmcli#_exposeoverride",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber73",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber72",
     "AtSCMCli #_exposeOverride",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber81",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber80",
     "AtSCMCli #_exposeOverride should set object options",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber74",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber73",
     "AtSCMCli #_exposeOverride should set single options",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber88",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber87",
     "AtSCMCli #_exposeOverride should use default base",
     "test"
   ],
   [
     "atscmcli#constructor src/atscmcli.js~atscmcli#constructor,atscmcli#constructor",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber41",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber40",
     "AtSCMCli #constructor",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber62",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber61",
     "AtSCMCli #constructor should add run argument if no command is given",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber46",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber45",
     "AtSCMCli #constructor should create an instance of Liftoff",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber54",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber53",
     "AtSCMCli #constructor should not add run argument if --help is given",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber58",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber57",
     "AtSCMCli #constructor should not add run argument if --version is given",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber50",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber49",
     "AtSCMCli #constructor should not add run argument if valid command is given",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber66",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber65",
     "AtSCMCli #constructor should set runViaCli",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber42",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber41",
     "AtSCMCli #constructor should throw UsageError with invalid options",
     "test"
   ],
   [
     "atscmcli#getenvironment src/atscmcli.js~atscmcli#getenvironment,atscmcli#getenvironment",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber141",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber140",
     "AtSCMCli #getEnvironment",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber150",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber149",
     "AtSCMCli #getEnvironment should call Liftoff#launch with cwd and projectfile option",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber161",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber160",
     "AtSCMCli #getEnvironment should set AtSCMCli#environment",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber172",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber171",
     "AtSCMCli #getEnvironment when not looking up parent directories",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber187",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber186",
     "AtSCMCli #getEnvironment when not looking up parent directories should ignore --projectfile option",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber173",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber172",
     "AtSCMCli #getEnvironment when not looking up parent directories should resolve to initial cwd",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber180",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber179",
     "AtSCMCli #getEnvironment when not looking up parent directories should resolve to initial cwd in project child directories",
     "test"
   ],
   [
     "atscmcli#getversion src/atscmcli.js~atscmcli#getversion,atscmcli#getversion",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber213",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber212",
     "AtSCMCli #getVersion",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber219",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber218",
     "AtSCMCli #getVersion should even return cli version with invalid cwd",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber214",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber213",
     "AtSCMCli #getVersion should return cli version without local module",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber224",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber223",
     "AtSCMCli #getVersion should return local version with local module",
     "test"
   ],
   [
     "atscmcli#launch src/atscmcli.js~atscmcli#launch,atscmcli#launch",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber289",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber288",
     "AtSCMCli #launch",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber290",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber289",
     "AtSCMCli #launch should call AtSCMCli#parseArguments",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber302",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber301",
     "AtSCMCli #launch should handle all exceptions if run via cli",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber310",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber309",
     "AtSCMCli #launch should report help on usage errors if run via cli",
     "test"
   ],
   [
     "atscmcli#parsearguments src/atscmcli.js~atscmcli#parsearguments,atscmcli#parsearguments",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber99",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber98",
     "AtSCMCli #parseArguments",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber132",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber131",
     "AtSCMCli #parseArguments should expose project options as environment variables",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber102",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber101",
     "AtSCMCli #parseArguments should fail with UsageError with an unknown argument",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber106",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber105",
     "AtSCMCli #parseArguments should report the invalid argument",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber112",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber111",
     "AtSCMCli #parseArguments should return options with valid arguments",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber125",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber124",
     "AtSCMCli #parseArguments should set AtSCMCli#command with valid command",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber118",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber117",
     "AtSCMCli #parseArguments should set AtSCMCli#options with valid arguments",
     "test"
   ],
   [
     "atscmcli#printversion src/atscmcli.js~atscmcli#printversion,atscmcli#printversion",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber231",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber230",
     "AtSCMCli #printVersion",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber241",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber240",
     "AtSCMCli #printVersion should print cli and local version with local module",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber232",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber231",
     "AtSCMCli #printVersion should print cli version only without local module",
     "test"
   ],
   [
     "atscmcli#requireenvironment src/atscmcli.js~atscmcli#requireenvironment,atscmcli#requireenvironment",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber198",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber197",
     "AtSCMCli #requireEnvironment",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber199",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber198",
     "AtSCMCli #requireEnvironment should fail without local module",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber204",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber203",
     "AtSCMCli #requireEnvironment should return environment if successful",
     "test"
   ],
   [
     "atscmcli#runcommand src/atscmcli.js~atscmcli#runcommand,atscmcli#runcommand",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber252",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber251",
     "AtSCMCli #runCommand",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber253",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber252",
     "AtSCMCli #runCommand should print version if --version is used",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber265",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber264",
     "AtSCMCli #runCommand should run command if used",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber277",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber276",
     "AtSCMCli #runCommand should warn if no command is used",
     "test"
   ],
   [
     "command src/lib/cli/command.js~command,command",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber7",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber6",
     "Command",
     "test"
   ],
   [
     "command#constructor src/lib/cli/command.js~command#constructor,command#constructor",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber14",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber13",
     "Command #constructor",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber15",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber14",
     "Command #constructor should fail if options.maxArguments is less than options.maxArguments",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber23",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber22",
     "Command #constructor should store name, description and options",
     "test"
   ],
   [
     "command#demandcommand src/lib/cli/command.js~command#demandcommand,command#demandcommand",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber67",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber66",
     "Command #demandCommand",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber72",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber71",
     "Command #demandCommand should be use options.maxArguments if set",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber82",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber81",
     "Command #demandCommand should be use options.minArguments and options.maxArguments if set",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber77",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber76",
     "Command #demandCommand should be use options.minArguments if set",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber68",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber67",
     "Command #demandCommand should default to [0]",
     "test"
   ],
   [
     "command#options src/lib/cli/command.js~command#options,command#options",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber53",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber52",
     "Command #options",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber54",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber53",
     "Command #options should be empty object if options.options were not set",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber58",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber57",
     "Command #options should return all options passed as options.options",
     "test"
   ],
   [
     "command#run src/lib/cli/command.js~command#run,command#run",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber33",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber32",
     "Command #run",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber34",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber33",
     "Command #run must be implmented by all subclasses",
     "test"
   ],
   [
     "command#usage src/lib/cli/command.js~command#usage,command#usage",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber41",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber40",
     "Command #usage",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber46",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber45",
     "Command #usage should be name followed by arguments with options.arguments set",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber42",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber41",
     "Command #usage should be only name with no options.arguments set",
     "test"
   ],
   [
     "configcommand src/cli/commands/config.js~configcommand,configcommand",
-    "test-file/test/cli/commands/Config.spec.js.html#lineNumber9",
+    "test-file/test/cli/commands/Config.spec.js.html#lineNumber8",
     "ConfigCommand",
     "test"
   ],
   [
     "configcommand#run src/cli/commands/config.js~configcommand#run,configcommand#run",
-    "test-file/test/cli/commands/Config.spec.js.html#lineNumber11",
+    "test-file/test/cli/commands/Config.spec.js.html#lineNumber10",
     "ConfigCommand #run",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Config.spec.js.html#lineNumber24",
+    "test-file/test/cli/commands/Config.spec.js.html#lineNumber23",
     "ConfigCommand #run when overrides are available (atscm >= v0.4)",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Config.spec.js.html#lineNumber25",
+    "test-file/test/cli/commands/Config.spec.js.html#lineNumber24",
     "ConfigCommand #run when overrides are available (atscm >= v0.4) should print local module's ProjectConfig class",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Config.spec.js.html#lineNumber41",
+    "test-file/test/cli/commands/Config.spec.js.html#lineNumber40",
     "ConfigCommand #run when overrides are not available (atscm < v0.4)",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Config.spec.js.html#lineNumber42",
+    "test-file/test/cli/commands/Config.spec.js.html#lineNumber41",
     "ConfigCommand #run when overrides are not available (atscm < v0.4) should print local module's Atviseproject class",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Config.spec.js.html#lineNumber57",
+    "test-file/test/cli/commands/Config.spec.js.html#lineNumber56",
     "ConfigCommand #run when overrides are not available (atscm < v0.4) should warn that overrides are not available",
     "test"
   ],
@@ -1201,73 +1201,73 @@ window.esdocSearchIndex = [
   ],
   [
     "option src/lib/cli/option.js~option,option",
-    "test-file/test/lib/cli/Option.spec.js.html#lineNumber6",
+    "test-file/test/lib/cli/Option.spec.js.html#lineNumber5",
     "Option",
     "test"
   ],
   [
     "option#constructor src/lib/cli/option.js~option#constructor,option#constructor",
-    "test-file/test/lib/cli/Option.spec.js.html#lineNumber8",
+    "test-file/test/lib/cli/Option.spec.js.html#lineNumber7",
     "Option #constructor",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Option.spec.js.html#lineNumber13",
+    "test-file/test/lib/cli/Option.spec.js.html#lineNumber12",
     "Option #constructor should store all options passed",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Option.spec.js.html#lineNumber9",
+    "test-file/test/lib/cli/Option.spec.js.html#lineNumber8",
     "Option #constructor should store description",
     "test"
   ],
   [
     "option.boolean src/lib/cli/option.js~option.boolean,option.boolean",
-    "test-file/test/lib/cli/Option.spec.js.html#lineNumber21",
+    "test-file/test/lib/cli/Option.spec.js.html#lineNumber20",
     "Option .boolean",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Option.spec.js.html#lineNumber22",
+    "test-file/test/lib/cli/Option.spec.js.html#lineNumber21",
     "Option .boolean should return an option",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Option.spec.js.html#lineNumber26",
+    "test-file/test/lib/cli/Option.spec.js.html#lineNumber25",
     "Option .boolean should set type to boolean",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Option.spec.js.html#lineNumber30",
+    "test-file/test/lib/cli/Option.spec.js.html#lineNumber29",
     "Option .boolean should store all options passed",
     "test"
   ],
   [
     "option.string src/lib/cli/option.js~option.string,option.string",
-    "test-file/test/lib/cli/Option.spec.js.html#lineNumber38",
+    "test-file/test/lib/cli/Option.spec.js.html#lineNumber37",
     "Option .string",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Option.spec.js.html#lineNumber39",
+    "test-file/test/lib/cli/Option.spec.js.html#lineNumber38",
     "Option .string should return an option",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Option.spec.js.html#lineNumber43",
+    "test-file/test/lib/cli/Option.spec.js.html#lineNumber42",
     "Option .string should set type to string",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Option.spec.js.html#lineNumber47",
+    "test-file/test/lib/cli/Option.spec.js.html#lineNumber46",
     "Option .string should store all options passed",
     "test"
   ],
@@ -1387,25 +1387,25 @@ window.esdocSearchIndex = [
   ],
   [
     "usageerror src/lib/error/usageerror.js~usageerror,usageerror",
-    "test-file/test/lib/error/UsageError.spec.js.html#lineNumber6",
+    "test-file/test/lib/error/UsageError.spec.js.html#lineNumber5",
     "UsageError",
     "test"
   ],
   [
     "usageerror#constructor src/lib/error/usageerror.js~usageerror#constructor,usageerror#constructor",
-    "test-file/test/lib/error/UsageError.spec.js.html#lineNumber11",
+    "test-file/test/lib/error/UsageError.spec.js.html#lineNumber10",
     "UsageError #constructor",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/error/UsageError.spec.js.html#lineNumber16",
+    "test-file/test/lib/error/UsageError.spec.js.html#lineNumber15",
     "UsageError #constructor should create a stack trace",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/error/UsageError.spec.js.html#lineNumber12",
+    "test-file/test/lib/error/UsageError.spec.js.html#lineNumber11",
     "UsageError #constructor should create an instance of Error",
     "test"
   ],

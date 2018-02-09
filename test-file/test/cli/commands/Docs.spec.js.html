@@ -56,10 +56,10 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">test/cli/commands/Docs.spec.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import expect from &apos;unexpected&apos;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { join } from &apos;path&apos;;
+import expect from &apos;unexpected&apos;;
 import { spy } from &apos;sinon&apos;;
 import proxyquire from &apos;proxyquire&apos;;
-import { join } from &apos;path&apos;;
 
 const openSpy = spy();
 const DocsCommand = proxyquire(&apos;../../../src/cli/commands/Docs&apos;, {
@@ -112,7 +112,7 @@ describe(&apos;DocsCommand&apos;, function() {
     it(&apos;should return local path if not remote option was passed&apos;, function() {
       const { address, isPath } = command.addressToOpen({
         options: {},
-        environment: { modulePath: &apos;/path/to/package.json&apos; }
+        environment: { modulePath: &apos;/path/to/package.json&apos; },
       });
 
       expect(address, &apos;to equal&apos;, join(&apos;/path/docs/api/index.html&apos;));
@@ -122,7 +122,7 @@ describe(&apos;DocsCommand&apos;, function() {
     it(&apos;should return local path if remote option was set to false&apos;, function() {
       const { isPath } = command.addressToOpen({
         options: { remote: false },
-        environment: { modulePath: &apos;/path/to/package.json&apos; }
+        environment: { modulePath: &apos;/path/to/package.json&apos; },
       });
 
       expect(isPath, &apos;to equal&apos;, true);
@@ -131,7 +131,7 @@ describe(&apos;DocsCommand&apos;, function() {
     it(&apos;should return remote url if remote was set to true&apos;, function() {
       const { isPath } = command.addressToOpen({
         options: { remote: true },
-        environment: { modulePath: &apos;/path/to/package.json&apos; }
+        environment: { modulePath: &apos;/path/to/package.json&apos; },
       });
 
       expect(isPath, &apos;to equal&apos;, false);
@@ -140,7 +140,7 @@ describe(&apos;DocsCommand&apos;, function() {
     it(&apos;should return remote url if cli.env.modulePath is undefined&apos;, function() {
       const { isPath } = command.addressToOpen({
         options: { remote: true },
-        environment: {}
+        environment: {},
       });
 
       expect(isPath, &apos;to equal&apos;, false);
@@ -149,7 +149,7 @@ describe(&apos;DocsCommand&apos;, function() {
     it(&apos;should return local path if cli option was set&apos;, function() {
       const { isPath } = command.addressToOpen({
         options: { cli: true },
-        environment: {}
+        environment: {},
       });
 
       expect(isPath, &apos;to equal&apos;, true);
@@ -214,7 +214,7 @@ describe(&apos;DocsCommand&apos;, function() {
           return Promise.resolve((this.environment = {
             modulePath: &apos;/path/to/package.json&apos;,
           }));
-        }
+        },
       };
 
       spy(cli, &apos;getEnvironment&apos;);

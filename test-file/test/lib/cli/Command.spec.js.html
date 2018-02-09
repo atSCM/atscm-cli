@@ -57,7 +57,6 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">test/lib/cli/Command.spec.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import expect from &apos;unexpected&apos;;
-
 import Command from &apos;../../../src/lib/cli/Command&apos;;
 import Option from &apos;../../../src/lib/cli/Option&apos;;
 
@@ -75,7 +74,7 @@ describe(&apos;Command&apos;, function() {
         minArguments: 1,
         maxArguments: 0,
       }, opts)), &apos;to throw error&apos;,
-        &apos;options.maxArguments must not be less than options.minArguments&apos;);
+      &apos;options.maxArguments must not be less than options.minArguments&apos;);
     });
 
     it(&apos;should store name, description and options&apos;, function() {
