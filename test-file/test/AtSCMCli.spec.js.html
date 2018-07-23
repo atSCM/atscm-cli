@@ -370,6 +370,27 @@ describe(&apos;AtSCMCli&apos;, function() {
 
       return expect(cli.launch(), &apos;to be fulfilled&apos;);
     });
+
+    it(&apos;should start debug mode with `--debug` option&apos;, function() {
+      const cli = new AtSCMCli([&apos;--debug&apos;]);
+      cli.runViaCli = true;
+
+      return expect(cli.launch(), &apos;to be fulfilled&apos;)
+        .then(() =&gt; expect(process.env.ATSCM_DEBUG, &apos;to equal&apos;, &apos;true&apos;));
+    });
+
+    context(&apos;with ATSCM_DEBUG env var&apos;, function() {
+      before((() =&gt; { process.env.ATSCM_DEBUG = &apos;yes&apos;; }));
+      after((() =&gt; { process.env.ATSCM_DEBUG = undefined; }));
+
+      it(&apos;should start debug mode&apos;, function() {
+        const cli = new AtSCMCli([&apos;--debug&apos;]);
+        cli.runViaCli = true;
+
+        return expect(cli.launch(), &apos;to be fulfilled&apos;)
+          .then(() =&gt; expect(process.env.ATSCM_DEBUG, &apos;to equal&apos;, &apos;yes&apos;));
+      });
+    });
   });
 });
 </code></pre>

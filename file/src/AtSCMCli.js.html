@@ -346,6 +346,12 @@ export default class AtSCMCli extends Liftoff {
    */
   launch() {
     const app = this.parseArguments()
+      .then(() =&gt; {
+        if (process.env.ATSCM_DEBUG || this.options.debug) {
+          process.env.ATSCM_DEBUG = process.env.ATSCM_DEBUG || &apos;true&apos;;
+          require(&apos;source-map-support&apos;).install(); // eslint-disable-line global-require
+        }
+      })
       .then(() =&gt; this.runCommand());
 
     if (this.runViaCli) {

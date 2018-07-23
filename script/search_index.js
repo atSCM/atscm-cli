@@ -258,6 +258,24 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber316",
+    "AtSCMCli #launch should start debug mode with `--debug` option",
+    "test"
+  ],
+  [
+    "",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber324",
+    "AtSCMCli #launch with ATSCM_DEBUG env var",
+    "test"
+  ],
+  [
+    "",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber328",
+    "AtSCMCli #launch with ATSCM_DEBUG env var should start debug mode",
+    "test"
+  ],
+  [
     "atscmcli#parsearguments src/atscmcli.js~atscmcli#parsearguments,atscmcli#parsearguments",
     "test-file/test/AtSCMCli.spec.js.html#lineNumber98",
     "AtSCMCli #parseArguments",
