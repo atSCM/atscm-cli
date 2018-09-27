@@ -193,7 +193,7 @@ export default class AtSCMCli extends Liftoff {
             y.group(Object.keys(command.options), &apos;Command specific options:&apos;);
             y.group(globalOptionNames, &apos;Global options:&apos;);
 
-            y.strict();
+            y.strict(command.strict);
             y.help(&apos;help&apos;, Options.help.desc);
             y.demandCommand(...command.demandCommand);
           }, () =&gt; (this.command = command)),

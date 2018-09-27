@@ -143,6 +143,22 @@ describe(&apos;Command&apos;, function() {
       }, opts))).demandCommand, &apos;to equal&apos;, [1, 2]);
     });
   });
+
+  /** @test {Command#strict} */
+  describe(&apos;#strict&apos;, function() {
+    it(&apos;should default to `true`&apos;, function() {
+      expect(new Command(name, desc, opts).strict, &apos;to be&apos;, true);
+    });
+
+    it(&apos;should return the value passed to the constructor&apos;, function() {
+      expect((new Command(name, desc, Object.assign({
+        strict: false,
+      }), opts)).strict, &apos;to be&apos;, false);
+      expect((new Command(name, desc, Object.assign({
+        strict: true,
+      }), opts)).strict, &apos;to be&apos;, true);
+    });
+  });
 });
 </code></pre>
 

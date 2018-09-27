@@ -154,16 +154,22 @@ describe(&apos;AtSCMCli&apos;, function() {
 
   /** @test {AtSCMCli#parseArguments} */
   describe(&apos;#parseArguments&apos;, function() {
-    const unknownArgCli = new AtSCMCli([&apos;--unknown&apos;]);
+    const unknownArgCli = new AtSCMCli([&apos;config&apos;, &apos;--unknown&apos;]);
+    const unknownRunArgCli = new AtSCMCli([&apos;run&apos;, &apos;--unknown&apos;]);
 
     it(&apos;should fail with UsageError with an unknown argument&apos;, function() {
       return expect(unknownArgCli.parseArguments(), &apos;when rejected&apos;, &apos;to be a&apos;, UsageError);
     });
 
-    it(&apos;should report the invalid argument&apos;, function() {
+    it(&apos;should report unknown arguments for strict commands&apos;, function() {
       return expect(unknownArgCli.parseArguments(), &apos;when rejected&apos;,
         &apos;to have message&apos;, &apos;Unknown argument: unknown&apos;
       );
+    });
+
+    it(&apos;should not report unknown arguments for non-strict commands&apos;, function() {
+      return expect(unknownRunArgCli.parseArguments(), &apos;when fulfilled&apos;,
+        &apos;to have properties&apos;, { unknown: true });
     });
 
     it(&apos;should return options with valid arguments&apos;, function() {

@@ -169,109 +169,109 @@ window.esdocSearchIndex = [
   ],
   [
     "atscmcli#getenvironment src/atscmcli.js~atscmcli#getenvironment,atscmcli#getenvironment",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber140",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber146",
     "AtSCMCli #getEnvironment",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber149",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber155",
     "AtSCMCli #getEnvironment should call Liftoff#launch with cwd and projectfile option",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber160",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber166",
     "AtSCMCli #getEnvironment should set AtSCMCli#environment",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber171",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber177",
     "AtSCMCli #getEnvironment when not looking up parent directories",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber186",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber192",
     "AtSCMCli #getEnvironment when not looking up parent directories should ignore --projectfile option",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber172",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber178",
     "AtSCMCli #getEnvironment when not looking up parent directories should resolve to initial cwd",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber179",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber185",
     "AtSCMCli #getEnvironment when not looking up parent directories should resolve to initial cwd in project child directories",
     "test"
   ],
   [
     "atscmcli#getversion src/atscmcli.js~atscmcli#getversion,atscmcli#getversion",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber212",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber218",
     "AtSCMCli #getVersion",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber218",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber224",
     "AtSCMCli #getVersion should even return cli version with invalid cwd",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber213",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber219",
     "AtSCMCli #getVersion should return cli version without local module",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber223",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber229",
     "AtSCMCli #getVersion should return local version with local module",
     "test"
   ],
   [
     "atscmcli#launch src/atscmcli.js~atscmcli#launch,atscmcli#launch",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber288",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber294",
     "AtSCMCli #launch",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber289",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber295",
     "AtSCMCli #launch should call AtSCMCli#parseArguments",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber301",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber307",
     "AtSCMCli #launch should handle all exceptions if run via cli",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber309",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber315",
     "AtSCMCli #launch should report help on usage errors if run via cli",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber316",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber322",
     "AtSCMCli #launch should start debug mode with `--debug` option",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber324",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber330",
     "AtSCMCli #launch with ATSCM_DEBUG env var",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber328",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber334",
     "AtSCMCli #launch with ATSCM_DEBUG env var should start debug mode",
     "test"
   ],
@@ -283,97 +283,103 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber131",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber137",
     "AtSCMCli #parseArguments should expose project options as environment variables",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber101",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber102",
     "AtSCMCli #parseArguments should fail with UsageError with an unknown argument",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber105",
-    "AtSCMCli #parseArguments should report the invalid argument",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber112",
+    "AtSCMCli #parseArguments should not report unknown arguments for non-strict commands",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber111",
-    "AtSCMCli #parseArguments should return options with valid arguments",
-    "test"
-  ],
-  [
-    "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber124",
-    "AtSCMCli #parseArguments should set AtSCMCli#command with valid command",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber106",
+    "AtSCMCli #parseArguments should report unknown arguments for strict commands",
     "test"
   ],
   [
     "",
     "test-file/test/AtSCMCli.spec.js.html#lineNumber117",
+    "AtSCMCli #parseArguments should return options with valid arguments",
+    "test"
+  ],
+  [
+    "",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber130",
+    "AtSCMCli #parseArguments should set AtSCMCli#command with valid command",
+    "test"
+  ],
+  [
+    "",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber123",
     "AtSCMCli #parseArguments should set AtSCMCli#options with valid arguments",
     "test"
   ],
   [
     "atscmcli#printversion src/atscmcli.js~atscmcli#printversion,atscmcli#printversion",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber230",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber236",
     "AtSCMCli #printVersion",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber240",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber246",
     "AtSCMCli #printVersion should print cli and local version with local module",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber231",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber237",
     "AtSCMCli #printVersion should print cli version only without local module",
     "test"
   ],
   [
     "atscmcli#requireenvironment src/atscmcli.js~atscmcli#requireenvironment,atscmcli#requireenvironment",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber197",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber203",
     "AtSCMCli #requireEnvironment",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber198",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber204",
     "AtSCMCli #requireEnvironment should fail without local module",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber203",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber209",
     "AtSCMCli #requireEnvironment should return environment if successful",
     "test"
   ],
   [
     "atscmcli#runcommand src/atscmcli.js~atscmcli#runcommand,atscmcli#runcommand",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber251",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber257",
     "AtSCMCli #runCommand",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber252",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber258",
     "AtSCMCli #runCommand should print version if --version is used",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber264",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber270",
     "AtSCMCli #runCommand should run command if used",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber276",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber282",
     "AtSCMCli #runCommand should warn if no command is used",
     "test"
   ],
@@ -459,6 +465,24 @@ window.esdocSearchIndex = [
     "",
     "test-file/test/lib/cli/Command.spec.js.html#lineNumber33",
     "Command #run must be implmented by all subclasses",
+    "test"
+  ],
+  [
+    "command#strict src/lib/cli/command.js~command#strict,command#strict",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber90",
+    "Command #strict",
+    "test"
+  ],
+  [
+    "",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber91",
+    "Command #strict should default to `true`",
+    "test"
+  ],
+  [
+    "",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber95",
+    "Command #strict should return the value passed to the constructor",
     "test"
   ],
   [
@@ -2092,6 +2116,12 @@ window.esdocSearchIndex = [
     "class/src/lib/cli/Command.js~Command.html#instance-method-run",
     "src/lib/cli/Command.js~Command#run",
     "method"
+  ],
+  [
+    "src/lib/cli/command.js~command#strict",
+    "class/src/lib/cli/Command.js~Command.html#instance-get-strict",
+    "src/lib/cli/Command.js~Command#strict",
+    "member"
   ],
   [
     "src/lib/cli/command.js~command#usage",
