@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">src/cli/commands/Run.js | atscm-cli</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="atSCM command line interface"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="atscm-cli"><meta property="twitter:description" content="atSCM command line interface"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/atSCM/atscm-cli"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/AtSCMCli.js~AtSCMCli.html">AtSCMCli</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Commands">Commands</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-GlobalOptions">GlobalOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Options">Options</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli-commands">cli/commands</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cli/commands/Config.js~ConfigCommand.html">ConfigCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cli/commands/Docs.js~DocsCommand.html">DocsCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cli/commands/Init.js~InitCommand.html">InitCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cli/commands/Run.js~RunCommand.html">RunCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cli/commands/Update.js~UpdateCommand.html">UpdateCommand</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib-cli">lib/cli</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/cli/Command.js~Command.html">Command</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/cli/Option.js~Option.html">Option</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib-error">lib/error</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/error/UsageError.js~UsageError.html">UsageError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib-util">lib/util</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/util/ExternalCommand.js~ExternalCommand.html">ExternalCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/util/Logger.js~LogFormat.html">LogFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/util/Logger.js~Logger.html">Logger</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#typedef">typedef</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Liftoff.Environment">Liftoff.Environment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/js-cli/js-liftoff">Liftoff</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/chalk/chalk">chalk</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/gulpjs/gulplog">gulplog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://nodejs.org/api/child_process.html#child_process_class_childprocess">node.ChildProcess</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://nodejs.org/api/stream.html#stream_class_stream_readable">node.stream.Readable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="http://yargs.js.org">yargs</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/cli/commands/Run.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { join } from &apos;path&apos;;
+import { Stream } from &apos;stream&apos;;
+import toPromise from &apos;stream-to-promise&apos;;
+import humanizeDuration from &apos;humanize-duration&apos;;
+import Command from &apos;../../lib/cli/Command&apos;;
+import Logger from &apos;../../lib/util/Logger&apos;;
+import CliOptions from &apos;../Options&apos;;
+import UsageError from &apos;../../lib/error/UsageError&apos;;
+
+/**
+ * The command invoked when running &quot;run&quot;.
+ */
+export default class RunCommand extends Command {
+
+  /**
+   * Creates a new {@link RunCommand} with the specified name and description.
+   * @param {string} name The command&apos;s name.
+   * @param {string} description The command&apos;s description.
+   */
+  constructor(name, description) {
+    super(name, description, {
+      arguments: &apos;[task...]&apos;,
+      options: {
+        tasks: CliOptions.tasks,
+        &apos;tasks-simple&apos;: CliOptions[&apos;tasks-simple&apos;],
+        &apos;tasks-json&apos;: CliOptions[&apos;tasks-json&apos;],
+        continue: CliOptions.continue,
+      },
+      strict: false,
+    });
+  }
+
+  /**
+   * Runs gulp with the specified tasks.
+   * @param {AtSCMCli} cli The current Cli instance.
+   */
+  async run(cli) {
+    process.env.ATSCM_CONFIG_PATH = cli.environment.configPath;
+    process.env.CONTINUE_ON_FAILURE = cli.options.continue;
+
+    const runTask = async (name, task) =&gt; {
+      const start = Date.now();
+      const getDuration = () =&gt; Logger.colors.magenta(humanizeDuration(Date.now() - start));
+      const coloredName = `&apos;${Logger.colors.cyan(name)}&apos;`;
+
+      Logger.info(`Starting ${coloredName}...`);
+
+      try {
+        const running = task(cli.options);
+
+        if (running instanceof Promise) {
+          await running;
+        } else if (running instanceof Stream) {
+          await toPromise(running);
+        } else {
+          throw new Error(`A task must return a Promise or a Stream, got a &apos;${
+            task.constructor.name
+          }&apos;
+  Please report this error in the atscm repo (https://github.com/atSCM/atscm/issues)`);
+        }
+
+        Logger.info(`Finished ${coloredName} after ${getDuration()}`);
+      } catch (e) {
+        Logger.error(e);
+        Logger.error(`${coloredName} ${Logger.colors.red(&apos;errored after&apos;)} ${getDuration()}`);
+      }
+    };
+
+    // eslint-disable-next-line global-require
+    const tasks = require(join(cli.environment.modulePath, &apos;../Gulpfile.js&apos;));
+
+    if (cli.options.tasksSimple) {
+      // eslint-disable-next-line no-console
+      console.info(Object.keys(tasks).join(&apos;\n&apos;));
+      return;
+    }
+
+    if (cli.options.tasksJson) {
+      // eslint-disable-next-line no-console
+      console.info(JSON.stringify(
+        Object.entries(tasks).map(([name, task]) =&gt; ({ name, description: task.description })),
+        null,
+        &apos;  &apos;
+      ));
+      return;
+    }
+
+    if (cli.options.tasks) {
+      Logger.info(Logger.colors.bold(&apos;Available tasks:&apos;));
+      const maxNameLength = Object.keys(tasks).reduce((l, n) =&gt; Math.max(l, n.length), 0);
+
+      Object.entries(tasks).forEach(([name, task]) =&gt; {
+        Logger.info(`  ${Logger.colors.cyan(
+          name.padEnd(maxNameLength)
+        )}  ${Logger.colors.white(task.description)}`);
+      });
+      return;
+    }
+
+    const tasksToRun = cli.options.task || [&apos;default&apos;];
+
+    tasksToRun.forEach(n =&gt; {
+      if (!tasks[n]) {
+        throw new UsageError(`Task never defined: ${n}`,
+          &apos;To list available tasks, try running atscm run --tasks&apos;);
+      }
+    });
+
+    for (const task of tasksToRun) {
+      await runTask(task, tasks[task]);
+    }
+  }
+
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
