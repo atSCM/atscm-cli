@@ -70,11 +70,13 @@ export default class RunCommand extends Command {
     const tasks = require(join(cli.environment.modulePath, '../Gulpfile.js'));
 
     if (cli.options.tasksSimple) {
+      // eslint-disable-next-line no-console
       console.info(Object.keys(tasks).join('\n'));
       return;
     }
 
     if (cli.options.tasksJson) {
+      // eslint-disable-next-line no-console
       console.info(JSON.stringify(
         Object.entries(tasks).map(([name, task]) => ({ name, description: task.description })),
         null,

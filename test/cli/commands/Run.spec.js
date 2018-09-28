@@ -47,17 +47,20 @@ describe('RunCommand', function() {
         stub(Logger, 'info');
       });
       afterEach(() => {
+        // eslint-disable-next-line no-console
         console.info.restore();
         Logger.info.restore();
       });
 
       it('with `--tasks-simple` flag', function() {
         return command.run(Object.assign({ options: { tasksSimple: true } }, cli))
+          // eslint-disable-next-line no-console
           .then(() => expect(console.info.lastCall.args[0], 'to match', /streamed\r?\npromised/));
       });
 
       it('with `--tasks-json` flag', function() {
         return command.run(Object.assign({ options: { tasksJson: true } }, cli))
+          // eslint-disable-next-line no-console
           .then(() => expect(JSON.parse(console.info.lastCall.args[0])[0], 'to equal', {
             name: 'streamed',
             description: streamed.description,
