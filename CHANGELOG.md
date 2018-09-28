@@ -1,3 +1,19 @@
+<a name="1.0.0-beta.0"></a>
+# 1.0.0-beta.0 (2018-09-28)
+
+
+### Performance Improvements
+
+* Remove dependency on gulp ([#88](https://github.com/atSCM/atscm-cli/issues/88)) ([2fd9220](https://github.com/atSCM/atscm-cli/commits/2fd9220)), closes [#73](https://github.com/atSCM/atscm-cli/issues/73)
+
+
+### BREAKING CHANGES
+
+* May break compatibility with some gulp plugins.
+
+
+
+
 <a name="0.7.0"></a>
 # 0.7.0 (2018-09-27)
 
