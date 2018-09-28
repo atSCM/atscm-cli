@@ -1,7 +1,11 @@
 import { join } from 'path';
-import colors from 'chalk';
+import { Stream } from 'stream';
+import toPromise from 'stream-to-promise';
+import humanizeDuration from 'humanize-duration';
 import Command from '../../lib/cli/Command';
+import Logger from '../../lib/util/Logger';
 import CliOptions from '../Options';
+import UsageError from '../../lib/error/UsageError';
 
 /**
  * The command invoked when running "run".
@@ -30,27 +34,79 @@ export default class RunCommand extends Command {
    * Runs gulp with the specified tasks.
    * @param {AtSCMCli} cli The current Cli instance.
    */
-  run(cli) {
-    const opts = {
-      _: cli.options.task || [],
-      tasks: cli.options.T,
-      tasksSimple: cli.options.tasksSimple,
-      tasksJson: cli.options.tasksJson,
-      continue: cli.options.continue,
-    };
-
+  async run(cli) {
     process.env.ATSCM_CONFIG_PATH = cli.environment.configPath;
     process.env.CONTINUE_ON_FAILURE = cli.options.continue;
 
+    const runTask = async (name, task) => {
+      const start = Date.now();
+      const getDuration = () => Logger.colors.magenta(humanizeDuration(Date.now() - start));
+      const coloredName = `'${Logger.colors.cyan(name)}'`;
+
+      Logger.info(`Starting ${coloredName}...`);
+
+      try {
+        const running = task(cli.options);
+
+        if (running instanceof Promise) {
+          await running;
+        } else if (running instanceof Stream) {
+          await toPromise(running);
+        } else {
+          throw new Error(`A task must return a Promise or a Stream, got a '${
+            task.constructor.name
+          }'
+  Please report this error in the atscm repo (https://github.com/atSCM/atscm/issues)`);
+        }
+
+        Logger.info(`Finished ${coloredName} after ${getDuration()}`);
+      } catch (e) {
+        Logger.error(e);
+        Logger.error(`${coloredName} ${Logger.colors.red('errored after')} ${getDuration()}`);
+      }
+    };
+
     // eslint-disable-next-line global-require
-    require('gulp-cli/lib/versioned/^4.0.0/')(
-      opts,
-      {
-        configPath: join(cli.environment.modulePath, '../Gulpfile.js'),
-        modulePath: join(cli.environment.cwd, 'node_modules/gulp'),
-      }, {
-        description: colors.bold('Available tasks:'),
+    const tasks = require(join(cli.environment.modulePath, '../Gulpfile.js'));
+
+    if (cli.options.tasksSimple) {
+      console.info(Object.keys(tasks).join('\n'));
+      return;
+    }
+
+    if (cli.options.tasksJson) {
+      console.info(JSON.stringify(
+        Object.entries(tasks).map(([name, task]) => ({ name, description: task.description })),
+        null,
+        '  '
+      ));
+      return;
+    }
+
+    if (cli.options.tasks) {
+      Logger.info(Logger.colors.bold('Available tasks:'));
+      const maxNameLength = Object.keys(tasks).reduce((l, n) => Math.max(l, n.length), 0);
+
+      Object.entries(tasks).forEach(([name, task]) => {
+        Logger.info(`  ${Logger.colors.cyan(
+          name.padEnd(maxNameLength)
+        )}  ${Logger.colors.white(task.description)}`);
       });
+      return;
+    }
+
+    const tasksToRun = cli.options.task || ['default'];
+
+    tasksToRun.forEach(n => {
+      if (!tasks[n]) {
+        throw new UsageError(`Task never defined: ${n}`,
+          'To list available tasks, try running atscm run --tasks');
+      }
+    });
+
+    for (const task of tasksToRun) {
+      await runTask(task, tasks[task]);
+    }
   }
 
 }

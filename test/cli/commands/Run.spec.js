@@ -32,7 +32,7 @@ describe('RunCommand', function() {
       gulpCli.resetHistory();
     });
 
-    it('should run gulp-cli', function() {
+    it.skip('should run gulp-cli', function() {
       command.run(cli);
 
       expect(gulpCli.calledOnce, 'to be', true);
