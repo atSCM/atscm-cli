@@ -52,7 +52,7 @@
     "rimraf": "^2.6.2",
     "sinon": "^4.2.2",
     "through2": "^2.0.3",
-    "unexpected": "^10.37.0"
+    "unexpected": "^11.0.1"
   },
   "dependencies": {
     "axios": "^0.17.1",
