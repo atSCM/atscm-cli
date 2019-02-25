@@ -61,7 +61,7 @@
     "gulplog": "^1.0.0",
     "inquirer": "^5.1.0",
     "interpret": "^1.1.0",
-    "liftoff": "^2.3.0",
+    "liftoff": "^3.0.0",
     "open": "0.0.5",
     "semver": "^5.5.0",
     "source-map-support": "^0.5.5",
