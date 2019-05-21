@@ -15,6 +15,7 @@ class StubProcess extends Emitter {
     super();
 
     this.stdout = new StubPipe();
+    this.stderr = new StubPipe();
   }
 
   close(code) {
@@ -215,7 +216,7 @@ describe('InitCommand', function() {
     });
 
     it('should install beta version with `useBetaVersion`', function() {
-      return expect(command.installLocal(stubModulePath, true), 'to be fulfilled')
+      return expect(command.installLocal(stubModulePath, { beta: true }), 'to be fulfilled')
         .then(() => {
           expect(command.install.calledOnce, 'to be true');
           expect(command.install.lastCall.args[0], 'to equal', stubModulePath);
