@@ -73,6 +73,7 @@ class StubProcess extends Emitter {
     super();
 
     this.stdout = new StubPipe();
+    this.stderr = new StubPipe();
   }
 
   close(code) {
@@ -106,7 +107,9 @@ const fsStub = {
 let whichStub = createImportStub((name, cb) =&gt; cb(null, name));
 const initStub = createImportStub(() =&gt; Promise.resolve());
 const promptSpy = spy(() =&gt; Promise.resolve({}));
-const stubInitOptions = {};
+const stubInitOptions = [
+  { name: &apos;test&apos;, default: 13 },
+];
 
 const InitCommand = proxyquire(&apos;../../../src/cli/commands/Init&apos;, {
   fs: fsStub,
@@ -260,24 +263,32 @@ describe(&apos;InitCommand&apos;, function() {
 
   /** @test {InitCommand#installLocal} */
   describe(&apos;#installLocal&apos;, function() {
-    beforeEach(() =&gt; stub(command, &apos;install&apos;).callsFake(() =&gt; Promise.resolve(true)));
-    afterEach(() =&gt; command.install.restore());
+    beforeEach(() =&gt; stub(command, &apos;runNpm&apos;).callsFake(() =&gt; Promise.resolve(true)));
+    afterEach(() =&gt; command.runNpm.restore());
 
     it(&apos;should call InitCommand#install&apos;, function() {
       return expect(command.installLocal(stubModulePath), &apos;to be fulfilled&apos;)
         .then(() =&gt; {
-          expect(command.install.calledOnce, &apos;to be true&apos;);
-          expect(command.install.lastCall.args[0], &apos;to equal&apos;, stubModulePath);
-          expect(command.install.lastCall.args[1], &apos;to equal&apos;, &apos;atscm&apos;);
+          expect(command.runNpm.calledOnce, &apos;to be true&apos;);
+          expect(command.runNpm.lastCall.args[0], &apos;to equal&apos;, [&apos;install&apos;, &apos;--save-dev&apos;, &apos;atscm&apos;]);
+          expect(command.runNpm.lastCall.args[1], &apos;to equal&apos;, { cwd: stubModulePath });
         });
     });
 
     it(&apos;should install beta version with `useBetaVersion`&apos;, function() {
-      return expect(command.installLocal(stubModulePath, true), &apos;to be fulfilled&apos;)
+      return expect(command.installLocal(stubModulePath, { beta: true }), &apos;to be fulfilled&apos;)
         .then(() =&gt; {
-          expect(command.install.calledOnce, &apos;to be true&apos;);
-          expect(command.install.lastCall.args[0], &apos;to equal&apos;, stubModulePath);
-          expect(command.install.lastCall.args[1], &apos;to equal&apos;, &apos;atscm@beta&apos;);
+          expect(command.runNpm.calledOnce, &apos;to be true&apos;);
+          expect(command.runNpm.lastCall.args[0][2], &apos;to equal&apos;, &apos;atscm@beta&apos;);
+        });
+    });
+
+    it(&apos;should run npm link with `link`&apos;, function() {
+      return expect(command.installLocal(stubModulePath, { link: true }), &apos;to be fulfilled&apos;)
+        .then(() =&gt; {
+          expect(command.runNpm.calledTwice, &apos;to be true&apos;);
+          expect(command.runNpm.lastCall.args[0], &apos;to equal&apos;, [&apos;link&apos;, &apos;atscm&apos;]);
+          expect(command.runNpm.lastCall.args[1], &apos;to equal&apos;, { cwd: stubModulePath });
         });
     });
   });
@@ -295,16 +306,61 @@ describe(&apos;InitCommand&apos;, function() {
     });
   });
 
+  describe(&apos;#getDefaultOptions&apos;, function() {
+    it(&apos;should return plain value defaults&apos;, function() {
+      expect(command.getDefaultOptions([{ name: &apos;test&apos;, default: 13 }]),
+        &apos;to equal&apos;, { test: 13 });
+    });
+
+    it(&apos;should return plain value default choices&apos;, function() {
+      expect(command.getDefaultOptions([{ name: &apos;test&apos;, choices: [13] }]),
+        &apos;to equal&apos;, { test: 13 });
+    });
+
+    it(&apos;should return object value default choices&apos;, function() {
+      expect(command.getDefaultOptions([{ name: &apos;test&apos;, choices: [{ value: 13 }] }]),
+        &apos;to equal&apos;, { test: 13 });
+    });
+
+    it(&apos;should resolve choices with current value&apos;, function() {
+      expect(command.getDefaultOptions([{ name: &apos;test&apos;, default: 13 }, {
+        name: &apos;another&apos;,
+        choices: (current) =&gt; [{ value: current.test * 2 }],
+      }]),
+      &apos;to equal&apos;, { test: 13, another: 26 });
+    });
+
+    it(&apos;should skip options if specified&apos;, function() {
+      expect(command.getDefaultOptions([{ name: &apos;test&apos;, default: 13 }, {
+        name: &apos;another&apos;,
+        when: (current) =&gt; current.test === 1,
+      }]),
+      &apos;to equal&apos;, { test: 13 });
+    });
+  });
+
   /** @test {InitCommand#getOptions} */
   describe(&apos;#getOptions&apos;, function() {
-    it(&apos;should run inquirer&apos;, function() {
+    beforeEach(() =&gt; promptSpy.resetHistory());
+    it(&apos;should run inquirer by default&apos;, function() {
       return expect(
-        command.getOptions(stubModulePath),
+        () =&gt; command.getOptions(stubModulePath),
         &apos;to be fulfilled&apos;
       )
         .then(() =&gt; {
           expect(promptSpy.calledOnce, &apos;to be true&apos;);
           expect(promptSpy.lastCall.args[0], &apos;to be&apos;, stubInitOptions);
+        });
+    });
+
+    it(&apos;should use defaults with `useDefaults`&apos;, function() {
+      return expect(
+        command.getOptions(stubModulePath, { useDefaults: true }),
+        &apos;to equal&apos;,
+        { test: 13 }
+      )
+        .then(() =&gt; {
+          expect(promptSpy.calledOnce, &apos;to be false&apos;);
         });
     });
   });

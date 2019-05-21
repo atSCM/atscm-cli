@@ -56,13 +56,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import InitCommand from &apos;<span><a href="file/src/cli/commands/Init.js.html#lineNumber26">atscm-cli/src/cli/commands/Init.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import InitCommand from &apos;<span><a href="file/src/cli/commands/Init.js.html#lineNumber40">atscm-cli/src/cli/commands/Init.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/cli/commands/Init.js.html#lineNumber26">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/cli/commands/Init.js.html#lineNumber40">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -94,7 +94,7 @@
     <h4>Test:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/test/cli/commands/Init.spec.js.html#lineNumber73">InitCommand</a></span></li>
+    <li data-ice="test"><span><a href="test-file/test/cli/commands/Init.spec.js.html#lineNumber76">InitCommand</a></span></li>
 </ul>
   </div>
 
@@ -246,7 +246,36 @@ installed atscm module&apos;s package file.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/cli/commands/Init.js~InitCommand.html#instance-method-getOptions">getOptions</a></span></span><span class="code" data-ice="signature">(modulePath: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a></span>&gt;</span>
+          <span class="code" data-ice="name"><span><a href="class/src/cli/commands/Init.js~InitCommand.html#instance-method-getDefaultOptions">getDefaultOptions</a></span></span><span class="code" data-ice="signature">(options: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span><span>[]</span></span>): <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Returns the default values for the given init options.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/cli/commands/Init.js~InitCommand.html#instance-method-getOptions">getOptions</a></span></span><span class="code" data-ice="signature">(modulePath: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a></span>&gt;</span>
         </p>
       </div>
       <div>
@@ -331,9 +360,9 @@ installed atscm module&apos;s package file.</p>
       <div>
         <p>
           
+          <span data-ice="async">async</span>
           
-          
-          <span class="code" data-ice="name"><span><a href="class/src/cli/commands/Init.js~InitCommand.html#instance-method-installLocal">installLocal</a></span></span><span class="code" data-ice="signature">(path: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, useBetaRelease: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></span>, <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a></span>&gt;</span>
+          <span class="code" data-ice="name"><span><a href="class/src/cli/commands/Init.js~InitCommand.html#instance-method-installLocal">installLocal</a></span></span><span class="code" data-ice="signature">(path: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></span>, <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a></span>&gt;</span>
         </p>
       </div>
       <div>
@@ -398,6 +427,35 @@ installed atscm module&apos;s package file.</p>
         
         
         <div data-ice="description"><p>Creates a new atscm project.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/cli/commands/Init.js~InitCommand.html#instance-method-runNpm">runNpm</a></span></span><span class="code" data-ice="signature">(args: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span>, options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Runs npm with the given args.</p>
 </div>
       </div>
     </td>
@@ -725,7 +783,7 @@ installed atscm module&apos;s package file.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/commands/Init.js.html#lineNumber33">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/commands/Init.js.html#lineNumber47">source</a></span></span>
     </span>
   </h3>
 
@@ -797,7 +855,7 @@ installed atscm module&apos;s package file.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/commands/Init.js.html#lineNumber151">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/commands/Init.js.html#lineNumber183">source</a></span></span>
     </span>
   </h3>
 
@@ -871,7 +929,7 @@ installed atscm module&apos;s package file.</p>
     <h4>Test:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/test/cli/commands/Init.spec.js.html#lineNumber228">InitCommand #checkCliVersion</a></span></li>
+    <li data-ice="test"><span><a href="test-file/test/cli/commands/Init.spec.js.html#lineNumber239">InitCommand #checkCliVersion</a></span></li>
 </ul>
   </div>
 
@@ -890,7 +948,7 @@ installed atscm module&apos;s package file.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/commands/Init.js.html#lineNumber50">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/commands/Init.js.html#lineNumber66">source</a></span></span>
     </span>
   </h3>
 
@@ -961,7 +1019,7 @@ contains no or a non-empty directory.</p>
     <h4>Test:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/test/cli/commands/Init.spec.js.html#lineNumber77">InitCommand #checkDirectory</a></span></li>
+    <li data-ice="test"><span><a href="test-file/test/cli/commands/Init.spec.js.html#lineNumber80">InitCommand #checkDirectory</a></span></li>
 </ul>
   </div>
 
@@ -980,7 +1038,7 @@ contains no or a non-empty directory.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/commands/Init.js.html#lineNumber83">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/commands/Init.js.html#lineNumber99">source</a></span></span>
     </span>
   </h3>
 
@@ -1041,9 +1099,82 @@ contains no or a non-empty directory.</p>
     <h4>Test:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/test/cli/commands/Init.spec.js.html#lineNumber120">InitCommand #createEmptyPackage</a></span></li>
+    <li data-ice="test"><span><a href="test-file/test/cli/commands/Init.spec.js.html#lineNumber123">InitCommand #createEmptyPackage</a></span></li>
 </ul>
   </div>
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-getDefaultOptions">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">getDefaultOptions</span><span class="code" data-ice="signature">(options: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span><span>[]</span></span>): <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/cli/commands/Init.js.html#lineNumber201">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Returns the default values for the given init options.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">options</td>
+      <td data-ice="type" class="code"><span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span><span>[]</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>An array of init options to check.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
   
@@ -1056,11 +1187,11 @@ contains no or a non-empty directory.</p>
     
     
     
-    <span class="code" data-ice="name">getOptions</span><span class="code" data-ice="signature">(modulePath: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a></span>&gt;</span>
+    <span class="code" data-ice="name">getOptions</span><span class="code" data-ice="signature">(modulePath: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a></span>&gt;</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/commands/Init.js.html#lineNumber171">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/commands/Init.js.html#lineNumber229">source</a></span></span>
     </span>
   </h3>
 
@@ -1086,6 +1217,21 @@ stored in the <code>atscm</code> module inside <code>out/init/options</code>.</p
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The path to the local module to use.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">options</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>The options to use.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">options.useDefaults</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: false</li></ul></td>
+      <td data-ice="description"><p>Use default values.</p>
 </td>
     </tr>
 </tbody>
@@ -1122,7 +1268,7 @@ stored in the <code>atscm</code> module inside <code>out/init/options</code>.</p
     <h4>Test:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/test/cli/commands/Init.spec.js.html#lineNumber241">InitCommand #getOptions</a></span></li>
+    <li data-ice="test"><span><a href="test-file/test/cli/commands/Init.spec.js.html#lineNumber285">InitCommand #getOptions</a></span></li>
 </ul>
   </div>
 
@@ -1141,7 +1287,7 @@ stored in the <code>atscm</code> module inside <code>out/init/options</code>.</p
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/commands/Init.js.html#lineNumber105">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/commands/Init.js.html#lineNumber149">source</a></span></span>
     </span>
   </h3>
 
@@ -1209,7 +1355,7 @@ stored in the <code>atscm</code> module inside <code>out/init/options</code>.</p
     <h4>Test:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/test/cli/commands/Init.spec.js.html#lineNumber140">InitCommand #install</a></span></li>
+    <li data-ice="test"><span><a href="test-file/test/cli/commands/Init.spec.js.html#lineNumber143">InitCommand #install</a></span></li>
 </ul>
   </div>
 
@@ -1228,7 +1374,7 @@ stored in the <code>atscm</code> module inside <code>out/init/options</code>.</p
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/commands/Init.js.html#lineNumber201">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/commands/Init.js.html#lineNumber262">source</a></span></span>
     </span>
   </h3>
 
@@ -1296,7 +1442,7 @@ stored in the <code>atscm</code> module inside <code>out/init/options</code>.</p
     <h4>Test:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/test/cli/commands/Init.spec.js.html#lineNumber269">InitCommand #installDependencies</a></span></li>
+    <li data-ice="test"><span><a href="test-file/test/cli/commands/Init.spec.js.html#lineNumber325">InitCommand #installDependencies</a></span></li>
 </ul>
   </div>
 
@@ -1309,13 +1455,13 @@ stored in the <code>atscm</code> module inside <code>out/init/options</code>.</p
     
     
     
+    <span data-ice="async">async</span>
     
-    
-    <span class="code" data-ice="name">installLocal</span><span class="code" data-ice="signature">(path: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, useBetaRelease: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></span>, <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a></span>&gt;</span>
+    <span class="code" data-ice="name">installLocal</span><span class="code" data-ice="signature">(path: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></span>, <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a></span>&gt;</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/commands/Init.js.html#lineNumber133">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/commands/Init.js.html#lineNumber161">source</a></span></span>
     </span>
   </h3>
 
@@ -1343,11 +1489,26 @@ stored in the <code>atscm</code> module inside <code>out/init/options</code>.</p
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">useBetaRelease</td>
+      <td data-ice="name" class="code" data-depth="0">options</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The options to use.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">options.useBetaRelease</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li>
 <li>default: false</li></ul></td>
       <td data-ice="description"><p>If beta versions should be used.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">options.link</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: false</li></ul></td>
+      <td data-ice="description"><p>Link instead of installing.</p>
 </td>
     </tr>
 </tbody>
@@ -1384,7 +1545,7 @@ stored in the <code>atscm</code> module inside <code>out/init/options</code>.</p
     <h4>Test:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/test/cli/commands/Init.spec.js.html#lineNumber204">InitCommand #installLocal</a></span></li>
+    <li data-ice="test"><span><a href="test-file/test/cli/commands/Init.spec.js.html#lineNumber207">InitCommand #installLocal</a></span></li>
 </ul>
   </div>
 
@@ -1403,7 +1564,7 @@ stored in the <code>atscm</code> module inside <code>out/init/options</code>.</p
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/commands/Init.js.html#lineNumber234">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/commands/Init.js.html#lineNumber301">source</a></span></span>
     </span>
   </h3>
 
@@ -1447,7 +1608,7 @@ stored in the <code>atscm</code> module inside <code>out/init/options</code>.</p
     <h4>Test:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/test/cli/commands/Init.spec.js.html#lineNumber361">InitCommand #requiresEnvironment</a></span></li>
+    <li data-ice="test"><span><a href="test-file/test/cli/commands/Init.spec.js.html#lineNumber417">InitCommand #requiresEnvironment</a></span></li>
 </ul>
   </div>
 
@@ -1466,7 +1627,7 @@ stored in the <code>atscm</code> module inside <code>out/init/options</code>.</p
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/commands/Init.js.html#lineNumber211">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/commands/Init.js.html#lineNumber272">source</a></span></span>
     </span>
   </h3>
 
@@ -1526,9 +1687,89 @@ stored in the <code>atscm</code> module inside <code>out/init/options</code>.</p
     <h4>Test:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/test/cli/commands/Init.spec.js.html#lineNumber286">InitCommand #run</a></span></li>
+    <li data-ice="test"><span><a href="test-file/test/cli/commands/Init.spec.js.html#lineNumber342">InitCommand #run</a></span></li>
 </ul>
   </div>
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-runNpm">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">runNpm</span><span class="code" data-ice="signature">(args: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span>, options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/cli/commands/Init.js.html#lineNumber120">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Runs npm with the given args.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">args</td>
+      <td data-ice="type" class="code"><span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The arguments to call npm with.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">options</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Options applied to the spawn call.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
   
@@ -1545,7 +1786,7 @@ stored in the <code>atscm</code> module inside <code>out/init/options</code>.</p
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/cli/commands/Init.js.html#lineNumber190">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/cli/commands/Init.js.html#lineNumber251">source</a></span></span>
     </span>
   </h3>
 
@@ -1617,7 +1858,7 @@ failed.</p>
     <h4>Test:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/test/cli/commands/Init.spec.js.html#lineNumber255">InitCommand #writeFiles</a></span></li>
+    <li data-ice="test"><span><a href="test-file/test/cli/commands/Init.spec.js.html#lineNumber311">InitCommand #writeFiles</a></span></li>
 </ul>
   </div>
 

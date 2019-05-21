@@ -781,241 +781,289 @@ window.esdocSearchIndex = [
   ],
   [
     "initcommand src/cli/commands/init.js~initcommand,initcommand",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber73",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber76",
     "InitCommand",
     "test"
   ],
   [
     "initcommand#checkcliversion src/cli/commands/init.js~initcommand#checkcliversion,initcommand#checkcliversion",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber228",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber239",
     "InitCommand #checkCliVersion",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber229",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber240",
     "InitCommand #checkCliVersion should throw error if version does not match",
     "test"
   ],
   [
     "initcommand#checkdirectory src/cli/commands/init.js~initcommand#checkdirectory,initcommand#checkdirectory",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber77",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber80",
     "InitCommand #checkDirectory",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber79",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber82",
     "InitCommand #checkDirectory should fail if directory does not exist",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber89",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber92",
     "InitCommand #checkDirectory should fail if directory is not empty",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber84",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber87",
     "InitCommand #checkDirectory should fail if path is not a directory",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber98",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber101",
     "InitCommand #checkDirectory should work in non-empty dir with overwrite set",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber94",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber97",
     "InitCommand #checkDirectory should work with empty dir",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber105",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber108",
     "InitCommand #checkDirectory when non-ENOENT and ENOTDIR occurres",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber111",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber114",
     "InitCommand #checkDirectory when non-ENOENT and ENOTDIR occurres should fail with original error",
     "test"
   ],
   [
     "initcommand#createemptypackage src/cli/commands/init.js~initcommand#createemptypackage,initcommand#createemptypackage",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber120",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber123",
     "InitCommand #createEmptyPackage",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber122",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber125",
     "InitCommand #createEmptyPackage should fail with invalid path",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber127",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber130",
     "InitCommand #createEmptyPackage should work in empty directory",
     "test"
   ],
   [
+    "",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber251",
+    "InitCommand #getDefaultOptions",
+    "test"
+  ],
+  [
+    "",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber267",
+    "InitCommand #getDefaultOptions should resolve choices with current value",
+    "test"
+  ],
+  [
+    "",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber262",
+    "InitCommand #getDefaultOptions should return object value default choices",
+    "test"
+  ],
+  [
+    "",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber257",
+    "InitCommand #getDefaultOptions should return plain value default choices",
+    "test"
+  ],
+  [
+    "",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber252",
+    "InitCommand #getDefaultOptions should return plain value defaults",
+    "test"
+  ],
+  [
+    "",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber275",
+    "InitCommand #getDefaultOptions should skip options if specified",
+    "test"
+  ],
+  [
     "initcommand#getoptions src/cli/commands/init.js~initcommand#getoptions,initcommand#getoptions",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber241",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber285",
     "InitCommand #getOptions",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber242",
-    "InitCommand #getOptions should run inquirer",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber287",
+    "InitCommand #getOptions should run inquirer by default",
+    "test"
+  ],
+  [
+    "",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber298",
+    "InitCommand #getOptions should use defaults with `useDefaults`",
     "test"
   ],
   [
     "initcommand#install src/cli/commands/init.js~initcommand#install,initcommand#install",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber140",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber143",
     "InitCommand #install",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber160",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber163",
     "InitCommand #install should forward errors occuring in npm",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber173",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber176",
     "InitCommand #install should report error if npm fails",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber143",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber146",
     "InitCommand #install should run which for npm",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber186",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber189",
     "InitCommand #install when npm is not installed",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber192",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber195",
     "InitCommand #install when npm is not installed should fail",
     "test"
   ],
   [
     "initcommand#installdependencies src/cli/commands/init.js~initcommand#installdependencies,initcommand#installdependencies",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber269",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber325",
     "InitCommand #installDependencies",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber273",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber329",
     "InitCommand #installDependencies should run install with given deps",
     "test"
   ],
   [
     "initcommand#installlocal src/cli/commands/init.js~initcommand#installlocal,initcommand#installlocal",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber204",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber207",
     "InitCommand #installLocal",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber208",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber211",
     "InitCommand #installLocal should call InitCommand#install",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber217",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber220",
     "InitCommand #installLocal should install beta version with `useBetaVersion`",
     "test"
   ],
   [
+    "",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber228",
+    "InitCommand #installLocal should run npm link with `link`",
+    "test"
+  ],
+  [
     "initcommand#requiresenvironment src/cli/commands/init.js~initcommand#requiresenvironment,initcommand#requiresenvironment",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber361",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber417",
     "InitCommand #requiresEnvironment",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber362",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber418",
     "InitCommand #requiresEnvironment should return false",
     "test"
   ],
   [
     "initcommand#run src/cli/commands/init.js~initcommand#run,initcommand#run",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber286",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber342",
     "InitCommand #run",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber326",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber382",
     "InitCommand #run should call AtSCMCli#getEnvironment twice",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber335",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber391",
     "InitCommand #run should call InitCommand#createEmptyPackage",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber347",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber403",
     "InitCommand #run should call InitCommand#getOptions",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber355",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber411",
     "InitCommand #run should call InitCommand#installDependencies",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber339",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber395",
     "InitCommand #run should call InitCommand#installLocal",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber351",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber407",
     "InitCommand #run should call InitCommand#writeFiles",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber343",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber399",
     "InitCommand #run should call process.chdir",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber330",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber386",
     "InitCommand #run should not search in parent directories",
     "test"
   ],
   [
     "initcommand#writefiles src/cli/commands/init.js~initcommand#writefiles,initcommand#writefiles",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber255",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber311",
     "InitCommand #writeFiles",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber256",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber312",
     "InitCommand #writeFiles should call local package init script",
     "test"
   ],
@@ -1962,6 +2010,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/cli/commands/init.js~initcommand#getdefaultoptions",
+    "class/src/cli/commands/Init.js~InitCommand.html#instance-method-getDefaultOptions",
+    "src/cli/commands/Init.js~InitCommand#getDefaultOptions",
+    "method"
+  ],
+  [
     "src/cli/commands/init.js~initcommand#getoptions",
     "class/src/cli/commands/Init.js~InitCommand.html#instance-method-getOptions",
     "src/cli/commands/Init.js~InitCommand#getOptions",
@@ -1995,6 +2049,12 @@ window.esdocSearchIndex = [
     "src/cli/commands/init.js~initcommand#run",
     "class/src/cli/commands/Init.js~InitCommand.html#instance-method-run",
     "src/cli/commands/Init.js~InitCommand#run",
+    "method"
+  ],
+  [
+    "src/cli/commands/init.js~initcommand#runnpm",
+    "class/src/cli/commands/Init.js~InitCommand.html#instance-method-runNpm",
+    "src/cli/commands/Init.js~InitCommand#runNpm",
     "method"
   ],
   [
