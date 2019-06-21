@@ -1812,12 +1812,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/atscmcli.js~atscmcli#_failedrequires",
-    "class/src/AtSCMCli.js~AtSCMCli.html#instance-member-_failedRequires",
-    "src/AtSCMCli.js~AtSCMCli#_failedRequires",
-    "member"
-  ],
-  [
     "src/atscmcli.js~atscmcli#_reportclierror",
     "class/src/AtSCMCli.js~AtSCMCli.html#instance-method-_reportCliError",
     "src/AtSCMCli.js~AtSCMCli#_reportCliError",

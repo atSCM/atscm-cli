@@ -1,11 +1,11 @@
 {
-  "coverage": "98%",
-  "expectCount": 100,
-  "actualCount": 98,
+  "coverage": "97.97%",
+  "expectCount": 99,
+  "actualCount": 97,
   "files": {
     "src/AtSCMCli.js": {
-      "expectCount": 18,
-      "actualCount": 18,
+      "expectCount": 17,
+      "actualCount": 17,
       "undocumentLines": []
     },
     "src/cli/Commands.js": {

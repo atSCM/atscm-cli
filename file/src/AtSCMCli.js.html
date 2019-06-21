@@ -58,12 +58,10 @@
 <div class="content" data-ice="content"><h1 data-ice="title">src/AtSCMCli.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { realpathSync } from &apos;fs&apos;;
 import { join } from &apos;path&apos;;
-import { EOL } from &apos;os&apos;;
 import Liftoff from &apos;liftoff&apos;;
 import yargs from &apos;yargs&apos;;
 import gulplog from &apos;gulplog&apos;;
 import { jsVariants } from &apos;interpret&apos;;
-import { yellow } from &apos;chalk&apos;;
 import pkg from &apos;../package.json&apos;;
 import Logger from &apos;./lib/util/Logger&apos;;
 import Options, { GlobalOptions } from &apos;./cli/Options&apos;;
@@ -103,11 +101,6 @@ export default class AtSCMCli extends Liftoff {
       Logger.info(err.help);
     } else {
       Logger.debug(err.stack);
-
-      if (err instanceof SyntaxError &amp;&amp; this._failedRequires.length) {
-        Logger.info(yellow(`You may have to install the &apos;${this._failedRequires[0]}&apos; module.`));
-        Logger.info([&apos;Other failed requires:&apos;, ...this._failedRequires].join(`${EOL} - `));
-      }
     }
 
     process.exitCode = 1;
@@ -130,14 +123,8 @@ export default class AtSCMCli extends Liftoff {
       Logger.debug(&apos;Requiring external module&apos;, Logger.colors.magenta(name));
     });
 
-    /** If requiring an external module failed.
-     * @type {string[]} */
-    this._failedRequires = [];
-
     this.on(&apos;requireFail&apos;, function(name) {
-      this._failedRequires.push(name);
-
-      Logger.debug(
+      Logger.error(
         Logger.colors.red(&apos;Failed to load external module&apos;),
         Logger.colors.magenta(name)
       );
