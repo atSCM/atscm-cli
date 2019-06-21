@@ -2922,7 +2922,7 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Print debug messages.\n   * @param {...String} message The message(s) to print.\n   ",
+                    "value": "*\n   * Print debug messages.\n   * @param {...string} message The message(s) to print.\n   ",
                     "start": 2117,
                     "end": 2210,
                     "loc": {
@@ -3146,7 +3146,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Print debug messages.\n   * @param {...String} message The message(s) to print.\n   ",
+                    "value": "*\n   * Print debug messages.\n   * @param {...string} message The message(s) to print.\n   ",
                     "start": 2117,
                     "end": 2210,
                     "loc": {
@@ -3164,7 +3164,7 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Print regular logs.\n   * @param {...String} message The message(s) to print.\n   ",
+                    "value": "*\n   * Print regular logs.\n   * @param {...string} message The message(s) to print.\n   ",
                     "start": 2278,
                     "end": 2369,
                     "loc": {
@@ -3388,7 +3388,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Print regular logs.\n   * @param {...String} message The message(s) to print.\n   ",
+                    "value": "*\n   * Print regular logs.\n   * @param {...string} message The message(s) to print.\n   ",
                     "start": 2278,
                     "end": 2369,
                     "loc": {
@@ -3406,7 +3406,7 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Print warnings.\n   * @param {...String} message The message(s) to print.\n   ",
+                    "value": "*\n   * Print warnings.\n   * @param {...string} message The message(s) to print.\n   ",
                     "start": 2435,
                     "end": 2522,
                     "loc": {
@@ -3630,7 +3630,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Print warnings.\n   * @param {...String} message The message(s) to print.\n   ",
+                    "value": "*\n   * Print warnings.\n   * @param {...string} message The message(s) to print.\n   ",
                     "start": 2435,
                     "end": 2522,
                     "loc": {
@@ -3648,7 +3648,7 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Print error messages.\n   * @param {...String} message The message(s) to print.\n   ",
+                    "value": "*\n   * Print error messages.\n   * @param {...string} message The message(s) to print.\n   ",
                     "start": 2588,
                     "end": 2681,
                     "loc": {
@@ -3872,7 +3872,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Print error messages.\n   * @param {...String} message The message(s) to print.\n   ",
+                    "value": "*\n   * Print error messages.\n   * @param {...string} message The message(s) to print.\n   ",
                     "start": 2588,
                     "end": 2681,
                     "loc": {
@@ -3890,7 +3890,7 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * The log types available.\n   * @type {String[]}\n   ",
+                    "value": "*\n   * The log types available.\n   * @type {string[]}\n   ",
                     "start": 2749,
                     "end": 2810,
                     "loc": {
@@ -4079,7 +4079,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * The log types available.\n   * @type {String[]}\n   ",
+                    "value": "*\n   * The log types available.\n   * @type {string[]}\n   ",
                     "start": 2749,
                     "end": 2810,
                     "loc": {
@@ -8169,7 +8169,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Print debug messages.\n   * @param {...String} message The message(s) to print.\n   ",
+      "value": "*\n   * Print debug messages.\n   * @param {...string} message The message(s) to print.\n   ",
       "start": 2117,
       "end": 2210,
       "loc": {
@@ -8185,7 +8185,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Print regular logs.\n   * @param {...String} message The message(s) to print.\n   ",
+      "value": "*\n   * Print regular logs.\n   * @param {...string} message The message(s) to print.\n   ",
       "start": 2278,
       "end": 2369,
       "loc": {
@@ -8201,7 +8201,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Print warnings.\n   * @param {...String} message The message(s) to print.\n   ",
+      "value": "*\n   * Print warnings.\n   * @param {...string} message The message(s) to print.\n   ",
       "start": 2435,
       "end": 2522,
       "loc": {
@@ -8217,7 +8217,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Print error messages.\n   * @param {...String} message The message(s) to print.\n   ",
+      "value": "*\n   * Print error messages.\n   * @param {...string} message The message(s) to print.\n   ",
       "start": 2588,
       "end": 2681,
       "loc": {
@@ -8233,7 +8233,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * The log types available.\n   * @type {String[]}\n   ",
+      "value": "*\n   * The log types available.\n   * @type {string[]}\n   ",
       "start": 2749,
       "end": 2810,
       "loc": {
@@ -14252,7 +14252,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Print debug messages.\n   * @param {...String} message The message(s) to print.\n   ",
+      "value": "*\n   * Print debug messages.\n   * @param {...string} message The message(s) to print.\n   ",
       "start": 2117,
       "end": 2210,
       "loc": {
@@ -14678,7 +14678,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Print regular logs.\n   * @param {...String} message The message(s) to print.\n   ",
+      "value": "*\n   * Print regular logs.\n   * @param {...string} message The message(s) to print.\n   ",
       "start": 2278,
       "end": 2369,
       "loc": {
@@ -15104,7 +15104,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Print warnings.\n   * @param {...String} message The message(s) to print.\n   ",
+      "value": "*\n   * Print warnings.\n   * @param {...string} message The message(s) to print.\n   ",
       "start": 2435,
       "end": 2522,
       "loc": {
@@ -15530,7 +15530,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Print error messages.\n   * @param {...String} message The message(s) to print.\n   ",
+      "value": "*\n   * Print error messages.\n   * @param {...string} message The message(s) to print.\n   ",
       "start": 2588,
       "end": 2681,
       "loc": {
@@ -15956,7 +15956,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * The log types available.\n   * @type {String[]}\n   ",
+      "value": "*\n   * The log types available.\n   * @type {string[]}\n   ",
       "start": 2749,
       "end": 2810,
       "loc": {

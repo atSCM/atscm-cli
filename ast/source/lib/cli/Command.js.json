@@ -1007,7 +1007,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Creates a new Command with the given name and options.\n   * @param {string} name The command's name.\n   * @param {string} description The command's description.\n   * @param {Object} options The options to apply.\n   * @param {Map<String, Option>} options.options The options available for this command.\n   * @param {string} [options.arguments] The command's argument string. See yargs' documentation\n   * for details.\n   * @param {number} [options.minArguments] The minimum number or (non-option) arguments the command\n   * requires.\n   * @param {number} [options.maxArguments] The maximum number or (non-option) arguments the command\n   * requires.\n   * @param {boolean} [options.strict=true] Throw error for unknown arguments.\n   * @throws {Error} Throws an error if options.maxArguments is less than options.minArguments.\n   * @see {@link yargs}\n   ",
+                    "value": "*\n   * Creates a new Command with the given name and options.\n   * @param {string} name The command's name.\n   * @param {string} description The command's description.\n   * @param {Object} options The options to apply.\n   * @param {Map<string, Option>} options.options The options available for this command.\n   * @param {string} [options.arguments] The command's argument string. See yargs' documentation\n   * for details.\n   * @param {number} [options.minArguments] The minimum number or (non-option) arguments the command\n   * requires.\n   * @param {number} [options.maxArguments] The maximum number or (non-option) arguments the command\n   * requires.\n   * @param {boolean} [options.strict=true] Throw error for unknown arguments.\n   * @throws {Error} Throws an error if options.maxArguments is less than options.minArguments.\n   * @see {@link yargs}\n   ",
                     "start": 101,
                     "end": 963,
                     "loc": {
@@ -1887,7 +1887,7 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * The options available for the command.\n   * @type {Map<String, Option>}\n   ",
+                    "value": "*\n   * The options available for the command.\n   * @type {Map<string, Option>}\n   ",
                     "start": 2443,
                     "end": 2529,
                     "loc": {
@@ -2092,7 +2092,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * The options available for the command.\n   * @type {Map<String, Option>}\n   ",
+                    "value": "*\n   * The options available for the command.\n   * @type {Map<string, Option>}\n   ",
                     "start": 2443,
                     "end": 2529,
                     "loc": {
@@ -2110,7 +2110,7 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * The minimum and maximum number of (non-option) arguments the command handles.\n   * @type {Number[]}\n   ",
+                    "value": "*\n   * The minimum and maximum number of (non-option) arguments the command handles.\n   * @type {number[]}\n   ",
                     "start": 2595,
                     "end": 2709,
                     "loc": {
@@ -2714,7 +2714,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * The minimum and maximum number of (non-option) arguments the command handles.\n   * @type {Number[]}\n   ",
+                    "value": "*\n   * The minimum and maximum number of (non-option) arguments the command handles.\n   * @type {number[]}\n   ",
                     "start": 2595,
                     "end": 2709,
                     "loc": {
@@ -3128,7 +3128,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Creates a new Command with the given name and options.\n   * @param {string} name The command's name.\n   * @param {string} description The command's description.\n   * @param {Object} options The options to apply.\n   * @param {Map<String, Option>} options.options The options available for this command.\n   * @param {string} [options.arguments] The command's argument string. See yargs' documentation\n   * for details.\n   * @param {number} [options.minArguments] The minimum number or (non-option) arguments the command\n   * requires.\n   * @param {number} [options.maxArguments] The maximum number or (non-option) arguments the command\n   * requires.\n   * @param {boolean} [options.strict=true] Throw error for unknown arguments.\n   * @throws {Error} Throws an error if options.maxArguments is less than options.minArguments.\n   * @see {@link yargs}\n   ",
+      "value": "*\n   * Creates a new Command with the given name and options.\n   * @param {string} name The command's name.\n   * @param {string} description The command's description.\n   * @param {Object} options The options to apply.\n   * @param {Map<string, Option>} options.options The options available for this command.\n   * @param {string} [options.arguments] The command's argument string. See yargs' documentation\n   * for details.\n   * @param {number} [options.minArguments] The minimum number or (non-option) arguments the command\n   * requires.\n   * @param {number} [options.maxArguments] The maximum number or (non-option) arguments the command\n   * requires.\n   * @param {boolean} [options.strict=true] Throw error for unknown arguments.\n   * @throws {Error} Throws an error if options.maxArguments is less than options.minArguments.\n   * @see {@link yargs}\n   ",
       "start": 101,
       "end": 963,
       "loc": {
@@ -3272,7 +3272,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * The options available for the command.\n   * @type {Map<String, Option>}\n   ",
+      "value": "*\n   * The options available for the command.\n   * @type {Map<string, Option>}\n   ",
       "start": 2443,
       "end": 2529,
       "loc": {
@@ -3288,7 +3288,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * The minimum and maximum number of (non-option) arguments the command handles.\n   * @type {Number[]}\n   ",
+      "value": "*\n   * The minimum and maximum number of (non-option) arguments the command handles.\n   * @type {number[]}\n   ",
       "start": 2595,
       "end": 2709,
       "loc": {
@@ -3473,7 +3473,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Creates a new Command with the given name and options.\n   * @param {string} name The command's name.\n   * @param {string} description The command's description.\n   * @param {Object} options The options to apply.\n   * @param {Map<String, Option>} options.options The options available for this command.\n   * @param {string} [options.arguments] The command's argument string. See yargs' documentation\n   * for details.\n   * @param {number} [options.minArguments] The minimum number or (non-option) arguments the command\n   * requires.\n   * @param {number} [options.maxArguments] The maximum number or (non-option) arguments the command\n   * requires.\n   * @param {boolean} [options.strict=true] Throw error for unknown arguments.\n   * @throws {Error} Throws an error if options.maxArguments is less than options.minArguments.\n   * @see {@link yargs}\n   ",
+      "value": "*\n   * Creates a new Command with the given name and options.\n   * @param {string} name The command's name.\n   * @param {string} description The command's description.\n   * @param {Object} options The options to apply.\n   * @param {Map<string, Option>} options.options The options available for this command.\n   * @param {string} [options.arguments] The command's argument string. See yargs' documentation\n   * for details.\n   * @param {number} [options.minArguments] The minimum number or (non-option) arguments the command\n   * requires.\n   * @param {number} [options.maxArguments] The maximum number or (non-option) arguments the command\n   * requires.\n   * @param {boolean} [options.strict=true] Throw error for unknown arguments.\n   * @throws {Error} Throws an error if options.maxArguments is less than options.minArguments.\n   * @see {@link yargs}\n   ",
       "start": 101,
       "end": 963,
       "loc": {
@@ -6800,7 +6800,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * The options available for the command.\n   * @type {Map<String, Option>}\n   ",
+      "value": "*\n   * The options available for the command.\n   * @type {Map<string, Option>}\n   ",
       "start": 2443,
       "end": 2529,
       "loc": {
@@ -7231,7 +7231,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * The minimum and maximum number of (non-option) arguments the command handles.\n   * @type {Number[]}\n   ",
+      "value": "*\n   * The minimum and maximum number of (non-option) arguments the command handles.\n   * @type {number[]}\n   ",
       "start": 2595,
       "end": 2709,
       "loc": {

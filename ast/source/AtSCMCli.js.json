@@ -2172,7 +2172,7 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Creates a new {@link AtSCMCli} object based on command line arguments.\n   * @param {String[]} argv The command line arguments to use. If no command is provided and neither\n   * `--help` nor `--version` are used, the command `run` is added.\n   * @throws {UsageError} Throws an error if option parsing fails.\n   ",
+                    "value": "*\n   * Creates a new {@link AtSCMCli} object based on command line arguments.\n   * @param {string[]} argv The command line arguments to use. If no command is provided and neither\n   * `--help` nor `--version` are used, the command `run` is added.\n   * @throws {UsageError} Throws an error if option parsing fails.\n   ",
                     "start": 1213,
                     "end": 1534,
                     "loc": {
@@ -8741,7 +8741,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Creates a new {@link AtSCMCli} object based on command line arguments.\n   * @param {String[]} argv The command line arguments to use. If no command is provided and neither\n   * `--help` nor `--version` are used, the command `run` is added.\n   * @throws {UsageError} Throws an error if option parsing fails.\n   ",
+                    "value": "*\n   * Creates a new {@link AtSCMCli} object based on command line arguments.\n   * @param {string[]} argv The command line arguments to use. If no command is provided and neither\n   * `--help` nor `--version` are used, the command `run` is added.\n   * @throws {UsageError} Throws an error if option parsing fails.\n   ",
                     "start": 1213,
                     "end": 1534,
                     "loc": {
@@ -13441,7 +13441,7 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Returns the CLI version and, if a local module could be found, the local version.\n   * @return {Promise<{cli: String, local: ?String}>} Fulfilled with the found cli and local\n   * version.\n   ",
+                    "value": "*\n   * Returns the CLI version and, if a local module could be found, the local version.\n   * @return {Promise<{cli: string, local: ?string}>} Fulfilled with the found cli and local\n   * version.\n   ",
                     "start": 6879,
                     "end": 7082,
                     "loc": {
@@ -13990,7 +13990,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Returns the CLI version and, if a local module could be found, the local version.\n   * @return {Promise<{cli: String, local: ?String}>} Fulfilled with the found cli and local\n   * version.\n   ",
+                    "value": "*\n   * Returns the CLI version and, if a local module could be found, the local version.\n   * @return {Promise<{cli: string, local: ?string}>} Fulfilled with the found cli and local\n   * version.\n   ",
                     "start": 6879,
                     "end": 7082,
                     "loc": {
@@ -14008,7 +14008,7 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Gets and prints the CLI version and, if a local module could be found, the local version.\n   * @return {Promise<{cli: String, local: ?String}>} Fulfilled with the found cli and local\n   * version.\n   ",
+                    "value": "*\n   * Gets and prints the CLI version and, if a local module could be found, the local version.\n   * @return {Promise<{cli: string, local: ?string}>} Fulfilled with the found cli and local\n   * version.\n   ",
                     "start": 7265,
                     "end": 7476,
                     "loc": {
@@ -14891,7 +14891,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Gets and prints the CLI version and, if a local module could be found, the local version.\n   * @return {Promise<{cli: String, local: ?String}>} Fulfilled with the found cli and local\n   * version.\n   ",
+                    "value": "*\n   * Gets and prints the CLI version and, if a local module could be found, the local version.\n   * @return {Promise<{cli: string, local: ?string}>} Fulfilled with the found cli and local\n   * version.\n   ",
                     "start": 7265,
                     "end": 7476,
                     "loc": {
@@ -17397,7 +17397,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Creates a new {@link AtSCMCli} object based on command line arguments.\n   * @param {String[]} argv The command line arguments to use. If no command is provided and neither\n   * `--help` nor `--version` are used, the command `run` is added.\n   * @throws {UsageError} Throws an error if option parsing fails.\n   ",
+      "value": "*\n   * Creates a new {@link AtSCMCli} object based on command line arguments.\n   * @param {string[]} argv The command line arguments to use. If no command is provided and neither\n   * `--help` nor `--version` are used, the command `run` is added.\n   * @throws {UsageError} Throws an error if option parsing fails.\n   ",
       "start": 1213,
       "end": 1534,
       "loc": {
@@ -17589,7 +17589,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Returns the CLI version and, if a local module could be found, the local version.\n   * @return {Promise<{cli: String, local: ?String}>} Fulfilled with the found cli and local\n   * version.\n   ",
+      "value": "*\n   * Returns the CLI version and, if a local module could be found, the local version.\n   * @return {Promise<{cli: string, local: ?string}>} Fulfilled with the found cli and local\n   * version.\n   ",
       "start": 6879,
       "end": 7082,
       "loc": {
@@ -17605,7 +17605,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Gets and prints the CLI version and, if a local module could be found, the local version.\n   * @return {Promise<{cli: String, local: ?String}>} Fulfilled with the found cli and local\n   * version.\n   ",
+      "value": "*\n   * Gets and prints the CLI version and, if a local module could be found, the local version.\n   * @return {Promise<{cli: string, local: ?string}>} Fulfilled with the found cli and local\n   * version.\n   ",
       "start": 7265,
       "end": 7476,
       "loc": {
@@ -21887,7 +21887,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Creates a new {@link AtSCMCli} object based on command line arguments.\n   * @param {String[]} argv The command line arguments to use. If no command is provided and neither\n   * `--help` nor `--version` are used, the command `run` is added.\n   * @throws {UsageError} Throws an error if option parsing fails.\n   ",
+      "value": "*\n   * Creates a new {@link AtSCMCli} object based on command line arguments.\n   * @param {string[]} argv The command line arguments to use. If no command is provided and neither\n   * `--help` nor `--version` are used, the command `run` is added.\n   * @throws {UsageError} Throws an error if option parsing fails.\n   ",
       "start": 1213,
       "end": 1534,
       "loc": {
@@ -44162,7 +44162,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Returns the CLI version and, if a local module could be found, the local version.\n   * @return {Promise<{cli: String, local: ?String}>} Fulfilled with the found cli and local\n   * version.\n   ",
+      "value": "*\n   * Returns the CLI version and, if a local module could be found, the local version.\n   * @return {Promise<{cli: string, local: ?string}>} Fulfilled with the found cli and local\n   * version.\n   ",
       "start": 6879,
       "end": 7082,
       "loc": {
@@ -45264,7 +45264,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Gets and prints the CLI version and, if a local module could be found, the local version.\n   * @return {Promise<{cli: String, local: ?String}>} Fulfilled with the found cli and local\n   * version.\n   ",
+      "value": "*\n   * Gets and prints the CLI version and, if a local module could be found, the local version.\n   * @return {Promise<{cli: string, local: ?string}>} Fulfilled with the found cli and local\n   * version.\n   ",
       "start": 7265,
       "end": 7476,
       "loc": {
