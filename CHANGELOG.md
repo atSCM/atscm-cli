@@ -1,3 +1,14 @@
+<a name="0.8.2-beta.0"></a>
+## 0.8.2-beta.0 (2019-06-21)
+
+
+### Bug Fixes
+
+* Better error messages for failed requires ([#145](https://github.com/atSCM/atscm-cli/issues/145)) ([235fd7d](https://github.com/atSCM/atscm-cli/commits/235fd7d))
+
+
+
+
 <a name="0.8.1"></a>
 ## 0.8.1 (2019-06-01)
 
