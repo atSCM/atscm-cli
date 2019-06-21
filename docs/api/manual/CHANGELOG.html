@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../">
+  <title data-ice="title">Manual | atscm-cli</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="atSCM command line interface"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="atscm-cli"><meta property="twitter:description" content="atSCM command line interface"></head>
+<body class="layout-container manual-root" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/atSCM/atscm-cli"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div class="manual-toc-root">
+  
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/CLI.html"><a href="manual/CLI.html" data-ice="link">Command line interface</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CLI.html"><a href="manual/CLI.html#commands" data-ice="link">Commands</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CLI.html"><a href="manual/CLI.html#options--em--incomplete---em-" data-ice="link">Options (incomplete)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CLI.html"><a href="manual/CLI.html#how-to-pass-options" data-ice="link">How to pass options</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CLI.html"><a href="manual/CLI.html#overriding-project-configuration" data-ice="link">Overriding project configuration</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/API.html"><a href="manual/API.html" data-ice="link">Programmatic usage</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/API.html"><a href="manual/API.html#es6-javascript" data-ice="link">ES6 JavaScript</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/API.html"><a href="manual/API.html#creating-a-cli-instance" data-ice="link">Creating a Cli instance</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html" data-ice="link">Contributing</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html#code-quality-control" data-ice="link">Code quality control</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html#setting-up-the-development-environment" data-ice="link">Setting up the development environment</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html#linting-files" data-ice="link">Linting files</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html#running-tests" data-ice="link">Running tests</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html#creating-api-documentation" data-ice="link">Creating API documentation</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html#providing-fixes---adding-features" data-ice="link">Providing fixes / adding features</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-8-2-beta-0--2019-06-21-" data-ice="link">0.8.2-beta.0 (2019-06-21)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-8-1--2019-06-01-" data-ice="link">0.8.1 (2019-06-01)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-8-0--2019-05-21-" data-ice="link">0.8.0 (2019-05-21)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-7-1--2019-03-08-" data-ice="link">0.7.1 (2019-03-08)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-7-0--2018-09-27-" data-ice="link">0.7.0 (2018-09-27)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-6-1--2018-09-27-" data-ice="link">0.6.1 (2018-09-27)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-6-0--2018-07-23-" data-ice="link">0.6.0 (2018-07-23)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-5-0--2018-06-17-" data-ice="link">0.5.0 (2018-06-17)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-4-0--2018-02-09-" data-ice="link">0.4.0 (2018-02-09)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-3-6--2018-01-25-" data-ice="link">0.3.6 (2018-01-25)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-3-5--2018-01-25-" data-ice="link">0.3.5 (2018-01-25)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-3-4--2018-01-25-" data-ice="link">0.3.4 (2018-01-25)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-3-3--2018-01-25-" data-ice="link">0.3.3 (2018-01-25)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#reverts" data-ice="link">Reverts</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-3-2--2018-01-08-" data-ice="link">0.3.2 (2018-01-08)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-3-1--2017-12-19-" data-ice="link">0.3.1 (2017-12-19)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-3-0--2017-11-06-" data-ice="link">0.3.0 (2017-11-06)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-2-4--2017-10-17-" data-ice="link">0.2.4 (2017-10-17)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-2-2--2017-03-15-" data-ice="link">0.2.2 (2017-03-15)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-2-1--2017-03-13-" data-ice="link">0.2.1 (2017-03-13)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-2-0--2017-03-13-" data-ice="link">0.2.0 (2017-03-13)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-1-2--2017-02-22-" data-ice="link">0.1.2 (2017-02-22)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-1-1--2017-02-21-" data-ice="link">0.1.1 (2017-02-21)</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-1-0--2017-02-21-" data-ice="link">0.1.0 (2017-02-21)</a></li>
+</ul>
+  </div>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><p><a name="0.8.2-beta.0"></a></p>
+<h2 id="0-8-2-beta-0--2019-06-21-">0.8.2-beta.0 (2019-06-21)</h2><h3 id="bug-fixes">Bug Fixes</h3><ul>
+<li>Better error messages for failed requires (<a href="https://github.com/atSCM/atscm-cli/issues/145">#145</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/235fd7d">235fd7d</a>)</li>
+</ul>
+<p><a name="0.8.1"></a></p>
+<h2 id="0-8-1--2019-06-01-">0.8.1 (2019-06-01)</h2><h3 id="bug-fixes">Bug Fixes</h3><ul>
+<li><strong>package:</strong> Update dependency axios to ^0.19.0 (<a href="https://github.com/atSCM/atscm-cli/issues/140">#140</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/93d2c4c">93d2c4c</a>)</li>
+</ul>
+<p><a name="0.8.0"></a></p>
+<h1 id="0-8-0--2019-05-21-">0.8.0 (2019-05-21)</h1><h3 id="features">Features</h3><ul>
+<li><strong>init:</strong> Add &apos;--yes&apos; and &apos;--link&apos; options (<a href="https://github.com/atSCM/atscm-cli/issues/138">#138</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/d18dcf6">d18dcf6</a>)</li>
+</ul>
+<p><a name="0.7.1"></a></p>
+<h2 id="0-7-1--2019-03-08-">0.7.1 (2019-03-08)</h2><h3 id="bug-fixes">Bug Fixes</h3><ul>
+<li><strong>init:</strong> Allow rollup-bundled atscm module (<a href="https://github.com/atSCM/atscm-cli/issues/95">#95</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/3a0059a">3a0059a</a>)</li>
+</ul>
+<p><a name="0.7.0"></a></p>
+<h1 id="0-7-0--2018-09-27-">0.7.0 (2018-09-27)</h1><h3 id="features">Features</h3><ul>
+<li>Allow flags in run tasks (<a href="https://github.com/atSCM/atscm-cli/issues/87">#87</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/4d14f29">4d14f29</a>)</li>
+</ul>
+<p><a name="0.6.1"></a></p>
+<h2 id="0-6-1--2018-09-27-">0.6.1 (2018-09-27)</h2><h3 id="bug-fixes">Bug Fixes</h3><ul>
+<li>Support babel v7 (<a href="https://github.com/atSCM/atscm-cli/issues/86">#86</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/1bbf3bd">1bbf3bd</a>)</li>
+</ul>
+<p><a name="0.6.0"></a></p>
+<h1 id="0-6-0--2018-07-23-">0.6.0 (2018-07-23)</h1><h3 id="features">Features</h3><ul>
+<li>Use the <code>--debug</code> flag to start debug mode (<a href="https://github.com/atSCM/atscm-cli/issues/85">#85</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/a929e0e">a929e0e</a>)</li>
+</ul>
+<p><a name="0.5.0"></a></p>
+<h1 id="0-5-0--2018-06-17-">0.5.0 (2018-06-17)</h1><h3 id="features">Features</h3><ul>
+<li>Continue task execution if <code>--continue</code> is used (<a href="https://github.com/atSCM/atscm-cli/issues/82">#82</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/92ff5a6">92ff5a6</a>)</li>
+</ul>
+<p><a name="0.4.0"></a></p>
+<h1 id="0-4-0--2018-02-09-">0.4.0 (2018-02-09)</h1><h3 id="features">Features</h3><ul>
+<li>Update nodejs to version 8 (<a href="https://github.com/atSCM/atscm-cli/issues/70">#70</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/ad62730">ad62730</a>)</li>
+</ul>
+<p><a name="0.3.6"></a></p>
+<h2 id="0-3-6--2018-01-25-">0.3.6 (2018-01-25)</h2><h3 id="bug-fixes">Bug Fixes</h3><ul>
+<li>Allow running without tasks (<a href="https://github.com/atSCM/atscm-cli/issues/64">#64</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/d102534">d102534</a>), closes <a href="https://github.com/atSCM/atscm-cli/issues/62">#62</a></li>
+</ul>
+<p><a name="0.3.5"></a></p>
+<h2 id="0-3-5--2018-01-25-">0.3.5 (2018-01-25)</h2><h3 id="bug-fixes">Bug Fixes</h3><ul>
+<li><strong>npm:</strong> Update package-lock (<a href="https://github.com/atSCM/atscm-cli/commits/11142f2">11142f2</a>)</li>
+<li>Disable yargs&apos; version (<a href="https://github.com/atSCM/atscm-cli/commits/8878643">8878643</a>)</li>
+<li>Update yargs to prevent missing option argument error (<a href="https://github.com/atSCM/atscm-cli/commits/c852fb5">c852fb5</a>)</li>
+<li>Use non-alpha gulp-cli (<a href="https://github.com/atSCM/atscm-cli/commits/d36c25d">d36c25d</a>)</li>
+</ul>
+<p><a name="0.3.4"></a></p>
+<h2 id="0-3-4--2018-01-25-">0.3.4 (2018-01-25)</h2><h3 id="bug-fixes">Bug Fixes</h3><ul>
+<li><strong>package:</strong> Force gulp-cli version 1.2.2 (<a href="https://github.com/atSCM/atscm-cli/commits/244f9e6">244f9e6</a>), closes <a href="https://github.com/atSCM/atscm-cli/issues/52">#52</a></li>
+</ul>
+<p><a name="0.3.3"></a></p>
+<h2 id="0-3-3--2018-01-25-">0.3.3 (2018-01-25)</h2><h3 id="bug-fixes">Bug Fixes</h3><ul>
+<li>Downgrade gulp-cli (<a href="https://github.com/atSCM/atscm-cli/commits/4e61612">4e61612</a>), closes <a href="https://github.com/atSCM/atscm-cli/issues/41">#41</a></li>
+</ul>
+<h3 id="reverts">Reverts</h3><ul>
+<li>fix(package): update gulp-cli to version 2.0.0 (<a href="https://github.com/atSCM/atscm-cli/issues/41">#41</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/7ae6b1f">7ae6b1f</a>)</li>
+</ul>
+<p><a name="0.3.2"></a></p>
+<h2 id="0-3-2--2018-01-08-">0.3.2 (2018-01-08)</h2><h3 id="bug-fixes">Bug Fixes</h3><ul>
+<li><strong>package:</strong> update gulp-cli to version 2.0.0 (<a href="https://github.com/atSCM/atscm-cli/issues/41">#41</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/f4415a9">f4415a9</a>)</li>
+<li><strong>package:</strong> update inquirer to version 5.0.0 (<a href="https://github.com/atSCM/atscm-cli/issues/42">#42</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/09c576c">09c576c</a>)</li>
+<li>Rename tasks option to prevent name conflict with gulp-cli 2.0 (<a href="https://github.com/atSCM/atscm-cli/commits/4d138be">4d138be</a>)</li>
+</ul>
+<p><a name="0.3.1"></a></p>
+<h2 id="0-3-1--2017-12-19-">0.3.1 (2017-12-19)</h2><h3 id="bug-fixes">Bug Fixes</h3><ul>
+<li>Host API docs on github pages (<a href="https://github.com/atSCM/atscm-cli/issues/38">#38</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/951f588">951f588</a>), closes <a href="https://github.com/atSCM/atscm-cli/issues/36">#36</a></li>
+<li>Use <a href="https://github.com/ls-age">@ls-age</a>/bump-version for automated releases (<a href="https://github.com/atSCM/atscm-cli/issues/37">#37</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/c556a15">c556a15</a>), closes <a href="https://github.com/atSCM/atscm-cli/issues/34">#34</a></li>
+</ul>
+<p><a name="0.3.0"></a></p>
+<h1 id="0-3-0--2017-11-06-">0.3.0 (2017-11-06)</h1><h3 id="bug-fixes">Bug Fixes</h3><ul>
+<li><strong>ci:</strong> Deploy master and beta only (<a href="https://github.com/atSCM/atscm-cli/commits/63393b8">63393b8</a>)</li>
+<li><strong>docs:</strong> Document deployment process (<a href="https://github.com/atSCM/atscm-cli/issues/29">#29</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/782d826">782d826</a>)</li>
+</ul>
+<h3 id="features">Features</h3><ul>
+<li><strong>ci:</strong> Automated release (<a href="https://github.com/atSCM/atscm-cli/issues/27">#27</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/ff9f82a">ff9f82a</a>)</li>
+<li><strong>init:</strong> Use <code>--beta</code> flag to update prerelease versions (<a href="https://github.com/atSCM/atscm-cli/issues/31">#31</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/7f8b9ed">7f8b9ed</a>)</li>
+</ul>
+<p><a name="0.2.4"></a></p>
+<h2 id="0-2-4--2017-10-17-">0.2.4 (2017-10-17)</h2><h3 id="bug-fixes">Bug Fixes</h3><ul>
+<li><strong>init:</strong> Always run in current working directory unless <code>--cwd</code> is passed (<a href="https://github.com/atSCM/atscm-cli/issues/16">#16</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/4beabdf">4beabdf</a>), closes <a href="https://github.com/atSCM/atscm-cli/issues/14">#14</a></li>
+<li><strong>run:</strong> Allow <code>atscm --tasks</code> with current gulp-cli version (<a href="https://github.com/atSCM/atscm-cli/issues/24">#24</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/1820107">1820107</a>)</li>
+</ul>
+<h3 id="features">Features</h3><ul>
+<li><strong>docs:</strong> Open hosted API documentation with <code>--remote</code> option passed (<a href="https://github.com/atSCM/atscm-cli/issues/18">#18</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/2cb4ca7">2cb4ca7</a>), closes <a href="https://github.com/atSCM/atscm-cli/issues/13">#13</a></li>
+<li><strong>init:</strong> Override existing files using the <code>--force</code> option (<a href="https://github.com/atSCM/atscm-cli/issues/15">#15</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/ccd4abf">ccd4abf</a>), closes <a href="https://github.com/atSCM/atscm-cli/issues/10">#10</a></li>
+<li>Add source maps and beta flag (<a href="https://github.com/atSCM/atscm-cli/issues/26">#26</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/bf7e748">bf7e748</a>)</li>
+<li>Automatically check for package updates (<a href="https://github.com/atSCM/atscm-cli/issues/21">#21</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/19afc94">19afc94</a>), closes <a href="https://github.com/atSCM/atscm-cli/issues/19">#19</a></li>
+<li>Pass options by setting env vars named <code>ATSCM_{options}={value}</code> (<a href="https://github.com/atSCM/atscm-cli/issues/23">#23</a>) (<a href="https://github.com/atSCM/atscm-cli/commits/4f23e91">4f23e91</a>)</li>
+<li>Update atscm by running <code>atscm update</code> (<a href="https://github.com/atSCM/atscm-cli/commits/bdce6f3">bdce6f3</a>), closes <a href="https://github.com/atSCM/atscm-cli/issues/5">#5</a></li>
+<li>Update atscm by running <code>atscm update</code> (<a href="https://github.com/atSCM/atscm-cli/commits/6adfa60">6adfa60</a>)</li>
+</ul>
+<p><a name="0.2.2"></a></p>
+<h2 id="0-2-2--2017-03-15-">0.2.2 (2017-03-15)</h2><h3 id="bug-fixes">Bug Fixes</h3><ul>
+<li><strong>Logger:</strong> Use windows-friendly stdout API (<a href="https://github.com/atSCM/atscm-cli/commits/2693bbd">2693bbd</a>)</li>
+<li><strong>test:</strong> Use windows-friendly paths (<a href="https://github.com/atSCM/atscm-cli/commits/3ff7018">3ff7018</a>)</li>
+</ul>
+<p><a name="0.2.1"></a></p>
+<h2 id="0-2-1--2017-03-13-">0.2.1 (2017-03-13)</h2><h3 id="bug-fixes">Bug Fixes</h3><ul>
+<li><strong>Logger:</strong> Print as single message (<a href="https://github.com/atSCM/atscm-cli/commits/a251179">a251179</a>)</li>
+</ul>
+<p><a name="0.2.0"></a></p>
+<h1 id="0-2-0--2017-03-13-">0.2.0 (2017-03-13)</h1><h3 id="features">Features</h3><ul>
+<li><strong>Logger:</strong> Ignore empty lines when using #pipeLastLine (<a href="https://github.com/atSCM/atscm-cli/commits/f3d34cc">f3d34cc</a>)</li>
+<li><strong>Logger:</strong> Print to own Console instance (<a href="https://github.com/atSCM/atscm-cli/commits/b77c0eb">b77c0eb</a>)</li>
+</ul>
+<p><a name="0.1.2"></a></p>
+<h2 id="0-1-2--2017-02-22-">0.1.2 (2017-02-22)</h2><h3 id="bug-fixes">Bug Fixes</h3><ul>
+<li><strong>test:</strong> Fixed invalid test paths (<a href="https://github.com/atSCM/atscm-cli/commits/055edf5">055edf5</a>)</li>
+</ul>
+<p><a name="0.1.1"></a></p>
+<h2 id="0-1-1--2017-02-21-">0.1.1 (2017-02-21)</h2><p><a name="0.1.0"></a></p>
+<h1 id="0-1-0--2017-02-21-">0.1.0 (2017-02-21)</h1></div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
