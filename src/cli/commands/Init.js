@@ -280,7 +280,7 @@ export default class InitCommand extends Command {
       .then(() => this.getOptions(cli.environment.modulePath, { useDefaults: cli.options.yes }))
       .then(options => this.writeFiles(
         cli.environment.modulePath,
-        Object.assign({}, cli.environment, options)
+        Object.assign({}, cli.environment, options),
       ))
       .then(result => this.installDependencies(cli.environment.cwd, result.install))
       .then(async () => {

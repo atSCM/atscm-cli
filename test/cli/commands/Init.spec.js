@@ -113,7 +113,7 @@ describe('InitCommand', function() {
 
       it('should fail with original error', function() {
         return expect(command.checkDirectory('path'),
-          'to be rejected with', 'Any other error'
+          'to be rejected with', 'Any other error',
         );
       });
     });
@@ -152,7 +152,7 @@ describe('InitCommand', function() {
 
       return expect(
         command.install(stubModulePath, deps),
-        'to be fulfilled'
+        'to be fulfilled',
       )
         .then(() => {
           expect(whichStub.default.calledOnce, 'to be', true);
@@ -169,7 +169,7 @@ describe('InitCommand', function() {
 
       return expect(
         command.install(stubModulePath, ['dep']),
-        'to be rejected with', error
+        'to be rejected with', error,
       );
     });
 
@@ -182,7 +182,7 @@ describe('InitCommand', function() {
 
       return expect(
         command.install(stubModulePath, ['dep']),
-        'to be rejected with', `npm install returned code ${code}`
+        'to be rejected with', `npm install returned code ${code}`,
       );
     });
 
@@ -197,7 +197,7 @@ describe('InitCommand', function() {
 
         return expect(
           command.install(stubModulePath, ['dep']),
-          'to be rejected with', 'A which error'
+          'to be rejected with', 'A which error',
         );
       });
     });
@@ -287,7 +287,7 @@ describe('InitCommand', function() {
     it('should run inquirer by default', function() {
       return expect(
         () => command.getOptions(stubModulePath),
-        'to be fulfilled'
+        'to be fulfilled',
       )
         .then(() => {
           expect(promptSpy.calledOnce, 'to be true');
@@ -299,7 +299,7 @@ describe('InitCommand', function() {
       return expect(
         command.getOptions(stubModulePath, { useDefaults: true }),
         'to equal',
-        { test: 13 }
+        { test: 13 },
       )
         .then(() => {
           expect(promptSpy.calledOnce, 'to be false');

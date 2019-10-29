@@ -105,7 +105,7 @@ describe('AtSCMCli', function() {
 
     it('should report unknown arguments for strict commands', function() {
       return expect(unknownArgCli.parseArguments(), 'when rejected',
-        'to have message', 'Unknown argument: unknown'
+        'to have message', 'Unknown argument: unknown',
       );
     });
 
@@ -116,7 +116,7 @@ describe('AtSCMCli', function() {
 
     it('should return options with valid arguments', function() {
       return expect((new AtSCMCli(['docs', '--cli'])).parseArguments(), 'when fulfilled',
-        'to have properties', { _: ['docs'], cli: true }
+        'to have properties', { _: ['docs'], cli: true },
       );
     });
 
@@ -169,7 +169,7 @@ describe('AtSCMCli', function() {
           expect(cli.environment, 'to be defined');
           expect(cli.environment, 'to equal', env);
           expect(cli.environment, 'to have keys',
-            ['cwd', 'configPath', 'configBase', 'modulePath', 'modulePackage']
+            ['cwd', 'configPath', 'configBase', 'modulePath', 'modulePackage'],
           );
         });
     });

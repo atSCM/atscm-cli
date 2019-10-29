@@ -44,7 +44,7 @@ export default class DocsCommand extends Command {
       cli.options.cli ?
         join(__dirname, '../../../') :
         join(cli.environment.modulePath, '../../'),
-      'docs/api/index.html'
+      'docs/api/index.html',
     );
   }
 

@@ -81,7 +81,7 @@ export default class AtSCMCli extends Liftoff {
 
       Logger.debug(
         Logger.colors.red('Failed to load external module'),
-        Logger.colors.magenta(name)
+        Logger.colors.magenta(name),
       );
     });
 
@@ -160,7 +160,7 @@ export default class AtSCMCli extends Liftoff {
           .global(globalOptionNames)
           .strict()
           .help('help', Options.help.desc)
-          .alias('help', 'h')
+          .alias('help', 'h'),
       );
   }
 

@@ -22,7 +22,7 @@ describe('DocsCommand', function() {
             modulePath: '/path/to/package.json',
           },
         }),
-        'to equal', join('/path/docs/api/index.html')
+        'to equal', join('/path/docs/api/index.html'),
       );
     });
 
@@ -31,7 +31,7 @@ describe('DocsCommand', function() {
         command.localDocsPath({
           options: { cli: true },
         }),
-        'to equal', join(__dirname, '../../../docs/api/index.html')
+        'to equal', join(__dirname, '../../../docs/api/index.html'),
       );
     });
   });
