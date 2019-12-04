@@ -14,7 +14,7 @@
     "compile:watch": "npm run compile -- --watch",
     "docs": "esdoc -c esdoc.json",
     "docs:coverage": "esdoc-coverage -c esdoc.json",
-    "format": "prettier --ignore-path .gitignore \"**/*\" \"!{.git,.npm}ignore\"",
+    "format": "prettier --ignore-path .gitignore \"**/*\" \"!{{.git,.npm}ignore,CHANGELOG.md}\"",
     "lint": "eslint --ignore-path .gitignore .",
     "predocs": "node docs/helpers/createReadme",
     "prepublishOnly": "npm run compile && npm run docs",
