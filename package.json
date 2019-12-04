@@ -14,7 +14,8 @@
     "compile:watch": "npm run compile -- --watch",
     "docs": "esdoc -c esdoc.json",
     "docs:coverage": "esdoc-coverage -c esdoc.json",
-    "lint": "eslint src test",
+    "format": "prettier --ignore-path .gitignore \"**/*\" \"!{.git,.npm}ignore\"",
+    "lint": "eslint --ignore-path .gitignore .",
     "predocs": "node docs/helpers/createReadme",
     "prepublishOnly": "npm run compile && npm run docs",
     "test": "mocha --recursive --require babel-register \"./test/**/*.spec.js\" --exit",
@@ -45,9 +46,11 @@
     "esdoc": "1.1.0",
     "esdoc-standard-plugin": "1.0.0",
     "eslint": "6.5.1",
+    "eslint-config-prettier": "^6.7.0",
     "mocha": "6.2.2",
     "mocha-circleci-reporter": "0.0.3",
     "nyc": "14.1.1",
+    "prettier": "^1.19.1",
     "proxyquire": "1.8.0",
     "rimraf": "3.0.0",
     "sinon": "7.5.0",
@@ -74,7 +77,10 @@
     "parserOptions": {
       "ecmaVersion": 2018
     },
-    "extends": "@ls-age",
+    "extends": [
+      "@ls-age",
+      "prettier"
+    ],
     "rules": {
       "compat/compat": "off"
     }
