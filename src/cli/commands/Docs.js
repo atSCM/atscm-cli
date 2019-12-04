@@ -54,9 +54,13 @@ export default class DocsCommand extends Command {
    * @return {string} The URL of the remote api docs.
    */
   remoteDocsUrl(cli) {
-    return resolve(this.constructor.RemoteDocsBase, cli.options.cli ?
-      'atscm-cli' :
-      'atscm');
+    let path = cli.options.cli ? 'atscm-cli' : 'latest';
+
+    if (cli.environment && cli.environment.modulePackage && cli.environment.modulePackage.version) {
+      path = `from-cli/?version=${cli.environment.modulePackage.version}`;
+    }
+
+    return resolve(this.constructor.RemoteDocsBase, path);
   }
 
   /**
