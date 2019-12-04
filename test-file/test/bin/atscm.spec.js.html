@@ -61,7 +61,6 @@ import proxyquire from &apos;proxyquire&apos;;
 
 describe(&apos;bin&apos;, function() {
   class StubCli {
-
     constructor(...args) {
       if (!StubCli.constructorCalled) {
         StubCli.constructorCalled = 0;
@@ -79,7 +78,6 @@ describe(&apos;bin&apos;, function() {
       StubCli.launchCalled++;
       StubCli.launchCalledWith = args;
     }
-
   }
 
   proxyquire(&apos;../../src/bin/atscm&apos;, {

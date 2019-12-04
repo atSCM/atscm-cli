@@ -68,7 +68,6 @@ const logConsole = new Console(process.stdout, process.stderr);
  * Formats strings to be used in the {@link Logger}.
  */
 export class LogFormat {
-
   /**
    * Formats a string to represent a path.
    * @param {string} path The path to format.
@@ -104,7 +103,6 @@ export class LogFormat {
   static number(number) {
     return chalk.magenta(number);
   }
-
 }
 
 /**
@@ -113,7 +111,6 @@ export class LogFormat {
  * Log levels, `--silent`-flags etc. are handled automatically by {@link gulplog}.
  */
 export default class Logger {
-
   /**
    * An instance of {@link chalk}.
    * @type {chalk}
@@ -141,11 +138,7 @@ export default class Logger {
     }
 
     const now = new Date();
-    const timestamp = [
-      pad(now.getHours()),
-      pad(now.getMinutes()),
-      pad(now.getSeconds()),
-    ].join(&apos;:&apos;);
+    const timestamp = [pad(now.getHours()), pad(now.getMinutes()), pad(now.getSeconds())].join(&apos;:&apos;);
 
     return `[${chalk.gray(timestamp)}]`;
   }
@@ -209,15 +202,17 @@ export default class Logger {
 
     this.types
       .filter((item, i) =&gt; {
-        const handle = (i &lt; options.logLevel);
+        const handle = i &lt; options.logLevel;
 
         this._handled[item] = handle;
 
         return handle;
       })
-      .forEach(level =&gt; gulplog.on(level, (...args) =&gt; {
-        logConsole[level === &apos;error&apos; ? &apos;error&apos; : &apos;info&apos;](...[this.prefix].concat(args));
-      }));
+      .forEach(level =&gt;
+        gulplog.on(level, (...args) =&gt; {
+          logConsole[level === &apos;error&apos; ? &apos;error&apos; : &apos;info&apos;](...[this.prefix].concat(args));
+        })
+      );
   }
 
   /**
@@ -229,7 +224,10 @@ export default class Logger {
 
     stream
       .on(&apos;data&apos;, d =&gt; {
-        const lines = d.toString().split(&apos;\n&apos;).filter(l =&gt; l.trim() !== &apos;&apos;);
+        const lines = d
+          .toString()
+          .split(&apos;\n&apos;)
+          .filter(l =&gt; l.trim() !== &apos;&apos;);
 
         if (loggedBefore &amp;&amp; this._handled.info) {
           readline.moveCursor(process.stdout, 0, -1);
@@ -247,7 +245,6 @@ export default class Logger {
         }
       });
   }
-
 }
 </code></pre>
 

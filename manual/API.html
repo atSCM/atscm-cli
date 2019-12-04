@@ -61,7 +61,10 @@
 <div data-ice="manual">
     <ul class="manual-toc">
       
-    <li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-8-2--2019-06-21-" data-ice="link">0.8.2 (2019-06-21)</a></li>
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-9-0--2019-12-04-" data-ice="link">0.9.0 (2019-12-04)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-8-2--2019-06-21-" data-ice="link">0.8.2 (2019-06-21)</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#reverts" data-ice="link">Reverts</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-8-1--2019-06-01-" data-ice="link">0.8.1 (2019-06-01)</a></li>
@@ -115,7 +118,7 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="programmatic-usage">Programmatic usage</h1><blockquote>
-<p>Please note that using the <em>atscm-cli</em> API is an advanced topic.  </p>
+<p>Please note that using the <em>atscm-cli</em> API is an advanced topic.</p>
 <p><strong>It&apos;s recommended to use the <a href="./manual/usage/CLI.html">command line interface</a> whenever possible.</strong></p>
 </blockquote>
 <h2 id="es6-javascript">ES6 JavaScript</h2><p>The code provided in this document is written in <a href="http://babeljs.io/learn-es2015/">ES2015 JavaScript</a>.</p>
@@ -135,7 +138,8 @@ cli.launch();</code>
 <p>The main difference between API and command line usage is, that <strong>exceptions are not handled</strong>. You&apos;ll have to do that yourself:</p>
 <pre><code class="lang-javascript"><code class="source-code prettyprint">import AtSCMCli from &apos;atscm-cli&apos;;
 
-(new AtSCMCli([&apos;--version&apos;])).launch() // Note: AtSCMCli#launch returns a Promise
+new AtSCMCli([&apos;--version&apos;])
+  .launch() // Note: AtSCMCli#launch returns a Promise
   .then(() =&gt; console.log(&apos;success!&apos;))
   .catch(err =&gt; console.error(`Oops! An error occured: ${err.message}`));</code>
 </code></pre>

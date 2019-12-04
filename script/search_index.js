@@ -169,109 +169,109 @@ window.esdocSearchIndex = [
   ],
   [
     "atscmcli#getenvironment src/atscmcli.js~atscmcli#getenvironment,atscmcli#getenvironment",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber146",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber152",
     "AtSCMCli #getEnvironment",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber155",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber163",
     "AtSCMCli #getEnvironment should call Liftoff#launch with cwd and projectfile option",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber166",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber173",
     "AtSCMCli #getEnvironment should set AtSCMCli#environment",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber177",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber187",
     "AtSCMCli #getEnvironment when not looking up parent directories",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber192",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber202",
     "AtSCMCli #getEnvironment when not looking up parent directories should ignore --projectfile option",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber178",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber188",
     "AtSCMCli #getEnvironment when not looking up parent directories should resolve to initial cwd",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber185",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber196",
     "AtSCMCli #getEnvironment when not looking up parent directories should resolve to initial cwd in project child directories",
     "test"
   ],
   [
     "atscmcli#getversion src/atscmcli.js~atscmcli#getversion,atscmcli#getversion",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber218",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber238",
     "AtSCMCli #getVersion",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber224",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber246",
     "AtSCMCli #getVersion should even return cli version with invalid cwd",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber219",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber239",
     "AtSCMCli #getVersion should return cli version without local module",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber229",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber255",
     "AtSCMCli #getVersion should return local version with local module",
     "test"
   ],
   [
     "atscmcli#launch src/atscmcli.js~atscmcli#launch,atscmcli#launch",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber294",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber320",
     "AtSCMCli #launch",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber295",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber321",
     "AtSCMCli #launch should call AtSCMCli#parseArguments",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber307",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber332",
     "AtSCMCli #launch should handle all exceptions if run via cli",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber315",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber340",
     "AtSCMCli #launch should report help on usage errors if run via cli",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber322",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber347",
     "AtSCMCli #launch should start debug mode with `--debug` option",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber330",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber356",
     "AtSCMCli #launch with ATSCM_DEBUG env var",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber334",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber364",
     "AtSCMCli #launch with ATSCM_DEBUG env var should start debug mode",
     "test"
   ],
@@ -283,7 +283,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber137",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber142",
     "AtSCMCli #parseArguments should expose project options as environment variables",
     "test"
   ],
@@ -295,7 +295,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber112",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber115",
     "AtSCMCli #parseArguments should not report unknown arguments for non-strict commands",
     "test"
   ],
@@ -307,79 +307,79 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber117",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber121",
     "AtSCMCli #parseArguments should return options with valid arguments",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber130",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber136",
     "AtSCMCli #parseArguments should set AtSCMCli#command with valid command",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber123",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber130",
     "AtSCMCli #parseArguments should set AtSCMCli#options with valid arguments",
     "test"
   ],
   [
     "atscmcli#printversion src/atscmcli.js~atscmcli#printversion,atscmcli#printversion",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber236",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber264",
     "AtSCMCli #printVersion",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber246",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber273",
     "AtSCMCli #printVersion should print cli and local version with local module",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber237",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber265",
     "AtSCMCli #printVersion should print cli version only without local module",
     "test"
   ],
   [
     "atscmcli#requireenvironment src/atscmcli.js~atscmcli#requireenvironment,atscmcli#requireenvironment",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber203",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber216",
     "AtSCMCli #requireEnvironment",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber204",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber217",
     "AtSCMCli #requireEnvironment should fail without local module",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber209",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber225",
     "AtSCMCli #requireEnvironment should return environment if successful",
     "test"
   ],
   [
     "atscmcli#runcommand src/atscmcli.js~atscmcli#runcommand,atscmcli#runcommand",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber257",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber286",
     "AtSCMCli #runCommand",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber258",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber287",
     "AtSCMCli #runCommand should print version if --version is used",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber270",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber298",
     "AtSCMCli #runCommand should run command if used",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber282",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber309",
     "AtSCMCli #runCommand should warn if no command is used",
     "test"
   ],
@@ -403,103 +403,103 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber22",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber33",
     "Command #constructor should store name, description and options",
     "test"
   ],
   [
     "command#demandcommand src/lib/cli/command.js~command#demandcommand,command#demandcommand",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber66",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber86",
     "Command #demandCommand",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber71",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber91",
     "Command #demandCommand should be use options.maxArguments if set",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber81",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber107",
     "Command #demandCommand should be use options.minArguments and options.maxArguments if set",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber76",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber99",
     "Command #demandCommand should be use options.minArguments if set",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber67",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber87",
     "Command #demandCommand should default to [0]",
     "test"
   ],
   [
     "command#options src/lib/cli/command.js~command#options,command#options",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber52",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber69",
     "Command #options",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber53",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber70",
     "Command #options should be empty object if options.options were not set",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber57",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber74",
     "Command #options should return all options passed as options.options",
     "test"
   ],
   [
     "command#run src/lib/cli/command.js~command#run,command#run",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber32",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber43",
     "Command #run",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber33",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber44",
     "Command #run must be implmented by all subclasses",
     "test"
   ],
   [
     "command#strict src/lib/cli/command.js~command#strict,command#strict",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber90",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber127",
     "Command #strict",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber91",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber128",
     "Command #strict should default to `true`",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber95",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber132",
     "Command #strict should return the value passed to the constructor",
     "test"
   ],
   [
     "command#usage src/lib/cli/command.js~command#usage,command#usage",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber40",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber54",
     "Command #usage",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber45",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber59",
     "Command #usage should be name followed by arguments with options.arguments set",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/cli/Command.spec.js.html#lineNumber41",
+    "test-file/test/lib/cli/Command.spec.js.html#lineNumber55",
     "Command #usage should be only name with no options.arguments set",
     "test"
   ],
@@ -553,37 +553,37 @@ window.esdocSearchIndex = [
   ],
   [
     "docscommand#addresstoopen src/cli/commands/docs.js~docscommand#addresstoopen,docscommand#addresstoopen",
-    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber53",
+    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber64",
     "DocsCommand #addressToOpen",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber91",
+    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber102",
     "DocsCommand #addressToOpen should return local path if cli option was set",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber54",
+    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber65",
     "DocsCommand #addressToOpen should return local path if not remote option was passed",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber64",
+    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber75",
     "DocsCommand #addressToOpen should return local path if remote option was set to false",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber82",
+    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber93",
     "DocsCommand #addressToOpen should return remote url if cli.env.modulePath is undefined",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber73",
+    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber84",
     "DocsCommand #addressToOpen should return remote url if remote was set to true",
     "test"
   ],
@@ -595,7 +595,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber29",
+    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber30",
     "DocsCommand #localDocsPath should be cli api docs with --cli option",
     "test"
   ],
@@ -607,91 +607,91 @@ window.esdocSearchIndex = [
   ],
   [
     "docscommand#remotedocsurl src/cli/commands/docs.js~docscommand#remotedocsurl,docscommand#remotedocsurl",
-    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber40",
+    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber42",
     "DocsCommand #remoteDocsUrl",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber41",
+    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber43",
     "DocsCommand #remoteDocsUrl should return path to atscm docs by default",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber46",
+    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber54",
     "DocsCommand #remoteDocsUrl should return path to atscm-cli docs with `--cli` option passed",
     "test"
   ],
   [
     "docscommand#requiresenvironment src/cli/commands/docs.js~docscommand#requiresenvironment,docscommand#requiresenvironment",
-    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber189",
+    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber208",
     "DocsCommand #requiresEnvironment",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber190",
+    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber209",
     "DocsCommand #requiresEnvironment should return false if `--cli` is used",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber202",
+    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber221",
     "DocsCommand #requiresEnvironment should return false if `--no-remote` and `--cli` option is passed",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber194",
+    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber213",
     "DocsCommand #requiresEnvironment should return false if `--remote`",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber198",
+    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber217",
     "DocsCommand #requiresEnvironment should return false if no `--remote` option is passed",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber209",
+    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber234",
     "DocsCommand #requiresEnvironment should return true if `--no-remote` and no `--cli` option is passed",
     "test"
   ],
   [
     "docscommand#run src/cli/commands/docs.js~docscommand#run,docscommand#run",
-    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber102",
+    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber113",
     "DocsCommand #run",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber150",
+    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber167",
     "DocsCommand #run should call AtSCMCli#getEnvironment if no environment was passed",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber119",
+    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber131",
     "DocsCommand #run should open cli api docs with --cli option",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber133",
+    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber149",
     "DocsCommand #run should open in specific browser with --browser option",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber105",
+    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber116",
     "DocsCommand #run should open local api docs by default",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber172",
+    "test-file/test/cli/commands/Docs.spec.js.html#lineNumber190",
     "DocsCommand #run should open remote docs with --remote option passed",
     "test"
   ],
@@ -715,355 +715,355 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/test/lib/util/ExternalCommand.spec.js.html#lineNumber40",
+    "test-file/test/lib/util/ExternalCommand.spec.js.html#lineNumber39",
     "External #resolveBin should reject on which error",
     "test"
   ],
   [
     "externalcommand#run externalcommand#run,externalcommand#run",
-    "test-file/test/lib/util/ExternalCommand.spec.js.html#lineNumber111",
+    "test-file/test/lib/util/ExternalCommand.spec.js.html#lineNumber112",
     "External #run",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/ExternalCommand.spec.js.html#lineNumber112",
+    "test-file/test/lib/util/ExternalCommand.spec.js.html#lineNumber113",
     "External #run should call #resolveBin with name",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/ExternalCommand.spec.js.html#lineNumber122",
+    "test-file/test/lib/util/ExternalCommand.spec.js.html#lineNumber126",
     "External #run should call #spawn with which results and other args",
     "test"
   ],
   [
     "externalcommand#spawn externalcommand#spawn,externalcommand#spawn",
-    "test-file/test/lib/util/ExternalCommand.spec.js.html#lineNumber52",
+    "test-file/test/lib/util/ExternalCommand.spec.js.html#lineNumber50",
     "External #spawn",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/ExternalCommand.spec.js.html#lineNumber69",
+    "test-file/test/lib/util/ExternalCommand.spec.js.html#lineNumber67",
     "External #spawn should be fulfill with trimmed stdout data",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/ExternalCommand.spec.js.html#lineNumber61",
+    "test-file/test/lib/util/ExternalCommand.spec.js.html#lineNumber59",
     "External #spawn should be rejected on non-zero exit code",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/ExternalCommand.spec.js.html#lineNumber53",
+    "test-file/test/lib/util/ExternalCommand.spec.js.html#lineNumber51",
     "External #spawn should be rejected on spawn error",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/ExternalCommand.spec.js.html#lineNumber98",
+    "test-file/test/lib/util/ExternalCommand.spec.js.html#lineNumber99",
     "External #spawn should call options.onspawn after spawn",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/ExternalCommand.spec.js.html#lineNumber78",
+    "test-file/test/lib/util/ExternalCommand.spec.js.html#lineNumber76",
     "External #spawn should pass args to spawn",
     "test"
   ],
   [
     "",
-    "test-file/test/lib/util/ExternalCommand.spec.js.html#lineNumber88",
+    "test-file/test/lib/util/ExternalCommand.spec.js.html#lineNumber87",
     "External #spawn should pass options.spawn to spawn",
     "test"
   ],
   [
     "initcommand src/cli/commands/init.js~initcommand,initcommand",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber76",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber72",
     "InitCommand",
     "test"
   ],
   [
     "initcommand#checkcliversion src/cli/commands/init.js~initcommand#checkcliversion,initcommand#checkcliversion",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber239",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber236",
     "InitCommand #checkCliVersion",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber240",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber237",
     "InitCommand #checkCliVersion should throw error if version does not match",
     "test"
   ],
   [
     "initcommand#checkdirectory src/cli/commands/init.js~initcommand#checkdirectory,initcommand#checkdirectory",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber80",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber76",
     "InitCommand #checkDirectory",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber82",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber78",
     "InitCommand #checkDirectory should fail if directory does not exist",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber92",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber94",
     "InitCommand #checkDirectory should fail if directory is not empty",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber87",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber86",
     "InitCommand #checkDirectory should fail if path is not a directory",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber101",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber102",
     "InitCommand #checkDirectory should work in non-empty dir with overwrite set",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber97",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber98",
     "InitCommand #checkDirectory should work with empty dir",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber108",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber109",
     "InitCommand #checkDirectory when non-ENOENT and ENOTDIR occurres",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber114",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber115",
     "InitCommand #checkDirectory when non-ENOENT and ENOTDIR occurres should fail with original error",
     "test"
   ],
   [
     "initcommand#createemptypackage src/cli/commands/init.js~initcommand#createemptypackage,initcommand#createemptypackage",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber123",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber122",
     "InitCommand #createEmptyPackage",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber125",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber124",
     "InitCommand #createEmptyPackage should fail with invalid path",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber130",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber132",
     "InitCommand #createEmptyPackage should work in empty directory",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber251",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber253",
     "InitCommand #getDefaultOptions",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber267",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber270",
     "InitCommand #getDefaultOptions should resolve choices with current value",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber262",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber264",
     "InitCommand #getDefaultOptions should return object value default choices",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber257",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber258",
     "InitCommand #getDefaultOptions should return plain value default choices",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber252",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber254",
     "InitCommand #getDefaultOptions should return plain value defaults",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber275",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber284",
     "InitCommand #getDefaultOptions should skip options if specified",
     "test"
   ],
   [
     "initcommand#getoptions src/cli/commands/init.js~initcommand#getoptions,initcommand#getoptions",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber285",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber300",
     "InitCommand #getOptions",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber287",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber302",
     "InitCommand #getOptions should run inquirer by default",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber298",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber309",
     "InitCommand #getOptions should use defaults with `useDefaults`",
     "test"
   ],
   [
     "initcommand#install src/cli/commands/init.js~initcommand#install,initcommand#install",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber143",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber144",
     "InitCommand #install",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber163",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber160",
     "InitCommand #install should forward errors occuring in npm",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber176",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber170",
     "InitCommand #install should report error if npm fails",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber146",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber147",
     "InitCommand #install should run which for npm",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber189",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber184",
     "InitCommand #install when npm is not installed",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber195",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber190",
     "InitCommand #install when npm is not installed should fail",
     "test"
   ],
   [
     "initcommand#installdependencies src/cli/commands/init.js~initcommand#installdependencies,initcommand#installdependencies",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber325",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber331",
     "InitCommand #installDependencies",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber329",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber335",
     "InitCommand #installDependencies should run install with given deps",
     "test"
   ],
   [
     "initcommand#installlocal src/cli/commands/init.js~initcommand#installlocal,initcommand#installlocal",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber207",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber203",
     "InitCommand #installLocal",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber211",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber207",
     "InitCommand #installLocal should call InitCommand#install",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber220",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber215",
     "InitCommand #installLocal should install beta version with `useBetaVersion`",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber228",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber224",
     "InitCommand #installLocal should run npm link with `link`",
     "test"
   ],
   [
     "initcommand#requiresenvironment src/cli/commands/init.js~initcommand#requiresenvironment,initcommand#requiresenvironment",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber417",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber428",
     "InitCommand #requiresEnvironment",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber418",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber429",
     "InitCommand #requiresEnvironment should return false",
     "test"
   ],
   [
     "initcommand#run src/cli/commands/init.js~initcommand#run,initcommand#run",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber342",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber349",
     "InitCommand #run",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber382",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber392",
     "InitCommand #run should call AtSCMCli#getEnvironment twice",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber391",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber402",
     "InitCommand #run should call InitCommand#createEmptyPackage",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber403",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber414",
     "InitCommand #run should call InitCommand#getOptions",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber411",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber422",
     "InitCommand #run should call InitCommand#installDependencies",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber395",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber406",
     "InitCommand #run should call InitCommand#installLocal",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber407",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber418",
     "InitCommand #run should call InitCommand#writeFiles",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber399",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber410",
     "InitCommand #run should call process.chdir",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber386",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber396",
     "InitCommand #run should not search in parent directories",
     "test"
   ],
   [
     "initcommand#writefiles src/cli/commands/init.js~initcommand#writefiles,initcommand#writefiles",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber311",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber319",
     "InitCommand #writeFiles",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Init.spec.js.html#lineNumber312",
+    "test-file/test/cli/commands/Init.spec.js.html#lineNumber320",
     "InitCommand #writeFiles should call local package init script",
     "test"
   ],
@@ -1399,79 +1399,79 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/test/cli/commands/Update.spec.js.html#lineNumber32",
+    "test-file/test/cli/commands/Update.spec.js.html#lineNumber35",
     "UpdateCommand #getLatestVersion should return beta versions with `useBetaRelease`",
     "test"
   ],
   [
     "updatecommand#requiresenvironment src/cli/commands/update.js~updatecommand#requiresenvironment,updatecommand#requiresenvironment",
-    "test-file/test/cli/commands/Update.spec.js.html#lineNumber84",
+    "test-file/test/cli/commands/Update.spec.js.html#lineNumber110",
     "UpdateCommand #requiresEnvironment",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Update.spec.js.html#lineNumber85",
+    "test-file/test/cli/commands/Update.spec.js.html#lineNumber111",
     "UpdateCommand #requiresEnvironment should always return true",
     "test"
   ],
   [
     "updatecommand#run src/cli/commands/update.js~updatecommand#run,updatecommand#run",
-    "test-file/test/cli/commands/Update.spec.js.html#lineNumber91",
+    "test-file/test/cli/commands/Update.spec.js.html#lineNumber117",
     "UpdateCommand #run",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Update.spec.js.html#lineNumber106",
+    "test-file/test/cli/commands/Update.spec.js.html#lineNumber134",
     "UpdateCommand #run should call #update if required",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Update.spec.js.html#lineNumber94",
+    "test-file/test/cli/commands/Update.spec.js.html#lineNumber120",
     "UpdateCommand #run should not call #update if not required",
     "test"
   ],
   [
     "updatecommand#update src/cli/commands/update.js~updatecommand#update,updatecommand#update",
-    "test-file/test/cli/commands/Update.spec.js.html#lineNumber55",
+    "test-file/test/cli/commands/Update.spec.js.html#lineNumber58",
     "UpdateCommand #update",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Update.spec.js.html#lineNumber69",
+    "test-file/test/cli/commands/Update.spec.js.html#lineNumber82",
     "UpdateCommand #update should install beta with `useBetaRelease`",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Update.spec.js.html#lineNumber56",
+    "test-file/test/cli/commands/Update.spec.js.html#lineNumber59",
     "UpdateCommand #update should run npm install",
     "test"
   ],
   [
     "updatecommand#updateneeded src/cli/commands/update.js~updatecommand#updateneeded,updatecommand#updateneeded",
-    "test-file/test/cli/commands/Update.spec.js.html#lineNumber40",
+    "test-file/test/cli/commands/Update.spec.js.html#lineNumber43",
     "UpdateCommand #updateNeeded",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Update.spec.js.html#lineNumber45",
+    "test-file/test/cli/commands/Update.spec.js.html#lineNumber48",
     "UpdateCommand #updateNeeded should return false if latest equals current version",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Update.spec.js.html#lineNumber41",
+    "test-file/test/cli/commands/Update.spec.js.html#lineNumber44",
     "UpdateCommand #updateNeeded should return false if latest is older than current version",
     "test"
   ],
   [
     "",
-    "test-file/test/cli/commands/Update.spec.js.html#lineNumber49",
+    "test-file/test/cli/commands/Update.spec.js.html#lineNumber52",
     "UpdateCommand #updateNeeded should return latest version if latest is newer than current version",
     "test"
   ],
@@ -1507,7 +1507,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/test/bin/atscm.spec.js.html#lineNumber34",
+    "test-file/test/bin/atscm.spec.js.html#lineNumber32",
     "bin should call launch",
     "test"
   ],

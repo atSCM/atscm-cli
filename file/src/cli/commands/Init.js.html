@@ -75,7 +75,7 @@ const IgnoredFiles = [&apos;.ds_store&apos;, &apos;thumbs.db&apos;];
  * @return {any} The module&apos;s default export.
  */
 function defaultExport(mod) {
-  return (mod.default || mod);
+  return mod.default || mod;
 }
 
 /**
@@ -96,7 +96,6 @@ function allowFunction(value, ...args) {
  * The command invoked when running &quot;init&quot;.
  */
 export default class InitCommand extends Command {
-
   /**
    * Creates a new {@link InitCommand} with the specified name and description.
    * @param {string} name The command&apos;s name.
@@ -159,10 +158,12 @@ export default class InitCommand extends Command {
       writeFile(join(path, &apos;package.json&apos;), &apos;{}&apos;, err =&gt; {
         if (err) {
           // FIXME: Call with SystemError class
-          reject(Object.assign(err, {
-            message: `Unable to create package.json at ${path}`,
-            originalMessage: err.message,
-          }));
+          reject(
+            Object.assign(err, {
+              message: `Unable to create package.json at ${path}`,
+              originalMessage: err.message,
+            })
+          );
         } else {
           resolve();
         }
@@ -178,9 +179,17 @@ export default class InitCommand extends Command {
   runNpm(args, options = {}) {
     return new Promise((resolve, reject) =&gt; {
       which(&apos;npm&apos;, (err, npm) =&gt; {
-        if (err) { return reject(err); }
+        if (err) {
+          return reject(err);
+        }
 
-        const child = spawn(npm, args, Object.assign({}, options, { /* stdio: &apos;inherit&apos; */ }))
+        const child = spawn(
+          npm,
+          args,
+          Object.assign({}, options, {
+            /* stdio: &apos;inherit&apos; */
+          })
+        )
           .on(&apos;error&apos;, npmErr =&gt; reject(npmErr))
           .on(&apos;close&apos;, code =&gt; {
             if (code &gt; 0) {
@@ -328,7 +337,8 @@ export default class InitCommand extends Command {
    * @param {AtSCMCli} cli The current Cli instance.
    */
   run(cli) {
-    return cli.getEnvironment(false)
+    return cli
+      .getEnvironment(false)
       .then(env =&gt; this.checkDirectory(env.cwd, cli.options.force))
       .then(() =&gt; this.createEmptyPackage(cli.environment.cwd))
       .then(() =&gt; this.installLocal(cli.environment.cwd, cli.options))
@@ -336,10 +346,9 @@ export default class InitCommand extends Command {
       .then(env =&gt; this.checkCliVersion(env))
       .then(env =&gt; process.chdir(env.cwd))
       .then(() =&gt; this.getOptions(cli.environment.modulePath, { useDefaults: cli.options.yes }))
-      .then(options =&gt; this.writeFiles(
-        cli.environment.modulePath,
-        Object.assign({}, cli.environment, options)
-      ))
+      .then(options =&gt;
+        this.writeFiles(cli.environment.modulePath, Object.assign({}, cli.environment, options))
+      )
       .then(result =&gt; this.installDependencies(cli.environment.cwd, result.install))
       .then(async () =&gt; {
         if (cli.options.link) {
@@ -359,7 +368,6 @@ export default class InitCommand extends Command {
   requiresEnvironment() {
     return false;
   }
-
 }
 </code></pre>
 

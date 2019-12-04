@@ -92,7 +92,7 @@ const Options = {
   project: new Option(&apos;Override Atviseproject values.&apos;, { default: {} }),
   projectfile: Option.string(
     &apos;Manually set path of Atviseproject file to use. &apos; +
-    &apos;This will set the CWD to the Atviseproject file\&apos;s directory as well.&apos;,
+      &quot;This will set the CWD to the Atviseproject file&apos;s directory as well.&quot;,
     { alias: &apos;p&apos; }
   ),
   require: Option.string(&apos;Will require a module before running atscm.&apos;),
@@ -110,9 +110,10 @@ const Options = {
   debug: Option.boolean(&apos;Use debug mode.&apos;),
   yes: Option.boolean(&apos;Use default values.&apos;, { alias: &apos;y&apos; }),
   // NOTE: Commit once gulp is no longer required for running
-  link: Option.boolean(&apos;Link atscm instead of installing. &apos; +
-    &apos;This allows you to use you local atscm version. (Run `npm link .` first)&apos;),
-
+  link: Option.boolean(
+    &apos;Link atscm instead of installing. &apos; +
+      &apos;This allows you to use you local atscm version. (Run `npm link .` first)&apos;
+  ),
 };
 
 export default Options;

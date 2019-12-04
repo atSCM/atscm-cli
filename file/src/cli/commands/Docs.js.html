@@ -67,7 +67,6 @@ import Logger from &apos;../../lib/util/Logger&apos;;
  * The command invoked when running &quot;docs&quot;. Handles the options --cli and --browser.
  */
 export default class DocsCommand extends Command {
-
   /**
    * Base URL of the hosted API documentation.
    * @type {string}
@@ -99,9 +98,7 @@ export default class DocsCommand extends Command {
    */
   localDocsPath(cli) {
     return join(
-      cli.options.cli ?
-        join(__dirname, &apos;../../../&apos;) :
-        join(cli.environment.modulePath, &apos;../../&apos;),
+      cli.options.cli ? join(__dirname, &apos;../../../&apos;) : join(cli.environment.modulePath, &apos;../../&apos;),
       &apos;docs/api/index.html&apos;
     );
   }
@@ -112,9 +109,13 @@ export default class DocsCommand extends Command {
    * @return {string} The URL of the remote api docs.
    */
   remoteDocsUrl(cli) {
-    return resolve(this.constructor.RemoteDocsBase, cli.options.cli ?
-      &apos;atscm-cli&apos; :
-      &apos;atscm&apos;);
+    let path = cli.options.cli ? &apos;atscm-cli&apos; : &apos;latest&apos;;
+
+    if (cli.environment &amp;&amp; cli.environment.modulePackage &amp;&amp; cli.environment.modulePackage.version) {
+      path = `from-cli/?version=${cli.environment.modulePackage.version}`;
+    }
+
+    return resolve(this.constructor.RemoteDocsBase, path);
   }
 
   /**
@@ -153,7 +154,7 @@ export default class DocsCommand extends Command {
       .then(() =&gt; this.addressToOpen(cli))
       .then(({ address, isPath }) =&gt; {
         Logger.debug(&apos;Opening&apos;, isPath ? Logger.format.path(address) : address);
-        open(address, cli.options.browser);
+        open(address, cli.options.browser ? { app: cli.options.browser } : undefined);
       });
   }
 
@@ -165,7 +166,6 @@ export default class DocsCommand extends Command {
   requiresEnvironment(cli) {
     return cli.options.remote === false &amp;&amp; !cli.options.cli;
   }
-
 }
 </code></pre>
 

@@ -68,7 +68,6 @@ import atscmPkg from &apos;../../fixtures/node_modules/atscm/package.json&apos;;
 class StubPipe extends Emitter {}
 
 class StubProcess extends Emitter {
-
   constructor() {
     super();
 
@@ -79,7 +78,6 @@ class StubProcess extends Emitter {
   close(code) {
     this.emit(&apos;close&apos;, code);
   }
-
 }
 
 const stubModulePath = join(__dirname, &apos;stub.js&apos;);
@@ -107,9 +105,7 @@ const fsStub = {
 let whichStub = createImportStub((name, cb) =&gt; cb(null, name));
 const initStub = createImportStub(() =&gt; Promise.resolve());
 const promptSpy = spy(() =&gt; Promise.resolve({}));
-const stubInitOptions = [
-  { name: &apos;test&apos;, default: 13 },
-];
+const stubInitOptions = [{ name: &apos;test&apos;, default: 13 }];
 
 const InitCommand = proxyquire(&apos;../../../src/cli/commands/Init&apos;, {
   fs: fsStub,
@@ -138,18 +134,23 @@ describe(&apos;InitCommand&apos;, function() {
   describe(&apos;#checkDirectory&apos;, function() {
     inTmpDir(path =&gt; {
       it(&apos;should fail if directory does not exist&apos;, function() {
-        return expect(command.checkDirectory(&apos;./not/existant&apos;),
-          &apos;to be rejected with&apos;, /does not exist$/);
+        return expect(
+          command.checkDirectory(&apos;./not/existant&apos;),
+          &apos;to be rejected with&apos;,
+          /does not exist$/
+        );
       });
 
       it(&apos;should fail if path is not a directory&apos;, function() {
-        return expect(command.checkDirectory(join(__dirname, &apos;./Init.spec.js&apos;)),
-          &apos;to be rejected with&apos;, /is not a directory$/);
+        return expect(
+          command.checkDirectory(join(__dirname, &apos;./Init.spec.js&apos;)),
+          &apos;to be rejected with&apos;,
+          /is not a directory$/
+        );
       });
 
       it(&apos;should fail if directory is not empty&apos;, function() {
-        return expect(command.checkDirectory(__dirname),
-          &apos;to be rejected with&apos;, /is not empty$/);
+        return expect(command.checkDirectory(__dirname), &apos;to be rejected with&apos;, /is not empty$/);
       });
 
       it(&apos;should work with empty dir&apos;, function() {
@@ -170,9 +171,7 @@ describe(&apos;InitCommand&apos;, function() {
       after(() =&gt; (fsStub.readdir = orgReaddir));
 
       it(&apos;should fail with original error&apos;, function() {
-        return expect(command.checkDirectory(&apos;path&apos;),
-          &apos;to be rejected with&apos;, &apos;Any other error&apos;
-        );
+        return expect(command.checkDirectory(&apos;path&apos;), &apos;to be rejected with&apos;, &apos;Any other error&apos;);
       });
     });
   });
@@ -181,18 +180,20 @@ describe(&apos;InitCommand&apos;, function() {
   describe(&apos;#createEmptyPackage&apos;, function() {
     inTmpDir(path =&gt; {
       it(&apos;should fail with invalid path&apos;, function() {
-        return expect(command.createEmptyPackage(&apos;path/that/does/not/exist&apos;),
-          &apos;to be rejected with&apos;, /^Unable to create package.json at/);
+        return expect(
+          command.createEmptyPackage(&apos;path/that/does/not/exist&apos;),
+          &apos;to be rejected with&apos;,
+          /^Unable to create package.json at/
+        );
       });
 
       it(&apos;should work in empty directory&apos;, function() {
-        return expect(command.createEmptyPackage(path), &apos;to be fulfilled&apos;)
-          .then(() =&gt; {
-            let pkg;
-            // eslint-disable-next-line global-require
-            expect(() =&gt; (pkg = require(join(path, &apos;package.json&apos;))), &apos;not to throw&apos;);
-            expect(pkg, &apos;to equal&apos;, {});
-          });
+        return expect(command.createEmptyPackage(path), &apos;to be fulfilled&apos;).then(() =&gt; {
+          let pkg;
+          // eslint-disable-next-line global-require
+          expect(() =&gt; (pkg = require(join(path, &apos;package.json&apos;))), &apos;not to throw&apos;);
+          expect(pkg, &apos;to equal&apos;, {});
+        });
       });
     });
   });
@@ -208,14 +209,10 @@ describe(&apos;InitCommand&apos;, function() {
         setTimeout(() =&gt; proc.close(0), 10);
       });
 
-      return expect(
-        command.install(stubModulePath, deps),
-        &apos;to be fulfilled&apos;
-      )
-        .then(() =&gt; {
-          expect(whichStub.default.calledOnce, &apos;to be&apos;, true);
-          expect(whichStub.default.lastCall.args[0], &apos;to equal&apos;, &apos;npm&apos;);
-        });
+      return expect(command.install(stubModulePath, deps), &apos;to be fulfilled&apos;).then(() =&gt; {
+        expect(whichStub.default.calledOnce, &apos;to be&apos;, true);
+        expect(whichStub.default.lastCall.args[0], &apos;to equal&apos;, &apos;npm&apos;);
+      });
     });
 
     it(&apos;should forward errors occuring in npm&apos;, function() {
@@ -225,10 +222,7 @@ describe(&apos;InitCommand&apos;, function() {
         setTimeout(() =&gt; proc.emit(&apos;error&apos;, error), 10);
       });
 
-      return expect(
-        command.install(stubModulePath, [&apos;dep&apos;]),
-        &apos;to be rejected with&apos;, error
-      );
+      return expect(command.install(stubModulePath, [&apos;dep&apos;]), &apos;to be rejected with&apos;, error);
     });
 
     it(&apos;should report error if npm fails&apos;, function() {
@@ -240,7 +234,8 @@ describe(&apos;InitCommand&apos;, function() {
 
       return expect(
         command.install(stubModulePath, [&apos;dep&apos;]),
-        &apos;to be rejected with&apos;, `npm install returned code ${code}`
+        &apos;to be rejected with&apos;,
+        `npm install returned code ${code}`
       );
     });
 
@@ -255,7 +250,8 @@ describe(&apos;InitCommand&apos;, function() {
 
         return expect(
           command.install(stubModulePath, [&apos;dep&apos;]),
-          &apos;to be rejected with&apos;, &apos;A which error&apos;
+          &apos;to be rejected with&apos;,
+          &apos;A which error&apos;
         );
       });
     });
@@ -267,75 +263,94 @@ describe(&apos;InitCommand&apos;, function() {
     afterEach(() =&gt; command.runNpm.restore());
 
     it(&apos;should call InitCommand#install&apos;, function() {
-      return expect(command.installLocal(stubModulePath), &apos;to be fulfilled&apos;)
-        .then(() =&gt; {
-          expect(command.runNpm.calledOnce, &apos;to be true&apos;);
-          expect(command.runNpm.lastCall.args[0], &apos;to equal&apos;, [&apos;install&apos;, &apos;--save-dev&apos;, &apos;atscm&apos;]);
-          expect(command.runNpm.lastCall.args[1], &apos;to equal&apos;, { cwd: stubModulePath });
-        });
+      return expect(command.installLocal(stubModulePath), &apos;to be fulfilled&apos;).then(() =&gt; {
+        expect(command.runNpm.calledOnce, &apos;to be true&apos;);
+        expect(command.runNpm.lastCall.args[0], &apos;to equal&apos;, [&apos;install&apos;, &apos;--save-dev&apos;, &apos;atscm&apos;]);
+        expect(command.runNpm.lastCall.args[1], &apos;to equal&apos;, { cwd: stubModulePath });
+      });
     });
 
     it(&apos;should install beta version with `useBetaVersion`&apos;, function() {
-      return expect(command.installLocal(stubModulePath, { beta: true }), &apos;to be fulfilled&apos;)
-        .then(() =&gt; {
+      return expect(command.installLocal(stubModulePath, { beta: true }), &apos;to be fulfilled&apos;).then(
+        () =&gt; {
           expect(command.runNpm.calledOnce, &apos;to be true&apos;);
           expect(command.runNpm.lastCall.args[0][2], &apos;to equal&apos;, &apos;atscm@beta&apos;);
-        });
+        }
+      );
     });
 
     it(&apos;should run npm link with `link`&apos;, function() {
-      return expect(command.installLocal(stubModulePath, { link: true }), &apos;to be fulfilled&apos;)
-        .then(() =&gt; {
+      return expect(command.installLocal(stubModulePath, { link: true }), &apos;to be fulfilled&apos;).then(
+        () =&gt; {
           expect(command.runNpm.calledTwice, &apos;to be true&apos;);
           expect(command.runNpm.lastCall.args[0], &apos;to equal&apos;, [&apos;link&apos;, &apos;atscm&apos;]);
           expect(command.runNpm.lastCall.args[1], &apos;to equal&apos;, { cwd: stubModulePath });
-        });
+        }
+      );
     });
   });
 
   /** @test {InitCommand#checkCliVersion} */
   describe(&apos;#checkCliVersion&apos;, function() {
     it(&apos;should throw error if version does not match&apos;, function() {
-      expect(() =&gt; command.checkCliVersion({
-        modulePackage: {
-          engines: {
-            &apos;atscm-cli&apos;: &apos;&lt;0.1.0&apos;,
-          },
-        },
-      }), &apos;to throw error&apos;, &apos;Invalid atscm-cli version: &lt;0.1.0 required.&apos;);
+      expect(
+        () =&gt;
+          command.checkCliVersion({
+            modulePackage: {
+              engines: {
+                &apos;atscm-cli&apos;: &apos;&lt;0.1.0&apos;,
+              },
+            },
+          }),
+        &apos;to throw error&apos;,
+        &apos;Invalid atscm-cli version: &lt;0.1.0 required.&apos;
+      );
     });
   });
 
   describe(&apos;#getDefaultOptions&apos;, function() {
     it(&apos;should return plain value defaults&apos;, function() {
-      expect(command.getDefaultOptions([{ name: &apos;test&apos;, default: 13 }]),
-        &apos;to equal&apos;, { test: 13 });
+      expect(command.getDefaultOptions([{ name: &apos;test&apos;, default: 13 }]), &apos;to equal&apos;, { test: 13 });
     });
 
     it(&apos;should return plain value default choices&apos;, function() {
-      expect(command.getDefaultOptions([{ name: &apos;test&apos;, choices: [13] }]),
-        &apos;to equal&apos;, { test: 13 });
+      expect(command.getDefaultOptions([{ name: &apos;test&apos;, choices: [13] }]), &apos;to equal&apos;, {
+        test: 13,
+      });
     });
 
     it(&apos;should return object value default choices&apos;, function() {
-      expect(command.getDefaultOptions([{ name: &apos;test&apos;, choices: [{ value: 13 }] }]),
-        &apos;to equal&apos;, { test: 13 });
+      expect(command.getDefaultOptions([{ name: &apos;test&apos;, choices: [{ value: 13 }] }]), &apos;to equal&apos;, {
+        test: 13,
+      });
     });
 
     it(&apos;should resolve choices with current value&apos;, function() {
-      expect(command.getDefaultOptions([{ name: &apos;test&apos;, default: 13 }, {
-        name: &apos;another&apos;,
-        choices: (current) =&gt; [{ value: current.test * 2 }],
-      }]),
-      &apos;to equal&apos;, { test: 13, another: 26 });
+      expect(
+        command.getDefaultOptions([
+          { name: &apos;test&apos;, default: 13 },
+          {
+            name: &apos;another&apos;,
+            choices: current =&gt; [{ value: current.test * 2 }],
+          },
+        ]),
+        &apos;to equal&apos;,
+        { test: 13, another: 26 }
+      );
     });
 
     it(&apos;should skip options if specified&apos;, function() {
-      expect(command.getDefaultOptions([{ name: &apos;test&apos;, default: 13 }, {
-        name: &apos;another&apos;,
-        when: (current) =&gt; current.test === 1,
-      }]),
-      &apos;to equal&apos;, { test: 13 });
+      expect(
+        command.getDefaultOptions([
+          { name: &apos;test&apos;, default: 13 },
+          {
+            name: &apos;another&apos;,
+            when: current =&gt; current.test === 1,
+          },
+        ]),
+        &apos;to equal&apos;,
+        { test: 13 }
+      );
     });
   });
 
@@ -343,25 +358,18 @@ describe(&apos;InitCommand&apos;, function() {
   describe(&apos;#getOptions&apos;, function() {
     beforeEach(() =&gt; promptSpy.resetHistory());
     it(&apos;should run inquirer by default&apos;, function() {
-      return expect(
-        () =&gt; command.getOptions(stubModulePath),
-        &apos;to be fulfilled&apos;
-      )
-        .then(() =&gt; {
-          expect(promptSpy.calledOnce, &apos;to be true&apos;);
-          expect(promptSpy.lastCall.args[0], &apos;to be&apos;, stubInitOptions);
-        });
+      return expect(() =&gt; command.getOptions(stubModulePath), &apos;to be fulfilled&apos;).then(() =&gt; {
+        expect(promptSpy.calledOnce, &apos;to be true&apos;);
+        expect(promptSpy.lastCall.args[0], &apos;to be&apos;, stubInitOptions);
+      });
     });
 
     it(&apos;should use defaults with `useDefaults`&apos;, function() {
-      return expect(
-        command.getOptions(stubModulePath, { useDefaults: true }),
-        &apos;to equal&apos;,
-        { test: 13 }
-      )
-        .then(() =&gt; {
-          expect(promptSpy.calledOnce, &apos;to be false&apos;);
-        });
+      return expect(command.getOptions(stubModulePath, { useDefaults: true }), &apos;to equal&apos;, {
+        test: 13,
+      }).then(() =&gt; {
+        expect(promptSpy.calledOnce, &apos;to be false&apos;);
+      });
     });
   });
 
@@ -370,12 +378,10 @@ describe(&apos;InitCommand&apos;, function() {
     it(&apos;should call local package init script&apos;, function() {
       const options = { test: 123 };
 
-      return expect(command.writeFiles(stubModulePath, options),
-        &apos;to be fulfilled&apos;)
-        .then(() =&gt; {
-          expect(initStub.default.calledOnce, &apos;to be&apos;, true);
-          expect(initStub.default.lastCall.args[0], &apos;to be&apos;, options);
-        });
+      return expect(command.writeFiles(stubModulePath, options), &apos;to be fulfilled&apos;).then(() =&gt; {
+        expect(initStub.default.calledOnce, &apos;to be&apos;, true);
+        expect(initStub.default.lastCall.args[0], &apos;to be&apos;, options);
+      });
     });
   });
 
@@ -387,12 +393,13 @@ describe(&apos;InitCommand&apos;, function() {
     it(&apos;should run install with given deps&apos;, function() {
       const deps = [&apos;dep1&apos;, &apos;dep2&apos;];
 
-      return expect(command.installDependencies(stubModulePath, deps), &apos;to be fulfilled&apos;)
-        .then(() =&gt; {
+      return expect(command.installDependencies(stubModulePath, deps), &apos;to be fulfilled&apos;).then(
+        () =&gt; {
           expect(command.install.calledOnce, &apos;to be true&apos;);
           expect(command.install.lastCall.args[0], &apos;to equal&apos;, stubModulePath);
           expect(command.install.lastCall.args[1], &apos;to equal&apos;, deps);
-        });
+        }
+      );
     });
   });
 
@@ -406,10 +413,12 @@ describe(&apos;InitCommand&apos;, function() {
       options: {
         force: false,
       },
-      getEnvironment: spy(() =&gt; Promise.resolve({
-        cwd: stubModulePath,
-        modulePackage: atscmPkg,
-      })),
+      getEnvironment: spy(() =&gt;
+        Promise.resolve({
+          cwd: stubModulePath,
+          modulePackage: atscmPkg,
+        })
+      ),
     };
 
     beforeEach(() =&gt; {
@@ -433,8 +442,9 @@ describe(&apos;InitCommand&apos;, function() {
     });
 
     function expectCalled(method, count = 1) {
-      return expect(command.run(cli), &apos;to be fulfilled&apos;)
-        .then(() =&gt; expect(method.callCount, &apos;to equal&apos;, count));
+      return expect(command.run(cli), &apos;to be fulfilled&apos;).then(() =&gt;
+        expect(method.callCount, &apos;to equal&apos;, count)
+      );
     }
 
     it(&apos;should call AtSCMCli#getEnvironment twice&apos;, function() {
@@ -442,8 +452,9 @@ describe(&apos;InitCommand&apos;, function() {
     });
 
     it(&apos;should not search in parent directories&apos;, function() {
-      return expect(command.run(cli), &apos;to be fulfilled&apos;)
-        .then(() =&gt; expect(cli.getEnvironment.alwaysCalledWith(false), &apos;to equal&apos;, true));
+      return expect(command.run(cli), &apos;to be fulfilled&apos;).then(() =&gt;
+        expect(cli.getEnvironment.alwaysCalledWith(false), &apos;to equal&apos;, true)
+      );
     });
 
     it(&apos;should call InitCommand#createEmptyPackage&apos;, function() {

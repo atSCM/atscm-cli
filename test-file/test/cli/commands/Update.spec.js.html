@@ -83,8 +83,11 @@ describe(&apos;UpdateCommand&apos;, function() {
   /** @test {UpdateCommand#getLatestVersion} */
   describe(&apos;#getLatestVersion&apos;, function() {
     it(&apos;should call npm api&apos;, function() {
-      return expect(UpdateCommand.prototype.getLatestVersion(), &apos;to be fulfilled with&apos;, &apos;0.3.0&apos;)
-        .then(() =&gt; expect(get.calledOnce, &apos;to be&apos;, true));
+      return expect(
+        UpdateCommand.prototype.getLatestVersion(),
+        &apos;to be fulfilled with&apos;,
+        &apos;0.3.0&apos;
+      ).then(() =&gt; expect(get.calledOnce, &apos;to be&apos;, true));
     });
 
     it(&apos;should return beta versions with `useBetaRelease`&apos;, function() {
@@ -112,29 +115,52 @@ describe(&apos;UpdateCommand&apos;, function() {
   /** @test {UpdateCommand#update} */
   describe(&apos;#update&apos;, function() {
     it(&apos;should run npm install&apos;, function() {
-      return expect(UpdateCommand.prototype.update({ environment: {
-        cwd: &apos;test cwd&apos;,
-      } }), &apos;to be fulfilled&apos;)
+      return expect(
+        UpdateCommand.prototype.update({
+          environment: {
+            cwd: &apos;test cwd&apos;,
+          },
+        }),
+        &apos;to be fulfilled&apos;
+      )
         .then(() =&gt; expect(run.calledOnce, &apos;to be&apos;, true))
-        .then(() =&gt; expect(run.lastCall.args, &apos;to equal&apos;,
-          [&apos;npm&apos;, [&apos;install&apos;, &apos;--save-dev&apos;, &apos;atscm@latest&apos;], {
-            spawn: {
-              cwd: &apos;test cwd&apos;,
+        .then(() =&gt;
+          expect(run.lastCall.args, &apos;to equal&apos;, [
+            &apos;npm&apos;,
+            [&apos;install&apos;, &apos;--save-dev&apos;, &apos;atscm@latest&apos;],
+            {
+              spawn: {
+                cwd: &apos;test cwd&apos;,
+              },
             },
-          }]));
+          ])
+        );
     });
 
     it(&apos;should install beta with `useBetaRelease`&apos;, function() {
-      return expect(UpdateCommand.prototype.update({ environment: {
-        cwd: &apos;test cwd&apos;,
-      } }, true), &apos;to be fulfilled&apos;)
-        .then(() =&gt; expect(run.calledOnce, &apos;to be&apos;, true))
-        .then(() =&gt; expect(run.lastCall.args, &apos;to equal&apos;,
-          [&apos;npm&apos;, [&apos;install&apos;, &apos;--save-dev&apos;, &apos;atscm@beta&apos;], {
-            spawn: {
+      return expect(
+        UpdateCommand.prototype.update(
+          {
+            environment: {
               cwd: &apos;test cwd&apos;,
             },
-          }]));
+          },
+          true
+        ),
+        &apos;to be fulfilled&apos;
+      )
+        .then(() =&gt; expect(run.calledOnce, &apos;to be&apos;, true))
+        .then(() =&gt;
+          expect(run.lastCall.args, &apos;to equal&apos;, [
+            &apos;npm&apos;,
+            [&apos;install&apos;, &apos;--save-dev&apos;, &apos;atscm@beta&apos;],
+            {
+              spawn: {
+                cwd: &apos;test cwd&apos;,
+              },
+            },
+          ])
+        );
     });
   });
 
@@ -150,31 +176,34 @@ describe(&apos;UpdateCommand&apos;, function() {
     const command = new UpdateCommand();
 
     it(&apos;should not call #update if not required&apos;, function() {
-      return expect(command.run({
-        environment: {
-          modulePackage: {
-            version: &apos;0.3.0&apos;,
+      return expect(
+        command.run({
+          environment: {
+            modulePackage: {
+              version: &apos;0.3.0&apos;,
+            },
           },
-        },
-        options: {},
-      }), &apos;to be fulfilled&apos;)
-        .then(() =&gt; expect(run.callCount, &apos;to equal&apos;, 0));
+          options: {},
+        }),
+        &apos;to be fulfilled&apos;
+      ).then(() =&gt; expect(run.callCount, &apos;to equal&apos;, 0));
     });
 
     it(&apos;should call #update if required&apos;, function() {
-      return expect(command.run({
-        environment: {
-          modulePackage: {
-            version: &apos;0.2.0&apos;,
+      return expect(
+        command.run({
+          environment: {
+            modulePackage: {
+              version: &apos;0.2.0&apos;,
+            },
           },
-        },
-        options: {},
-      }), &apos;to be fulfilled&apos;)
-        .then(() =&gt; expect(run.calledOnce, &apos;to be&apos;, true));
+          options: {},
+        }),
+        &apos;to be fulfilled&apos;
+      ).then(() =&gt; expect(run.calledOnce, &apos;to be&apos;, true));
     });
   });
 });
-
 </code></pre>
 
 </div>
