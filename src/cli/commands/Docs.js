@@ -9,7 +9,6 @@ import Logger from '../../lib/util/Logger';
  * The command invoked when running "docs". Handles the options --cli and --browser.
  */
 export default class DocsCommand extends Command {
-
   /**
    * Base URL of the hosted API documentation.
    * @type {string}
@@ -41,9 +40,7 @@ export default class DocsCommand extends Command {
    */
   localDocsPath(cli) {
     return join(
-      cli.options.cli ?
-        join(__dirname, '../../../') :
-        join(cli.environment.modulePath, '../../'),
+      cli.options.cli ? join(__dirname, '../../../') : join(cli.environment.modulePath, '../../'),
       'docs/api/index.html'
     );
   }
@@ -111,5 +108,4 @@ export default class DocsCommand extends Command {
   requiresEnvironment(cli) {
     return cli.options.remote === false && !cli.options.cli;
   }
-
 }
