@@ -131,19 +131,20 @@ describe('DocsCommand', function() {
     });
 
     it('should open in specific browser with --browser option', function() {
-      command.run({
-        options: {
-          cli: false,
-          browser: 'custombrowser',
-        },
-        environment: {
-          modulePath: '/path/to/package.json',
-        },
-      })
+      return command
+        .run({
+          options: {
+            cli: false,
+            browser: 'custombrowser',
+          },
+          environment: {
+            modulePath: '/path/to/package.json',
+          },
+        })
         .then(() => {
           expect(openSpy.calledOnce, 'to be', true);
           expect(openSpy.lastCall.args[0], 'to equal', join('/path/docs/api/index.html'));
-          expect(openSpy.lastCall.args[1], 'to equal', 'custombrowser');
+          expect(openSpy.lastCall.args[1], 'to equal', { app: 'custombrowser' });
         });
     });
 

@@ -95,7 +95,7 @@ export default class DocsCommand extends Command {
       .then(() => this.addressToOpen(cli))
       .then(({ address, isPath }) => {
         Logger.debug('Opening', isPath ? Logger.format.path(address) : address);
-        open(address, cli.options.browser);
+        open(address, cli.options.browser ? { app: cli.options.browser } : undefined);
       });
   }
 
