@@ -67,12 +67,12 @@ const DocsCommand = proxyquire(&apos;../../../src/cli/commands/Docs&apos;, {
 }).default;
 
 /** @test {DocsCommand} */
-describe(&apos;DocsCommand&apos;, function() {
+describe(&apos;DocsCommand&apos;, function () {
   const command = new DocsCommand(&apos;docs&apos;, &apos;Open documentation.&apos;);
 
   /** @test {DocsCommand#localDocsPath} */
-  describe(&apos;#localDocsPath&apos;, function() {
-    it(&apos;should be local api docs by default&apos;, function() {
+  describe(&apos;#localDocsPath&apos;, function () {
+    it(&apos;should be local api docs by default&apos;, function () {
       expect(
         command.localDocsPath({
           options: {},
@@ -85,7 +85,7 @@ describe(&apos;DocsCommand&apos;, function() {
       );
     });
 
-    it(&apos;should be cli api docs with --cli option&apos;, function() {
+    it(&apos;should be cli api docs with --cli option&apos;, function () {
       expect(
         command.localDocsPath({
           options: { cli: true },
@@ -97,8 +97,8 @@ describe(&apos;DocsCommand&apos;, function() {
   });
 
   /** @test {DocsCommand#remoteDocsUrl} */
-  describe(&apos;#remoteDocsUrl&apos;, function() {
-    it(&apos;should return path to atscm docs by default&apos;, function() {
+  describe(&apos;#remoteDocsUrl&apos;, function () {
+    it(&apos;should return path to atscm docs by default&apos;, function () {
       expect(
         command.remoteDocsUrl({
           options: {},
@@ -109,7 +109,7 @@ describe(&apos;DocsCommand&apos;, function() {
       );
     });
 
-    it(&apos;should return path to atscm-cli docs with `--cli` option passed&apos;, function() {
+    it(&apos;should return path to atscm-cli docs with `--cli` option passed&apos;, function () {
       expect(
         command.remoteDocsUrl({ options: { cli: true } }),
         &apos;to equal&apos;,
@@ -119,8 +119,8 @@ describe(&apos;DocsCommand&apos;, function() {
   });
 
   /** @test {DocsCommand#addressToOpen} */
-  describe(&apos;#addressToOpen&apos;, function() {
-    it(&apos;should return local path if not remote option was passed&apos;, function() {
+  describe(&apos;#addressToOpen&apos;, function () {
+    it(&apos;should return local path if not remote option was passed&apos;, function () {
       const { address, isPath } = command.addressToOpen({
         options: {},
         environment: { modulePath: &apos;/path/to/package.json&apos; },
@@ -130,7 +130,7 @@ describe(&apos;DocsCommand&apos;, function() {
       expect(isPath, &apos;to equal&apos;, true);
     });
 
-    it(&apos;should return local path if remote option was set to false&apos;, function() {
+    it(&apos;should return local path if remote option was set to false&apos;, function () {
       const { isPath } = command.addressToOpen({
         options: { remote: false },
         environment: { modulePath: &apos;/path/to/package.json&apos; },
@@ -139,7 +139,7 @@ describe(&apos;DocsCommand&apos;, function() {
       expect(isPath, &apos;to equal&apos;, true);
     });
 
-    it(&apos;should return remote url if remote was set to true&apos;, function() {
+    it(&apos;should return remote url if remote was set to true&apos;, function () {
       const { isPath } = command.addressToOpen({
         options: { remote: true },
         environment: { modulePath: &apos;/path/to/package.json&apos;, modulePackage: {} },
@@ -148,7 +148,7 @@ describe(&apos;DocsCommand&apos;, function() {
       expect(isPath, &apos;to equal&apos;, false);
     });
 
-    it(&apos;should return remote url if cli.env.modulePath is undefined&apos;, function() {
+    it(&apos;should return remote url if cli.env.modulePath is undefined&apos;, function () {
       const { isPath } = command.addressToOpen({
         options: { remote: true },
         environment: {},
@@ -157,7 +157,7 @@ describe(&apos;DocsCommand&apos;, function() {
       expect(isPath, &apos;to equal&apos;, false);
     });
 
-    it(&apos;should return local path if cli option was set&apos;, function() {
+    it(&apos;should return local path if cli option was set&apos;, function () {
       const { isPath } = command.addressToOpen({
         options: { cli: true },
         environment: {},
@@ -168,10 +168,10 @@ describe(&apos;DocsCommand&apos;, function() {
   });
 
   /** @test {DocsCommand#run} */
-  describe(&apos;#run&apos;, function() {
+  describe(&apos;#run&apos;, function () {
     beforeEach(() =&gt; openSpy.resetHistory());
 
-    it(&apos;should open local api docs by default&apos;, function() {
+    it(&apos;should open local api docs by default&apos;, function () {
       return command
         .run({
           options: {},
@@ -186,7 +186,7 @@ describe(&apos;DocsCommand&apos;, function() {
         });
     });
 
-    it(&apos;should open cli api docs with --cli option&apos;, function() {
+    it(&apos;should open cli api docs with --cli option&apos;, function () {
       return command
         .run({
           options: {
@@ -204,7 +204,7 @@ describe(&apos;DocsCommand&apos;, function() {
         });
     });
 
-    it(&apos;should open in specific browser with --browser option&apos;, function() {
+    it(&apos;should open in specific browser with --browser option&apos;, function () {
       return command
         .run({
           options: {
@@ -222,7 +222,7 @@ describe(&apos;DocsCommand&apos;, function() {
         });
     });
 
-    it(&apos;should call AtSCMCli#getEnvironment if no environment was passed&apos;, function() {
+    it(&apos;should call AtSCMCli#getEnvironment if no environment was passed&apos;, function () {
       const cli = {
         options: {
           cli: false,
@@ -245,7 +245,7 @@ describe(&apos;DocsCommand&apos;, function() {
       });
     });
 
-    it(&apos;should open remote docs with --remote option passed&apos;, function() {
+    it(&apos;should open remote docs with --remote option passed&apos;, function () {
       return command
         .run({
           options: {
@@ -263,20 +263,20 @@ describe(&apos;DocsCommand&apos;, function() {
   });
 
   /** @test {DocsCommand#requiresEnvironment} */
-  describe(&apos;#requiresEnvironment&apos;, function() {
-    it(&apos;should return false if `--cli` is used&apos;, function() {
+  describe(&apos;#requiresEnvironment&apos;, function () {
+    it(&apos;should return false if `--cli` is used&apos;, function () {
       expect(command.requiresEnvironment({ options: { cli: true } }), &apos;to be&apos;, false);
     });
 
-    it(&apos;should return false if `--remote`&apos;, function() {
+    it(&apos;should return false if `--remote`&apos;, function () {
       expect(command.requiresEnvironment({ options: { remote: true } }), &apos;to be&apos;, false);
     });
 
-    it(&apos;should return false if no `--remote` option is passed&apos;, function() {
+    it(&apos;should return false if no `--remote` option is passed&apos;, function () {
       expect(command.requiresEnvironment({ options: {} }), &apos;to be&apos;, false);
     });
 
-    it(&apos;should return false if `--no-remote` and `--cli` option is passed&apos;, function() {
+    it(&apos;should return false if `--no-remote` and `--cli` option is passed&apos;, function () {
       expect(
         command.requiresEnvironment({
           options: {
@@ -289,7 +289,7 @@ describe(&apos;DocsCommand&apos;, function() {
       );
     });
 
-    it(&apos;should return true if `--no-remote` and no `--cli` option is passed&apos;, function() {
+    it(&apos;should return true if `--no-remote` and no `--cli` option is passed&apos;, function () {
       expect(command.requiresEnvironment({ options: { remote: false } }), &apos;to be&apos;, true);
     });
   });

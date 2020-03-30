@@ -127,13 +127,13 @@ const InitCommand = proxyquire(&apos;../../../src/cli/commands/Init&apos;, {
 }).default;
 
 /** @test {InitCommand} */
-describe(&apos;InitCommand&apos;, function() {
+describe(&apos;InitCommand&apos;, function () {
   const command = new InitCommand(&apos;init&apos;, &apos;Creates a new project.&apos;);
 
   /** @test {InitCommand#checkDirectory} */
-  describe(&apos;#checkDirectory&apos;, function() {
-    inTmpDir(path =&gt; {
-      it(&apos;should fail if directory does not exist&apos;, function() {
+  describe(&apos;#checkDirectory&apos;, function () {
+    inTmpDir((path) =&gt; {
+      it(&apos;should fail if directory does not exist&apos;, function () {
         return expect(
           command.checkDirectory(&apos;./not/existant&apos;),
           &apos;to be rejected with&apos;,
@@ -141,7 +141,7 @@ describe(&apos;InitCommand&apos;, function() {
         );
       });
 
-      it(&apos;should fail if path is not a directory&apos;, function() {
+      it(&apos;should fail if path is not a directory&apos;, function () {
         return expect(
           command.checkDirectory(join(__dirname, &apos;./Init.spec.js&apos;)),
           &apos;to be rejected with&apos;,
@@ -149,37 +149,37 @@ describe(&apos;InitCommand&apos;, function() {
         );
       });
 
-      it(&apos;should fail if directory is not empty&apos;, function() {
+      it(&apos;should fail if directory is not empty&apos;, function () {
         return expect(command.checkDirectory(__dirname), &apos;to be rejected with&apos;, /is not empty$/);
       });
 
-      it(&apos;should work with empty dir&apos;, function() {
+      it(&apos;should work with empty dir&apos;, function () {
         return expect(command.checkDirectory(path), &apos;to be fulfilled&apos;);
       });
 
-      it(&apos;should work in non-empty dir with overwrite set&apos;, function() {
+      it(&apos;should work in non-empty dir with overwrite set&apos;, function () {
         writeFileSync(join(path, &apos;file.txt&apos;), &apos;data&apos;);
 
         return expect(command.checkDirectory(path, true), &apos;to be fulfilled&apos;);
       });
     });
 
-    context(&apos;when non-ENOENT and ENOTDIR occurres&apos;, function() {
+    context(&apos;when non-ENOENT and ENOTDIR occurres&apos;, function () {
       const orgReaddir = fsStub.readdir;
 
       before(() =&gt; (fsStub.readdir = spy((path, cb) =&gt; cb(new Error(&apos;Any other error&apos;)))));
       after(() =&gt; (fsStub.readdir = orgReaddir));
 
-      it(&apos;should fail with original error&apos;, function() {
+      it(&apos;should fail with original error&apos;, function () {
         return expect(command.checkDirectory(&apos;path&apos;), &apos;to be rejected with&apos;, &apos;Any other error&apos;);
       });
     });
   });
 
   /** @test {InitCommand#createEmptyPackage} */
-  describe(&apos;#createEmptyPackage&apos;, function() {
-    inTmpDir(path =&gt; {
-      it(&apos;should fail with invalid path&apos;, function() {
+  describe(&apos;#createEmptyPackage&apos;, function () {
+    inTmpDir((path) =&gt; {
+      it(&apos;should fail with invalid path&apos;, function () {
         return expect(
           command.createEmptyPackage(&apos;path/that/does/not/exist&apos;),
           &apos;to be rejected with&apos;,
@@ -187,7 +187,7 @@ describe(&apos;InitCommand&apos;, function() {
         );
       });
 
-      it(&apos;should work in empty directory&apos;, function() {
+      it(&apos;should work in empty directory&apos;, function () {
         return expect(command.createEmptyPackage(path), &apos;to be fulfilled&apos;).then(() =&gt; {
           let pkg;
           // eslint-disable-next-line global-require
@@ -199,13 +199,13 @@ describe(&apos;InitCommand&apos;, function() {
   });
 
   /** @test {InitCommand#install} */
-  describe(&apos;#install&apos;, function() {
+  describe(&apos;#install&apos;, function () {
     beforeEach(() =&gt; whichStub.default.resetHistory());
 
-    it(&apos;should run which for npm&apos;, function() {
+    it(&apos;should run which for npm&apos;, function () {
       const deps = [&apos;dep1&apos;, &apos;dep2&apos;];
 
-      stubProcessEmitter.once(&apos;new&apos;, proc =&gt; {
+      stubProcessEmitter.once(&apos;new&apos;, (proc) =&gt; {
         setTimeout(() =&gt; proc.close(0), 10);
       });
 
@@ -215,20 +215,20 @@ describe(&apos;InitCommand&apos;, function() {
       });
     });
 
-    it(&apos;should forward errors occuring in npm&apos;, function() {
+    it(&apos;should forward errors occuring in npm&apos;, function () {
       const error = new Error(&apos;Test&apos;);
 
-      stubProcessEmitter.once(&apos;new&apos;, proc =&gt; {
+      stubProcessEmitter.once(&apos;new&apos;, (proc) =&gt; {
         setTimeout(() =&gt; proc.emit(&apos;error&apos;, error), 10);
       });
 
       return expect(command.install(stubModulePath, [&apos;dep&apos;]), &apos;to be rejected with&apos;, error);
     });
 
-    it(&apos;should report error if npm fails&apos;, function() {
+    it(&apos;should report error if npm fails&apos;, function () {
       const code = Math.round(Math.random() * 100) + 1;
 
-      stubProcessEmitter.once(&apos;new&apos;, proc =&gt; {
+      stubProcessEmitter.once(&apos;new&apos;, (proc) =&gt; {
         setTimeout(() =&gt; proc.close(code), 10);
       });
 
@@ -239,13 +239,13 @@ describe(&apos;InitCommand&apos;, function() {
       );
     });
 
-    context(&apos;when npm is not installed&apos;, function() {
+    context(&apos;when npm is not installed&apos;, function () {
       const orgWhichStub = whichStub.default;
 
       before(() =&gt; (whichStub.default = spy((name, cb) =&gt; cb(new Error(&apos;A which error&apos;)))));
       after(() =&gt; (whichStub.default = orgWhichStub));
 
-      it(&apos;should fail&apos;, function() {
+      it(&apos;should fail&apos;, function () {
         whichStub = spy((name, cb) =&gt; cb(new Error(&apos;A which error&apos;)));
 
         return expect(
@@ -258,11 +258,11 @@ describe(&apos;InitCommand&apos;, function() {
   });
 
   /** @test {InitCommand#installLocal} */
-  describe(&apos;#installLocal&apos;, function() {
+  describe(&apos;#installLocal&apos;, function () {
     beforeEach(() =&gt; stub(command, &apos;runNpm&apos;).callsFake(() =&gt; Promise.resolve(true)));
     afterEach(() =&gt; command.runNpm.restore());
 
-    it(&apos;should call InitCommand#install&apos;, function() {
+    it(&apos;should call InitCommand#install&apos;, function () {
       return expect(command.installLocal(stubModulePath), &apos;to be fulfilled&apos;).then(() =&gt; {
         expect(command.runNpm.calledOnce, &apos;to be true&apos;);
         expect(command.runNpm.lastCall.args[0], &apos;to equal&apos;, [&apos;install&apos;, &apos;--save-dev&apos;, &apos;atscm&apos;]);
@@ -270,7 +270,7 @@ describe(&apos;InitCommand&apos;, function() {
       });
     });
 
-    it(&apos;should install beta version with `useBetaVersion`&apos;, function() {
+    it(&apos;should install beta version with `useBetaVersion`&apos;, function () {
       return expect(command.installLocal(stubModulePath, { beta: true }), &apos;to be fulfilled&apos;).then(
         () =&gt; {
           expect(command.runNpm.calledOnce, &apos;to be true&apos;);
@@ -279,7 +279,7 @@ describe(&apos;InitCommand&apos;, function() {
       );
     });
 
-    it(&apos;should run npm link with `link`&apos;, function() {
+    it(&apos;should run npm link with `link`&apos;, function () {
       return expect(command.installLocal(stubModulePath, { link: true }), &apos;to be fulfilled&apos;).then(
         () =&gt; {
           expect(command.runNpm.calledTwice, &apos;to be true&apos;);
@@ -291,8 +291,8 @@ describe(&apos;InitCommand&apos;, function() {
   });
 
   /** @test {InitCommand#checkCliVersion} */
-  describe(&apos;#checkCliVersion&apos;, function() {
-    it(&apos;should throw error if version does not match&apos;, function() {
+  describe(&apos;#checkCliVersion&apos;, function () {
+    it(&apos;should throw error if version does not match&apos;, function () {
       expect(
         () =&gt;
           command.checkCliVersion({
@@ -308,30 +308,30 @@ describe(&apos;InitCommand&apos;, function() {
     });
   });
 
-  describe(&apos;#getDefaultOptions&apos;, function() {
-    it(&apos;should return plain value defaults&apos;, function() {
+  describe(&apos;#getDefaultOptions&apos;, function () {
+    it(&apos;should return plain value defaults&apos;, function () {
       expect(command.getDefaultOptions([{ name: &apos;test&apos;, default: 13 }]), &apos;to equal&apos;, { test: 13 });
     });
 
-    it(&apos;should return plain value default choices&apos;, function() {
+    it(&apos;should return plain value default choices&apos;, function () {
       expect(command.getDefaultOptions([{ name: &apos;test&apos;, choices: [13] }]), &apos;to equal&apos;, {
         test: 13,
       });
     });
 
-    it(&apos;should return object value default choices&apos;, function() {
+    it(&apos;should return object value default choices&apos;, function () {
       expect(command.getDefaultOptions([{ name: &apos;test&apos;, choices: [{ value: 13 }] }]), &apos;to equal&apos;, {
         test: 13,
       });
     });
 
-    it(&apos;should resolve choices with current value&apos;, function() {
+    it(&apos;should resolve choices with current value&apos;, function () {
       expect(
         command.getDefaultOptions([
           { name: &apos;test&apos;, default: 13 },
           {
             name: &apos;another&apos;,
-            choices: current =&gt; [{ value: current.test * 2 }],
+            choices: (current) =&gt; [{ value: current.test * 2 }],
           },
         ]),
         &apos;to equal&apos;,
@@ -339,13 +339,13 @@ describe(&apos;InitCommand&apos;, function() {
       );
     });
 
-    it(&apos;should skip options if specified&apos;, function() {
+    it(&apos;should skip options if specified&apos;, function () {
       expect(
         command.getDefaultOptions([
           { name: &apos;test&apos;, default: 13 },
           {
             name: &apos;another&apos;,
-            when: current =&gt; current.test === 1,
+            when: (current) =&gt; current.test === 1,
           },
         ]),
         &apos;to equal&apos;,
@@ -355,16 +355,16 @@ describe(&apos;InitCommand&apos;, function() {
   });
 
   /** @test {InitCommand#getOptions} */
-  describe(&apos;#getOptions&apos;, function() {
+  describe(&apos;#getOptions&apos;, function () {
     beforeEach(() =&gt; promptSpy.resetHistory());
-    it(&apos;should run inquirer by default&apos;, function() {
+    it(&apos;should run inquirer by default&apos;, function () {
       return expect(() =&gt; command.getOptions(stubModulePath), &apos;to be fulfilled&apos;).then(() =&gt; {
         expect(promptSpy.calledOnce, &apos;to be true&apos;);
         expect(promptSpy.lastCall.args[0], &apos;to be&apos;, stubInitOptions);
       });
     });
 
-    it(&apos;should use defaults with `useDefaults`&apos;, function() {
+    it(&apos;should use defaults with `useDefaults`&apos;, function () {
       return expect(command.getOptions(stubModulePath, { useDefaults: true }), &apos;to equal&apos;, {
         test: 13,
       }).then(() =&gt; {
@@ -374,8 +374,8 @@ describe(&apos;InitCommand&apos;, function() {
   });
 
   /** @test {InitCommand#writeFiles} */
-  describe(&apos;#writeFiles&apos;, function() {
-    it(&apos;should call local package init script&apos;, function() {
+  describe(&apos;#writeFiles&apos;, function () {
+    it(&apos;should call local package init script&apos;, function () {
       const options = { test: 123 };
 
       return expect(command.writeFiles(stubModulePath, options), &apos;to be fulfilled&apos;).then(() =&gt; {
@@ -386,11 +386,11 @@ describe(&apos;InitCommand&apos;, function() {
   });
 
   /** @test {InitCommand#installDependencies} */
-  describe(&apos;#installDependencies&apos;, function() {
+  describe(&apos;#installDependencies&apos;, function () {
     beforeEach(() =&gt; stub(command, &apos;install&apos;).callsFake(() =&gt; Promise.resolve(true)));
     afterEach(() =&gt; command.install.restore());
 
-    it(&apos;should run install with given deps&apos;, function() {
+    it(&apos;should run install with given deps&apos;, function () {
       const deps = [&apos;dep1&apos;, &apos;dep2&apos;];
 
       return expect(command.installDependencies(stubModulePath, deps), &apos;to be fulfilled&apos;).then(
@@ -404,7 +404,7 @@ describe(&apos;InitCommand&apos;, function() {
   });
 
   /** @test {InitCommand#run} */
-  describe(&apos;#run&apos;, function() {
+  describe(&apos;#run&apos;, function () {
     const deps = [&apos;dep1&apos;, &apos;dep2&apos;];
     const cli = {
       environment: {
@@ -447,44 +447,44 @@ describe(&apos;InitCommand&apos;, function() {
       );
     }
 
-    it(&apos;should call AtSCMCli#getEnvironment twice&apos;, function() {
+    it(&apos;should call AtSCMCli#getEnvironment twice&apos;, function () {
       return expectCalled(cli.getEnvironment, 2);
     });
 
-    it(&apos;should not search in parent directories&apos;, function() {
+    it(&apos;should not search in parent directories&apos;, function () {
       return expect(command.run(cli), &apos;to be fulfilled&apos;).then(() =&gt;
         expect(cli.getEnvironment.alwaysCalledWith(false), &apos;to equal&apos;, true)
       );
     });
 
-    it(&apos;should call InitCommand#createEmptyPackage&apos;, function() {
+    it(&apos;should call InitCommand#createEmptyPackage&apos;, function () {
       return expectCalled(command.createEmptyPackage);
     });
 
-    it(&apos;should call InitCommand#installLocal&apos;, function() {
+    it(&apos;should call InitCommand#installLocal&apos;, function () {
       return expectCalled(command.installLocal);
     });
 
-    it(&apos;should call process.chdir&apos;, function() {
+    it(&apos;should call process.chdir&apos;, function () {
       return expectCalled(process.chdir);
     });
 
-    it(&apos;should call InitCommand#getOptions&apos;, function() {
+    it(&apos;should call InitCommand#getOptions&apos;, function () {
       return expectCalled(command.getOptions);
     });
 
-    it(&apos;should call InitCommand#writeFiles&apos;, function() {
+    it(&apos;should call InitCommand#writeFiles&apos;, function () {
       return expectCalled(command.writeFiles);
     });
 
-    it(&apos;should call InitCommand#installDependencies&apos;, function() {
+    it(&apos;should call InitCommand#installDependencies&apos;, function () {
       return expectCalled(command.installDependencies);
     });
   });
 
   /** @test {InitCommand#requiresEnvironment} */
-  describe(&apos;#requiresEnvironment&apos;, function() {
-    it(&apos;should return false&apos;, function() {
+  describe(&apos;#requiresEnvironment&apos;, function () {
+    it(&apos;should return false&apos;, function () {
       expect(command.requiresEnvironment(), &apos;to equal&apos;, false);
     });
   });

@@ -87,7 +87,7 @@ export default class UpdateCommand extends Command {
    */
   getLatestVersion(useBetaRelease = false) {
     return get(&apos;https://registry.npmjs.org/-/package/atscm/dist-tags&apos;).then(
-      res =&gt; res.data[useBetaRelease ? &apos;beta&apos; : &apos;latest&apos;]
+      (res) =&gt; res.data[useBetaRelease ? &apos;beta&apos; : &apos;latest&apos;]
     );
   }
 
@@ -135,8 +135,8 @@ export default class UpdateCommand extends Command {
       this.getLatestVersion(cli.options.beta),
       Promise.resolve(cli.environment.modulePackage.version),
     ])
-      .then(versions =&gt; this.updateNeeded(...versions))
-      .then(needed =&gt; {
+      .then((versions) =&gt; this.updateNeeded(...versions))
+      .then((needed) =&gt; {
         if (needed) {
           Logger.info(&apos;Updating to version&apos;, Logger.format.value(needed));
 

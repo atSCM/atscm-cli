@@ -60,17 +60,17 @@
 import UsageError from &apos;../../../src/lib/error/UsageError&apos;;
 
 /** @test {UsageError} */
-describe(&apos;UsageError&apos;, function() {
+describe(&apos;UsageError&apos;, function () {
   const msg = &apos;Invalid argument: missing&apos;;
   const help = &apos;Usage: ...&apos;;
 
   /** @test {UsageError#constructor} */
-  describe(&apos;#constructor&apos;, function() {
-    it(&apos;should create an instance of Error&apos;, function() {
+  describe(&apos;#constructor&apos;, function () {
+    it(&apos;should create an instance of Error&apos;, function () {
       expect(new UsageError(msg, help), &apos;to be a&apos;, Error);
     });
 
-    it(&apos;should create a stack trace&apos;, function() {
+    it(&apos;should create a stack trace&apos;, function () {
       expect(new UsageError(msg, help).stack, &apos;to be defined&apos;);
       expect(new UsageError(msg, help).stack, &apos;to be a&apos;, &apos;string&apos;);
     });

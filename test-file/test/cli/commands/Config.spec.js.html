@@ -63,23 +63,23 @@ import ConfigCommand from &apos;../../../src/cli/commands/Config&apos;;
 import Logger from &apos;../../../src/lib/util/Logger&apos;;
 
 /** @test {ConfigCommand} */
-describe(&apos;ConfigCommand&apos;, function() {
+describe(&apos;ConfigCommand&apos;, function () {
   /** @test {ConfigCommand#run} */
-  describe(&apos;#run&apos;, function() {
-    beforeEach(function() {
+  describe(&apos;#run&apos;, function () {
+    beforeEach(function () {
       stub(Logger, &apos;info&apos;);
       stub(Logger, &apos;warn&apos;);
     });
 
-    afterEach(function() {
+    afterEach(function () {
       Logger.info.restore();
       Logger.warn.restore();
     });
 
     const command = new ConfigCommand(&apos;config&apos;, &apos;Print configuration.&apos;);
 
-    context(&apos;when overrides are available (atscm &gt;= v0.4)&apos;, function() {
-      it(&quot;should print local module&apos;s ProjectConfig class&quot;, function() {
+    context(&apos;when overrides are available (atscm &gt;= v0.4)&apos;, function () {
+      it(&quot;should print local module&apos;s ProjectConfig class&quot;, function () {
         command.run({
           options: {
             project: {},
@@ -95,8 +95,8 @@ describe(&apos;ConfigCommand&apos;, function() {
       });
     });
 
-    context(&apos;when overrides are not available (atscm &lt; v0.4)&apos;, function() {
-      it(&quot;should print local module&apos;s Atviseproject class&quot;, function() {
+    context(&apos;when overrides are not available (atscm &lt; v0.4)&apos;, function () {
+      it(&quot;should print local module&apos;s Atviseproject class&quot;, function () {
         command.run({
           options: {
             project: {},
@@ -111,7 +111,7 @@ describe(&apos;ConfigCommand&apos;, function() {
         expect(Logger.info.firstCall.args[0], &apos;to match&apos;, new RegExp(&apos;^Configuration at&apos;));
       });
 
-      it(&apos;should warn that overrides are not available&apos;, function() {
+      it(&apos;should warn that overrides are not available&apos;, function () {
         command.run({
           options: {
             project: {},

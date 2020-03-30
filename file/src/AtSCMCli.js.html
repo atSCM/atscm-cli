@@ -125,7 +125,7 @@ export default class AtSCMCli extends Liftoff {
       extensions: jsVariants,
     });
 
-    this.on(&apos;require&apos;, function(name) {
+    this.on(&apos;require&apos;, function (name) {
       Logger.debug(&apos;Requiring external module&apos;, Logger.colors.magenta(name));
     });
 
@@ -133,7 +133,7 @@ export default class AtSCMCli extends Liftoff {
      * @type {string[]} */
     this._failedRequires = [];
 
-    this.on(&apos;requireFail&apos;, function(name) {
+    this.on(&apos;requireFail&apos;, function (name) {
       this._failedRequires.push(name);
 
       Logger.debug(
@@ -155,7 +155,7 @@ export default class AtSCMCli extends Liftoff {
     this._argv = argv;
 
     // If no command is given, default to &quot;run&quot;
-    const commandNames = Commands.map(c =&gt; c.name);
+    const commandNames = Commands.map((c) =&gt; c.name);
 
     /**
      * The options parsed from {@link AtSCMCli#_argv}. Note that **these options are not complete**
@@ -180,7 +180,7 @@ export default class AtSCMCli extends Liftoff {
       }).argv;
 
     if (!this.options.help &amp;&amp; !this.options.version) {
-      if (this.options._.filter(e =&gt; commandNames.includes(e)).length === 0) {
+      if (this.options._.filter((e) =&gt; commandNames.includes(e)).length === 0) {
         this._argv.unshift(&apos;run&apos;);
       }
     }
@@ -199,7 +199,7 @@ export default class AtSCMCli extends Liftoff {
         parser.command(
           command.usage,
           command.description,
-          y =&gt; {
+          (y) =&gt; {
             y.usage(`Usage: $0 ${command.usage}`);
             y.option(command.options);
 
@@ -237,7 +237,7 @@ export default class AtSCMCli extends Liftoff {
     if (typeof config[key] === &apos;object&apos;) {
       const c = config[key];
 
-      Object.keys(c).forEach(k =&gt; this._exposeOverride(c, k, `${currentKey}__`));
+      Object.keys(c).forEach((k) =&gt; this._exposeOverride(c, k, `${currentKey}__`));
     } else {
       process.env[currentKey] = config[key];
       Logger.debug(`Setting ${currentKey}:`, Logger.format.value(config[key]));
@@ -255,7 +255,7 @@ export default class AtSCMCli extends Liftoff {
         .fail((msg, err, y) =&gt; reject(new UsageError(msg, y.help())))
         .parse(this._argv);
 
-      Object.keys(this.options.project).forEach(key =&gt;
+      Object.keys(this.options.project).forEach((key) =&gt;
         this._exposeOverride(this.options.project, key)
       );
 
@@ -270,7 +270,7 @@ export default class AtSCMCli extends Liftoff {
    * @return {Promise&lt;Object&gt;} Fulfilled with a {@link Liftoff} environment.
    */
   getEnvironment(findUp = true) {
-    return new Promise(resolve =&gt; {
+    return new Promise((resolve) =&gt; {
       super.launch(
         {
           cwd: this.options.cwd,
@@ -279,7 +279,7 @@ export default class AtSCMCli extends Liftoff {
             : join(this.options.cwd || process.cwd(), `${this.constructor.ConfigName}.js`),
           require: this.options.require,
         },
-        env =&gt; resolve((this.environment = env))
+        (env) =&gt; resolve((this.environment = env))
       );
     });
   }
@@ -290,7 +290,7 @@ export default class AtSCMCli extends Liftoff {
    * config file or the local module cannot be found.
    */
   requireEnvironment() {
-    return this.getEnvironment().then(env =&gt; {
+    return this.getEnvironment().then((env) =&gt; {
       if (!env.modulePath) {
         throw new Error(`Local ${AtSCMCli.BinName} not found`);
       }
@@ -309,7 +309,7 @@ export default class AtSCMCli extends Liftoff {
    * version.
    */
   getVersion() {
-    return this.getEnvironment().then(env =&gt; ({
+    return this.getEnvironment().then((env) =&gt; ({
       cli: pkg.version,
       local: env.modulePath ? env.modulePackage.version : null,
     }));
@@ -321,7 +321,7 @@ export default class AtSCMCli extends Liftoff {
    * version.
    */
   printVersion() {
-    return this.getVersion().then(version =&gt; {
+    return this.getVersion().then((version) =&gt; {
       Logger.info(&apos;CLI version&apos;, Logger.format.number(version.cli));
 
       if (version.local) {
@@ -370,7 +370,7 @@ export default class AtSCMCli extends Liftoff {
       .then(() =&gt; this.runCommand());
 
     if (this.runViaCli) {
-      return app.catch(err =&gt; this._reportCliError(err));
+      return app.catch((err) =&gt; this._reportCliError(err));
     }
 
     return app;

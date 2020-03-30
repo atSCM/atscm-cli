@@ -60,14 +60,14 @@
 import Option from &apos;../../../src/lib/cli/Option&apos;;
 
 /** @test {Option} */
-describe(&apos;Option&apos;, function() {
+describe(&apos;Option&apos;, function () {
   /** @test {Option#constructor} */
-  describe(&apos;#constructor&apos;, function() {
-    it(&apos;should store description&apos;, function() {
+  describe(&apos;#constructor&apos;, function () {
+    it(&apos;should store description&apos;, function () {
       expect(new Option(&apos;description&apos;).desc, &apos;to equal&apos;, &apos;description&apos;);
     });
 
-    it(&apos;should store all options passed&apos;, function() {
+    it(&apos;should store all options passed&apos;, function () {
       const options = { test: 123 };
 
       expect(new Option(&apos;description&apos;, options), &apos;to have properties&apos;, options);
@@ -75,16 +75,16 @@ describe(&apos;Option&apos;, function() {
   });
 
   /** @test {Option.boolean} */
-  describe(&apos;.boolean&apos;, function() {
-    it(&apos;should return an option&apos;, function() {
+  describe(&apos;.boolean&apos;, function () {
+    it(&apos;should return an option&apos;, function () {
       expect(Option.boolean(&apos;description&apos;), &apos;to be a&apos;, Option);
     });
 
-    it(&apos;should set type to boolean&apos;, function() {
+    it(&apos;should set type to boolean&apos;, function () {
       expect(Option.boolean(&apos;description&apos;).type, &apos;to equal&apos;, &apos;boolean&apos;);
     });
 
-    it(&apos;should store all options passed&apos;, function() {
+    it(&apos;should store all options passed&apos;, function () {
       const options = { test: 123 };
 
       expect(Option.boolean(&apos;description&apos;, options), &apos;to have properties&apos;, options);
@@ -92,16 +92,16 @@ describe(&apos;Option&apos;, function() {
   });
 
   /** @test {Option.string} */
-  describe(&apos;.string&apos;, function() {
-    it(&apos;should return an option&apos;, function() {
+  describe(&apos;.string&apos;, function () {
+    it(&apos;should return an option&apos;, function () {
       expect(Option.string(&apos;description&apos;), &apos;to be a&apos;, Option);
     });
 
-    it(&apos;should set type to string&apos;, function() {
+    it(&apos;should set type to string&apos;, function () {
       expect(Option.string(&apos;description&apos;).type, &apos;to equal&apos;, &apos;string&apos;);
     });
 
-    it(&apos;should store all options passed&apos;, function() {
+    it(&apos;should store all options passed&apos;, function () {
       const options = { test: 123 };
 
       expect(Option.string(&apos;description&apos;, options), &apos;to have properties&apos;, options);

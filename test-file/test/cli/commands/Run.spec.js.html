@@ -67,11 +67,11 @@ const RunCommand = proxyquire(&apos;../../../src/cli/commands/Run&apos;, {
 }).default;
 
 /** @test {RunCommand} */
-describe(&apos;RunCommand&apos;, function() {
+describe(&apos;RunCommand&apos;, function () {
   const command = new RunCommand(&apos;run&apos;, &apos;Run tasks.&apos;);
 
   /** @test {RunCommand#run} */
-  describe(&apos;#run&apos;, function() {
+  describe(&apos;#run&apos;, function () {
     const cli = {
       environment: {
         cwd: __dirname,
@@ -90,7 +90,7 @@ describe(&apos;RunCommand&apos;, function() {
       gulpCli.resetHistory();
     });
 
-    it(&apos;should run gulp-cli&apos;, function() {
+    it(&apos;should run gulp-cli&apos;, function () {
       command.run(cli);
 
       expect(gulpCli.calledOnce, &apos;to be&apos;, true);

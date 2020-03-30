@@ -59,7 +59,7 @@
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import expect from &apos;unexpected&apos;;
 import proxyquire from &apos;proxyquire&apos;;
 
-describe(&apos;bin&apos;, function() {
+describe(&apos;bin&apos;, function () {
   class StubCli {
     constructor(...args) {
       if (!StubCli.constructorCalled) {
@@ -87,7 +87,7 @@ describe(&apos;bin&apos;, function() {
     },
   });
 
-  it(&apos;should call launch&apos;, function() {
+  it(&apos;should call launch&apos;, function () {
     require(&apos;../../src/bin/atscm&apos;); // eslint-disable-line global-require
 
     expect(StubCli.constructorCalled, &apos;to equal&apos;, 1);

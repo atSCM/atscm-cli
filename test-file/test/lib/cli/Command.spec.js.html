@@ -61,15 +61,15 @@ import Command from &apos;../../../src/lib/cli/Command&apos;;
 import Option from &apos;../../../src/lib/cli/Option&apos;;
 
 /** @test {Command} */
-describe(&apos;Command&apos;, function() {
+describe(&apos;Command&apos;, function () {
   const name = &apos;command&apos;;
   const desc = &apos;Command description.&apos;;
   const opts = {};
   const args = &apos;&lt;required&gt; [optional...]&apos;;
 
   /** @test {Command#constructor} */
-  describe(&apos;#constructor&apos;, function() {
-    it(&apos;should fail if options.maxArguments is less than options.maxArguments&apos;, function() {
+  describe(&apos;#constructor&apos;, function () {
+    it(&apos;should fail if options.maxArguments is less than options.maxArguments&apos;, function () {
       expect(
         () =&gt;
           new Command(
@@ -88,7 +88,7 @@ describe(&apos;Command&apos;, function() {
       );
     });
 
-    it(&apos;should store name, description and options&apos;, function() {
+    it(&apos;should store name, description and options&apos;, function () {
       const command = new Command(name, desc, opts);
 
       expect(command.name, &apos;to equal&apos;, name);
@@ -98,8 +98,8 @@ describe(&apos;Command&apos;, function() {
   });
 
   /** @test {Command#run} */
-  describe(&apos;#run&apos;, function() {
-    it(&apos;must be implmented by all subclasses&apos;, function() {
+  describe(&apos;#run&apos;, function () {
+    it(&apos;must be implmented by all subclasses&apos;, function () {
       expect(
         new Command(name, desc, opts).run,
         &apos;to throw&apos;,
@@ -109,12 +109,12 @@ describe(&apos;Command&apos;, function() {
   });
 
   /** @test {Command#usage} */
-  describe(&apos;#usage&apos;, function() {
-    it(&apos;should be only name with no options.arguments set&apos;, function() {
+  describe(&apos;#usage&apos;, function () {
+    it(&apos;should be only name with no options.arguments set&apos;, function () {
       expect(new Command(name, desc, opts).usage, &apos;to equal&apos;, name);
     });
 
-    it(&apos;should be name followed by arguments with options.arguments set&apos;, function() {
+    it(&apos;should be name followed by arguments with options.arguments set&apos;, function () {
       expect(
         new Command(name, desc, Object.assign({ arguments: args }, opts)).usage,
         &apos;to equal&apos;,
@@ -124,12 +124,12 @@ describe(&apos;Command&apos;, function() {
   });
 
   /** @test {Command#options} */
-  describe(&apos;#options&apos;, function() {
-    it(&apos;should be empty object if options.options were not set&apos;, function() {
+  describe(&apos;#options&apos;, function () {
+    it(&apos;should be empty object if options.options were not set&apos;, function () {
       expect(new Command(name, desc, opts).options, &apos;to equal&apos;, {});
     });
 
-    it(&apos;should return all options passed as options.options&apos;, function() {
+    it(&apos;should return all options passed as options.options&apos;, function () {
       const options = { test: new Option(&apos;description&apos;) };
 
       expect(
@@ -141,12 +141,12 @@ describe(&apos;Command&apos;, function() {
   });
 
   /** @test {Command#demandCommand} */
-  describe(&apos;#demandCommand&apos;, function() {
-    it(&apos;should default to [0]&apos;, function() {
+  describe(&apos;#demandCommand&apos;, function () {
+    it(&apos;should default to [0]&apos;, function () {
       expect(new Command(name, desc, opts).demandCommand, &apos;to equal&apos;, [0]);
     });
 
-    it(&apos;should be use options.maxArguments if set&apos;, function() {
+    it(&apos;should be use options.maxArguments if set&apos;, function () {
       expect(
         new Command(name, desc, Object.assign({ maxArguments: 13 }, opts)).demandCommand,
         &apos;to equal&apos;,
@@ -154,7 +154,7 @@ describe(&apos;Command&apos;, function() {
       );
     });
 
-    it(&apos;should be use options.minArguments if set&apos;, function() {
+    it(&apos;should be use options.minArguments if set&apos;, function () {
       expect(
         new Command(name, desc, Object.assign({ minArguments: 13 }, opts)).demandCommand,
         &apos;to equal&apos;,
@@ -162,7 +162,7 @@ describe(&apos;Command&apos;, function() {
       );
     });
 
-    it(&apos;should be use options.minArguments and options.maxArguments if set&apos;, function() {
+    it(&apos;should be use options.minArguments and options.maxArguments if set&apos;, function () {
       expect(
         new Command(
           name,
@@ -182,12 +182,12 @@ describe(&apos;Command&apos;, function() {
   });
 
   /** @test {Command#strict} */
-  describe(&apos;#strict&apos;, function() {
-    it(&apos;should default to `true`&apos;, function() {
+  describe(&apos;#strict&apos;, function () {
+    it(&apos;should default to `true`&apos;, function () {
       expect(new Command(name, desc, opts).strict, &apos;to be&apos;, true);
     });
 
-    it(&apos;should return the value passed to the constructor&apos;, function() {
+    it(&apos;should return the value passed to the constructor&apos;, function () {
       expect(
         new Command(
           name,

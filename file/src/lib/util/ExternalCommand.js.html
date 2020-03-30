@@ -101,8 +101,8 @@ export default class ExternalCommand {
 
       Logger.debug(&apos;Running&apos;, Logger.format.command(`${bin} ${args.join(&apos; &apos;)}`));
       const child = spawn(bin, args, options.spawn || options)
-        .once(&apos;error&apos;, err =&gt; reject(err))
-        .once(&apos;close&apos;, code =&gt; {
+        .once(&apos;error&apos;, (err) =&gt; reject(err))
+        .once(&apos;close&apos;, (code) =&gt; {
           if (code &gt; 0) {
             reject(new Error(`${bin} ${args.join(&apos; &apos;)} returned code ${code}`));
           } else {
@@ -110,7 +110,7 @@ export default class ExternalCommand {
           }
         });
 
-      child.stdout.on(&apos;data&apos;, d =&gt; (stdout += d.toString()));
+      child.stdout.on(&apos;data&apos;, (d) =&gt; (stdout += d.toString()));
 
       if (options.onspawn) {
         options.onspawn(child);
@@ -132,7 +132,7 @@ export default class ExternalCommand {
    * @see {@link node.ChildProcess}
    */
   static run(name, args, options) {
-    return this.resolveBin(name).then(bin =&gt; this.spawn(bin, args, options));
+    return this.resolveBin(name).then((bin) =&gt; this.spawn(bin, args, options));
   }
 }
 </code></pre>
