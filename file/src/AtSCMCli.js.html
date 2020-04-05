@@ -44,6 +44,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib-util">lib/util</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/util/ExternalCommand.js~ExternalCommand.html">ExternalCommand</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/util/Logger.js~LogFormat.html">LogFormat</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/util/Logger.js~Logger.html">Logger</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-readJson">readJson</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#typedef">typedef</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Liftoff.Environment">Liftoff.Environment</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/js-cli/js-liftoff">Liftoff</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/chalk/chalk">chalk</a></span></span></li>
@@ -69,6 +70,7 @@ import Logger from &apos;./lib/util/Logger&apos;;
 import Options, { GlobalOptions } from &apos;./cli/Options&apos;;
 import Commands from &apos;./cli/Commands&apos;;
 import UsageError from &apos;./lib/error/UsageError&apos;;
+import { readJson } from &apos;./lib/util/fs&apos;;
 
 /**
  * The main class. Handles arguments and runs commands.
@@ -308,11 +310,17 @@ export default class AtSCMCli extends Liftoff {
    * @return {Promise&lt;{cli: string, local: ?string}&gt;} Fulfilled with the found cli and local
    * version.
    */
-  getVersion() {
-    return this.getEnvironment().then((env) =&gt; ({
+  async getVersion() {
+    const env = await this.getEnvironment();
+
+    const projectPackage =
+      env.modulePath &amp;&amp; (await readJson(join(env.cwd, &apos;package.json&apos;)).catch(() =&gt; undefined));
+
+    return {
       cli: pkg.version,
-      local: env.modulePath ? env.modulePackage.version : null,
-    }));
+      local: env.modulePath ? env.modulePackage.version : undefined,
+      server: projectPackage &amp;&amp; projectPackage.engines &amp;&amp; projectPackage.engines.atserver,
+    };
   }
 
   /**
@@ -320,16 +328,20 @@ export default class AtSCMCli extends Liftoff {
    * @return {Promise&lt;{cli: string, local: ?string}&gt;} Fulfilled with the found cli and local
    * version.
    */
-  printVersion() {
-    return this.getVersion().then((version) =&gt; {
-      Logger.info(&apos;CLI version&apos;, Logger.format.number(version.cli));
+  async printVersion() {
+    const { cli, local, server } = await this.getVersion();
 
-      if (version.local) {
-        Logger.info(&apos;Local version&apos;, Logger.format.number(version.local));
-      }
+    const versions = [
+      [&apos;atscm-cli&apos;, cli],
+      local &amp;&amp; [&apos;atscm&apos;, local],
+      server &amp;&amp; [&apos;atvise server&apos;, server],
+    ].filter((v) =&gt; v);
 
-      return version;
-    });
+    const maxLength = versions.reduce((length, [label]) =&gt; Math.max(length, label.length), 0);
+
+    versions.forEach(([label, version]) =&gt;
+      Logger.info(label.padEnd(maxLength + 1), Logger.format.number(version))
+    );
   }
 
   /**

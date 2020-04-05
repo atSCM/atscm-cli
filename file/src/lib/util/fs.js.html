@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">src/cli/Commands.js | atscm-cli</title>
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">src/lib/util/fs.js | atscm-cli</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -56,26 +56,19 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/cli/Commands.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import RunCommand from &apos;./commands/Run&apos;;
-import InitCommand from &apos;./commands/Init&apos;;
-import ConfigCommand from &apos;./commands/Config&apos;;
-import DocsCommand from &apos;./commands/Docs&apos;;
-import UpdateCommand from &apos;./commands/Update&apos;;
+<div class="content" data-ice="content"><h1 data-ice="title">src/lib/util/fs.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/* eslint-disable import/prefer-default-export */
+
+import { promises as fsp } from &apos;fs&apos;;
 
 /**
- * CLI commands available.
- * @type {Command[]}
+ * Reads a file and parses it&apos;s contents as JSON.
+ * @param {string} path The file to read.
+ * @return {Promise&lt;any&gt;} The parsed file contents.
  */
-const Commands = [
-  new RunCommand(&apos;run&apos;, &apos;(default) Run tasks.&apos;),
-  new InitCommand(&apos;init&apos;, &apos;Create a new project.&apos;),
-  new ConfigCommand(&apos;config&apos;, &apos;Validate and print config file.&apos;),
-  new DocsCommand(&apos;docs&apos;, &apos;Open documentation.&apos;),
-  new UpdateCommand(&apos;update&apos;, &apos;Update installed atscm module.&apos;),
-];
-
-export default Commands;
+export async function readJson(path) {
+  return JSON.parse(await fsp.readFile(path, &apos;utf8&apos;));
+}
 </code></pre>
 
 </div>

@@ -90,6 +90,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "atscm-cli/src/lib/util/fs.js~readjson",
+    "function/index.html#static-function-readJson",
+    "<span>readJson</span> <span class=\"search-result-import-path\">atscm-cli/src/lib/util/fs.js</span>",
+    "function"
+  ],
+  [
     "atscmcli src/atscmcli.js~atscmcli,atscmcli",
     "test-file/test/AtSCMCli.spec.js.html#lineNumber30",
     "AtSCMCli",
@@ -217,7 +223,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber246",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber245",
     "AtSCMCli #getVersion should even return cli version with invalid cwd",
     "test"
   ],
@@ -229,49 +235,49 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber255",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber254",
     "AtSCMCli #getVersion should return local version with local module",
     "test"
   ],
   [
     "atscmcli#launch src/atscmcli.js~atscmcli#launch,atscmcli#launch",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber320",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber317",
     "AtSCMCli #launch",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber321",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber318",
     "AtSCMCli #launch should call AtSCMCli#parseArguments",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber332",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber329",
     "AtSCMCli #launch should handle all exceptions if run via cli",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber340",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber337",
     "AtSCMCli #launch should report help on usage errors if run via cli",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber347",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber344",
     "AtSCMCli #launch should start debug mode with `--debug` option",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber356",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber353",
     "AtSCMCli #launch with ATSCM_DEBUG env var",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber364",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber361",
     "AtSCMCli #launch with ATSCM_DEBUG env var should start debug mode",
     "test"
   ],
@@ -325,20 +331,20 @@ window.esdocSearchIndex = [
   ],
   [
     "atscmcli#printversion src/atscmcli.js~atscmcli#printversion,atscmcli#printversion",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber264",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber263",
     "AtSCMCli #printVersion",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber273",
-    "AtSCMCli #printVersion should print cli and local version with local module",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber264",
+    "AtSCMCli #printVersion should print cli version only without local module",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber265",
-    "AtSCMCli #printVersion should print cli version only without local module",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber272",
+    "AtSCMCli #printVersion should print cli, local and atserver version with local module",
     "test"
   ],
   [
@@ -361,25 +367,25 @@ window.esdocSearchIndex = [
   ],
   [
     "atscmcli#runcommand src/atscmcli.js~atscmcli#runcommand,atscmcli#runcommand",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber286",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber283",
     "AtSCMCli #runCommand",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber287",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber284",
     "AtSCMCli #runCommand should print version if --version is used",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber298",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber295",
     "AtSCMCli #runCommand should run command if used",
     "test"
   ],
   [
     "",
-    "test-file/test/AtSCMCli.spec.js.html#lineNumber309",
+    "test-file/test/AtSCMCli.spec.js.html#lineNumber306",
     "AtSCMCli #runCommand should warn if no command is used",
     "test"
   ],
@@ -2362,6 +2368,12 @@ window.esdocSearchIndex = [
     "class/src/lib/util/Logger.js~Logger.html#static-method-warn",
     "src/lib/util/Logger.js~Logger.warn",
     "method"
+  ],
+  [
+    "src/lib/util/fs.js",
+    "file/src/lib/util/fs.js.html",
+    "src/lib/util/fs.js",
+    "file"
   ],
   [
     "src/typedef/external.js",

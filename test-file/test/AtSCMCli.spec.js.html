@@ -44,6 +44,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib-util">lib/util</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/util/ExternalCommand.js~ExternalCommand.html">ExternalCommand</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/util/Logger.js~LogFormat.html">LogFormat</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/util/Logger.js~Logger.html">Logger</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-readJson">readJson</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#typedef">typedef</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Liftoff.Environment">Liftoff.Environment</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/js-cli/js-liftoff">Liftoff</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/chalk/chalk">chalk</a></span></span></li>
@@ -297,7 +298,6 @@ describe(&apos;AtSCMCli&apos;, function () {
     it(&apos;should return cli version without local module&apos;, function () {
       return expect(new AtSCMCli().getVersion(), &apos;when fulfilled&apos;, &apos;to equal&apos;, {
         cli: pkg.version,
-        local: null,
       });
     });
 
@@ -306,7 +306,7 @@ describe(&apos;AtSCMCli&apos;, function () {
         new AtSCMCli([&apos;--cwd&apos;, &apos;invalid/path&apos;]).getVersion(),
         &apos;when fulfilled&apos;,
         &apos;to equal&apos;,
-        { cli: pkg.version, local: null }
+        { cli: pkg.version }
       );
     });
 
@@ -323,20 +323,18 @@ describe(&apos;AtSCMCli&apos;, function () {
     it(&apos;should print cli version only without local module&apos;, function () {
       return expect(new AtSCMCli().printVersion(), &apos;to be fulfilled&apos;).then(() =&gt; {
         expect(LoggerSpy.info.calledOnce, &apos;to be&apos;, true);
-        expect(LoggerSpy.info.lastCall.args[0], &apos;to match&apos;, /CLI version/);
+        expect(LoggerSpy.info.lastCall.args[0], &apos;to match&apos;, /atscm-cli/);
         expect(LoggerSpy.info.lastCall.args[1], &apos;to match&apos;, new RegExp(pkg.version));
       });
     });
 
-    it(&apos;should print cli and local version with local module&apos;, function () {
-      return expect(
-        new AtSCMCli([&apos;--cwd&apos;, &apos;test/fixtures&apos;]).printVersion(),
-        &apos;to be fulfilled&apos;
-      ).then(() =&gt; {
-        expect(LoggerSpy.info.calledTwice, &apos;to be&apos;, true);
-        expect(LoggerSpy.info.lastCall.args[0], &apos;to match&apos;, /Local version/);
-        expect(LoggerSpy.info.lastCall.args[1], &apos;to match&apos;, /latest/);
-      });
+    it(&apos;should print cli, local and atserver version with local module&apos;, async function () {
+      await expect(new AtSCMCli([&apos;--cwd&apos;, &apos;test/fixtures&apos;]).printVersion(), &apos;to be fulfilled&apos;);
+
+      expect(LoggerSpy.info.calledThrice, &apos;to be&apos;, true);
+
+      expect(LoggerSpy.info.getCall(1).args, &apos;to satisfy&apos;, [/atscm/, /latest/]);
+      expect(LoggerSpy.info.getCall(2).args, &apos;to satisfy&apos;, [/atvise server/, /3.4.0/]);
     });
   });
 
