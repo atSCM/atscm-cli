@@ -255,11 +255,11 @@ export default class AtSCMCli extends Liftoff {
     const env = await this.getEnvironment();
 
     const projectPackage =
-      env.modulePath && (await readJson(join(env.cwd, 'package.json')).catch(() => null));
+      env.modulePath && (await readJson(join(env.cwd, 'package.json')).catch(() => undefined));
 
     return {
       cli: pkg.version,
-      local: env.modulePath ? env.modulePackage.version : null,
+      local: env.modulePath ? env.modulePackage.version : undefined,
       server: projectPackage && projectPackage.engines && projectPackage.engines.atserver,
     };
   }
