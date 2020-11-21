@@ -61,7 +61,7 @@
   "dependencies": {
     "axios": "0.19.0",
     "chalk": "2.4.2",
-    "gulp-cli": "2.2.0",
+    "gulp-cli": "2.3.0",
     "gulplog": "1.0.0",
     "inquirer": "5.2.0",
     "interpret": "1.2.0",
