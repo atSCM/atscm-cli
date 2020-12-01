@@ -67,7 +67,7 @@
     "interpret": "1.2.0",
     "liftoff": "2.5.0",
     "open": "6.0.0",
-    "semver": "5.7.1",
+    "semver": "7.3.4",
     "source-map-support": "0.5.16",
     "tildify": "1.2.0",
     "update-notifier": "2.5.0",
