@@ -63,7 +63,7 @@
     "chalk": "2.4.2",
     "gulp-cli": "2.2.0",
     "gulplog": "1.0.0",
-    "inquirer": "5.2.0",
+    "inquirer": "7.3.3",
     "interpret": "1.2.0",
     "liftoff": "2.5.0",
     "open": "6.0.0",
