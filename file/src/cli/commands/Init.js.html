@@ -328,6 +328,7 @@ export default class InitCommand extends Command {
    * @return {Promise&lt;undefined, Error&gt;} Rejected if installing failed, resolved otherwise.
    */
   installDependencies(path, deps) {
+    if (!deps.length) return Promise.resolve();
     Logger.info(&apos;Installing dependencies...&apos;);
 
     return this.install(path, deps);
