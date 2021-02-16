@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../">
+  <title data-ice="title">Manual | atscm-cli</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="atSCM command line interface"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="atscm-cli"><meta property="twitter:description" content="atSCM command line interface"></head>
+<body class="layout-container manual-root" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/atSCM/atscm-cli"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div class="manual-toc-root">
+  
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/CLI.html"><a href="manual/CLI.html" data-ice="link">Command line interface</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CLI.html"><a href="manual/CLI.html#commands" data-ice="link">Commands</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CLI.html"><a href="manual/CLI.html#options--em--incomplete---em-" data-ice="link">Options (incomplete)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CLI.html"><a href="manual/CLI.html#how-to-pass-options" data-ice="link">How to pass options</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CLI.html"><a href="manual/CLI.html#overriding-project-configuration" data-ice="link">Overriding project configuration</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/API.html"><a href="manual/API.html" data-ice="link">Programmatic usage</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/API.html"><a href="manual/API.html#es6-javascript" data-ice="link">ES6 JavaScript</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/API.html"><a href="manual/API.html#creating-a-cli-instance" data-ice="link">Creating a Cli instance</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html" data-ice="link">Contributing</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html#code-quality-control" data-ice="link">Code quality control</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html#setting-up-the-development-environment" data-ice="link">Setting up the development environment</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html#linting-files" data-ice="link">Linting files</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html#running-tests" data-ice="link">Running tests</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html#creating-api-documentation" data-ice="link">Creating API documentation</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CONTRIBUTING.html"><a href="manual/CONTRIBUTING.html#providing-fixes---adding-features" data-ice="link">Providing fixes / adding features</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#1-1-1--2020-04-05-" data-ice="link">1.1.1 (2020-04-05)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#1-1-0--2020-04-05-" data-ice="link">1.1.0 (2020-04-05)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#1-0-0--2020-03-30-" data-ice="link">1.0.0 (2020-03-30)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#chores" data-ice="link">Chores</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#breaking-changes" data-ice="link">BREAKING CHANGES</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-9-0--2019-12-04-" data-ice="link">0.9.0 (2019-12-04)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-8-2--2019-06-21-" data-ice="link">0.8.2 (2019-06-21)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#reverts" data-ice="link">Reverts</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-8-1--2019-06-01-" data-ice="link">0.8.1 (2019-06-01)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-8-0--2019-05-21-" data-ice="link">0.8.0 (2019-05-21)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-7-1--2019-03-08-" data-ice="link">0.7.1 (2019-03-08)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-7-0--2018-09-27-" data-ice="link">0.7.0 (2018-09-27)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-6-1--2018-09-27-" data-ice="link">0.6.1 (2018-09-27)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-6-0--2018-07-23-" data-ice="link">0.6.0 (2018-07-23)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-5-0--2018-06-17-" data-ice="link">0.5.0 (2018-06-17)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-4-0--2018-02-09-" data-ice="link">0.4.0 (2018-02-09)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-3-6--2018-01-25-" data-ice="link">0.3.6 (2018-01-25)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-3-5--2018-01-25-" data-ice="link">0.3.5 (2018-01-25)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-3-4--2018-01-25-" data-ice="link">0.3.4 (2018-01-25)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-3-3--2018-01-25-" data-ice="link">0.3.3 (2018-01-25)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#reverts" data-ice="link">Reverts</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-3-2--2018-01-08-" data-ice="link">0.3.2 (2018-01-08)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-3-1--2017-12-19-" data-ice="link">0.3.1 (2017-12-19)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-3-0--2017-11-06-" data-ice="link">0.3.0 (2017-11-06)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-2-4--2017-10-17-" data-ice="link">0.2.4 (2017-10-17)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-2-2--2017-03-15-" data-ice="link">0.2.2 (2017-03-15)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-2-1--2017-03-13-" data-ice="link">0.2.1 (2017-03-13)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-2-0--2017-03-13-" data-ice="link">0.2.0 (2017-03-13)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#features" data-ice="link">Features</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-1-2--2017-02-22-" data-ice="link">0.1.2 (2017-02-22)</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#bug-fixes" data-ice="link">Bug Fixes</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-1-1--2017-02-21-" data-ice="link">0.1.1 (2017-02-21)</a></li>
+<li data-ice="manualNav" class="indent-h1" data-link="manual/CHANGELOG.html"><a href="manual/CHANGELOG.html#0-1-0--2017-02-21-" data-ice="link">0.1.0 (2017-02-21)</a></li>
+</ul>
+  </div>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="contributing">Contributing</h1><p>Contributions are welcome.</p>
+<h2 id="code-quality-control">Code quality control</h2><blockquote>
+<p>All files inside this project are automatically built, linted and tested by <a href="https://circleci.com/gh/atSCM/atscm">CircleCI</a>.</p>
+</blockquote>
+<p>Builds will only pass if they meet the following criteria:</p>
+<ul>
+<li><strong>No ESLint errors:</strong> We use <a href="http://eslint.org">ESLint</a> to lint our entire JavaScript code. The config used is <a href="https://www.npmjs.com/package/eslint-config-lsage">eslint-config-lsage</a>. Any lint errors will cause the build to fail.</li>
+<li><strong>Test coverage &gt;= 90%:</strong> We use <a href="https://gotwarlost.github.io/istanbul/">istanbul</a> to validate test coverage is at least 90 percent. Any commits not covered by tests will cause the build to fail.</li>
+<li><strong>Documentation coverage &gt;= 90%:</strong> Our source code is documented using <a href="https://esdoc.org">ESDoc</a>. We will only merge if your contribution is documented as well.</li>
+</ul>
+<h2 id="setting-up-the-development-environment">Setting up the development environment</h2><blockquote>
+<p>In order to meet out coding guideline it&apos;s very useful to have your development environment set up right.</p>
+</blockquote>
+<h3 id="linting-files">Linting files</h3><p>You can lint all source files by running <code>npm run lint</code>. Although most IDEs support running it directly in the editor:</p>
+<p><strong>Jetbrains Webstorm</strong></p>
+<p><a href="https://www.jetbrains.com/webstorm/">Webstorm</a> has built-in support for ESLint. Check out <a href="https://www.jetbrains.com/help/webstorm/2016.3/eslint.html">their documentation</a> to set it up.</p>
+<p><strong>Atom</strong></p>
+<p><a href="https://atom.io">Atom</a> has several packages that provide support for inline ESLint validation. We recommend you to use <a href="https://atom.io/packages/linter-eslint">linter-eslint</a>.</p>
+<h3 id="running-tests">Running tests</h3><p>Our <a href="https://mochajs.org">mocha</a> tests can be run by calling <code>npm test</code>. If you want the tests to be run right after you saved your changes, then run <code>npm run test:watch</code>.</p>
+<p>Test coverage can be checked by running <code>npm run test:coverage</code>.</p>
+<h3 id="creating-api-documentation">Creating API documentation</h3><p>Run <code>npm run docs</code> to create <a href="https://esdoc.org">ESDoc</a> API documentation.</p>
+<h2 id="providing-fixes---adding-features">Providing fixes / adding features</h2><p>Take the following steps:</p>
+<ul>
+<li>Create a new branch / fork of the <strong><a href="https://github.com/LukasHechenberger/utils-test/tree/beta">beta branch</a></strong>, which is our development branch</li>
+<li>Make your changes</li>
+<li>Make sure <a href="https://circleci.com/gh/LukasHechenberger/workflows/utils-test">CI tests</a> pass</li>
+<li>Send a pull request to merge back to <em>beta</em></li>
+</ul>
+<p>Once we reviewed your changes, we&apos;ll merge your pull request.</p>
+<blockquote>
+<p><strong>Merge strategy (Maintainers only)</strong></p>
+<ul>
+<li>Accepted changes from fix/feature branches <strong>should always be squash-merged</strong> to beta.</li>
+<li>Once beta is stable <strong>create a regular merge commit</strong> to merge back to master.</li>
+<li>After merging to master, changes should be synced back to the beta branch. To do so, run:<pre><code class="lang-bash"><code class="source-code prettyprint">git checkout beta
+git fetch
+git rebase origin/master
+# Solve conflicts if any, accepting changes from master
+git commit -m &apos;chore: Update from master&apos;
+git push</code>
+</code></pre>
+</li>
+</ul>
+</blockquote>
+<p><!-- TODO: Add steps for creating good issues -->
+</p>
+<p><!-- TODO: Add links to documentation and manuals -->
+</p>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

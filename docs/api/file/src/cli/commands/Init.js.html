@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">src/cli/commands/Init.js | atscm-cli</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="atSCM command line interface"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="atscm-cli"><meta property="twitter:description" content="atSCM command line interface"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/atSCM/atscm-cli"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/AtSCMCli.js~AtSCMCli.html">AtSCMCli</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli">cli</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Commands">Commands</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-GlobalOptions">GlobalOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Options">Options</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cli-commands">cli/commands</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cli/commands/Config.js~ConfigCommand.html">ConfigCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cli/commands/Docs.js~DocsCommand.html">DocsCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cli/commands/Init.js~InitCommand.html">InitCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cli/commands/Run.js~RunCommand.html">RunCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cli/commands/Update.js~UpdateCommand.html">UpdateCommand</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib-cli">lib/cli</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/cli/Command.js~Command.html">Command</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/cli/Option.js~Option.html">Option</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib-error">lib/error</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/error/UsageError.js~UsageError.html">UsageError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib-util">lib/util</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/util/ExternalCommand.js~ExternalCommand.html">ExternalCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/util/Logger.js~LogFormat.html">LogFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/lib/util/Logger.js~Logger.html">Logger</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-readJson">readJson</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#typedef">typedef</a><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Liftoff.Environment">Liftoff.Environment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/js-cli/js-liftoff">Liftoff</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/chalk/chalk">chalk</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/gulpjs/gulplog">gulplog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://nodejs.org/api/child_process.html#child_process_class_childprocess">node.ChildProcess</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://nodejs.org/api/stream.html#stream_class_stream_readable">node.stream.Readable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="http://yargs.js.org">yargs</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/cli/commands/Init.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { readdir, writeFile } from &apos;fs&apos;;
+import { join } from &apos;path&apos;;
+import { spawn } from &apos;child_process&apos;;
+import which from &apos;which&apos;;
+import { prompt } from &apos;inquirer&apos;;
+import { satisfies as validVersion } from &apos;semver&apos;;
+import Command from &apos;../../lib/cli/Command&apos;;
+import Logger from &apos;../../lib/util/Logger&apos;;
+import pkg from &apos;../../../package.json&apos;;
+import CliOptions from &apos;../Options&apos;;
+
+const IgnoredFiles = [&apos;.ds_store&apos;, &apos;thumbs.db&apos;];
+
+/**
+ * Returns the default export of a module, if present.
+ * @param {any | { default: any }} mod The required module.
+ * @return {any} The module&apos;s default export.
+ */
+function defaultExport(mod) {
+  return mod.default || mod;
+}
+
+/**
+ * Utility that returns any non-function values and calls them with the given args otherwise.
+ * @param {function(...args: any[]): any | any} value The value to return or function to call.
+ * @param {...any} [args] The arguments to apply if value is a function.
+ * @return {any} The value or function call result.
+ */
+function allowFunction(value, ...args) {
+  if (typeof value === &apos;function&apos;) {
+    return value(...args);
+  }
+
+  return value;
+}
+
+/**
+ * The command invoked when running &quot;init&quot;.
+ */
+export default class InitCommand extends Command {
+  /**
+   * Creates a new {@link InitCommand} with the specified name and description.
+   * @param {string} name The command&apos;s name.
+   * @param {string} description The command&apos;s description.
+   */
+  constructor(name, description) {
+    super(name, description, {
+      options: {
+        yes: CliOptions.yes,
+        force: CliOptions.force,
+        beta: CliOptions.beta,
+        link: CliOptions.link,
+      },
+    });
+  }
+
+  /**
+   * Checks if the given path contains an empty directory. OS specific temporary files (*.DS_Store*
+   * under macOS, *thumbs* under Windows) are ignored.
+   * @param {string} path The path to check.
+   * @param {boolean} [overwrite=false] If existing files should be overwritten.
+   * @return {Promise&lt;string, Error&gt;} Fulfilled with the valid directory&apos;s path, rejected if `path`
+   * contains no or a non-empty directory.
+   */
+  checkDirectory(path, overwrite = false) {
+    return new Promise((resolve, reject) =&gt; {
+      readdir(path, (err, files) =&gt; {
+        if (err) {
+          if (err.code === &apos;ENOENT&apos;) {
+            reject(new Error(`${Logger.format.path(path)} does not exist`));
+          } else if (err.code === &apos;ENOTDIR&apos;) {
+            reject(new Error(`${Logger.format.path(path)} is not a directory`));
+          } else {
+            reject(err);
+          }
+        } else if (files.filter((f) =&gt; !IgnoredFiles.includes(f.toLowerCase())).length &gt; 0) {
+          const message = `${Logger.format.path(path)} is not empty`;
+
+          if (overwrite) {
+            Logger.warn(message);
+            Logger.warn(Logger.colors.yellow(&apos;Using --force, continue...&apos;));
+            resolve(path);
+          } else {
+            reject(new Error(message));
+          }
+        } else {
+          resolve(path);
+        }
+      });
+    });
+  }
+
+  /**
+   * Creates a an empty *package* file at the given path.
+   * @param {string} path The location to create the package at.
+   * @return {Promise&lt;undefined, Error&gt;} Rejected if an error occurred while writing the file.
+   */
+  createEmptyPackage(path) {
+    return new Promise((resolve, reject) =&gt; {
+      writeFile(join(path, &apos;package.json&apos;), &apos;{}&apos;, (err) =&gt; {
+        if (err) {
+          // FIXME: Call with SystemError class
+          reject(
+            Object.assign(err, {
+              message: `Unable to create package.json at ${path}`,
+              originalMessage: err.message,
+            })
+          );
+        } else {
+          resolve();
+        }
+      });
+    });
+  }
+
+  /**
+   * Runs npm with the given args.
+   * @param {string[]} args The arguments to call npm with.
+   * @param {Object} options Options applied to the spawn call.
+   */
+  runNpm(args, options = {}) {
+    return new Promise((resolve, reject) =&gt; {
+      which(&apos;npm&apos;, (err, npm) =&gt; {
+        if (err) {
+          return reject(err);
+        }
+
+        const child = spawn(
+          npm,
+          args,
+          Object.assign({}, options, {
+            /* stdio: &apos;inherit&apos; */
+          })
+        )
+          .on(&apos;error&apos;, (npmErr) =&gt; reject(npmErr))
+          .on(&apos;close&apos;, (code) =&gt; {
+            if (code &gt; 0) {
+              reject(new Error(`npm ${args[0]} returned code ${code}`));
+            } else {
+              resolve();
+            }
+          });
+
+        Logger.pipeLastLine(child.stderr);
+        Logger.pipeLastLine(child.stdout);
+
+        return child;
+      });
+    });
+  }
+
+  /**
+   * Runs `npm install --save-dev {packages}` at the given path.
+   * @param {string} path The path to install packages at.
+   * @param {string|string[]} packages Names of the packages to install.
+   * @return {Promise&lt;undefined, Error&gt;} Rejected if installing failed, resolved otherwise.
+   */
+  install(path, packages) {
+    return this.runNpm([&apos;install&apos;, &apos;--save-dev&apos;].concat(packages), { cwd: path });
+  }
+
+  /**
+   * Installs the local atscm module at the given path.
+   * @param {string} path The path to install the module at.
+   * @param {Object} options The options to use.
+   * @param {boolean} [options.useBetaRelease=false] If beta versions should be used.
+   * @param {boolean} [options.link=false] Link instead of installing.
+   * @return {Promise&lt;undefined, Error&gt;} Rejected if installing failed, resolved otherwise.
+   */
+  async installLocal(path, { beta: useBetaRelease = false, link = false } = {}) {
+    Logger.info(&apos;Installing latest version of atscm...&apos;);
+
+    if (useBetaRelease) {
+      Logger.debug(Logger.colors.gray(&apos;Using beta release&apos;));
+    }
+
+    await this.install(path, useBetaRelease ? &apos;atscm@beta&apos; : &apos;atscm&apos;);
+
+    if (link) {
+      Logger.info(&apos;Linking atscm...&apos;);
+      await this.runNpm([&apos;link&apos;, &apos;atscm&apos;], { cwd: path });
+    }
+  }
+
+  /**
+   * Checks the version of this package against the &quot;engines &gt; atscm-cli&quot; field of the newly
+   * installed atscm module&apos;s package file.
+   * @param {Liftoff.Environment} env The environment to check.
+   * @return {Liftoff.Environment} The environment to check.
+   * @throws {Error} Throws an error if the atscm-cli version does not match.
+   */
+  checkCliVersion(env) {
+    Logger.debug(&apos;Checking atscm-cli version...&apos;);
+
+    const required = env.modulePackage.engines[&apos;atscm-cli&apos;];
+    if (!validVersion(pkg.version.split(&apos;-beta&apos;)[0], required)) {
+      Logger.info(&apos;Your version of atscm-cli is not compatible with the latest version atscm.&apos;);
+      Logger.info(&apos;Please run&apos;, Logger.format.command(&apos;npm install -g atscm-cli&apos;), &apos;to update.&apos;);
+
+      throw new Error(`Invalid atscm-cli version: ${required} required.`);
+    }
+
+    return env;
+  }
+
+  /**
+   * Returns the default values for the given init options.
+   * @param {Object[]} options An array of init options to check.
+   */
+  getDefaultOptions(options) {
+    return options.reduce((current, option) =&gt; {
+      if (option.when &amp;&amp; !allowFunction(option.when, current)) {
+        return current;
+      }
+
+      let value;
+      if (option.default !== undefined) {
+        value = option.default;
+      } else if (option.choices) {
+        const [firstChoice] = allowFunction(option.choices, current);
+        value = firstChoice.value || firstChoice;
+      }
+
+      return Object.assign(current, {
+        [option.name]: value,
+      });
+    }, {});
+  }
+
+  /**
+   * Resolves the needed options from the local atscm module and asks for them. These options are
+   * stored in the `atscm` module inside `out/init/options`.
+   * @param {string} modulePath The path to the local module to use.
+   * @param {Object} [options] The options to use.
+   * @param {boolean} [options.useDefaults=false] Use default values.
+   * @return {Promise&lt;Object, Error&gt;} Resolved with the chosen options.
+   */
+  getOptions(modulePath, { useDefaults = false } = {}) {
+    // eslint-disable-next-line global-require
+    const options = defaultExport(require(join(modulePath, &apos;../init/options&apos;)));
+
+    if (useDefaults) {
+      return this.getDefaultOptions(options);
+    }
+
+    Logger.info(&apos;Answer these questions to create a new project:&apos;);
+    return prompt(options);
+  }
+
+  /**
+   * Runs the local atscm module&apos;s init script. This script is stored in the `atscm` module inside
+   * `out/init/init`.
+   * @param {string} modulePath The path to the local module to use.
+   * @param {Object} options The options to apply (Received by calling
+   * {@link InitCommand#getOptions}).
+   * @return {Promise&lt;{install: string[]}, Error&gt;} Resolved with information on the further init
+   * steps (which dependencies are needed), rejected with an error if running the init script
+   * failed.
+   */
+  writeFiles(modulePath, options) {
+    // eslint-disable-next-line global-require
+    return defaultExport(require(join(modulePath, &apos;../init/init&apos;)))(options);
+  }
+
+  /**
+   * Installs any additional dependencies needed after writing files.
+   * @param {string} path The path to install the dependencies at.
+   * @param {string[]} deps Names of the packages to install.
+   * @return {Promise&lt;undefined, Error&gt;} Rejected if installing failed, resolved otherwise.
+   */
+  installDependencies(path, deps) {
+    if (!deps.length) return Promise.resolve();
+    Logger.info(&apos;Installing dependencies...&apos;);
+
+    return this.install(path, deps);
+  }
+
+  /**
+   * Creates a new atscm project.
+   * @param {AtSCMCli} cli The current Cli instance.
+   */
+  run(cli) {
+    return cli
+      .getEnvironment(false)
+      .then((env) =&gt; this.checkDirectory(env.cwd, cli.options.force))
+      .then(() =&gt; this.createEmptyPackage(cli.environment.cwd))
+      .then(() =&gt; this.installLocal(cli.environment.cwd, cli.options))
+      .then(() =&gt; cli.getEnvironment(false))
+      .then((env) =&gt; this.checkCliVersion(env))
+      .then((env) =&gt; process.chdir(env.cwd))
+      .then(() =&gt; this.getOptions(cli.environment.modulePath, { useDefaults: cli.options.yes }))
+      .then((options) =&gt;
+        this.writeFiles(cli.environment.modulePath, Object.assign({}, cli.environment, options))
+      )
+      .then((result) =&gt; this.installDependencies(cli.environment.cwd, result.install))
+      .then(async () =&gt; {
+        if (cli.options.link) {
+          Logger.info(&apos;Linking atscm...&apos;);
+          await this.runNpm([&apos;link&apos;, &apos;atscm&apos;], { cwd: cli.environment.cwd });
+        }
+      })
+      .then(() =&gt; {
+        Logger.info(&apos;Created new project at&apos;, Logger.format.path(cli.environment.cwd));
+      });
+  }
+
+  /**
+   * This command never requires an {@link Liftoff.Environment}.
+   * @return {boolean} Always `false`.
+   */
+  requiresEnvironment() {
+    return false;
+  }
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
